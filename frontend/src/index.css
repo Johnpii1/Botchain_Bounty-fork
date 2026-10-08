@@ -1,0 +1,596 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --text: #5f5a66;
+  --text-h: #111111;
+
+  /* =========================================================
+     MILKY WHITE BACKGROUND
+  ========================================================= */
+  --bg: #f3f1ec;
+
+  --border: rgba(0, 0, 0, 0.09);
+  --code-bg: #ebe9e3;
+
+  /* =========================================================
+     HAPPY BOUNTY
+  ========================================================= */
+  --accent: #ff1ac6;
+  --accent-secondary: #8b5cf6;
+  --accent-bg: rgba(255, 26, 198, 0.1);
+  --accent-border: rgba(255, 26, 198, 0.35);
+
+  --social-bg: rgba(0, 0, 0, 0.04);
+
+  /* =========================================================
+     SHADOWS
+  ========================================================= */
+  --shadow:
+    rgba(0, 0, 0, 0.09) 0 20px 40px -10px,
+    rgba(0, 0, 0, 0.05) 0 10px 20px -5px;
+
+  /* =========================================================
+     FONTS
+  ========================================================= */
+  --sans: system-ui, "Segoe UI", Roboto, sans-serif;
+  --heading: system-ui, "Segoe UI", Roboto, sans-serif;
+  --mono: ui-monospace, Consolas, monospace;
+
+  font: 18px/145% var(--sans);
+  letter-spacing: 0.18px;
+
+  color: var(--text);
+  background: #f3f1ec;
+
+  font-synthesis: none;
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+html,
+body,
+#root {
+  min-height: 100%;
+  background: #f3f1ec;
+}
+
+html.dark,
+html.dark body,
+html.dark #root {
+  background: #080908;
+}
+
+body {
+  margin: 0;
+  overflow-x: hidden;
+}
+
+/* Shared application overlays keep dialogs visually consistent across routes. */
+.app-modal-overlay {
+  background: rgba(23, 23, 20, 0.62);
+  animation: modalOverlayIn 180ms ease-out;
+}
+
+.app-modal-panel {
+  box-shadow:
+    0 28px 90px rgba(23, 20, 12, 0.3),
+    0 0 0 1px rgba(212, 175, 55, 0.06);
+  animation: modalPanelIn 220ms cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.skeleton-surface {
+  border: 1px solid #dedbd1;
+  background: rgba(255, 255, 255, 0.8);
+  box-shadow: 0 18px 60px rgba(34, 31, 24, 0.07);
+}
+
+.skeleton-block {
+  background: #e8e5dc;
+}
+
+.skeleton-block::after {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    100deg,
+    transparent 20%,
+    rgba(255, 255, 255, 0.72) 45%,
+    transparent 70%
+  );
+  animation: skeletonShimmer 1.5s ease-in-out infinite;
+  content: "";
+}
+
+@keyframes skeletonShimmer {
+  from {
+    transform: translateX(-110%);
+  }
+  to {
+    transform: translateX(110%);
+  }
+}
+
+@keyframes modalOverlayIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes modalPanelIn {
+  from {
+    opacity: 0;
+    transform: translateY(12px) scale(0.98);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
+.dark .app-modal-panel {
+  box-shadow: 0 28px 90px rgba(0, 0, 0, 0.62), 0 0 0 1px rgba(212, 175, 55, 0.1);
+}
+
+.dark .skeleton-surface {
+  border-color: rgba(255, 255, 255, 0.1);
+  background: rgba(17, 19, 17, 0.9);
+  box-shadow: 0 18px 60px rgba(0, 0, 0, 0.35);
+}
+
+.dark .skeleton-block {
+  background: rgba(255, 255, 255, 0.09);
+}
+
+.dark .skeleton-block::after {
+  background: linear-gradient(
+    100deg,
+    transparent 20%,
+    rgba(255, 255, 255, 0.09) 45%,
+    transparent 70%
+  );
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .app-modal-overlay,
+  .app-modal-panel,
+  .skeleton-block::after {
+    animation: none !important;
+  }
+}
+
+/* =========================================================
+   HAPPY BOUNTY — HOW IT WORKS PREMIUM ANIMATIONS
+   Colors/layout remain unchanged
+========================================================= */
+
+/* =========================================================
+   FLOATING CARDS
+========================================================= */
+
+@keyframes howItWorksFloat {
+  0%,
+  100% {
+    transform: translateY(0px);
+  }
+
+  50% {
+    transform: translateY(-8px);
+  }
+}
+
+/* Slightly different movement for each card */
+
+@keyframes howItWorksFloat2 {
+  0%,
+  100% {
+    transform: translateY(0px);
+  }
+
+  50% {
+    transform: translateY(-12px);
+  }
+}
+
+@keyframes howItWorksFloat3 {
+  0%,
+  100% {
+    transform: translateY(0px);
+  }
+
+  50% {
+    transform: translateY(-6px);
+  }
+}
+
+/* =========================================================
+   MOVING LIGHT ACROSS CARDS
+========================================================= */
+
+@keyframes howItWorksShimmer {
+  0% {
+    transform: translateX(-120%) rotate(12deg);
+    opacity: 0;
+  }
+
+  15% {
+    opacity: 0;
+  }
+
+  35% {
+    opacity: 0.15;
+  }
+
+  55% {
+    opacity: 0.05;
+  }
+
+  75% {
+    opacity: 0;
+  }
+
+  100% {
+    transform: translateX(120%) rotate(12deg);
+    opacity: 0;
+  }
+}
+
+/* =========================================================
+   NUMBER BADGE BREATHING
+========================================================= */
+
+@keyframes howItWorksPulse {
+  0%,
+  100% {
+    transform: scale(1);
+    box-shadow: 0 0 0 rgba(255, 26, 198, 0);
+  }
+
+  50% {
+    transform: scale(1.06);
+    box-shadow: 0 0 25px rgba(255, 26, 198, 0.18);
+  }
+}
+
+/* =========================================================
+   PURPLE ORB BREATHING
+========================================================= */
+
+@keyframes howItWorksGlow {
+  0%,
+  100% {
+    opacity: 0.45;
+    transform: scale(1);
+  }
+
+  50% {
+    opacity: 0.8;
+    transform: scale(1.12);
+  }
+}
+
+/* =========================================================
+   ORBITING PARTICLE
+========================================================= */
+
+@keyframes howItWorksOrbit {
+  from {
+    transform: rotate(0deg) translateX(72px) rotate(0deg);
+  }
+
+  to {
+    transform: rotate(360deg) translateX(72px) rotate(-360deg);
+  }
+}
+
+/* =========================================================
+   SMALL FLOATING PARTICLE
+========================================================= */
+
+@keyframes howItWorksParticle {
+  0%,
+  100% {
+    transform: translate3d(0, 0, 0);
+    opacity: 0.2;
+  }
+
+  50% {
+    transform: translate3d(0, -12px, 0);
+    opacity: 0.8;
+  }
+}
+
+/* =========================================================
+   ILLUSTRATION FLOATING
+========================================================= */
+
+@keyframes howItWorksIllustration {
+  0%,
+  100% {
+    transform: translateY(0) rotate(-5deg);
+  }
+
+  50% {
+    transform: translateY(-7px) rotate(-2deg);
+  }
+}
+
+/* =========================================================
+   ENERGY BOLT MOVEMENT
+========================================================= */
+
+@keyframes howItWorksEnergy {
+  0%,
+  100% {
+    transform: translate(0, 0) scale(1);
+    opacity: 0.7;
+  }
+
+  50% {
+    transform: translate(4px, -6px) scale(1.08);
+    opacity: 1;
+  }
+}
+
+/* =========================================================
+   CARD BORDER BREATHING
+========================================================= */
+
+@keyframes howItWorksBorder {
+  0%,
+  100% {
+    opacity: 0.25;
+  }
+
+  50% {
+    opacity: 0.65;
+  }
+}
+
+/* =========================================================
+   CARD ANIMATION
+========================================================= */
+
+.how-it-works-card-1 {
+  animation: howItWorksFloat 5s ease-in-out infinite;
+}
+
+.how-it-works-card-2 {
+  animation: howItWorksFloat2 6s ease-in-out infinite;
+  animation-delay: -1.5s;
+}
+
+.how-it-works-card-3 {
+  animation: howItWorksFloat3 5.5s ease-in-out infinite;
+  animation-delay: -2.5s;
+}
+
+/* =========================================================
+   SHIMMER
+========================================================= */
+
+.how-it-works-card {
+  position: relative;
+  isolation: isolate;
+}
+
+.how-it-works-card::before {
+  content: "";
+
+  position: absolute;
+  top: -80%;
+  left: -45%;
+
+  width: 35%;
+  height: 260%;
+
+  background: linear-gradient(
+    90deg,
+    transparent,
+    rgba(255, 255, 255, 0.55),
+    transparent
+  );
+
+  transform: translateX(-120%) rotate(12deg);
+
+  pointer-events: none;
+  z-index: 20;
+
+  animation: howItWorksShimmer 7s ease-in-out infinite;
+}
+
+/* =========================================================
+   NUMBER BADGE
+========================================================= */
+
+.how-it-works-number {
+  animation: howItWorksPulse 3s ease-in-out infinite;
+}
+
+/* =========================================================
+   BACKGROUND GLOWS
+========================================================= */
+
+.how-it-works-glow {
+  animation: howItWorksGlow 4s ease-in-out infinite;
+}
+
+/* =========================================================
+   CARD 1 ILLUSTRATION
+========================================================= */
+
+.how-it-works-wallet {
+  animation: howItWorksIllustration 4s ease-in-out infinite;
+}
+
+/* =========================================================
+   CARD 3 ENERGY
+========================================================= */
+
+.how-it-works-energy {
+  animation: howItWorksEnergy 1.8s ease-in-out infinite;
+}
+
+.how-it-works-energy-delayed {
+  animation: howItWorksEnergy 2.2s ease-in-out infinite;
+  animation-delay: -0.8s;
+}
+
+/* =========================================================
+   ORBITING PARTICLE
+========================================================= */
+
+.how-it-works-orbit {
+  position: absolute;
+
+  top: 50%;
+  left: 50%;
+
+  width: 6px;
+  height: 6px;
+
+  margin-left: -3px;
+  margin-top: -3px;
+
+  border-radius: 9999px;
+
+  background: currentColor;
+  box-shadow: 0 0 12px currentColor;
+
+  animation: howItWorksOrbit 5s linear infinite;
+
+  pointer-events: none;
+}
+
+/* =========================================================
+   SMALL PARTICLES
+========================================================= */
+
+.how-it-works-particle {
+  animation: howItWorksParticle 3s ease-in-out infinite;
+}
+
+.how-it-works-particle-delay-1 {
+  animation-delay: -1s;
+}
+
+.how-it-works-particle-delay-2 {
+  animation-delay: -2s;
+}
+
+/* =========================================================
+   HOVER — MAKE THE CARD FEEL ALIVE
+========================================================= */
+
+.how-it-works-card:hover {
+  animation-play-state: paused;
+}
+
+.how-it-works-card:hover .how-it-works-number {
+  animation-duration: 1.2s;
+}
+
+.how-it-works-card:hover .how-it-works-wallet {
+  animation-duration: 1.5s;
+}
+
+.how-it-works-card:hover .how-it-works-energy,
+.how-it-works-card:hover .how-it-works-energy-delayed {
+  animation-duration: 0.8s;
+}
+
+/* =========================================================
+   REDUCED MOTION
+========================================================= */
+
+@media (prefers-reduced-motion: reduce) {
+  .how-it-works-card-1,
+  .how-it-works-card-2,
+  .how-it-works-card-3,
+  .how-it-works-card::before,
+  .how-it-works-number,
+  .how-it-works-glow,
+  .how-it-works-wallet,
+  .how-it-works-energy,
+  .how-it-works-energy-delayed,
+  .how-it-works-orbit,
+  .how-it-works-particle {
+    animation: none !important;
+  }
+}
+
+/* Theme changes are deliberately animated so switching modes feels like one
+   interface rather than a sudden flash.  The reduced-motion rule keeps this
+   respectful of users who opt out of motion. */
+html {
+  color-scheme: light;
+  transition: background-color 280ms ease, color 280ms ease;
+}
+
+html.dark {
+  color-scheme: dark;
+}
+
+body,
+#root {
+  transition: background-color 280ms ease, color 280ms ease;
+}
+
+/* Informational routes were originally authored with light-only utilities.
+   Scope their dark palette to these pages so the theme toggle remains
+   consistent without altering their content or any API/backend behavior. */
+html.dark .theme-page {
+  background-color: #080908;
+  color: #f7f8f4;
+  transition: background-color 280ms ease, color 280ms ease;
+}
+
+html.dark .theme-page [class*="bg-white"] {
+  background-color: #171a17 !important;
+}
+
+html.dark .theme-page [class*="bg-[#f7f6f0]"] {
+  background-color: #20231f !important;
+}
+
+html.dark .theme-page [class*="bg-[#fffaf0]"] {
+  background-color: #24261f !important;
+}
+
+html.dark .theme-page [class*="border-black"] {
+  border-color: rgba(255, 255, 255, 0.1) !important;
+}
+
+html.dark .theme-page [class*="text-[#171714]"] {
+  color: #f7f8f4 !important;
+}
+
+html.dark .theme-page [class*="text-black/"] {
+  color: rgba(255, 255, 255, 0.62) !important;
+}
+
+.theme-page,
+.theme-page [class*="bg-"],
+.theme-page [class*="border-"],
+.theme-page [class*="text-"] {
+  transition-property: background-color, border-color, color, box-shadow;
+  transition-duration: 280ms;
+  transition-timing-function: ease;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html,
+  body,
+  #root,
+  .theme-page,
+  .theme-page [class*="bg-"],
+  .theme-page [class*="border-"],
+  .theme-page [class*="text-"] {
+    transition-duration: 0.01ms;
+  }
+}
