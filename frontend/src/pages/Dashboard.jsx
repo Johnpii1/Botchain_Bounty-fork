@@ -192,7 +192,7 @@ function Dashboard({ dark, setDark }) {
                   </span>
 
                   <span className="text-[10px] font-bold uppercase tracking-[0.25em] text-[#D4A017]">
-                    Contributor Dashboard
+                    HAPPY BOUNTY  /  CONTRIBUTOR SPACE
                   </span>
                 </div>
 
@@ -215,8 +215,8 @@ function Dashboard({ dark, setDark }) {
                     dark ? "text-white/50" : "text-black/50"
                   }`}
                 >
-                  Discover opportunities, track your submissions, and monitor
-                  your earnings across the Happy Bounty network.
+                  Find tasks that fit your skills, keep an eye on your submissions, and
+                  track the rewards you’ve earned on Happy Bounty.
                 </p>
               </div>
 
@@ -378,7 +378,7 @@ function Dashboard({ dark, setDark }) {
                     dark ? "text-white/40" : "text-black/40"
                   }`}
                 >
-                  Bounty Won
+                  Bounties Completed
                 </p>
 
                 <p
@@ -438,7 +438,7 @@ function Dashboard({ dark, setDark }) {
                     dark ? "text-white/40" : "text-black/40"
                   }`}
                 >
-                  In Progress / Submitted
+                  Pending Submissions
                 </p>
 
                 <p
@@ -486,7 +486,7 @@ function Dashboard({ dark, setDark }) {
                       dark ? "text-white" : "text-[#111111]"
                     }`}
                   >
-                    Explore Bounties
+                    Find Your Next Bounty
                   </h2>
                 </div>
 
@@ -495,7 +495,7 @@ function Dashboard({ dark, setDark }) {
                     dark ? "text-white/40" : "text-black/40"
                   }`}
                 >
-                  Find opportunities that match your skills.
+                  Browse tasks, compare rewards, and choose an opportunity that suits you.
                 </p>
               </div>
 
@@ -516,7 +516,7 @@ function Dashboard({ dark, setDark }) {
                             : "border border-black/[0.08] bg-white/80 text-black/45 hover:-translate-y-0.5 hover:border-[#D4A017]/40 hover:bg-[#D4A017] hover:text-white hover:shadow-[0_8px_22px_rgba(212,160,23,0.16)]"
                       }`}
                     >
-                      {status.charAt(0).toUpperCase() + status.slice(1)}
+                      {status === "all" ? "All bounties" : status === "active" ? "Open" : status === "completed" ? "Completed" : "Upcoming"}
 
                       {status === "all" && pagination && (
                         <span
@@ -542,7 +542,7 @@ function Dashboard({ dark, setDark }) {
             ====================================================== */}
 
             {loading ? (
-              <div className="grid grid-cols-1 items-stretch gap-5 md:grid-cols-2 xl:grid-cols-3">
+              <div className="grid grid-cols-1 items-stretch gap-5 sm:gap-6 md:grid-cols-2 xl:grid-cols-3">
                 {[1, 2, 3, 4, 5, 6].map((item) => (
                   <div
                     key={item}
@@ -697,8 +697,8 @@ function Dashboard({ dark, setDark }) {
                     dark ? "text-white/40" : "text-black/40"
                   }`}
                 >
-                  There are no opportunities matching your current filter. Try
-                  another category or create a new bounty.
+                  No tasks match this filter right now. Try another status or post a bounty
+                  of your own.
                 </p>
 
                 <Link
@@ -712,7 +712,7 @@ function Dashboard({ dark, setDark }) {
               </div>
             ) : (
               <>
-                <div className="grid grid-cols-1 items-stretch gap-5 md:grid-cols-2 xl:grid-cols-3">
+                <div className="grid grid-cols-1 items-stretch gap-5 sm:gap-6 md:grid-cols-2 xl:grid-cols-3">
                   {bounties.map((bounty) => (
                     <BountyCard
                       key={bounty._id}
