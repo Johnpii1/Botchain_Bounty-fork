@@ -124,7 +124,7 @@ export default function AdminPage() {
   // Access denied if not owner and we have both addresses
   if (connectedWallet && ownerAddress && !isOwner) {
     return (
-      <div className="theme-page flex h-screen items-center justify-center bg-[#f7f6f0] text-[#171714] dark:bg-[#080908] dark:text-white transition-colors duration-300">
+      <div className="theme-page flex h-screen items-center justify-center bg-[#F3F5F3] text-[#171714] dark:bg-[#080B0D] dark:text-white transition-colors duration-300">
         <div className="text-center">
           <h1 className="text-2xl font-bold text-red-500">Access Denied</h1>
           <p className="mt-2 text-gray-400">
@@ -142,7 +142,7 @@ export default function AdminPage() {
   }
 
   return (
-    <div className="theme-page min-h-screen bg-[#f7f6f0] p-6 text-[#171714] dark:bg-[#080908] dark:text-white transition-colors duration-300">
+    <div className="theme-page min-h-screen bg-[#F3F5F3] p-6 text-[#171714] dark:bg-[#080B0D] dark:text-white transition-colors duration-300">
       <div className="flex items-center justify-between mb-6">
         <button
           onClick={() => navigate(-1)}
