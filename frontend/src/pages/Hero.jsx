@@ -4,7 +4,7 @@ import { useNav } from "../hooks/useNav";
 import { FiArrowUpRight, FiCheckCircle, FiCpu, FiLayers, FiZap } from "react-icons/fi";
 
 const heroMessages = [
-  "Earn USDC.",
+  "Build on BOT Chain.",
   "Complete Quests.",
   "Build Your Skills.",
   "Get Rewarded.",
