@@ -18,8 +18,7 @@ function SignUp() {
           text-white
           shadow-[0_4px_16px_rgba(0, 214, 160,0.18)]
           transition-all duration-200
-          hover:bg-[#C9A227]
-          hover:border-[#C9A227]
+          hover:bg-[#00d6a088]
           hover:shadow-[0_6px_22px_rgba(0, 214, 160,0.28)]
           active:scale-[0.98]
         "

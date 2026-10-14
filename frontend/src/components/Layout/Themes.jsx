@@ -11,8 +11,8 @@ export default function Theme({ dark, setDark }) {
         transition-all duration-300 ease-out
         ${
           dark
-            ? "border-[#D4AF37]/30 bg-[#121212] text-[#D4AF37] shadow-[0_0_18px_rgba(212,175,55,0.12)] hover:bg-[#1a1a1a]"
-            : "border-black/10 bg-white text-[#B28B20] shadow-[0_4px_15px_rgba(0,0,0,0.06)] hover:bg-[#faf9f4]"
+            ? "border-[#00D6A0]/30 bg-[#121212] text-[#00D6A0] shadow-[0_0_18px_rgba(212,175,55,0.12)] hover:bg-[#1a1a1a]"
+            : "border-black/10 bg-white text-[#00D6A0] shadow-[0_4px_15px_rgba(0,0,0,0.06)] hover:bg-[#faf9f4]"
         }
       `}
     >
