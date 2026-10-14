@@ -258,7 +258,7 @@ function LoadingScreen({ onComplete }) {
         <div className="loading-center absolute inset-0" />
 
         {/* =================================================
-            FLOATING USDC COINS
+            FLOATING BOT CHAIN PARTICLES
         ================================================= */}
 
         {floatingCoins.map((coin, index) => (
@@ -294,7 +294,7 @@ function LoadingScreen({ onComplete }) {
 
       <div className="relative z-10 flex w-full max-w-md flex-col items-center px-6">
         {/* =================================================
-            USDC VISUAL
+            BOT CHAIN VISUAL
         ================================================= */}
 
         <div className="relative mb-8 flex h-32 w-32 items-center justify-center">
@@ -310,7 +310,7 @@ function LoadingScreen({ onComplete }) {
 
           <div className="loading-coin-glow absolute h-24 w-24 rounded-full blur-2xl" />
 
-          {/* USDC image */}
+          {/* BOT Chain mark */}
 
           <div className="relative z-10 flex h-20 w-20 animate-[coinFloat_4s_ease-in-out_infinite] items-center justify-center rounded-[1.65rem] border border-[#00D6A0]/50 bg-[#071713] shadow-[0_0_45px_rgba(0,214,160,0.22),inset_0_0_20px_rgba(0,214,160,0.08)]"><FiZap className="h-10 w-10 text-[#00D6A0]" strokeWidth={1.8} /></div>
 
@@ -336,7 +336,7 @@ function LoadingScreen({ onComplete }) {
         </p>
 
         {/* =================================================
-            ARC BADGE
+            BOT CHAIN BADGE
         ================================================= */}
 
         <div className="loading-badge mt-5 inline-flex items-center gap-2 rounded-full border px-3 py-1.5 shadow-sm">
