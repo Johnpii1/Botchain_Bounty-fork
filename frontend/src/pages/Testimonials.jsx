@@ -148,12 +148,12 @@ function Testimonials() {
           }
 
           .testimonial-card-light:hover {
-            border-color: rgba(212, 175, 55, 0.45);
+            border-color: rgba(0, 214, 160, 0.45);
             box-shadow: 0 25px 70px rgba(35, 31, 22, 0.1);
           }
 
           .testimonial-card-dark:hover {
-            border-color: rgba(212, 175, 55, 0.45);
+            border-color: rgba(0, 214, 160, 0.45);
             box-shadow: 0 25px 70px rgba(0, 0, 0, 0.45);
           }
 
@@ -188,7 +188,7 @@ function Testimonials() {
       <section
         ref={testimonialsRef}
         className={`relative z-10 mx-6 overflow-hidden transition-colors duration-300 md:mx-10 lg:mx-16 ${
-          dark ? "bg-[#080908]" : "bg-[#f6f5ef]"
+          dark ? "bg-[#080B0D]" : "bg-[#F3F5F3]"
         }`}
       >
         {/* BACKGROUND GRID */}
@@ -199,13 +199,13 @@ function Testimonials() {
             backgroundImage: `
               linear-gradient(
                 ${
-                  dark ? "rgba(212,175,55,0.025)" : "rgba(105,82,35,0.025)"
+                  dark ? "rgba(0, 214, 160,0.025)" : "rgba(105,82,35,0.025)"
                 } 1px,
                 transparent 1px
               ),
               linear-gradient(
                 90deg,
-                ${dark ? "rgba(212,175,55,0.02)" : "rgba(105,82,35,0.02)"} 1px,
+                ${dark ? "rgba(0, 214, 160,0.02)" : "rgba(105,82,35,0.02)"} 1px,
                 transparent 1px
               )
             `,
@@ -232,9 +232,9 @@ function Testimonials() {
               }`}
             >
               <span className="relative flex h-2 w-2">
-                <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-[#D4AF37] opacity-30" />
+                <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-[#00D6A0] opacity-30" />
 
-                <span className="relative inline-flex h-2 w-2 rounded-full bg-[#D4AF37]" />
+                <span className="relative inline-flex h-2 w-2 rounded-full bg-[#00D6A0]" />
               </span>
 
               <span
@@ -251,7 +251,7 @@ function Testimonials() {
                 }`}
               />
 
-              <span className="text-[11px] font-bold uppercase tracking-[0.16em] text-[#B28B20]">
+              <span className="text-[11px] font-bold uppercase tracking-[0.16em] text-[#00A87D]">
                 Arc / USDC
               </span>
             </div>
@@ -261,7 +261,7 @@ function Testimonials() {
                 dark ? "text-white" : "text-[#111111]"
               }`}
             >
-              Built for People Who <span className="text-[#B28B20]">Build</span>
+              Built for People Who <span className="text-[#00A87D]">Build</span>
             </h2>
 
             <p
@@ -282,7 +282,7 @@ function Testimonials() {
 
             <div
               className={`pointer-events-none absolute left-0 top-0 z-20 h-full w-16 bg-gradient-to-r to-transparent md:w-32 ${
-                dark ? "from-[#080908]" : "from-[#f6f5ef]"
+                dark ? "from-[#080B0D]" : "from-[#F3F5F3]"
               }`}
             />
 
@@ -290,7 +290,7 @@ function Testimonials() {
 
             <div
               className={`pointer-events-none absolute right-0 top-0 z-20 h-full w-16 bg-gradient-to-l to-transparent md:w-32 ${
-                dark ? "from-[#080908]" : "from-[#f6f5ef]"
+                dark ? "from-[#080B0D]" : "from-[#F3F5F3]"
               }`}
             />
 
@@ -507,7 +507,7 @@ function Testimonials() {
             }`}
           >
             <span className="flex items-center gap-2">
-              <FiShield className="h-3.5 w-3.5 text-[#B28B20]" />
+              <FiShield className="h-3.5 w-3.5 text-[#00A87D]" />
               Transparent workflows
             </span>
 
@@ -518,7 +518,7 @@ function Testimonials() {
             />
 
             <span className="flex items-center gap-2">
-              <FiZap className="h-3.5 w-3.5 text-[#B28B20]" />
+              <FiZap className="h-3.5 w-3.5 text-[#00A87D]" />
               Open opportunities
             </span>
 
@@ -529,7 +529,7 @@ function Testimonials() {
             />
 
             <span className="flex items-center gap-2">
-              <FiCheck className="h-3.5 w-3.5 text-[#B28B20]" />
+              <FiCheck className="h-3.5 w-3.5 text-[#00A87D]" />
               On-chain reward flow
             </span>
 
@@ -540,7 +540,7 @@ function Testimonials() {
             />
 
             <span className="flex items-center gap-2">
-              <FiArrowUpRight className="h-3.5 w-3.5 text-[#B28B20]" />
+              <FiArrowUpRight className="h-3.5 w-3.5 text-[#00A87D]" />
               Arc / USDC
             </span>
           </div>
@@ -574,7 +574,7 @@ function TestimonialCard({
       <div className="mb-6 flex items-center justify-between">
         <div className="flex items-center gap-3">
           <div className="relative">
-            <div className="flex h-12 w-12 items-center justify-center rounded-2xl border border-[#D4AF37]/25 bg-[#D4AF37]/[0.07] text-[#B28B20]">
+            <div className="flex h-12 w-12 items-center justify-center rounded-2xl border border-[#00D6A0]/25 bg-[#00D6A0]/[0.07] text-[#00A87D]">
               <span className="h-5 w-5">{icon}</span>
             </div>
 
@@ -583,7 +583,7 @@ function TestimonialCard({
                 dark ? "border-[#111311] bg-[#111311]" : "border-white bg-white"
               }`}
             >
-              <span className="testimonial-status h-2 w-2 rounded-full bg-[#D4AF37] shadow-[0_0_8px_rgba(212,175,55,0.5)]" />
+              <span className="testimonial-status h-2 w-2 rounded-full bg-[#00D6A0] shadow-[0_0_8px_rgba(0, 214, 160,0.5)]" />
             </span>
           </div>
 
@@ -597,7 +597,7 @@ function TestimonialCard({
                 {role}
               </p>
 
-              <span className="flex h-4 w-4 items-center justify-center rounded-full bg-[#D4AF37] text-white">
+              <span className="flex h-4 w-4 items-center justify-center rounded-full bg-[#00D6A0] text-white">
                 <FiCheck className="h-2.5 w-2.5" />
               </span>
             </div>
@@ -624,11 +624,11 @@ function TestimonialCard({
       {/* MESSAGE */}
 
       <div className="relative">
-        <div className="testimonial-quote absolute -right-1 -top-5 select-none font-serif text-6xl leading-none text-[#D4AF37]/[0.11]">
+        <div className="testimonial-quote absolute -right-1 -top-5 select-none font-serif text-6xl leading-none text-[#00D6A0]/[0.11]">
           "
         </div>
 
-        <span className="mb-4 inline-flex rounded-full border border-[#D4AF37]/20 bg-[#D4AF37]/[0.06] px-2.5 py-1 text-[9px] font-bold uppercase tracking-[0.15em] text-[#B28B20]">
+        <span className="mb-4 inline-flex rounded-full border border-[#00D6A0]/20 bg-[#00D6A0]/[0.06] px-2.5 py-1 text-[9px] font-bold uppercase tracking-[0.15em] text-[#00A87D]">
           {tag}
         </span>
 
@@ -656,8 +656,8 @@ function TestimonialCard({
           {footer}
         </span>
 
-        <span className="flex items-center gap-1.5 text-[10px] font-medium text-[#B28B20]">
-          <span className="h-1.5 w-1.5 rounded-full bg-[#D4AF37] shadow-[0_0_7px_rgba(212,175,55,0.45)]" />
+        <span className="flex items-center gap-1.5 text-[10px] font-medium text-[#00A87D]">
+          <span className="h-1.5 w-1.5 rounded-full bg-[#00D6A0] shadow-[0_0_7px_rgba(0, 214, 160,0.45)]" />
           {status}
         </span>
       </div>
