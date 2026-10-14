@@ -3,7 +3,7 @@ import { useEffect, useState } from "react";
 
 function LiveTricker() {
   const items = [
-    { label: "Built for Arc", type: "ARC" },
+    { label: "Built for BOT Chain", type: "ARC" },
     { label: "Earn USDC Rewards", type: "USDC" },
     { label: "Complete On-Chain Bounties", type: "BOUNTY" },
     { label: "Fast USDC Payouts", type: "PAYOUT" },
@@ -35,7 +35,7 @@ function LiveTricker() {
         transition-all duration-500
         ${
           dark
-            ? "border-white/[0.07] bg-[#080908]"
+            ? "border-white/[0.07] bg-[#080B0D]"
             : "border-black/[0.07] bg-white"
         }
       `}
@@ -62,8 +62,8 @@ function LiveTricker() {
             transition-all duration-500
             ${
               dark
-                ? "bg-[radial-gradient(circle_at_center,rgba(212,175,55,0.055),transparent_65%)]"
-                : "bg-[radial-gradient(circle_at_center,rgba(212,175,55,0.025),transparent_65%)]"
+                ? "bg-[radial-gradient(circle_at_center,rgba(0, 214, 160,0.055),transparent_65%)]"
+                : "bg-[radial-gradient(circle_at_center,rgba(0, 214, 160,0.025),transparent_65%)]"
             }
           `}
         />
@@ -83,7 +83,7 @@ function LiveTricker() {
           transition-all duration-500
           ${
             dark
-              ? "from-[#080908] via-[#080908]/95"
+              ? "from-[#080B0D] via-[#080B0D]/95"
               : "from-white via-white/95"
           }
         `}
@@ -103,7 +103,7 @@ function LiveTricker() {
           transition-all duration-500
           ${
             dark
-              ? "from-[#080908] via-[#080908]/95"
+              ? "from-[#080B0D] via-[#080B0D]/95"
               : "from-white via-white/95"
           }
         `}
@@ -121,7 +121,7 @@ function LiveTricker() {
           -translate-x-1/2
           -translate-y-1/2
           rounded-full
-          bg-[#D4AF37]/[0.04]
+          bg-[#00D6A0]/[0.04]
           blur-3xl
         `}
       />
@@ -212,18 +212,18 @@ function LiveTricker() {
           padding: 3px 7px;
           border-radius: 9999px;
 
-          color: ${dark ? "#D4AF37" : "#8a6b16"};
+          color: ${dark ? "#00D6A0" : "#8a6b16"};
 
           background: ${
             dark
-              ? "rgba(212, 175, 55, 0.10)"
-              : "rgba(212, 175, 55, 0.055)"
+              ? "rgba(0, 214, 160, 0.10)"
+              : "rgba(0, 214, 160, 0.055)"
           };
 
           border: 1px solid ${
             dark
-              ? "rgba(212, 175, 55, 0.30)"
-              : "rgba(212, 175, 55, 0.20)"
+              ? "rgba(0, 214, 160, 0.30)"
+              : "rgba(0, 214, 160, 0.20)"
           };
 
           font-size: 9px;
@@ -245,8 +245,8 @@ function LiveTricker() {
 
           color: ${
             dark
-              ? "rgba(212, 175, 55, 0.45)"
-              : "rgba(212, 175, 55, 0.30)"
+              ? "rgba(0, 214, 160, 0.45)"
+              : "rgba(0, 214, 160, 0.30)"
           };
 
           font-size: 18px;
@@ -265,11 +265,11 @@ function LiveTricker() {
           height: 6px;
           flex-shrink: 0;
           border-radius: 50%;
-          background: #D4AF37;
+          background: #00D6A0;
 
           box-shadow:
-            0 0 7px rgba(212, 175, 55, 0.45),
-            0 0 14px rgba(212, 175, 55, 0.12);
+            0 0 7px rgba(0, 214, 160, 0.45),
+            0 0 14px rgba(0, 214, 160, 0.12);
 
           animation: goldPulse 2.5s ease-in-out infinite;
         }
@@ -283,10 +283,10 @@ function LiveTricker() {
           width: 3px;
           height: 3px;
           border-radius: 50%;
-          background: #D4AF37;
+          background: #00D6A0;
 
           box-shadow:
-            0 0 8px rgba(212, 175, 55, 0.3);
+            0 0 8px rgba(0, 214, 160, 0.3);
 
           opacity: ${dark ? "0.25" : "0.18"};
 

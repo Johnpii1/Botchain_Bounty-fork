@@ -169,7 +169,7 @@ function Features() {
       <section
         ref={sectionRef}
         className={`relative z-10 my-24 overflow-hidden px-6 py-4 transition-colors duration-500 md:px-10 lg:px-16 ${
-          dark ? "bg-[#080908]" : "bg-[#f6f5ef]"
+          dark ? "bg-[#080B0D]" : "bg-[#F3F5F3]"
         }`}
       >
         {/* =========================================
@@ -178,7 +178,7 @@ function Features() {
 
         <div
           className={`pointer-events-none absolute inset-0 transition-colors duration-500 ${
-            dark ? "bg-[#080908]" : "bg-[#f6f5ef]"
+            dark ? "bg-[#080B0D]" : "bg-[#F3F5F3]"
           }`}
         />
 
@@ -209,9 +209,9 @@ function Features() {
               }}
             >
               <span className="relative flex h-2 w-2">
-                <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-[#D4AF37] opacity-30" />
+                <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-[#00D6A0] opacity-30" />
 
-                <span className="relative inline-flex h-2 w-2 rounded-full bg-[#D4AF37]" />
+                <span className="relative inline-flex h-2 w-2 rounded-full bg-[#00D6A0]" />
               </span>
 
               <span
@@ -219,7 +219,7 @@ function Features() {
                   dark ? "text-white/45" : "text-[#77736b]"
                 }`}
               >
-                Built for Arc
+                Built for BOT Chain
               </span>
 
               <span
@@ -228,7 +228,7 @@ function Features() {
                 }`}
               />
 
-              <span className="text-[11px] font-bold uppercase tracking-[0.16em] text-[#B28B20]">
+              <span className="text-[11px] font-bold uppercase tracking-[0.16em] text-[#00A87D]">
                 USDC Native
               </span>
             </div>
@@ -241,7 +241,7 @@ function Features() {
               }`}
             >
               Everything You Need to{" "}
-              <span className="text-[#B28B20]">Earn</span>
+              <span className="text-[#00A87D]">Earn</span>
             </h2>
 
 <p
@@ -281,10 +281,10 @@ function Features() {
             >
               <div className="features-shine" />
 
-              <div className="absolute left-7 right-7 top-0 h-px bg-gradient-to-r from-transparent via-[#D4AF37] to-transparent opacity-0 transition-opacity duration-500 group-hover:opacity-100" />
+              <div className="absolute left-7 right-7 top-0 h-px bg-gradient-to-r from-transparent via-[#00D6A0] to-transparent opacity-0 transition-opacity duration-500 group-hover:opacity-100" />
 
               <div className="relative z-10">
-                <div className="flex h-14 w-14 items-center justify-center rounded-2xl border border-[#D4AF37]/25 bg-[#D4AF37]/[0.06] text-[#B28B20] transition-all duration-500 group-hover:scale-110 group-hover:rotate-3 group-hover:border-[#D4AF37]/45 group-hover:bg-[#D4AF37]/[0.10]">
+                <div className="flex h-14 w-14 items-center justify-center rounded-2xl border border-[#00D6A0]/25 bg-[#00D6A0]/[0.06] text-[#00A87D] transition-all duration-500 group-hover:scale-110 group-hover:rotate-3 group-hover:border-[#00D6A0]/45 group-hover:bg-[#00D6A0]/[0.10]">
                   <FiZap className="h-6 w-6" />
                 </div>
 
@@ -297,7 +297,7 @@ function Features() {
                     USDC Rewards
                   </h3>
 
-                  <div className="mt-4 h-px w-10 bg-[#D4AF37]/70 transition-all duration-500 group-hover:w-16" />
+                  <div className="mt-4 h-px w-10 bg-[#00D6A0]/70 transition-all duration-500 group-hover:w-16" />
 
       <p
   className={`mt-4 text-sm leading-6 transition-colors duration-500 ${
@@ -316,14 +316,14 @@ function Features() {
                       : "border-black/[0.06] text-[#77736b]"
                   }`}
                 >
-                  <FiCheck className="h-4 w-4 text-[#B28B20]" />
+                  <FiCheck className="h-4 w-4 text-[#00A87D]" />
                   <span>USDC reward flow</span>
                 </div>
               </div>
             </div>
 
             {/* =========================================
-                BUILT ON ARC
+                BUILT on BOT Chain
             ========================================== */}
 
             <div
@@ -343,10 +343,10 @@ function Features() {
             >
               <div className="features-shine" />
 
-              <div className="absolute left-7 right-7 top-0 h-px bg-gradient-to-r from-transparent via-[#D4AF37] to-transparent opacity-0 transition-opacity duration-500 group-hover:opacity-100" />
+              <div className="absolute left-7 right-7 top-0 h-px bg-gradient-to-r from-transparent via-[#00D6A0] to-transparent opacity-0 transition-opacity duration-500 group-hover:opacity-100" />
 
               <div className="relative z-10">
-                <div className="flex h-14 w-14 items-center justify-center rounded-2xl border border-[#D4AF37]/25 bg-[#D4AF37]/[0.06] text-[#B28B20] transition-all duration-500 group-hover:scale-110 group-hover:-rotate-3 group-hover:border-[#D4AF37]/45 group-hover:bg-[#D4AF37]/[0.10]">
+                <div className="flex h-14 w-14 items-center justify-center rounded-2xl border border-[#00D6A0]/25 bg-[#00D6A0]/[0.06] text-[#00A87D] transition-all duration-500 group-hover:scale-110 group-hover:-rotate-3 group-hover:border-[#00D6A0]/45 group-hover:bg-[#00D6A0]/[0.10]">
                   <FiGlobe className="h-6 w-6" />
                 </div>
 
@@ -356,10 +356,10 @@ function Features() {
                       dark ? "text-white" : "text-[#171717]"
                     }`}
                   >
-                    Built on Arc
+                    Built on BOT Chain
                   </h3>
 
-                  <div className="mt-4 h-px w-10 bg-[#D4AF37]/70 transition-all duration-500 group-hover:w-16" />
+                  <div className="mt-4 h-px w-10 bg-[#00D6A0]/70 transition-all duration-500 group-hover:w-16" />
 
          <p
   className={`mt-4 text-sm leading-6 transition-colors duration-500 ${
@@ -378,7 +378,7 @@ function Features() {
                       : "border-black/[0.06] text-[#77736b]"
                   }`}
                 >
-                  <FiCheck className="h-4 w-4 text-[#B28B20]" />
+                  <FiCheck className="h-4 w-4 text-[#00A87D]" />
                   <span>Arc-powered workflow</span>
                 </div>
               </div>
@@ -405,10 +405,10 @@ function Features() {
             >
               <div className="features-shine" />
 
-              <div className="absolute left-7 right-7 top-0 h-px bg-gradient-to-r from-transparent via-[#D4AF37] to-transparent opacity-0 transition-opacity duration-500 group-hover:opacity-100" />
+              <div className="absolute left-7 right-7 top-0 h-px bg-gradient-to-r from-transparent via-[#00D6A0] to-transparent opacity-0 transition-opacity duration-500 group-hover:opacity-100" />
 
               <div className="relative z-10">
-                <div className="flex h-14 w-14 items-center justify-center rounded-2xl border border-[#D4AF37]/25 bg-[#D4AF37]/[0.06] text-[#B28B20] transition-all duration-500 group-hover:scale-110 group-hover:rotate-3 group-hover:border-[#D4AF37]/45 group-hover:bg-[#D4AF37]/[0.10]">
+                <div className="flex h-14 w-14 items-center justify-center rounded-2xl border border-[#00D6A0]/25 bg-[#00D6A0]/[0.06] text-[#00A87D] transition-all duration-500 group-hover:scale-110 group-hover:rotate-3 group-hover:border-[#00D6A0]/45 group-hover:bg-[#00D6A0]/[0.10]">
                   <FiShield className="h-6 w-6" />
                 </div>
 
@@ -421,7 +421,7 @@ function Features() {
                     Secure Bounties
                   </h3>
 
-                  <div className="mt-4 h-px w-10 bg-[#D4AF37]/70 transition-all duration-500 group-hover:w-16" />
+                  <div className="mt-4 h-px w-10 bg-[#00D6A0]/70 transition-all duration-500 group-hover:w-16" />
 
                   <p
                     className={`mt-4 text-sm leading-6 transition-colors duration-500 ${
@@ -440,7 +440,7 @@ function Features() {
                       : "border-black/[0.06] text-[#77736b]"
                   }`}
                 >
-                  <FiCheck className="h-4 w-4 text-[#B28B20]" />
+                  <FiCheck className="h-4 w-4 text-[#00A87D]" />
                   <span>Protected workflow</span>
                 </div>
               </div>
@@ -467,10 +467,10 @@ function Features() {
             >
               <div className="features-shine" />
 
-              <div className="absolute left-7 right-7 top-0 h-px bg-gradient-to-r from-transparent via-[#D4AF37] to-transparent opacity-0 transition-opacity duration-500 group-hover:opacity-100" />
+              <div className="absolute left-7 right-7 top-0 h-px bg-gradient-to-r from-transparent via-[#00D6A0] to-transparent opacity-0 transition-opacity duration-500 group-hover:opacity-100" />
 
               <div className="relative z-10">
-                <div className="flex h-14 w-14 items-center justify-center rounded-2xl border border-[#D4AF37]/25 bg-[#D4AF37]/[0.06] text-[#B28B20] transition-all duration-500 group-hover:scale-110 group-hover:-rotate-3 group-hover:border-[#D4AF37]/45 group-hover:bg-[#D4AF37]/[0.10]">
+                <div className="flex h-14 w-14 items-center justify-center rounded-2xl border border-[#00D6A0]/25 bg-[#00D6A0]/[0.06] text-[#00A87D] transition-all duration-500 group-hover:scale-110 group-hover:-rotate-3 group-hover:border-[#00D6A0]/45 group-hover:bg-[#00D6A0]/[0.10]">
                   <FiActivity className="h-6 w-6" />
                 </div>
 
@@ -483,7 +483,7 @@ function Features() {
                     On-Chain Transparency
                   </h3>
 
-                  <div className="mt-4 h-px w-10 bg-[#D4AF37]/70 transition-all duration-500 group-hover:w-16" />
+                  <div className="mt-4 h-px w-10 bg-[#00D6A0]/70 transition-all duration-500 group-hover:w-16" />
 
             <p
   className={`mt-4 text-sm leading-6 transition-colors duration-500 ${
@@ -502,7 +502,7 @@ function Features() {
                       : "border-black/[0.06] text-[#77736b]"
                   }`}
                 >
-                  <FiCheck className="h-4 w-4 text-[#B28B20]" />
+                  <FiCheck className="h-4 w-4 text-[#00A87D]" />
                   <span>Visible on-chain activity</span>
                 </div>
               </div>
@@ -529,8 +529,8 @@ function Features() {
             }}
           >
             <div className="flex items-center gap-4">
-              <div className="relative flex h-11 w-11 shrink-0 items-center justify-center rounded-xl border border-[#D4AF37]/20 bg-[#D4AF37]/[0.06] text-[#B28B20] transition-transform duration-300 hover:scale-110">
-                <span className="features-status-dot absolute right-1.5 top-1.5 h-1.5 w-1.5 rounded-full bg-[#D4AF37] shadow-[0_0_8px_rgba(212,175,55,0.45)]" />
+              <div className="relative flex h-11 w-11 shrink-0 items-center justify-center rounded-xl border border-[#00D6A0]/20 bg-[#00D6A0]/[0.06] text-[#00A87D] transition-transform duration-300 hover:scale-110">
+                <span className="features-status-dot absolute right-1.5 top-1.5 h-1.5 w-1.5 rounded-full bg-[#00D6A0] shadow-[0_0_8px_rgba(0, 214, 160,0.45)]" />
 
                 <FiUsers className="h-5 w-5" />
               </div>
@@ -560,10 +560,10 @@ function Features() {
     e.preventDefault();
     handleNavigate("/dashboard");
   }}
-  className={`group flex items-center gap-2 rounded-xl border px-5 py-2.5 text-sm font-semibold transition-all duration-300 hover:border-[#D4AF37] hover:bg-[#D4AF37] hover:text-white hover:shadow-[0_10px_30px_rgba(212,175,55,0.18)] ${
+  className={`group flex items-center gap-2 rounded-xl border px-5 py-2.5 text-sm font-semibold transition-all duration-300 hover:border-[#00D6A0] hover:bg-[#00D6A0] hover:text-white hover:shadow-[0_10px_30px_rgba(0, 214, 160,0.18)] ${
     dark
-      ? "border-[#D4AF37]/30 bg-[#151715] text-[#D4AF37]"
-      : "border-[#D4AF37]/30 bg-white text-[#B28B20]"
+      ? "border-[#00D6A0]/30 bg-[#151715] text-[#00D6A0]"
+      : "border-[#00D6A0]/30 bg-white text-[#00A87D]"
   }`}
 >
   <span>Explore Opportunities</span>
@@ -581,7 +581,7 @@ function Features() {
             } mt-7 flex flex-wrap items-center justify-center gap-x-5 gap-y-2 text-center`}
             style={{ animationDelay: "900ms" }}
           >
-            <span className="text-[9px] font-bold uppercase tracking-[0.2em] text-[#B28B20]">
+            <span className="text-[9px] font-bold uppercase tracking-[0.2em] text-[#00A87D]">
               ARC
             </span>
 

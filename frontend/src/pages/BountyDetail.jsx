@@ -760,14 +760,14 @@ const BountyDetail = () => {
     "relative overflow-hidden rounded-3xl border border-[#dedbd1] dark:border-white/10 bg-white dark:bg-[#111311] shadow-[0_18px_60px_rgba(34,31,24,0.07)] dark:shadow-[0_18px_60px_rgba(0,0,0,0.35)] transition-colors duration-300";
 
   const inputClass =
-    "w-full bg-white dark:bg-[#111311] border border-[#ddd9ce] dark:border-white/10 rounded-xl px-4 py-3 text-[#171714] dark:text-white placeholder:text-[#99958a] dark:placeholder:text-white/35 outline-none transition focus:border-[#c49b2c] dark:focus:border-[#D4AF37] focus:ring-2 focus:ring-[#d4af37]/10";
+    "w-full bg-white dark:bg-[#111311] border border-[#ddd9ce] dark:border-white/10 rounded-xl px-4 py-3 text-[#171714] dark:text-white placeholder:text-[#99958a] dark:placeholder:text-white/35 outline-none transition focus:border-[#00D6A0] dark:focus:border-[#00D6A0] focus:ring-2 focus:ring-[#00D6A0]/10";
 
   /* ---------------- Loading / Error ---------------- */
 
   if (loading) {
     return (
       <div
-        className="min-h-screen flex flex-col bg-[#f7f6f0] dark:bg-[#080908] text-[#171714] dark:text-white transition-colors duration-300"
+        className="min-h-screen flex flex-col bg-[#F3F5F3] dark:bg-[#080B0D] text-[#171714] dark:text-white transition-colors duration-300"
         style={{
           backgroundImage: `
             linear-gradient(rgba(112,105,88,0.035) 1px, transparent 1px),
@@ -790,7 +790,7 @@ const BountyDetail = () => {
   if (!bounty) {
     return (
       <div
-        className="min-h-screen flex flex-col bg-[#f7f6f0] dark:bg-[#080908] text-[#171714] dark:text-white transition-colors duration-300"
+        className="min-h-screen flex flex-col bg-[#F3F5F3] dark:bg-[#080B0D] text-[#171714] dark:text-white transition-colors duration-300"
         style={{
           backgroundImage: `
             linear-gradient(rgba(112,105,88,0.035) 1px, transparent 1px),
@@ -803,7 +803,7 @@ const BountyDetail = () => {
 
         <main className="flex-grow flex items-center justify-center pt-20 px-4">
           <div className="text-center">
-            <div className="w-16 h-16 mx-auto mb-5 rounded-2xl bg-white dark:bg-[#111311] border border-[#dedbd1] dark:border-white/10 flex items-center justify-center text-[#b28b20] dark:text-[#D4AF37]">
+            <div className="w-16 h-16 mx-auto mb-5 rounded-2xl bg-white dark:bg-[#111311] border border-[#dedbd1] dark:border-white/10 flex items-center justify-center text-[#00A87D] dark:text-[#00D6A0]">
               <FiSearch size={28} />
             </div>
 
@@ -813,7 +813,7 @@ const BountyDetail = () => {
 
             <button
               onClick={() => navigate("/dashboard")}
-              className="mt-4 px-6 py-3 rounded-xl bg-[#171714] dark:bg-[#D4AF37] text-[#d4af37] dark:text-[#171714] font-semibold hover:bg-[#292922] dark:hover:bg-[#B8962E] transition"
+              className="mt-4 px-6 py-3 rounded-xl bg-[#171714] dark:bg-[#00D6A0] text-[#00D6A0] dark:text-[#171714] font-semibold hover:bg-[#292922] dark:hover:bg-[#B8962E] transition"
             >
               Back to Dashboard
             </button>
@@ -832,13 +832,13 @@ const BountyDetail = () => {
       "bg-[#e8f5e9] dark:bg-[#18351e] text-[#2e7d32] dark:text-[#81c784] border border-[#a5d6a7] dark:border-[#2e7d32]/40",
 
     upcoming:
-      "bg-[#fff8e1] dark:bg-[#332b12] text-[#a17a17] dark:text-[#D4AF37] border border-[#e5d9b8] dark:border-[#D4AF37]/30",
+      "bg-[#fff8e1] dark:bg-[#332b12] text-[#a17a17] dark:text-[#00D6A0] border border-[#e5d9b8] dark:border-[#00D6A0]/30",
 
     ended:
       "bg-[#f2f0ea] dark:bg-[#1a1c1a] text-[#777267] dark:text-white/55 border border-[#ddd8ca] dark:border-white/10",
 
     completed:
-      "bg-[#f4ecd5] dark:bg-[#332b12] text-[#8f6c12] dark:text-[#D4AF37] border border-[#d4af37] dark:border-[#D4AF37]/50",
+      "bg-[#f4ecd5] dark:bg-[#332b12] text-[#8f6c12] dark:text-[#00D6A0] border border-[#00D6A0] dark:border-[#00D6A0]/50",
 
     cancelled:
       "bg-[#fbe9e7] dark:bg-[#351b1b] text-[#c62828] dark:text-[#ef9a9a] border border-[#ef9a9a] dark:border-[#c62828]/40",
@@ -846,7 +846,7 @@ const BountyDetail = () => {
 
   return (
     <div
-      className="min-h-screen flex flex-col bg-[#f7f6f0] dark:bg-[#080908] text-[#171714] dark:text-white transition-colors duration-300"
+      className="min-h-screen flex flex-col bg-[#F3F5F3] dark:bg-[#080B0D] text-[#171714] dark:text-white transition-colors duration-300"
       style={{
         backgroundImage: `
           linear-gradient(rgba(112,105,88,0.035) 1px, transparent 1px),
@@ -861,7 +861,7 @@ const BountyDetail = () => {
         <div className="max-w-5xl mx-auto space-y-6">
           {/* Main card */}
           <div className={cardClass}>
-            <div className="absolute top-0 left-0 right-0 h-1 bg-[#D4AF37]" />
+            <div className="absolute top-0 left-0 right-0 h-1 bg-[#00D6A0]" />
 
             <div className="p-6 md:p-9">
               {/* Title row */}
@@ -886,7 +886,7 @@ const BountyDetail = () => {
           mb-6 flex items-start gap-3 rounded-2xl border p-4
           ${
             bounty.status === "completed"
-              ? "bg-[#f4ecd5] dark:bg-[#2b2510] border-[#d4af37] dark:border-[#D4AF37]/50"
+              ? "bg-[#f4ecd5] dark:bg-[#2b2510] border-[#00D6A0] dark:border-[#00D6A0]/50"
               : "bg-[#f2f0ea] dark:bg-[#1a1c1a] border-[#ddd8ca] dark:border-white/10"
           }
         `}
@@ -897,7 +897,7 @@ const BountyDetail = () => {
             mt-0.5 shrink-0
             ${
               bounty.status === "completed"
-                ? "text-[#8f6c12] dark:text-[#D4AF37]"
+                ? "text-[#8f6c12] dark:text-[#00D6A0]"
                 : "text-[#777267] dark:text-white/55"
             }
           `}
@@ -909,7 +909,7 @@ const BountyDetail = () => {
               text-sm font-semibold
               ${
                 bounty.status === "completed"
-                  ? "text-[#8f6c12] dark:text-[#D4AF37]"
+                  ? "text-[#8f6c12] dark:text-[#00D6A0]"
                   : "text-[#625e55] dark:text-white/65"
               }
             `}
@@ -957,7 +957,7 @@ const BountyDetail = () => {
                     Reward
                   </p>
 
-                  <p className="text-[#8f6c12] dark:text-[#D4AF37] font-bold text-lg">
+                  <p className="text-[#8f6c12] dark:text-[#00D6A0] font-bold text-lg">
                     {formatAmount(bounty.reward)} {bounty.token || "USDC"}
                   </p>
                 </div>
@@ -1012,7 +1012,7 @@ const BountyDetail = () => {
                       {bounty.tags.map((tag, i) => (
                         <span
                           key={i}
-                          className="text-xs px-2 py-0.5 rounded-full bg-[#f4ecd5] dark:bg-[#2b2510] border border-[#e5d9b8] dark:border-[#D4AF37]/30 text-[#8f6c12] dark:text-[#D4AF37] font-medium"
+                          className="text-xs px-2 py-0.5 rounded-full bg-[#f4ecd5] dark:bg-[#2b2510] border border-[#e5d9b8] dark:border-[#00D6A0]/30 text-[#8f6c12] dark:text-[#00D6A0] font-medium"
                         >
                           #{tag}
                         </span>
@@ -1031,7 +1031,7 @@ const BountyDetail = () => {
                       href={bounty.originLink}
                       target="_blank"
                       rel="noopener noreferrer"
-                      className="text-[#9a7619] dark:text-[#D4AF37] hover:underline text-sm inline-flex items-center gap-1"
+                      className="text-[#9a7619] dark:text-[#00D6A0] hover:underline text-sm inline-flex items-center gap-1"
                       title={bounty.originLink}
                     >
                       <FiLink size={12} />
@@ -1059,7 +1059,7 @@ const BountyDetail = () => {
                       <button
                         onClick={handleEnroll}
                         disabled={isEnrolling}
-                        className="px-5 py-2.5 rounded-xl bg-[#d4af37] dark:bg-[#e0bd45] text-[#171714] font-semibold hover:bg-[#c49b2c] dark:hover:bg-[#d2ac2f] transition-colors duration-300 disabled:opacity-50"
+                        className="px-5 py-2.5 rounded-xl bg-[#00D6A0] dark:bg-[#e0bd45] text-[#171714] font-semibold hover:bg-[#00D6A0] dark:hover:bg-[#d2ac2f] transition-colors duration-300 disabled:opacity-50"
                       >
                         {isEnrolling ? "Enrolling..." : "Start Task"}
                       </button>
@@ -1070,7 +1070,7 @@ const BountyDetail = () => {
                       bounty.status === "active" && (
                         <button
                           onClick={() => setShowSubmitModal(true)}
-                          className="px-5 py-2.5 rounded-xl bg-white dark:bg-[#151715] border border-[#d8d3c6] dark:border-white/10 text-[#292720] dark:text-white font-semibold hover:border-[#c49b2c] dark:hover:border-[#D4AF37]/60 transition-colors duration-300"
+                          className="px-5 py-2.5 rounded-xl bg-white dark:bg-[#151715] border border-[#d8d3c6] dark:border-white/10 text-[#292720] dark:text-white font-semibold hover:border-[#00D6A0] dark:hover:border-[#00D6A0]/60 transition-colors duration-300"
                         >
                           Submit Task
                         </button>
@@ -1083,7 +1083,7 @@ const BountyDetail = () => {
                   <button
                     onClick={handleClaimReward}
                     disabled={isContractPending || isContractConfirming}
-                    className="px-5 py-2.5 rounded-xl bg-[#171714] dark:bg-[#D4AF37] text-[#d4af37] dark:text-[#171714] font-semibold hover:bg-[#292922] dark:hover:bg-[#B8962E] transition disabled:opacity-50"
+                    className="px-5 py-2.5 rounded-xl bg-[#171714] dark:bg-[#00D6A0] text-[#00D6A0] dark:text-[#171714] font-semibold hover:bg-[#292922] dark:hover:bg-[#B8962E] transition disabled:opacity-50"
                   >
                     {isContractPending
                       ? "Confirm in wallet..."
@@ -1105,11 +1105,11 @@ const BountyDetail = () => {
                             bounty.winnersAllowed > 1 ? "s" : ""
                           }`
                     }
-                    className="px-5 py-2.5 rounded-xl bg-[#d4af37] dark:bg-[#e0bd45] text-[#171714] font-semibold hover:bg-[#c49b2c] dark:hover:bg-[#d2ac2f] transition-colors duration-300 disabled:opacity-50 disabled:cursor-not-allowed"
+                    className="px-5 py-2.5 rounded-xl bg-[#00D6A0] dark:bg-[#e0bd45] text-[#171714] font-semibold hover:bg-[#00D6A0] dark:hover:bg-[#d2ac2f] transition-colors duration-300 disabled:opacity-50 disabled:cursor-not-allowed"
                   >
                     Distribute Reward
                     {selectedWinners.length > 0 && (
-                      <span className="ml-2 text-xs text-[#d4af37]">
+                      <span className="ml-2 text-xs text-[#00D6A0]">
                         ({selectedWinners.length}/{bounty.winnersAllowed})
                       </span>
                     )}
@@ -1118,7 +1118,7 @@ const BountyDetail = () => {
 
                 {/* Submission status pill */}
                 {hasUserSubmitted && userSubmission && (
-                  <div className="px-4 py-2.5 rounded-xl bg-[#f4ecd5] dark:bg-[#2b2510] border border-[#e5d9b8] dark:border-[#D4AF37]/30 text-[#8f6c12] dark:text-[#D4AF37] text-xs font-semibold flex items-center gap-2">
+                  <div className="px-4 py-2.5 rounded-xl bg-[#f4ecd5] dark:bg-[#2b2510] border border-[#e5d9b8] dark:border-[#00D6A0]/30 text-[#8f6c12] dark:text-[#00D6A0] text-xs font-semibold flex items-center gap-2">
                     {userSubmission.status === "pending" && (
                       <>
                         <FiClock size={13} />
@@ -1148,13 +1148,13 @@ const BountyDetail = () => {
                 <div className="mt-4 rounded-2xl bg-[#f7f5ed] dark:bg-[#151715] border border-[#e7e1d2] dark:border-white/10 p-4">
                   <div className="flex items-start gap-3">
                     <FiInfo
-                      className="text-[#b28b20] dark:text-[#D4AF37] mt-0.5 shrink-0"
+                      className="text-[#00A87D] dark:text-[#00D6A0] mt-0.5 shrink-0"
                       size={16}
                     />
 
                     <div className="space-y-1.5">
                       <p className="text-xs leading-relaxed text-[#777267] dark:text-white/55">
-                        <strong className="text-[#8f6c12] dark:text-[#D4AF37]">
+                        <strong className="text-[#8f6c12] dark:text-[#00D6A0]">
                           Distribution unlocks after the deadline.
                         </strong>{" "}
                         You'll be able to select winners and distribute the
@@ -1225,7 +1225,7 @@ const BountyDetail = () => {
                       href={userSubmission.projectLink}
                       target="_blank"
                       rel="noopener noreferrer"
-                      className="text-[#9a7619] dark:text-[#D4AF37] hover:underline break-all"
+                      className="text-[#9a7619] dark:text-[#00D6A0] hover:underline break-all"
                     >
                       {userSubmission.projectLink}
                     </a>
@@ -1236,7 +1236,7 @@ const BountyDetail = () => {
                       href={userSubmission.image}
                       target="_blank"
                       rel="noopener noreferrer"
-                      className="text-[#9a7619] dark:text-[#D4AF37] hover:underline text-sm inline-block"
+                      className="text-[#9a7619] dark:text-[#00D6A0] hover:underline text-sm inline-block"
                     >
                       View Submission Image
                     </a>
@@ -1251,7 +1251,7 @@ const BountyDetail = () => {
             <div className={cardClass}>
               <div className="p-6 md:p-8">
                 <h3 className="font-bold text-[#171714] dark:text-white mb-4 flex items-center gap-2">
-                  <FiUsers className="text-[#b28b20] dark:text-[#D4AF37]" />
+                  <FiUsers className="text-[#00A87D] dark:text-[#00D6A0]" />
                   Rewards Distributed
                 </h3>
 
@@ -1277,7 +1277,7 @@ const BountyDetail = () => {
                         </span>
 
                         <div className="flex items-center gap-3">
-                          <span className="text-[#8f6c12] dark:text-[#D4AF37] font-semibold text-sm">
+                          <span className="text-[#8f6c12] dark:text-[#00D6A0] font-semibold text-sm">
                             {formatAmount(winner.amount)} {bounty.token}
                           </span>
 
@@ -1287,7 +1287,7 @@ const BountyDetail = () => {
                               Claimed
                             </span>
                           ) : isCurrentUser ? (
-                            <span className="text-[#8f6c12] dark:text-[#D4AF37] text-xs font-semibold flex items-center gap-1">
+                            <span className="text-[#8f6c12] dark:text-[#00D6A0] text-xs font-semibold flex items-center gap-1">
                               <FiClock size={12} />
                               Ready to claim
                             </span>
@@ -1315,7 +1315,7 @@ const BountyDetail = () => {
                 <div className="flex flex-col gap-3 sm:flex-row sm:items-start sm:justify-between mb-6">
                   <div>
                     <h3 className="font-bold text-[#171714] dark:text-white flex items-center gap-2">
-                      <FiUsers className="text-[#b28b20] dark:text-[#D4AF37]" />
+                      <FiUsers className="text-[#00A87D] dark:text-[#00D6A0]" />
                       Submissions ({allSubmissions.length})
                     </h3>
                     <p className="mt-1 text-sm text-[#777267] dark:text-white/50">
@@ -1328,7 +1328,7 @@ const BountyDetail = () => {
                   </div>
 
                   {isCreator && selectedWinners.length > 0 && (
-                    <span className="w-fit whitespace-nowrap text-xs font-semibold text-[#8f6c12] dark:text-[#D4AF37] bg-[#f4ecd5] dark:bg-[#2b2510] border border-[#e5d9b8] dark:border-[#D4AF37]/30 px-3 py-1.5 rounded-full">
+                    <span className="w-fit whitespace-nowrap text-xs font-semibold text-[#8f6c12] dark:text-[#00D6A0] bg-[#f4ecd5] dark:bg-[#2b2510] border border-[#e5d9b8] dark:border-[#00D6A0]/30 px-3 py-1.5 rounded-full">
                       {selectedWinners.length} / {bounty.winnersAllowed}{" "}
                       selected
                     </span>
@@ -1353,7 +1353,7 @@ const BountyDetail = () => {
                             <span className="font-mono">
                               {idx + 1}. {shortenAddress(s.address)}
                             </span>
-                            <span className="font-semibold text-[#8f6c12] dark:text-[#D4AF37]">
+                            <span className="font-semibold text-[#8f6c12] dark:text-[#00D6A0]">
                               {bounty.percentages[idx]}%
                             </span>
                           </div>
@@ -1380,8 +1380,8 @@ const BountyDetail = () => {
                         key={submission._id}
                         className={`p-4 rounded-xl border transition ${
                           selected
-                            ? "bg-[#fbf7e9] dark:bg-[#2b2510] border-[#d4af37] dark:border-[#D4AF37]/60 shadow-[0_8px_28px_rgba(212,175,55,0.08)]"
-                            : "bg-[#fbfaf6] dark:bg-[#151715] border-[#e7e3da] dark:border-white/10 hover:border-[#d4af37]/60 dark:hover:border-[#D4AF37]/40"
+                            ? "bg-[#fbf7e9] dark:bg-[#2b2510] border-[#00D6A0] dark:border-[#00D6A0]/60 shadow-[0_8px_28px_rgba(0, 214, 160,0.08)]"
+                            : "bg-[#fbfaf6] dark:bg-[#151715] border-[#e7e3da] dark:border-white/10 hover:border-[#00D6A0]/60 dark:hover:border-[#00D6A0]/40"
                         }`}
                       >
                         <div className="flex flex-col gap-4 sm:flex-row sm:justify-between sm:items-start">
@@ -1394,20 +1394,20 @@ const BountyDetail = () => {
                               </span>
 
                               {isWinner && (
-                                <span className="inline-flex items-center gap-1 text-[10px] font-bold text-[#8f6c12] dark:text-[#D4AF37] bg-[#f4ecd5] dark:bg-[#2b2510] border border-[#d4af37] dark:border-[#D4AF37]/50 px-2 py-0.5 rounded-full">
+                                <span className="inline-flex items-center gap-1 text-[10px] font-bold text-[#8f6c12] dark:text-[#00D6A0] bg-[#f4ecd5] dark:bg-[#2b2510] border border-[#00D6A0] dark:border-[#00D6A0]/50 px-2 py-0.5 rounded-full">
                                   <FiCheckCircle size={10} />
                                   Winner
                                 </span>
                               )}
 
                               {isCurrentUser && (
-                                <span className="text-[10px] font-bold text-[#8f6c12] dark:text-[#D4AF37] bg-[#f4ecd5] dark:bg-[#332b12] border border-[#e5d9b8] dark:border-[#D4AF37]/30 px-2 py-0.5 rounded-full">
+                                <span className="text-[10px] font-bold text-[#8f6c12] dark:text-[#00D6A0] bg-[#f4ecd5] dark:bg-[#332b12] border border-[#e5d9b8] dark:border-[#00D6A0]/30 px-2 py-0.5 rounded-full">
                                   YOU
                                 </span>
                               )}
 
                               {selected && (
-                                <span className="text-[10px] font-bold text-[#8f6c12] dark:text-[#D4AF37] bg-[#f4ecd5] dark:bg-[#332b12] border border-[#e5d9b8] dark:border-[#D4AF37]/30 px-2 py-0.5 rounded-full">
+                                <span className="text-[10px] font-bold text-[#8f6c12] dark:text-[#00D6A0] bg-[#f4ecd5] dark:bg-[#332b12] border border-[#e5d9b8] dark:border-[#00D6A0]/30 px-2 py-0.5 rounded-full">
                                   #{selectionIndex + 1}
                                 </span>
                               )}
@@ -1429,7 +1429,7 @@ const BountyDetail = () => {
                                     href={submission.projectLink}
                                     target="_blank"
                                     rel="noopener noreferrer"
-                                    className="inline-flex items-center gap-1 text-xs text-[#9a7619] dark:text-[#D4AF37] hover:underline"
+                                    className="inline-flex items-center gap-1 text-xs text-[#9a7619] dark:text-[#00D6A0] hover:underline"
                                     title={submission.projectLink}
                                   >
                                     <FiLink size={10} />
@@ -1456,8 +1456,8 @@ const BountyDetail = () => {
                                 }
                                 className={`px-3 py-1.5 rounded-xl text-xs font-semibold transition ${
                                   selected
-                                    ? "bg-[#171714] dark:bg-[#D4AF37] text-[#d4af37] dark:text-[#171714] border border-[#171714] dark:border-[#D4AF37]"
-                                    : "bg-white dark:bg-[#1b1e1b] border border-[#d8d3c6] dark:border-white/15 text-[#4f4b43] dark:text-white/75 hover:border-[#c49b2c] dark:hover:border-[#D4AF37] hover:text-[#8f6c12] dark:hover:text-[#D4AF37]"
+                                    ? "bg-[#171714] dark:bg-[#00D6A0] text-[#00D6A0] dark:text-[#171714] border border-[#171714] dark:border-[#00D6A0]"
+                                    : "bg-white dark:bg-[#1b1e1b] border border-[#d8d3c6] dark:border-white/15 text-[#4f4b43] dark:text-white/75 hover:border-[#00D6A0] dark:hover:border-[#00D6A0] hover:text-[#8f6c12] dark:hover:text-[#00D6A0]"
                                 }`}
                               >
                                 {selected ? "Selected" : "Select"}
@@ -1468,7 +1468,7 @@ const BountyDetail = () => {
                                   href={submission.image}
                                   target="_blank"
                                   rel="noopener noreferrer"
-                                  className="text-[11px] font-medium text-[#9a7619] dark:text-[#D4AF37] hover:underline whitespace-nowrap"
+                                  className="text-[11px] font-medium text-[#9a7619] dark:text-[#00D6A0] hover:underline whitespace-nowrap"
                                 >
                                   View Image
                                 </a>
@@ -1512,7 +1512,7 @@ const BountyDetail = () => {
                       className="p-3 bg-[#fbfaf6] dark:bg-[#151715] border border-[#e7e3da] dark:border-white/10 rounded-xl"
                     >
                       <div className="flex justify-between items-start mb-1.5">
-                        <span className="font-semibold text-[#8f6c12] dark:text-[#D4AF37] text-sm">
+                        <span className="font-semibold text-[#8f6c12] dark:text-[#00D6A0] text-sm">
                           {shortenAddress(comment.user)}
                         </span>
 
@@ -1542,7 +1542,7 @@ const BountyDetail = () => {
 
                 <button
                   onClick={handleAddComment}
-                  className="px-5 py-3 rounded-xl bg-[#171714] dark:bg-[#D4AF37] text-[#d4af37] dark:text-[#171714] font-semibold hover:bg-[#292922] dark:hover:bg-[#B8962E] transition"
+                  className="px-5 py-3 rounded-xl bg-[#171714] dark:bg-[#00D6A0] text-[#00D6A0] dark:text-[#171714] font-semibold hover:bg-[#292922] dark:hover:bg-[#B8962E] transition"
                 >
                   Comment
                 </button>
@@ -1575,7 +1575,7 @@ const BountyDetail = () => {
                   setShowSubmitModal(false);
                   resetSubmissionForm();
                 }}
-                className="w-9 h-9 rounded-xl border border-[#ddd8ca] dark:border-white/10 bg-white dark:bg-[#151715] flex items-center justify-center text-[#777267] dark:text-white/50 hover:text-[#171714] dark:hover:text-white hover:border-[#c49b2c] dark:hover:border-[#D4AF37]/50 transition"
+                className="w-9 h-9 rounded-xl border border-[#ddd8ca] dark:border-white/10 bg-white dark:bg-[#151715] flex items-center justify-center text-[#777267] dark:text-white/50 hover:text-[#171714] dark:hover:text-white hover:border-[#00D6A0] dark:hover:border-[#00D6A0]/50 transition"
               >
                 <FiX size={16} />
               </button>
@@ -1592,7 +1592,7 @@ const BountyDetail = () => {
                   type="file"
                   accept="image/*"
                   onChange={handleImageUpload}
-                  className="w-full bg-white dark:bg-[#151715] border border-[#ddd8ca] dark:border-white/10 rounded-xl px-4 py-3 text-[#171714] dark:text-white text-sm file:mr-3 file:py-1.5 file:px-3 file:rounded-lg file:bg-[#171714] dark:file:bg-[#D4AF37] file:text-[#d4af37] dark:file:text-[#171714] file:border-0 file:font-semibold"
+                  className="w-full bg-white dark:bg-[#151715] border border-[#ddd8ca] dark:border-white/10 rounded-xl px-4 py-3 text-[#171714] dark:text-white text-sm file:mr-3 file:py-1.5 file:px-3 file:rounded-lg file:bg-[#171714] dark:file:bg-[#00D6A0] file:text-[#00D6A0] dark:file:text-[#171714] file:border-0 file:font-semibold"
                 />
 
                 {imagePreview && (
@@ -1654,7 +1654,7 @@ const BountyDetail = () => {
               <button
                 type="submit"
                 disabled={submitting}
-                className="w-full py-3 rounded-xl bg-[#171714] dark:bg-[#D4AF37] text-[#d4af37] dark:text-[#171714] font-semibold hover:bg-[#292922] dark:hover:bg-[#B8962E] transition disabled:opacity-50"
+                className="w-full py-3 rounded-xl bg-[#171714] dark:bg-[#00D6A0] text-[#00D6A0] dark:text-[#171714] font-semibold hover:bg-[#292922] dark:hover:bg-[#B8962E] transition disabled:opacity-50"
               >
                 {submitting ? "Submitting..." : "Submit"}
               </button>
@@ -1680,7 +1680,7 @@ const BountyDetail = () => {
 
               <button
                 onClick={() => setShowDistributeModal(false)}
-                className="w-9 h-9 rounded-xl border border-[#ddd8ca] dark:border-white/10 bg-white dark:bg-[#151715] flex items-center justify-center text-[#777267] dark:text-white/50 hover:text-[#171714] dark:hover:text-white hover:border-[#c49b2c] dark:hover:border-[#D4AF37]/50 transition"
+                className="w-9 h-9 rounded-xl border border-[#ddd8ca] dark:border-white/10 bg-white dark:bg-[#151715] flex items-center justify-center text-[#777267] dark:text-white/50 hover:text-[#171714] dark:hover:text-white hover:border-[#00D6A0] dark:hover:border-[#00D6A0]/50 transition"
               >
                 <FiX size={16} />
               </button>
@@ -1695,7 +1695,7 @@ const BountyDetail = () => {
 
             <p className="text-[#625e55] dark:text-white/60 text-sm mb-5">
               Reward:{" "}
-              <strong className="text-[#8f6c12] dark:text-[#D4AF37]">
+              <strong className="text-[#8f6c12] dark:text-[#00D6A0]">
                 {formatAmount(bounty.reward)} {bounty.token}
               </strong>
             </p>
@@ -1736,7 +1736,7 @@ const BountyDetail = () => {
                     />
 
                     {amount > 0 && (
-                      <p className="text-[#8f6c12] dark:text-[#D4AF37] text-xs mt-1.5">
+                      <p className="text-[#8f6c12] dark:text-[#00D6A0] text-xs mt-1.5">
                         Will receive: {formatAmount(amount)} {bounty.token}
                       </p>
                     )}
@@ -1758,7 +1758,7 @@ const BountyDetail = () => {
                 disabled={
                   distributing || isContractPending || isContractConfirming
                 }
-                className="flex-1 px-4 py-3 rounded-xl bg-[#171714] dark:bg-[#D4AF37] text-[#d4af37] dark:text-[#171714] font-semibold hover:bg-[#292922] dark:hover:bg-[#B8962E] transition disabled:opacity-50"
+                className="flex-1 px-4 py-3 rounded-xl bg-[#171714] dark:bg-[#00D6A0] text-[#00D6A0] dark:text-[#171714] font-semibold hover:bg-[#292922] dark:hover:bg-[#B8962E] transition disabled:opacity-50"
               >
                 {distributing ? "Distributing..." : "Confirm"}
               </button>

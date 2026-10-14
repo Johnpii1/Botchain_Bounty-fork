@@ -12,7 +12,7 @@ import {
 const features = [
   {
     icon: FiCode,
-    title: "Built for Arc",
+    title: "Built for BOT Chain",
     description:
       "Fresh Bounty is being shaped around Arc as the infrastructure for a focused on-chain bounty experience.",
   },
@@ -58,11 +58,11 @@ export default function BuiltForWeb3() {
     <section
       className={`relative overflow-hidden px-5 py-20 transition-colors duration-500 sm:px-8 lg:px-10 ${
         dark
-          ? "bg-[#080908] text-white"
-          : "bg-[#f6f5ef] text-[#111111]"
+          ? "bg-[#080B0D] text-white"
+          : "bg-[#F3F5F3] text-[#111111]"
       }`}
       style={{
-        backgroundColor: dark ? "#080908" : "#f6f5ef",
+        backgroundColor: dark ? "#080B0D" : "#F3F5F3",
       }}
     >
       {/* =====================================================
@@ -76,7 +76,7 @@ export default function BuiltForWeb3() {
             linear-gradient(
               ${
                 dark
-                  ? "rgba(212,175,55,0.025)"
+                  ? "rgba(0, 214, 160,0.025)"
                   : "rgba(105,82,35,0.025)"
               } 1px,
               transparent 1px
@@ -85,7 +85,7 @@ export default function BuiltForWeb3() {
               90deg,
               ${
                 dark
-                  ? "rgba(212,175,55,0.018)"
+                  ? "rgba(0, 214, 160,0.018)"
                   : "rgba(105,82,35,0.02)"
               } 1px,
               transparent 1px
@@ -115,7 +115,7 @@ export default function BuiltForWeb3() {
             className="mb-4 inline-flex items-center gap-2 rounded-full border px-3 py-1.5 backdrop-blur-xl transition-colors duration-500"
             style={{
               borderColor: dark
-                ? "rgba(212,175,55,0.18)"
+                ? "rgba(0, 214, 160,0.18)"
                 : "rgba(35,31,22,0.08)",
               backgroundColor: dark
                 ? "rgba(255,255,255,0.035)"
@@ -127,7 +127,7 @@ export default function BuiltForWeb3() {
           >
             <FiZap
               size={12}
-              className="text-[#B28B20]"
+              className="text-[#00A87D]"
             />
 
             <span
@@ -135,7 +135,7 @@ export default function BuiltForWeb3() {
                 dark ? "text-white/55" : "text-[#77736b]"
               }`}
             >
-              Arc Infrastructure
+              BOT Chain Infrastructure
             </span>
 
             <span
@@ -144,7 +144,7 @@ export default function BuiltForWeb3() {
               }`}
             />
 
-            <span className="text-[10px] font-bold uppercase tracking-[0.15em] text-[#B28B20]">
+            <span className="text-[10px] font-bold uppercase tracking-[0.15em] text-[#00A87D]">
               USDC
             </span>
           </div>
@@ -157,7 +157,7 @@ export default function BuiltForWeb3() {
             }`}
           >
             Built for{" "}
-            <span className="text-[#B28B20]">
+            <span className="text-[#00A87D]">
               Web3 Work
             </span>
           </h2>
@@ -209,14 +209,14 @@ export default function BuiltForWeb3() {
                       className="absolute left-0 right-0 top-0 h-px opacity-0 transition-opacity duration-500 group-hover:opacity-100"
                       style={{
                         background:
-                          "linear-gradient(to right, transparent, #D4AF37, transparent)",
+                          "linear-gradient(to right, transparent, #00D6A0, transparent)",
                       }}
                     />
 
                     {/* SUBTLE GOLD CORNER ACCENT */}
 
                     <div
-                      className="pointer-events-none absolute -right-16 -top-16 h-32 w-32 rounded-full bg-[#D4AF37]/[0.035] blur-[55px] opacity-60 transition-all duration-500 group-hover:bg-[#D4AF37]/[0.07] group-hover:opacity-100"
+                      className="pointer-events-none absolute -right-16 -top-16 h-32 w-32 rounded-full bg-[#00D6A0]/[0.035] blur-[55px] opacity-60 transition-all duration-500 group-hover:bg-[#00D6A0]/[0.07] group-hover:opacity-100"
                     />
 
                     {/* NUMBER */}
@@ -234,9 +234,9 @@ export default function BuiltForWeb3() {
                     {/* ICON */}
 
                     <div
-                      className="relative mb-5 flex h-11 w-11 items-center justify-center rounded-xl border bg-[#D4AF37]/[0.06] text-[#B28B20] transition-all duration-500 group-hover:scale-110"
+                      className="relative mb-5 flex h-11 w-11 items-center justify-center rounded-xl border bg-[#00D6A0]/[0.06] text-[#00A87D] transition-all duration-500 group-hover:scale-110"
                       style={{
-                        borderColor: "rgba(212,175,55,0.22)",
+                        borderColor: "rgba(0, 214, 160,0.22)",
                       }}
                     >
                       <Icon
@@ -270,7 +270,7 @@ export default function BuiltForWeb3() {
                     <div className="relative mt-5 flex items-center gap-1.5">
                       <FiCheckCircle
                         size={11}
-                        className="text-[#B28B20]"
+                        className="text-[#00A87D]"
                       />
 
                       <span
@@ -315,7 +315,7 @@ export default function BuiltForWeb3() {
               className="absolute left-1/2 top-0 h-px w-2/3 -translate-x-1/2"
               style={{
                 background:
-                  "linear-gradient(to right, transparent, rgba(212,175,55,0.55), transparent)",
+                  "linear-gradient(to right, transparent, rgba(0, 214, 160,0.55), transparent)",
               }}
             />
 
@@ -324,14 +324,14 @@ export default function BuiltForWeb3() {
 
               <div className="flex items-start gap-4">
                 <div
-                  className="flex h-10 w-10 shrink-0 items-center justify-center rounded-xl border bg-[#D4AF37]/[0.06]"
+                  className="flex h-10 w-10 shrink-0 items-center justify-center rounded-xl border bg-[#00D6A0]/[0.06]"
                   style={{
-                    borderColor: "rgba(212,175,55,0.22)",
+                    borderColor: "rgba(0, 214, 160,0.22)",
                   }}
                 >
                   <FiShield
                     size={17}
-                    className="text-[#B28B20]"
+                    className="text-[#00A87D]"
                   />
                 </div>
 
@@ -359,16 +359,16 @@ export default function BuiltForWeb3() {
               {/* RIGHT STATUS */}
 
               <div
-                className="flex shrink-0 items-center gap-2 self-start rounded-full border bg-[#D4AF37]/[0.045] px-3 py-2 sm:self-auto"
+                className="flex shrink-0 items-center gap-2 self-start rounded-full border bg-[#00D6A0]/[0.045] px-3 py-2 sm:self-auto"
                 style={{
-                  borderColor: "rgba(212,175,55,0.2)",
+                  borderColor: "rgba(0, 214, 160,0.2)",
                 }}
               >
                 <span
-                  className="h-1.5 w-1.5 rounded-full bg-[#D4AF37]"
+                  className="h-1.5 w-1.5 rounded-full bg-[#00D6A0]"
                   style={{
                     boxShadow:
-                      "0 0 10px rgba(212,175,55,0.55)",
+                      "0 0 10px rgba(0, 214, 160,0.55)",
                   }}
                 />
 
@@ -382,7 +382,7 @@ export default function BuiltForWeb3() {
 
                 <FiArrowUpRight
                   size={11}
-                  className="text-[#B28B20]"
+                  className="text-[#00A87D]"
                 />
               </div>
             </div>
@@ -394,7 +394,7 @@ export default function BuiltForWeb3() {
         ===================================================== */}
 
         <div className="mt-7 flex flex-wrap items-center justify-center gap-x-5 gap-y-2">
-          <span className="text-[9px] font-bold uppercase tracking-[0.2em] text-[#B28B20]">
+          <span className="text-[9px] font-bold uppercase tracking-[0.2em] text-[#00A87D]">
             ARC
           </span>
 

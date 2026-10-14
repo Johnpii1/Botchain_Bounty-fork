@@ -573,16 +573,16 @@ function Create() {
   // THEME CLASSES
   // ---------------------------------------------------
 
-  const inputClass = `w-full rounded-xl  px-4 py-3 outline-none transition focus:ring-2 focus:ring-[#d4af37]/10 ${
+  const inputClass = `w-full rounded-xl  px-4 py-3 outline-none transition focus:ring-2 focus:ring-[#00D6A0]/10 ${
     dark
-      ? "bg-[#111311] border border-white/10 text-white placeholder:text-white/35 focus:border-[#D4AF37]"
-      : "bg-white border border-[#ddd9ce] text-[#171714] placeholder:text-[#99958a] focus:border-[#c49b2c]"
+      ? "bg-[#111311] border border-white/10 text-white placeholder:text-white/35 focus:border-[#00D6A0]"
+      : "bg-white border border-[#ddd9ce] text-[#171714] placeholder:text-[#99958a] focus:border-[#00D6A0]"
   }`;
 
-  const selectClass = `w-full rounded-xl px-4 py-3 cursor-pointer outline-none transition focus:ring-2 focus:ring-[#d4af37]/10 ${
+  const selectClass = `w-full rounded-xl px-4 py-3 cursor-pointer outline-none transition focus:ring-2 focus:ring-[#00D6A0]/10 ${
     dark
-      ? "bg-[#111311] border border-white/10 text-white focus:border-[#D4AF37]"
-      : "bg-white border border-[#ddd9ce] text-[#171714] focus:border-[#c49b2c]"
+      ? "bg-[#111311] border border-white/10 text-white focus:border-[#00D6A0]"
+      : "bg-white border border-[#ddd9ce] text-[#171714] focus:border-[#00D6A0]"
   }`;
 
   const cardClass = `relative overflow-hidden rounded-3xl border shadow-[0_18px_60px_rgba(0,0,0,0.08)] ${
@@ -598,8 +598,8 @@ function Create() {
   const softMutedClass = dark ? "text-white/45" : "text-[#858075]";
 
   const iconBoxClass = dark
-    ? "bg-[#D4AF37]/10 border border-[#D4AF37]/20 text-[#D4AF37]"
-    : "bg-[#f5f1e4] border border-[#e5ddc8] text-[#b28b20]";
+    ? "bg-[#00D6A0]/10 border border-[#00D6A0]/20 text-[#00D6A0]"
+    : "bg-[#f5f1e4] border border-[#e5ddc8] text-[#00A87D]";
 
   const softPanelClass = dark
     ? "bg-[#111311] border-white/10"
@@ -619,22 +619,22 @@ function Create() {
 
   const themeBorderClass = dark ? "border-white/10" : "border-[#e7e3da]";
 
-  const goldTextClass = dark ? "text-[#D4AF37]" : "text-[#b28b20]";
+  const goldTextClass = dark ? "text-[#00D6A0]" : "text-[#00A87D]";
   const selectedChoiceClass = dark
-    ? "bg-[#151715] border-white/10 text-[#D4AF37] hover:bg-[#1b1d1b]"
-    : "bg-[#171714] border-[#171714] text-[#d4af37] hover:bg-[#292922]";
+    ? "bg-[#151715] border-white/10 text-[#00D6A0] hover:bg-[#1b1d1b]"
+    : "bg-[#171714] border-[#171714] text-[#00D6A0] hover:bg-[#292922]";
 
   return (
     <div
       className={`min-h-screen flex flex-col transition-colors duration-300 ${
-        dark ? "bg-[#080908] text-white" : "bg-[#f7f6f0] text-[#171714]"
+        dark ? "bg-[#080B0D] text-white" : "bg-[#F3F5F3] text-[#171714]"
       }`}
       style={{
         backgroundImage: dark
           ? `
               linear-gradient(rgba(255,255,255,0.025) 1px, transparent 1px),
               linear-gradient(90deg, rgba(255,255,255,0.025) 1px, transparent 1px),
-              linear-gradient(90deg, transparent 49%, rgba(212,175,55,0.018) 50%, transparent 51%)
+              linear-gradient(90deg, transparent 49%, rgba(0, 214, 160,0.018) 50%, transparent 51%)
             `
           : `
               linear-gradient(rgba(112,105,88,0.035) 1px, transparent 1px),
@@ -652,8 +652,8 @@ function Create() {
               to="/dashboard"
               className={`inline-flex items-center gap-2 px-4 py-2.5 rounded-xl border text-sm font-semibold transition-all duration-200 ${
                 dark
-                  ? "bg-[#111311] border-white/10 text-white/70 hover:border-[#D4AF37]/60 hover:text-[#D4AF37] hover:bg-[#151715]"
-                  : "bg-white border-[#dcd8ce] text-[#4f4b43] hover:border-[#b28b20] hover:text-[#8f6c12] hover:bg-[#fbfaf6]"
+                  ? "bg-[#111311] border-white/10 text-white/70 hover:border-[#00D6A0]/60 hover:text-[#00D6A0] hover:bg-[#151715]"
+                  : "bg-white border-[#dcd8ce] text-[#4f4b43] hover:border-[#00A87D] hover:text-[#8f6c12] hover:bg-[#fbfaf6]"
               }`}
             >
               <FiArrowLeft size={16} />
@@ -665,7 +665,7 @@ function Create() {
           <div className="w-full max-w-4xl mx-auto mb-10">
             <div className="flex items-center gap-2 mb-4">
               <div
-                className={`flex items-center justify-center w-9 h-9 rounded-xl text-[#d4af37] ${
+                className={`flex items-center justify-center w-9 h-9 rounded-xl text-[#00D6A0] ${
                   dark
                     ? "bg-[#151715] border border-white/10"
                     : "bg-[#171714] border border-transparent"
@@ -727,7 +727,7 @@ function Create() {
 
               <div
                 className={`absolute top-[19px] left-6 h-px ${
-                  dark ? "bg-[#D4AF37]" : "bg-[#c49b2c]"
+                  dark ? "bg-[#00D6A0]" : "bg-[#00D6A0]"
                 } transition-all duration-500`}
                 style={{
                   width: `calc(${
@@ -746,13 +746,13 @@ function Create() {
                       className={`w-10 h-10 rounded-full flex items-center justify-center text-sm font-semibold border transition-all duration-300 ${
                         step < currentStep
                           ? dark
-                            ? "bg-[#151715] border-white/10 text-[#d4af37]"
-                            : "bg-[#171714] border-[#171714] text-[#d4af37]"
+                            ? "bg-[#151715] border-white/10 text-[#00D6A0]"
+                            : "bg-[#171714] border-[#171714] text-[#00D6A0]"
                           : step === currentStep
-                            ? "bg-[#d4af37] border-[#d4af37] text-[#171714] shadow-[0_5px_20px_rgba(212,175,55,0.25)]"
+                            ? "bg-[#00D6A0] border-[#00D6A0] text-[#171714] shadow-[0_5px_20px_rgba(0, 214, 160,0.25)]"
                             : dark
-                              ? "bg-[#080908] border-white/10 text-white/35"
-                              : "bg-[#f7f6f0] border-[#d8d4c8] text-[#989286]"
+                              ? "bg-[#080B0D] border-white/10 text-white/35"
+                              : "bg-[#F3F5F3] border-[#d8d4c8] text-[#989286]"
                       }`}
                     >
                       {step < currentStep ? <FiCheck size={17} /> : step}
@@ -801,7 +801,7 @@ function Create() {
             {/* STEP 1 */}
             {currentStep === 1 && (
               <div className={cardClass}>
-                <div className="absolute top-0 left-0 right-0 h-1 bg-[#d4af37]" />
+                <div className="absolute top-0 left-0 right-0 h-1 bg-[#00D6A0]" />
 
                 <div className="p-6 md:p-9">
                   <div className="flex items-start gap-4 mb-8">
@@ -817,7 +817,7 @@ function Create() {
                       <p
                         className={`text-sm mt-1 ${dark ? "text-white/55" : "text-[#817b70]"}`}
                       >
-                        Happy Bounty runs on Arc, where USDC is the native gas
+                        Happy Bounty runs on BOT Chain, where USDC is the native gas
                         and reward asset.
                       </p>
                     </div>
@@ -841,7 +841,7 @@ function Create() {
                         <div
                           className={`flex h-6 w-6 items-center justify-center rounded-full shrink-0 ${
                             dark
-                              ? "bg-[#D4AF37]/15 text-[#D4AF37]"
+                              ? "bg-[#00D6A0]/15 text-[#00D6A0]"
                               : "bg-[#f4ecd5] text-[#8f6c12]"
                           }`}
                         >
@@ -915,7 +915,7 @@ function Create() {
             {/* STEP 2 */}
             {currentStep === 2 && (
               <div className={cardClass}>
-                <div className="absolute top-0 left-0 right-0 h-1 bg-[#d4af37]" />
+                <div className="absolute top-0 left-0 right-0 h-1 bg-[#00D6A0]" />
 
                 <div className="p-6 md:p-9">
                   <div className="flex items-start gap-4 mb-8">
@@ -1019,11 +1019,11 @@ function Create() {
                                   className={`px-3 py-1.5 rounded-full text-xs font-medium border transition ${
                                     selected
                                       ? dark
-                                        ? "bg-[#D4AF37]/10 border-[#D4AF37]/50 text-[#D4AF37]"
-                                        : "bg-[#f4ecd5] border-[#d4af37] text-[#8f6c12]"
+                                        ? "bg-[#00D6A0]/10 border-[#00D6A0]/50 text-[#00D6A0]"
+                                        : "bg-[#f4ecd5] border-[#00D6A0] text-[#8f6c12]"
                                       : dark
-                                        ? "bg-[#111311] border-white/10 text-white/65 hover:border-[#D4AF37]/60 hover:text-[#D4AF37]"
-                                        : "bg-white border-[#ddd8ca] text-[#625e55] hover:border-[#c49b2c] hover:text-[#8f6c12]"
+                                        ? "bg-[#111311] border-white/10 text-white/65 hover:border-[#00D6A0]/60 hover:text-[#00D6A0]"
+                                        : "bg-white border-[#ddd8ca] text-[#625e55] hover:border-[#00D6A0] hover:text-[#8f6c12]"
                                   }`}
                                 >
                                   {tag}
@@ -1057,8 +1057,8 @@ function Create() {
                                   placeholder="e.g., memes, dao-tools, onboarding"
                                   className={`flex-1 rounded-xl px-4 py-2 text-sm outline-none transition ${
                                     dark
-                                      ? "bg-[#111311] border border-white/10 text-white placeholder:text-white/35 focus:border-[#D4AF37] focus:ring-2 focus:ring-[#d4af37]/10"
-                                      : "bg-white border border-[#ddd8ca] text-[#171714] placeholder:text-[#99958a] focus:border-[#c49b2c] focus:ring-2 focus:ring-[#d4af37]/10"
+                                      ? "bg-[#111311] border border-white/10 text-white placeholder:text-white/35 focus:border-[#00D6A0] focus:ring-2 focus:ring-[#00D6A0]/10"
+                                      : "bg-white border border-[#ddd8ca] text-[#171714] placeholder:text-[#99958a] focus:border-[#00D6A0] focus:ring-2 focus:ring-[#00D6A0]/10"
                                   }`}
                                 />
 
@@ -1069,7 +1069,7 @@ function Create() {
                                     !customTag.trim() ||
                                     bountyData.tags.length >= 5
                                   }
-                                  className={`px-4 py-2 rounded-xl border text-sm font-semibold hover:bg-[#292922] transition disabled:opacity-40 disabled:cursor-not-allowed ${darkButtonClass} text-[#d4af37]`}
+                                  className={`px-4 py-2 rounded-xl border text-sm font-semibold hover:bg-[#292922] transition disabled:opacity-40 disabled:cursor-not-allowed ${darkButtonClass} text-[#00D6A0]`}
                                 >
                                   Add
                                 </button>
@@ -1097,7 +1097,7 @@ function Create() {
                                     key={tag}
                                     className={`inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-semibold ${
                                       dark
-                                        ? "bg-[#D4AF37]/10 border border-[#D4AF37]/30 text-[#D4AF37]"
+                                        ? "bg-[#00D6A0]/10 border border-[#00D6A0]/30 text-[#00D6A0]"
                                         : "bg-[#f4ecd5] border border-[#e5d9b8] text-[#8f6c12]"
                                     }`}
                                   >
@@ -1109,7 +1109,7 @@ function Create() {
                                       aria-label={`Remove ${tag}`}
                                       className={`transition ${
                                         dark
-                                          ? "text-[#D4AF37] hover:text-white"
+                                          ? "text-[#00D6A0] hover:text-white"
                                           : "text-[#8f6c12] hover:text-[#171714]"
                                       }`}
                                     >
@@ -1217,7 +1217,7 @@ function Create() {
             {/* STEP 3 */}
             {currentStep === 3 && (
               <div className={cardClass}>
-                <div className="absolute top-0 left-0 right-0 h-1 bg-[#d4af37]" />
+                <div className="absolute top-0 left-0 right-0 h-1 bg-[#00D6A0]" />
 
                 <div className="p-6 md:p-9">
                   <div className="flex items-start gap-4 mb-8">
@@ -1277,8 +1277,8 @@ function Create() {
                           <div
                             className={`w-9 h-9 rounded-xl flex items-center justify-center ${
                               dark
-                                ? "bg-[#D4AF37]/10 text-[#D4AF37]"
-                                : "bg-[#f3efe2] text-[#b28b20]"
+                                ? "bg-[#00D6A0]/10 text-[#00D6A0]"
+                                : "bg-[#f3efe2] text-[#00A87D]"
                             }`}
                           >
                             <FiUsers size={16} />
@@ -1306,8 +1306,8 @@ function Create() {
                           <div
                             className={`w-12 h-6 rounded-full transition-all ${
                               dark
-                                ? "bg-white/15 peer-checked:bg-[#d4af37]"
-                                : "bg-[#d8d4ca] peer-checked:bg-[#d4af37]"
+                                ? "bg-white/15 peer-checked:bg-[#00D6A0]"
+                                : "bg-[#d8d4ca] peer-checked:bg-[#00D6A0]"
                             }`}
                           />
 
@@ -1323,7 +1323,7 @@ function Create() {
                         <div className="flex flex-wrap gap-3 items-center">
                           <button
                             onClick={() => setShowEqualModal(true)}
-                            className={`px-4 py-2.5 rounded-xl text-sm font-medium text-[#d4af37] border hover:bg-[#292922] transition ${darkButtonClass}`}
+                            className={`px-4 py-2.5 rounded-xl text-sm font-medium text-[#00D6A0] border hover:bg-[#292922] transition ${darkButtonClass}`}
                           >
                             Equal Split
                           </button>
@@ -1337,10 +1337,10 @@ function Create() {
                                 setPercentageInput("");
                               }
                             }}
-                            className={`px-4 py-2.5 rounded-xl border text-sm font-medium transition hover:border-[#c49b2c] ${
+                            className={`px-4 py-2.5 rounded-xl border text-sm font-medium transition hover:border-[#00D6A0] ${
                               dark
-                                ? "bg-[#111311] border-white/10 text-white hover:border-[#D4AF37]"
-                                : "bg-white border-[#d8d3c6] text-[#292720] hover:border-[#c49b2c]"
+                                ? "bg-[#111311] border-white/10 text-white hover:border-[#00D6A0]"
+                                : "bg-white border-[#d8d3c6] text-[#292720] hover:border-[#00D6A0]"
                             }`}
                           >
                             % Split
@@ -1351,8 +1351,8 @@ function Create() {
                               onClick={() => setShowInfoMenu(!showInfoMenu)}
                               className={`w-10 h-10 rounded-xl border flex items-center justify-center transition ${
                                 dark
-                                  ? "border-white/10 bg-[#111311] text-white/55 hover:text-[#D4AF37] hover:border-[#D4AF37]"
-                                  : "border-[#ddd8cb] bg-white text-[#777267] hover:text-[#b28b20] hover:border-[#c49b2c]"
+                                  ? "border-white/10 bg-[#111311] text-white/55 hover:text-[#00D6A0] hover:border-[#00D6A0]"
+                                  : "border-[#ddd8cb] bg-white text-[#777267] hover:text-[#00A87D] hover:border-[#00D6A0]"
                               }`}
                             >
                               <FiInfo size={17} />
@@ -1367,20 +1367,20 @@ function Create() {
                                 }`}
                               >
                                 <p className="text-xs leading-relaxed">
-                                  <span className="font-semibold text-[#d4af37]">
+                                  <span className="font-semibold text-[#00D6A0]">
                                     Equal split:
                                   </span>{" "}
                                   Reward split equally among winners.
                                 </p>
 
                                 <p className="text-xs leading-relaxed mt-3">
-                                  <span className="font-semibold text-[#d4af37]">
+                                  <span className="font-semibold text-[#00D6A0]">
                                     % split:
                                   </span>{" "}
                                   Custom percentages for each winner.
                                 </p>
 
-                                <p className="text-xs font-semibold text-[#d4af37] mt-3">
+                                <p className="text-xs font-semibold text-[#00D6A0] mt-3">
                                   Supported configs
                                 </p>
 
@@ -1397,7 +1397,7 @@ function Create() {
                               <span
                                 className={`text-xs font-semibold px-3 py-1.5 rounded-full ${
                                   dark
-                                    ? "text-[#D4AF37] bg-[#D4AF37]/10 border border-[#D4AF37]/30"
+                                    ? "text-[#00D6A0] bg-[#00D6A0]/10 border border-[#00D6A0]/30"
                                     : "text-[#8f6c12] bg-[#f4ecd5] border border-[#e5d9b8]"
                                 }`}
                               >
@@ -1410,7 +1410,7 @@ function Create() {
                               <span
                                 className={`text-xs font-semibold px-3 py-1.5 rounded-full ${
                                   dark
-                                    ? "text-[#D4AF37] bg-[#D4AF37]/10 border border-[#D4AF37]/30"
+                                    ? "text-[#00D6A0] bg-[#00D6A0]/10 border border-[#00D6A0]/30"
                                     : "text-[#8f6c12] bg-[#f4ecd5] border border-[#e5d9b8]"
                                 }`}
                               >
@@ -1437,10 +1437,10 @@ function Create() {
                           }
                           className={`px-5 py-2.5 rounded-xl text-sm font-semibold transition ${
                             bountyData.rewardType === "self-fund"
-                              ? `${darkButtonClass} text-[#d4af37]`
+                              ? `${darkButtonClass} text-[#00D6A0]`
                               : dark
-                                ? "bg-[#111311] border border-white/10 text-white/65 hover:border-[#D4AF37]"
-                                : "bg-white border border-[#d8d3c6] text-[#625e55] hover:border-[#c49b2c]"
+                                ? "bg-[#111311] border border-white/10 text-white/65 hover:border-[#00D6A0]"
+                                : "bg-white border border-[#d8d3c6] text-[#625e55] hover:border-[#00D6A0]"
                           }`}
                         >
                           Self-Fund
@@ -1477,8 +1477,8 @@ function Create() {
                           <div
                             className={`flex items-center justify-between rounded-xl h-12 px-4 border ${
                               dark
-                                ? "border-white/10 bg-[#111311] focus-within:border-[#D4AF37]"
-                                : "border-[#dcd8cd] bg-white focus-within:border-[#c49b2c]"
+                                ? "border-white/10 bg-[#111311] focus-within:border-[#00D6A0]"
+                                : "border-[#dcd8cd] bg-white focus-within:border-[#00D6A0]"
                             }`}
                           >
                             <input
@@ -1569,7 +1569,7 @@ function Create() {
                     <div
                       className={`rounded-2xl border p-5 ${
                         dark
-                          ? "border-[#D4AF37]/30 bg-[#D4AF37]/10"
+                          ? "border-[#00D6A0]/30 bg-[#00D6A0]/10"
                           : "border-[#d9cfb4] bg-[#fbf7e9]"
                       }`}
                     >
@@ -1589,7 +1589,7 @@ function Create() {
                         <div
                           className={`flex items-center justify-between rounded-xl h-12 px-4 w-full md:w-64 border ${
                             dark
-                              ? "border-[#D4AF37]/30 bg-[#111311]"
+                              ? "border-[#00D6A0]/30 bg-[#111311]"
                               : "border-[#d8c895] bg-white"
                           }`}
                         >
@@ -1604,7 +1604,7 @@ function Create() {
 
                           <p
                             className={`text-sm font-bold ${
-                              dark ? "text-[#D4AF37]" : "text-[#9a7619]"
+                              dark ? "text-[#00D6A0]" : "text-[#9a7619]"
                             }`}
                           >
                             {bountyData.token}
@@ -1650,7 +1650,7 @@ function Create() {
             {/* STEP 4 */}
             {currentStep === 4 && (
               <div className={cardClass}>
-                <div className="absolute top-0 left-0 right-0 h-1 bg-[#d4af37]" />
+                <div className="absolute top-0 left-0 right-0 h-1 bg-[#00D6A0]" />
 
                 <div className="p-6 md:p-9">
                   <div className="flex items-start gap-4 mb-8">
@@ -1764,7 +1764,7 @@ function Create() {
                             href={bountyData.originLink}
                             target="_blank"
                             rel="noopener noreferrer"
-                            className={`hover:underline ${dark ? "text-[#D4AF37]" : "text-[#9a7619]"}`}
+                            className={`hover:underline ${dark ? "text-[#00D6A0]" : "text-[#9a7619]"}`}
                           >
                             {bountyData.originLink.length > 40
                               ? bountyData.originLink.substring(0, 40) + "..."
@@ -1786,7 +1786,7 @@ function Create() {
                     <div
                       className={`flex flex-col sm:flex-row sm:justify-between sm:items-center gap-2 px-5 py-5 border-b ${
                         dark
-                          ? "bg-[#D4AF37]/10 border-[#D4AF37]/20"
+                          ? "bg-[#00D6A0]/10 border-[#00D6A0]/20"
                           : "bg-[#fbf7e9] border-[#e7dfc9]"
                       }`}
                     >
@@ -1800,7 +1800,7 @@ function Create() {
 
                       <span
                         className={`text-lg font-bold ${
-                          dark ? "text-[#D4AF37]" : "text-[#8f6c12]"
+                          dark ? "text-[#00D6A0]" : "text-[#8f6c12]"
                         }`}
                       >
                         {totalAmountDisplay} {bountyData.token}
@@ -1908,7 +1908,7 @@ function Create() {
                   to="/dashboard"
                   className={`inline-flex items-center gap-2 px-5 py-3 rounded-xl border text-sm font-semibold transition ${
                     dark
-                      ? "bg-[#111311] border-white/10 text-white/70 hover:border-[#D4AF37]/50 hover:bg-[#151715]"
+                      ? "bg-[#111311] border-white/10 text-white/70 hover:border-[#00D6A0]/50 hover:bg-[#151715]"
                       : "bg-white border-[#dcd8ce] text-[#4f4b43] hover:border-[#bdb7a9] hover:bg-[#fbfaf6]"
                   }`}
                 >
@@ -1920,7 +1920,7 @@ function Create() {
                   onClick={prevStep}
                   className={`inline-flex items-center gap-2 px-5 py-3 rounded-xl border text-sm font-semibold transition ${
                     dark
-                      ? "bg-[#111311] border-white/10 text-white/70 hover:border-[#D4AF37]/50 hover:bg-[#151715]"
+                      ? "bg-[#111311] border-white/10 text-white/70 hover:border-[#00D6A0]/50 hover:bg-[#151715]"
                       : "bg-white border-[#dcd8ce] text-[#4f4b43] hover:border-[#bdb7a9] hover:bg-[#fbfaf6]"
                   }`}
                 >
@@ -1933,11 +1933,11 @@ function Create() {
                 <button
                   onClick={handleFinalSubmit}
                   disabled={isProcessing}
-                  className={`inline-flex items-center gap-2 px-6 py-3 rounded-xl text-[#d4af37] text-sm font-bold border hover:bg-[#292922] transition disabled:opacity-50 disabled:cursor-not-allowed ${darkButtonClass}`}
+                  className={`inline-flex items-center gap-2 px-6 py-3 rounded-xl text-[#00D6A0] text-sm font-bold border hover:bg-[#292922] transition disabled:opacity-50 disabled:cursor-not-allowed ${darkButtonClass}`}
                 >
                   {isProcessing ? (
                     <>
-                      <span className="w-4 h-4 border-2 border-[#d4af37]/30 border-t-[#d4af37] rounded-full animate-spin" />
+                      <span className="w-4 h-4 border-2 border-[#00D6A0]/30 border-t-[#00D6A0] rounded-full animate-spin" />
                       Processing...
                     </>
                   ) : (
@@ -1950,7 +1950,7 @@ function Create() {
               ) : (
                 <button
                   onClick={nextStep}
-                  className="inline-flex items-center gap-2 px-6 py-3 rounded-xl bg-[#d4af37] text-[#171714] text-sm font-bold hover:bg-[#c49b2c] transition shadow-[0_8px_24px_rgba(212,175,55,0.16)]"
+                  className="inline-flex items-center gap-2 px-6 py-3 rounded-xl bg-[#00D6A0] text-[#171714] text-sm font-bold hover:bg-[#00D6A0] transition shadow-[0_8px_24px_rgba(0, 214, 160,0.16)]"
                 >
                   Continue
                   <FiArrowRight size={16} />
@@ -1984,7 +1984,7 @@ function Create() {
                 <div
                   className={`w-10 h-10 rounded-xl flex items-center justify-center mb-3 ${
                     dark
-                      ? "bg-[#D4AF37]/10 text-[#D4AF37]"
+                      ? "bg-[#00D6A0]/10 text-[#00D6A0]"
                       : "bg-[#f1ead4] text-[#a17a17]"
                   }`}
                 >
@@ -2043,7 +2043,7 @@ function Create() {
 
               <button
                 onClick={handleEqualSplitConfirm}
-                className={`cursor-pointer flex-1 px-4 py-3 rounded-xl border font-semibold transition focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#d4af37]/50 ${selectedChoiceClass}`}
+                className={`cursor-pointer flex-1 px-4 py-3 rounded-xl border font-semibold transition focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#00D6A0]/50 ${selectedChoiceClass}`}
               >
                 Confirm
               </button>
@@ -2075,7 +2075,7 @@ function Create() {
                 <div
                   className={`w-10 h-10 rounded-xl flex items-center justify-center mb-3 ${
                     dark
-                      ? "bg-[#D4AF37]/10 text-[#D4AF37]"
+                      ? "bg-[#00D6A0]/10 text-[#00D6A0]"
                       : "bg-[#f1ead4] text-[#a17a17]"
                   }`}
                 >
@@ -2116,8 +2116,8 @@ function Create() {
                 onClick={() => handlePresetSelect([40, 30, 20, 5, 5])}
                 className={`w-full text-left px-4 py-3 rounded-xl border transition ${
                   dark
-                    ? "bg-[#151715] border-white/10 text-white hover:border-[#D4AF37]"
-                    : "bg-white border-[#ddd8ca] text-[#3e3b35] hover:border-[#c49b2c]"
+                    ? "bg-[#151715] border-white/10 text-white hover:border-[#00D6A0]"
+                    : "bg-white border-[#ddd8ca] text-[#3e3b35] hover:border-[#00D6A0]"
                 }`}
               >
                 <span className="font-semibold">[40, 30, 20, 5, 5]</span>{" "}
@@ -2130,8 +2130,8 @@ function Create() {
                 onClick={() => handlePresetSelect([40, 30, 20, 10])}
                 className={`w-full text-left px-4 py-3 rounded-xl border transition ${
                   dark
-                    ? "bg-[#151715] border-white/10 text-white hover:border-[#D4AF37]"
-                    : "bg-white border-[#ddd8ca] text-[#3e3b35] hover:border-[#c49b2c]"
+                    ? "bg-[#151715] border-white/10 text-white hover:border-[#00D6A0]"
+                    : "bg-white border-[#ddd8ca] text-[#3e3b35] hover:border-[#00D6A0]"
                 }`}
               >
                 <span className="font-semibold">[40, 30, 20, 10]</span>{" "}
@@ -2144,8 +2144,8 @@ function Create() {
                 onClick={() => handlePresetSelect([50, 30, 20])}
                 className={`w-full text-left px-4 py-3 rounded-xl border transition ${
                   dark
-                    ? "bg-[#151715] border-white/10 text-white hover:border-[#D4AF37]"
-                    : "bg-white border-[#ddd8ca] text-[#3e3b35] hover:border-[#c49b2c]"
+                    ? "bg-[#151715] border-white/10 text-white hover:border-[#00D6A0]"
+                    : "bg-white border-[#ddd8ca] text-[#3e3b35] hover:border-[#00D6A0]"
                 }`}
               >
                 <span className="font-semibold">[50, 30, 20]</span>{" "}
@@ -2158,8 +2158,8 @@ function Create() {
                 onClick={() => handlePresetSelect([50, 50])}
                 className={`w-full text-left px-4 py-3 rounded-xl border transition ${
                   dark
-                    ? "bg-[#151715] border-white/10 text-white hover:border-[#D4AF37]"
-                    : "bg-white border-[#ddd8ca] text-[#3e3b35] hover:border-[#c49b2c]"
+                    ? "bg-[#151715] border-white/10 text-white hover:border-[#00D6A0]"
+                    : "bg-white border-[#ddd8ca] text-[#3e3b35] hover:border-[#00D6A0]"
                 }`}
               >
                 <span className="font-semibold">[50, 50]</span>{" "}
@@ -2232,7 +2232,7 @@ function Create() {
 
               <button
                 onClick={handlePercentSplitConfirm}
-                className={`cursor-pointer flex-1 px-4 py-3 rounded-xl border font-semibold transition focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#d4af37]/50 ${selectedChoiceClass}`}
+                className={`cursor-pointer flex-1 px-4 py-3 rounded-xl border font-semibold transition focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#00D6A0]/50 ${selectedChoiceClass}`}
               >
                 Confirm
               </button>
