@@ -48,18 +48,18 @@ const BountyCard = ({ bounty, enrolledBountyIds = [] }) => {
 
   const statusConfig = {
     active: {
-      color: "text-emerald-700 dark:text-emerald-400",
-      bg: "bg-emerald-50 dark:bg-emerald-500/10",
-      border: "border-emerald-200 dark:border-emerald-500/20",
-      dot: "bg-emerald-500",
+      color: "text-[#8f6c12] dark:text-[#D4A017]",
+      bg: "bg-[#f4ecd5] dark:bg-[#D4A017]/10",
+      border: "border-[#e5d9b8] dark:border-[#D4A017]/20",
+      dot: "bg-[#D4A017]",
       label: "Active",
     },
 
     upcoming: {
-      color: "text-[#8f6c12] dark:text-[#00D6A0]",
-      bg: "bg-[#f4ecd5] dark:bg-[#00D6A0]/10",
-      border: "border-[#e5d9b8] dark:border-[#00D6A0]/20",
-      dot: "bg-[#00D6A0]",
+      color: "text-[#8f6c12] dark:text-[#D4A017]",
+      bg: "bg-[#f4ecd5] dark:bg-[#D4A017]/10",
+      border: "border-[#e5d9b8] dark:border-[#D4A017]/20",
+      dot: "bg-[#D4A017]",
       label: "Upcoming",
     },
 
@@ -72,10 +72,10 @@ const BountyCard = ({ bounty, enrolledBountyIds = [] }) => {
     },
 
     completed: {
-      color: "text-[#8f6c12] dark:text-[#00D6A0]",
-      bg: "bg-[#f4ecd5] dark:bg-[#00D6A0]/10",
-      border: "border-[#e5d9b8] dark:border-[#00D6A0]/20",
-      dot: "bg-[#00D6A0]",
+      color: "text-[#8f6c12] dark:text-[#D4A017]",
+      bg: "bg-[#f4ecd5] dark:bg-[#D4A017]/10",
+      border: "border-[#e5d9b8] dark:border-[#D4A017]/20",
+      dot: "bg-[#D4A017]",
       label: "Completed",
     },
 
@@ -211,8 +211,8 @@ const BountyCard = ({ bounty, enrolledBountyIds = [] }) => {
         transition-all duration-300 ease-out
 
         hover:-translate-y-1
-        hover:border-[#00D6A0]/30
-        dark:hover:border-[#00D6A0]/40
+        hover:border-[#D4A017]/30
+        dark:hover:border-[#D4A017]/40
 
         hover:shadow-[0_18px_45px_rgba(15,23,42,0.10)]
         dark:hover:shadow-[0_18px_45px_rgba(0,0,0,0.45)]
@@ -222,7 +222,7 @@ const BountyCard = ({ bounty, enrolledBountyIds = [] }) => {
       <div
         className="
           absolute left-0 right-0 top-0 h-[2px]
-          bg-gradient-to-r from-transparent via-[#00D6A0] to-transparent
+          bg-gradient-to-r from-transparent via-[#D4A017] to-transparent
           opacity-50
           transition-opacity duration-300
           group-hover:opacity-100
@@ -234,7 +234,7 @@ const BountyCard = ({ bounty, enrolledBountyIds = [] }) => {
         className="
           pointer-events-none absolute -right-20 -top-20 h-40 w-40
           rounded-full
-          bg-[#00D6A0]/[0.035]
+          bg-[#D4A017]/[0.035]
           blur-3xl
           opacity-0
           transition-opacity duration-500
@@ -250,7 +250,7 @@ const BountyCard = ({ bounty, enrolledBountyIds = [] }) => {
           opacity-0
           transition-opacity duration-500
           group-hover:opacity-100
-          dark:bg-[radial-gradient(circle_at_80%_0%,rgba(0, 214, 160,0.045),transparent_35%)]
+          dark:bg-[radial-gradient(circle_at_80%_0%,rgba(212, 160, 23,0.045),transparent_35%)]
         "
       />
 
@@ -269,10 +269,10 @@ const BountyCard = ({ bounty, enrolledBountyIds = [] }) => {
                 dark:bg-white/[0.04]
 
                 text-slate-500
-                dark:text-[#00D6A0]
+                dark:text-[#D4A017]
 
                 transition-colors
-                group-hover:border-[#00D6A0]/30
+                group-hover:border-[#D4A017]/30
               "
             >
               <FiLayers size={14} />
@@ -344,7 +344,7 @@ const BountyCard = ({ bounty, enrolledBountyIds = [] }) => {
             transition-colors duration-200
 
             group-hover:text-[#8f6c12]
-            dark:group-hover:text-[#00D6A0]
+            dark:group-hover:text-[#D4A017]
 
             sm:text-xl
           "
@@ -384,10 +384,10 @@ const BountyCard = ({ bounty, enrolledBountyIds = [] }) => {
 
                     transition-colors
 
-                    group-hover:border-[#00D6A0]/30
+                    group-hover:border-[#D4A017]/30
                     group-hover:text-[#8f6c12]
 
-                    dark:group-hover:text-[#00D6A0]
+                    dark:group-hover:text-[#D4A017]
                   "
                 >
                   #{tag}
@@ -467,7 +467,7 @@ const BountyCard = ({ bounty, enrolledBountyIds = [] }) => {
         ${
           timeRemaining.urgent
             ? "text-red-600 dark:text-red-400"
-            : "text-[#8f6c12] dark:text-[#00D6A0]"
+            : "text-[#8f6c12] dark:text-[#D4A017]"
         }
       `}
               >
@@ -514,13 +514,13 @@ const BountyCard = ({ bounty, enrolledBountyIds = [] }) => {
 
               transition-all duration-200
 
-              hover:border-[#00D6A0]/40
+              hover:border-[#D4A017]/40
               hover:bg-[#fbfaf6]
 
-              dark:hover:bg-[#00D6A0]/[0.06]
+              dark:hover:bg-[#D4A017]/[0.06]
 
               hover:text-[#8f6c12]
-              dark:hover:text-[#00D6A0]
+              dark:hover:text-[#D4A017]
 
               sm:text-sm
             "
@@ -548,7 +548,7 @@ const BountyCard = ({ bounty, enrolledBountyIds = [] }) => {
                 flex min-w-0 items-center justify-center
                 gap-1.5 overflow-hidden rounded-xl
 
-                bg-[#00D6A0]
+                bg-[#D4A017]
                 dark:bg-[#e0bd45]
 
                 px-3 py-3
@@ -562,7 +562,7 @@ const BountyCard = ({ bounty, enrolledBountyIds = [] }) => {
 
                 transition-all duration-300
 
-                hover:bg-[#00D6A0]
+                hover:bg-[#D4A017]
                 dark:hover:bg-[#d2ac2f]
 
                 active:scale-[0.98]
@@ -575,7 +575,7 @@ const BountyCard = ({ bounty, enrolledBountyIds = [] }) => {
                   absolute bottom-0 left-0
                   h-[2px] w-full
 
-                  bg-[#00D6A0]
+                  bg-[#D4A017]
                   dark:bg-[#171714]
 
                   opacity-80
@@ -592,18 +592,18 @@ const BountyCard = ({ bounty, enrolledBountyIds = [] }) => {
       flex min-w-0 items-center justify-center
       gap-1.5 overflow-hidden rounded-xl
 
-      border border-[#00D6A0]/30
-      dark:border-[#00D6A0]/25
+      border border-[#D4A017]/30
+      dark:border-[#D4A017]/25
 
       bg-[#f4ecd5]/60
-      dark:bg-[#00D6A0]/[0.08]
+      dark:bg-[#D4A017]/[0.08]
 
       px-3 py-3
 
       text-xs font-semibold
 
       text-[#8f6c12]
-      dark:text-[#00D6A0]/80
+      dark:text-[#D4A017]/80
 
       cursor-default
 
@@ -624,7 +624,7 @@ const BountyCard = ({ bounty, enrolledBountyIds = [] }) => {
                 relative
                 min-w-0 overflow-hidden rounded-xl
 
-                bg-[#00D6A0]
+                bg-[#D4A017]
                 dark:bg-[#e0bd45]
 
                 px-3 py-3
@@ -638,7 +638,7 @@ const BountyCard = ({ bounty, enrolledBountyIds = [] }) => {
 
                 transition-all duration-300
 
-                hover:bg-[#00D6A0]
+                hover:bg-[#D4A017]
                 dark:hover:bg-[#d2ac2f]
 
                 hover:shadow-md
@@ -656,7 +656,7 @@ const BountyCard = ({ bounty, enrolledBountyIds = [] }) => {
                   absolute bottom-0 left-0
                   h-[2px] w-full
 
-                  bg-[#00D6A0]
+                  bg-[#D4A017]
                   dark:bg-[#171714]
 
                   opacity-80
@@ -683,14 +683,14 @@ const BountyCard = ({ bounty, enrolledBountyIds = [] }) => {
                 </span>
               ) : (
                 <span className="flex items-center justify-center gap-1.5">
-                  <span className="truncate">Start Task</span>
+                  <span className="truncate">Join Bounty</span>
 
                   <FiArrowUpRight
                     size={14}
                     className="
                       shrink-0
 
-                      text-[#00D6A0]
+                      text-[#D4A017]
                       dark:text-[#171714]
                     "
                   />
