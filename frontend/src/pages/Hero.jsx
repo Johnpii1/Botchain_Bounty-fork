@@ -11,7 +11,7 @@ const heroMessages = [
 ];
 
 // Official BOT Chain ecosystem artwork from botchain.ai.
-const BOT_CHAIN_HALO = "https://www.botchain.ai/icons/icon_feature_halo.png";
+const BOT_CHAIN_HALO = "https://www.botchain.ai/favicon.ico";
 
 export default function Hero({ dark }) {
   const [heroText, setHeroText] = useState(0);
