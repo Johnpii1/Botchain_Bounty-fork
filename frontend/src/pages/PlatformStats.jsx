@@ -12,9 +12,9 @@ const platformHighlights = [
   {
     icon: FiLayers,
     value: "ARC",
-    label: "Built for Arc",
+    label: "Built for BOT Chain",
     description:
-      "A bounty experience designed around Arc's fast, USDC-native on-chain environment.",
+      "A bounty experience designed around BOT Chain's fast, USDC-native on-chain environment.",
     accent: "gold",
   },
   {
@@ -123,7 +123,7 @@ const PlatformStats = () => {
             className="absolute left-[-180px] top-[8%] h-[420px] w-[420px] rounded-full blur-[150px]"
             style={{
               background:
-                "radial-gradient(circle, rgba(212,175,55,0.10), transparent 70%)",
+                "radial-gradient(circle, rgba(0, 214, 160,0.10), transparent 70%)",
             }}
           />
 
@@ -133,7 +133,7 @@ const PlatformStats = () => {
             className="absolute bottom-[-180px] right-[-130px] h-[430px] w-[430px] rounded-full blur-[150px]"
             style={{
               background:
-                "radial-gradient(circle, rgba(212,175,55,0.065), transparent 70%)",
+                "radial-gradient(circle, rgba(0, 214, 160,0.065), transparent 70%)",
             }}
           />
 
@@ -143,7 +143,7 @@ const PlatformStats = () => {
             className="absolute left-1/2 top-[42%] h-[320px] w-[700px] -translate-x-1/2 -translate-y-1/2 rounded-full blur-[150px]"
             style={{
               background:
-                "radial-gradient(circle, rgba(212,175,55,0.045), transparent 70%)",
+                "radial-gradient(circle, rgba(0, 214, 160,0.045), transparent 70%)",
             }}
           />
 
@@ -166,9 +166,9 @@ const PlatformStats = () => {
 
             <div className="arc-section-badge mx-auto mb-5 flex w-fit items-center gap-2 rounded-full border px-3.5 py-2">
               <span className="relative flex h-2 w-2">
-                <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-[#D4AF37] opacity-40" />
+                <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-[#00D6A0] opacity-40" />
 
-                <span className="relative inline-flex h-2 w-2 rounded-full bg-[#D4AF37]" />
+                <span className="relative inline-flex h-2 w-2 rounded-full bg-[#00D6A0]" />
               </span>
 
               <span
@@ -176,7 +176,7 @@ const PlatformStats = () => {
                   dark ? "text-white/55" : "text-[#1f2937]"
                 }`}
               >
-                Built for Arc
+                Built for BOT Chain
               </span>
 
               <span
@@ -185,7 +185,7 @@ const PlatformStats = () => {
                 }`}
               />
 
-              <span className="text-[10px] font-semibold uppercase tracking-[0.16em] text-[#B28B20]">
+              <span className="text-[10px] font-semibold uppercase tracking-[0.16em] text-[#00A87D]">
                 USDC Native
               </span>
             </div>
@@ -227,10 +227,10 @@ const PlatformStats = () => {
 
                 const accentStyles = {
                   gold: {
-                    border: "rgba(212,175,55,0.22)",
-                    background: "rgba(212,175,55,0.075)",
-                    color: "#B28B20",
-                    glow: "rgba(212,175,55,0.16)",
+                    border: "rgba(0, 214, 160,0.22)",
+                    background: "rgba(0, 214, 160,0.075)",
+                    color: "#00A87D",
+                    glow: "rgba(0, 214, 160,0.16)",
                   },
                 };
 
@@ -319,7 +319,7 @@ const PlatformStats = () => {
                             color:
                               item.value === "USDC" ||
                               item.value === "ARC"
-                                ? "#B28B20"
+                                ? "#00A87D"
                                 : dark
                                   ? "#ffffff"
                                   : "#111111",
@@ -361,7 +361,7 @@ const PlatformStats = () => {
                             dark ? "text-white/30" : "text-[#99958c]"
                           }`}
                         >
-                          Arc ecosystem
+                          BOT Chain ecosystem
                         </span>
 
                         <FiArrowUpRight
@@ -386,18 +386,18 @@ const PlatformStats = () => {
             <div className="arc-bottom-panel relative overflow-hidden rounded-[24px] border p-5 sm:p-6">
               {/* GOLD LIGHT */}
 
-              <div className="pointer-events-none absolute left-[18%] top-0 h-[160px] w-[300px] rounded-full bg-[#D4AF37]/[0.07] blur-[90px]" />
+              <div className="pointer-events-none absolute left-[18%] top-0 h-[160px] w-[300px] rounded-full bg-[#00D6A0]/[0.07] blur-[90px]" />
 
               {/* SOFT GOLD LIGHT */}
 
-              <div className="pointer-events-none absolute bottom-[-80px] right-[10%] h-[180px] w-[280px] rounded-full bg-[#D4AF37]/[0.05] blur-[90px]" />
+              <div className="pointer-events-none absolute bottom-[-80px] right-[10%] h-[180px] w-[280px] rounded-full bg-[#00D6A0]/[0.05] blur-[90px]" />
 
               <div className="relative flex flex-col gap-6 sm:flex-row sm:items-center sm:justify-between">
                 {/* LEFT */}
 
                 <div className="flex items-start gap-4">
-                  <div className="flex h-11 w-11 shrink-0 items-center justify-center rounded-xl border border-[#D4AF37]/20 bg-[#D4AF37]/[0.07]">
-                    <FiCheckCircle size={18} className="text-[#B28B20]" />
+                  <div className="flex h-11 w-11 shrink-0 items-center justify-center rounded-xl border border-[#00D6A0]/20 bg-[#00D6A0]/[0.07]">
+                    <FiCheckCircle size={18} className="text-[#00A87D]" />
                   </div>
 
                   <div>
@@ -410,7 +410,7 @@ const PlatformStats = () => {
                         One workflow. Built around USDC.
                       </p>
 
-                      <span className="rounded-full border border-[#D4AF37]/15 bg-[#D4AF37]/[0.06] px-2 py-1 text-[8px] font-bold uppercase tracking-[0.14em] text-[#B28B20]">
+                      <span className="rounded-full border border-[#00D6A0]/15 bg-[#00D6A0]/[0.06] px-2 py-1 text-[8px] font-bold uppercase tracking-[0.14em] text-[#00A87D]">
                         ARC
                       </span>
                     </div>
@@ -432,14 +432,14 @@ const PlatformStats = () => {
                 <div
                   className={`flex shrink-0 items-center gap-2 self-start rounded-full border px-3.5 py-2.5 shadow-sm transition-colors duration-300 sm:self-auto ${
                     dark
-                      ? "border-[#D4AF37]/15 bg-[#151715]"
-                      : "border-[#D4AF37]/15 bg-white/70"
+                      ? "border-[#00D6A0]/15 bg-[#151715]"
+                      : "border-[#00D6A0]/15 bg-white/70"
                   }`}
                 >
                   <span className="relative flex h-1.5 w-1.5">
-                    <span className="absolute h-full w-full animate-ping rounded-full bg-[#D4AF37]/40" />
+                    <span className="absolute h-full w-full animate-ping rounded-full bg-[#00D6A0]/40" />
 
-                    <span className="relative h-1.5 w-1.5 rounded-full bg-[#D4AF37]" />
+                    <span className="relative h-1.5 w-1.5 rounded-full bg-[#00D6A0]" />
                   </span>
 
                   <span
@@ -450,7 +450,7 @@ const PlatformStats = () => {
                     Arc / USDC
                   </span>
 
-                  <FiArrowUpRight size={11} className="text-[#B28B20]" />
+                  <FiArrowUpRight size={11} className="text-[#00A87D]" />
                 </div>
               </div>
             </div>
@@ -477,7 +477,7 @@ const PlatformStats = () => {
           background:
             radial-gradient(
               circle at 50% 0%,
-              rgba(212, 175, 55, 0.055),
+              rgba(0, 214, 160, 0.055),
               transparent 34%
             ),
             linear-gradient(
@@ -493,14 +493,14 @@ const PlatformStats = () => {
           background:
             radial-gradient(
               circle at 50% 0%,
-              rgba(212, 175, 55, 0.07),
+              rgba(0, 214, 160, 0.07),
               transparent 34%
             ),
             linear-gradient(
               180deg,
-              #080908 0%,
+              #080B0D 0%,
               #0b0d0b 50%,
-              #080908 100%
+              #080B0D 100%
             );
           color: #ffffff;
         }
@@ -545,12 +545,12 @@ const PlatformStats = () => {
         .platform-stats-dark .arc-brick-pattern {
           background-image:
             linear-gradient(
-              rgba(212, 175, 55, 0.055) 1px,
+              rgba(0, 214, 160, 0.055) 1px,
               transparent 1px
             ),
             linear-gradient(
               90deg,
-              rgba(212, 175, 55, 0.04) 1px,
+              rgba(0, 214, 160, 0.04) 1px,
               transparent 1px
             );
           opacity: 0.45;
@@ -561,10 +561,10 @@ const PlatformStats = () => {
         ======================================== */
 
         .arc-section-badge {
-          border-color: rgba(212, 175, 55, 0.20);
+          border-color: rgba(0, 214, 160, 0.20);
           background: rgba(255, 255, 255, 0.78);
           box-shadow:
-            0 8px 30px rgba(212, 175, 55, 0.05),
+            0 8px 30px rgba(0, 214, 160, 0.05),
             inset 0 1px 0 rgba(255, 255, 255, 0.9);
           backdrop-filter: blur(14px);
           transition:
@@ -575,7 +575,7 @@ const PlatformStats = () => {
 
         .platform-stats-dark .arc-section-badge {
           background: rgba(255, 255, 255, 0.035);
-          border-color: rgba(212, 175, 55, 0.18);
+          border-color: rgba(0, 214, 160, 0.18);
           box-shadow:
             0 8px 30px rgba(0, 0, 0, 0.25),
             inset 0 1px 0 rgba(255, 255, 255, 0.04);
@@ -589,8 +589,8 @@ const PlatformStats = () => {
           background: linear-gradient(
             100deg,
             #9a7414 0%,
-            #b28b20 35%,
-            #d4af37 68%,
+            #00A87D 35%,
+            #00D6A0 68%,
             #e2c45b 100%
           );
           -webkit-background-clip: text;
@@ -686,7 +686,7 @@ const PlatformStats = () => {
           background:
             radial-gradient(
               circle at 50% 0%,
-              rgba(212, 175, 55, 0.075),
+              rgba(0, 214, 160, 0.075),
               transparent 45%
             );
           transition: opacity 500ms ease;
@@ -701,7 +701,7 @@ const PlatformStats = () => {
           .highlight-card-shell {
           box-shadow:
             0 24px 60px rgba(35, 31, 22, 0.11),
-            0 0 0 1px rgba(212, 175, 55, 0.08);
+            0 0 0 1px rgba(0, 214, 160, 0.08);
         }
 
         .platform-stats-dark
@@ -709,7 +709,7 @@ const PlatformStats = () => {
           .highlight-card-shell {
           box-shadow:
             0 24px 60px rgba(0, 0, 0, 0.42),
-            0 0 0 1px rgba(212, 175, 55, 0.12);
+            0 0 0 1px rgba(0, 214, 160, 0.12);
         }
 
         .highlight-card:hover
@@ -737,7 +737,7 @@ const PlatformStats = () => {
           background: linear-gradient(
             100deg,
             transparent,
-            rgba(212, 175, 55, 0.16),
+            rgba(0, 214, 160, 0.16),
             transparent
           );
         }
