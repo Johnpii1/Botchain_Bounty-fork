@@ -222,7 +222,7 @@ function LandingPage({ dark, setDark }) {
         ========================================== */}
         <div className="relative z-10 mx-auto mb-9 flex max-w-7xl flex-col gap-6 lg:flex-row lg:items-end lg:justify-between">
           <div>
-            {/* ARC LABEL */}
+            {/* BOT CHAIN LABEL */}
             <div className="mb-4 flex items-center gap-2">
               <div
                 className={`
@@ -231,8 +231,8 @@ function LandingPage({ dark, setDark }) {
                   transition-all duration-500
                   ${
                     dark
-                      ? "border-[#D4AF37]/25 bg-[#121212] text-[#D4AF37]"
-                      : "border-[#D4AF37]/20 bg-white text-[#B28B20]"
+                      ? "border-[#00D6A0]/25 bg-[#121212] text-[#00D6A0]"
+                      : "border-[#00D6A0]/20 bg-white text-[#008A66]"
                   }
                 `}
               >
@@ -240,8 +240,8 @@ function LandingPage({ dark, setDark }) {
               </div>
 
               <div className="flex items-center gap-2">
-                <span className="text-[10px] font-bold uppercase tracking-[0.2em] text-[#B28B20]">
-                  Arc Opportunities
+                <span className="text-[10px] font-bold uppercase tracking-[0.2em] text-[#008A66]">
+                  BOT Chain Opportunities
                 </span>
 
                 <span
@@ -278,7 +278,7 @@ function LandingPage({ dark, setDark }) {
                 Featured
               </h2>
 
-              <span className="text-[42px] font-black leading-none tracking-[-0.055em] text-[#B28B20] sm:text-[52px] md:text-[58px] lg:text-[64px]">
+              <span className="text-[42px] font-black leading-none tracking-[-0.055em] text-[#008A66] sm:text-[52px] md:text-[58px] lg:text-[64px]">
                 Bounties
               </span>
             </div>
@@ -292,7 +292,7 @@ function LandingPage({ dark, setDark }) {
               `}
             >
               Discover active opportunities, contribute your skills, and work
-              toward earning rewards through the Arc-powered bounty experience.
+              toward earning rewards through the BOT Chain-powered bounty experience.
             </p>
           </div>
 
@@ -317,18 +317,18 @@ function LandingPage({ dark, setDark }) {
                     bg-[#121212]/80
                     text-white/80
                     shadow-[0_8px_30px_rgba(0,0,0,0.25)]
-                    hover:border-[#D4AF37]/35
+                    hover:border-[#00D6A0]/35
                     hover:bg-[#181818]
-                    hover:text-[#D4AF37]
+                    hover:text-[#00D6A0]
                   `
                   : `
                     border-black/[0.08]
                     bg-white/75
                     text-[#383631]
                     shadow-[0_8px_30px_rgba(35,31,22,0.04)]
-                    hover:border-[#D4AF37]/35
+                    hover:border-[#00D6A0]/35
                     hover:bg-white
-                    hover:text-[#B28B20]
+                    hover:text-[#008A66]
                   `
               }
             `}
@@ -476,8 +476,8 @@ function LandingPage({ dark, setDark }) {
                   transition-all duration-500
                   ${
                     dark
-                      ? "border-[#D4AF37]/25 bg-[#181818] text-[#D4AF37] shadow-[0_12px_35px_rgba(0,0,0,0.25)]"
-                      : "border-[#D4AF37]/20 bg-white text-[#B28B20] shadow-[0_12px_35px_rgba(35,31,22,0.06)]"
+                      ? "border-[#00D6A0]/25 bg-[#181818] text-[#00D6A0] shadow-[0_12px_35px_rgba(0,0,0,0.25)]"
+                      : "border-[#00D6A0]/20 bg-white text-[#008A66] shadow-[0_12px_35px_rgba(35,31,22,0.06)]"
                   }
                 `}
               >
@@ -485,10 +485,10 @@ function LandingPage({ dark, setDark }) {
               </div>
 
               <div className="mb-2 flex items-center gap-2">
-                <span className="h-1.5 w-1.5 rounded-full bg-[#D4AF37]" />
+                <span className="h-1.5 w-1.5 rounded-full bg-[#00D6A0]" />
 
-                <span className="text-[9px] font-bold uppercase tracking-[0.18em] text-[#B28B20]">
-                  Arc Marketplace
+                <span className="text-[9px] font-bold uppercase tracking-[0.18em] text-[#008A66]">
+                  BOT Chain Marketplace
                 </span>
               </div>
 
@@ -528,19 +528,19 @@ function LandingPage({ dark, setDark }) {
                   ${
                     dark
                       ? `
-                        border-[#D4AF37]/40
+                        border-[#00D6A0]/40
                         bg-[#181818]
-                        text-[#D4AF37]
+                        text-[#00D6A0]
                         shadow-[0_10px_25px_rgba(0,0,0,0.25)]
-                        hover:border-[#D4AF37]
+                        hover:border-[#00D6A0]
                       `
                       : `
-                        border-[#D4AF37]/40
+                        border-[#00D6A0]/40
                         bg-white
                         text-[#8F6D12]
                         shadow-[0_10px_25px_rgba(0,0,0,0.08)]
-                        hover:border-[#D4AF37]
-                        hover:text-[#B28B20]
+                        hover:border-[#00D6A0]
+                        hover:text-[#008A66]
                       `
                   }
                 `}
@@ -562,11 +562,11 @@ function LandingPage({ dark, setDark }) {
                 }}
               >
                 {/* HOVER AURA */}
-                <div className="pointer-events-none absolute -inset-2 rounded-[28px] bg-[#D4AF37]/[0.06] opacity-0 blur-2xl transition-all duration-700 group-hover:opacity-100" />
+                <div className="pointer-events-none absolute -inset-2 rounded-[28px] bg-[#00D6A0]/[0.06] opacity-0 blur-2xl transition-all duration-700 group-hover:opacity-100" />
 
-                {/* TOP ARC INDICATOR */}
+                {/* TOP BOT CHAIN INDICATOR */}
                 <div className="pointer-events-none absolute left-8 right-8 top-0 z-20 h-px overflow-hidden">
-                  <div className="featured-bounty-line h-full w-1/3 bg-gradient-to-r from-transparent via-[#D4AF37] to-transparent" />
+                  <div className="featured-bounty-line h-full w-1/3 bg-gradient-to-r from-transparent via-[#00D6A0] to-transparent" />
                 </div>
 
                 {/* BOUNTY CARD */}
@@ -574,7 +574,7 @@ function LandingPage({ dark, setDark }) {
                   <BountyCard bounty={bounty} />
                 </div>
 
-                {/* ARC / USDC LABEL */}
+                {/* BOT CHAIN ECOSYSTEM LABEL */}
                 <div
                   className={`
                     pointer-events-none absolute bottom-3 right-3 z-30
@@ -587,15 +587,15 @@ function LandingPage({ dark, setDark }) {
                     group-hover:opacity-100
                     ${
                       dark
-                        ? "border-[#D4AF37]/20 bg-[#121212]/90"
-                        : "border-[#D4AF37]/15 bg-white/90"
+                        ? "border-[#00D6A0]/20 bg-[#121212]/90"
+                        : "border-[#00D6A0]/15 bg-white/90"
                     }
                   `}
                 >
-                  <span className="h-1.5 w-1.5 rounded-full bg-[#D4AF37]" />
+                  <span className="h-1.5 w-1.5 rounded-full bg-[#00D6A0]" />
 
-                  <span className="text-[7px] font-bold uppercase tracking-[0.14em] text-[#B28B20]">
-                    Arc / USDC
+                  <span className="text-[7px] font-bold uppercase tracking-[0.14em] text-[#008A66]">
+                    BOT Chain Ecosystem
                   </span>
                 </div>
               </div>
@@ -634,7 +634,7 @@ function LandingPage({ dark, setDark }) {
           </div>
 
           <div className="flex items-center gap-2">
-            <FiShield className="h-3.5 w-3.5 text-[#B28B20]" />
+            <FiShield className="h-3.5 w-3.5 text-[#008A66]" />
 
             <span
               className={`
@@ -642,7 +642,7 @@ function LandingPage({ dark, setDark }) {
                 ${dark ? "text-white/35" : "text-[#97938a]"}
               `}
             >
-              On-chain • USDC • Arc
+              On-chain • BOT Chain
             </span>
           </div>
         </div>
