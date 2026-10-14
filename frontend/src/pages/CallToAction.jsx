@@ -108,11 +108,11 @@ function CallToAction() {
           @keyframes ctaBorderGlow {
             0%,
             100% {
-              box-shadow: 0 0 0 rgba(212, 175, 55, 0);
+              box-shadow: 0 0 0 rgba(0, 214, 160, 0);
             }
 
             50% {
-              box-shadow: 0 0 35px rgba(212, 175, 55, 0.08);
+              box-shadow: 0 0 35px rgba(0, 214, 160, 0.08);
             }
           }
 
@@ -241,7 +241,7 @@ function CallToAction() {
           style={{
             opacity: dark ? 0.18 : 0.12,
             backgroundImage: dark
-              ? "linear-gradient(rgba(212,175,55,0.12) 1px, transparent 1px), linear-gradient(90deg, rgba(212,175,55,0.12) 1px, transparent 1px)"
+              ? "linear-gradient(rgba(0, 214, 160,0.12) 1px, transparent 1px), linear-gradient(90deg, rgba(0, 214, 160,0.12) 1px, transparent 1px)"
               : "linear-gradient(rgba(76,58,28,0.16) 1px, transparent 1px), linear-gradient(90deg, rgba(76,58,28,0.16) 1px, transparent 1px)",
             backgroundSize: "42px 42px",
           }}
@@ -249,23 +249,23 @@ function CallToAction() {
 
         {/* Animated floating background glow */}
 
-        <div className="cta-glow pointer-events-none absolute -left-28 top-1/2 h-72 w-72 -translate-y-1/2 rounded-full bg-[#D4AF37]/[0.06] blur-[100px]" />
+        <div className="cta-glow pointer-events-none absolute -left-28 top-1/2 h-72 w-72 -translate-y-1/2 rounded-full bg-[#00D6A0]/[0.06] blur-[100px]" />
 
-        <div className="cta-glow pointer-events-none absolute -right-28 top-1/3 h-72 w-72 rounded-full bg-[#D4AF37]/[0.05] blur-[100px]" />
+        <div className="cta-glow pointer-events-none absolute -right-28 top-1/3 h-72 w-72 rounded-full bg-[#00D6A0]/[0.05] blur-[100px]" />
 
         {/* Floating decorative circles */}
 
-        <div className="cta-float-slow pointer-events-none absolute left-[12%] top-[18%] h-2 w-2 rounded-full bg-[#D4AF37]/30 blur-[1px]" />
+        <div className="cta-float-slow pointer-events-none absolute left-[12%] top-[18%] h-2 w-2 rounded-full bg-[#00D6A0]/30 blur-[1px]" />
 
-        <div className="cta-float-reverse pointer-events-none absolute right-[14%] top-[22%] h-1.5 w-1.5 rounded-full bg-[#D4AF37]/40" />
+        <div className="cta-float-reverse pointer-events-none absolute right-[14%] top-[22%] h-1.5 w-1.5 rounded-full bg-[#00D6A0]/40" />
 
         <div
-          className="cta-float-slow pointer-events-none absolute bottom-[20%] left-[8%] h-1.5 w-1.5 rounded-full bg-[#D4AF37]/30"
+          className="cta-float-slow pointer-events-none absolute bottom-[20%] left-[8%] h-1.5 w-1.5 rounded-full bg-[#00D6A0]/30"
           style={{ animationDelay: "1.5s" }}
         />
 
         <div
-          className="cta-float-reverse pointer-events-none absolute bottom-[15%] right-[9%] h-2 w-2 rounded-full bg-[#D4AF37]/25"
+          className="cta-float-reverse pointer-events-none absolute bottom-[15%] right-[9%] h-2 w-2 rounded-full bg-[#00D6A0]/25"
           style={{ animationDelay: "2s" }}
         />
 
@@ -282,22 +282,22 @@ function CallToAction() {
 
           <div className="cta-rise mb-5 flex justify-center">
             <div
-              className="inline-flex items-center gap-2 rounded-full border px-3.5 py-1.5 backdrop-blur-xl transition-all duration-500 hover:-translate-y-0.5 hover:border-[#D4AF37]/40"
+              className="inline-flex items-center gap-2 rounded-full border px-3.5 py-1.5 backdrop-blur-xl transition-all duration-500 hover:-translate-y-0.5 hover:border-[#00D6A0]/40"
               style={{
                 borderColor: dark
-                  ? "rgba(212,175,55,0.2)"
-                  : "rgba(212,175,55,0.2)",
-                backgroundColor: dark ? "rgba(255,255,255,0.035)" : "#f6f5ef",
+                  ? "rgba(0, 214, 160,0.2)"
+                  : "rgba(0, 214, 160,0.2)",
+                backgroundColor: dark ? "rgba(255,255,255,0.035)" : "#F3F5F3",
               }}
             >
               <span className="relative flex h-2 w-2">
-                <span className="cta-pulse absolute inset-0 rounded-full bg-[#D4AF37]" />
+                <span className="cta-pulse absolute inset-0 rounded-full bg-[#00D6A0]" />
 
-                <span className="relative h-2 w-2 rounded-full bg-[#D4AF37]" />
+                <span className="relative h-2 w-2 rounded-full bg-[#00D6A0]" />
               </span>
 
-              <span className="text-[9px] font-bold uppercase tracking-[0.18em] text-[#B28B20]">
-                Built for Arc
+              <span className="text-[9px] font-bold uppercase tracking-[0.18em] text-[#00A87D]">
+                Built for BOT Chain
               </span>
 
               <span
@@ -324,7 +324,7 @@ function CallToAction() {
             >
               Build. Contribute.
               <br />
-              <span className="inline-block cta-float text-[#B28B20]">
+              <span className="inline-block cta-float text-[#00A87D]">
                 Get Rewarded.
               </span>
             </h2>
@@ -348,16 +348,16 @@ function CallToAction() {
             {/* CREATE */}
 
             <div
-              className="cta-rise cta-delay-2 group flex items-center gap-2 rounded-xl border px-3.5 py-2.5 shadow-sm backdrop-blur-xl transition-all duration-300 hover:-translate-y-1 hover:border-[#D4AF37]/30 hover:shadow-[0_10px_30px_rgba(212,175,55,0.08)]"
+              className="cta-rise cta-delay-2 group flex items-center gap-2 rounded-xl border px-3.5 py-2.5 shadow-sm backdrop-blur-xl transition-all duration-300 hover:-translate-y-1 hover:border-[#00D6A0]/30 hover:shadow-[0_10px_30px_rgba(0, 214, 160,0.08)]"
               style={{
                 borderColor: dark
                   ? "rgba(255,255,255,0.07)"
                   : "rgba(0,0,0,0.07)",
-                backgroundColor: dark ? "#151715" : "#f6f5ef",
+                backgroundColor: dark ? "#151715" : "#F3F5F3",
               }}
             >
-              <div className="flex h-8 w-8 items-center justify-center rounded-lg bg-[#D4AF37]/[0.08] transition-transform duration-300 group-hover:scale-110 group-hover:rotate-3">
-                <FiCode className="h-4 w-4 text-[#B28B20]" />
+              <div className="flex h-8 w-8 items-center justify-center rounded-lg bg-[#00D6A0]/[0.08] transition-transform duration-300 group-hover:scale-110 group-hover:rotate-3">
+                <FiCode className="h-4 w-4 text-[#00A87D]" />
               </div>
 
               <div className="text-left">
@@ -379,21 +379,21 @@ function CallToAction() {
               </div>
             </div>
 
-            <FiArrowUpRight className="hidden h-4 w-4 text-[#B28B20]/40 transition-transform duration-300 hover:translate-x-1 sm:block" />
+            <FiArrowUpRight className="hidden h-4 w-4 text-[#00A87D]/40 transition-transform duration-300 hover:translate-x-1 sm:block" />
 
             {/* COMPLETE */}
 
             <div
-              className="cta-rise cta-delay-3 group flex items-center gap-2 rounded-xl border px-3.5 py-2.5 shadow-sm backdrop-blur-xl transition-all duration-300 hover:-translate-y-1 hover:border-[#D4AF37]/30 hover:shadow-[0_10px_30px_rgba(212,175,55,0.08)]"
+              className="cta-rise cta-delay-3 group flex items-center gap-2 rounded-xl border px-3.5 py-2.5 shadow-sm backdrop-blur-xl transition-all duration-300 hover:-translate-y-1 hover:border-[#00D6A0]/30 hover:shadow-[0_10px_30px_rgba(0, 214, 160,0.08)]"
               style={{
                 borderColor: dark
                   ? "rgba(255,255,255,0.07)"
                   : "rgba(0,0,0,0.07)",
-                backgroundColor: dark ? "#151715" : "#f6f5ef",
+                backgroundColor: dark ? "#151715" : "#F3F5F3",
               }}
             >
-              <div className="flex h-8 w-8 items-center justify-center rounded-lg bg-[#D4AF37]/[0.08] transition-transform duration-300 group-hover:scale-110 group-hover:-rotate-3">
-                <FiLayers className="h-4 w-4 text-[#B28B20]" />
+              <div className="flex h-8 w-8 items-center justify-center rounded-lg bg-[#00D6A0]/[0.08] transition-transform duration-300 group-hover:scale-110 group-hover:-rotate-3">
+                <FiLayers className="h-4 w-4 text-[#00A87D]" />
               </div>
 
               <div className="text-left">
@@ -415,21 +415,21 @@ function CallToAction() {
               </div>
             </div>
 
-            <FiArrowUpRight className="hidden h-4 w-4 text-[#B28B20]/40 sm:block" />
+            <FiArrowUpRight className="hidden h-4 w-4 text-[#00A87D]/40 sm:block" />
 
             {/* EARN */}
 
             <div
-              className="cta-float cta-rise cta-delay-4 group flex items-center gap-2 rounded-xl border px-3.5 py-2.5 shadow-sm backdrop-blur-xl transition-all duration-300 hover:-translate-y-1 hover:border-[#D4AF37]/40 hover:shadow-[0_10px_35px_rgba(212,175,55,0.12)]"
+              className="cta-float cta-rise cta-delay-4 group flex items-center gap-2 rounded-xl border px-3.5 py-2.5 shadow-sm backdrop-blur-xl transition-all duration-300 hover:-translate-y-1 hover:border-[#00D6A0]/40 hover:shadow-[0_10px_35px_rgba(0, 214, 160,0.12)]"
               style={{
                 borderColor: dark
-                  ? "rgba(212,175,55,0.2)"
-                  : "rgba(212,175,55,0.2)",
-                backgroundColor: dark ? "#151715" : "#f6f5ef",
+                  ? "rgba(0, 214, 160,0.2)"
+                  : "rgba(0, 214, 160,0.2)",
+                backgroundColor: dark ? "#151715" : "#F3F5F3",
               }}
             >
-              <div className="flex h-8 w-8 items-center justify-center rounded-lg bg-[#D4AF37]/[0.08] transition-transform duration-300 group-hover:scale-110">
-                <FiDollarSign className="h-4 w-4 text-[#B28B20]" />
+              <div className="flex h-8 w-8 items-center justify-center rounded-lg bg-[#00D6A0]/[0.08] transition-transform duration-300 group-hover:scale-110">
+                <FiDollarSign className="h-4 w-4 text-[#00A87D]" />
               </div>
 
               <div className="text-left">
@@ -461,7 +461,7 @@ function CallToAction() {
                 e.preventDefault();
                 handleNavigate("/dashboard");
               }}
-              className="group relative inline-flex w-full items-center justify-center gap-2 overflow-hidden rounded-xl bg-[#D4AF37] px-6 py-3 text-sm font-bold text-white shadow-[0_10px_30px_rgba(212,175,55,0.18)] transition-all duration-300 hover:-translate-y-0.5 hover:bg-[#B28B20] hover:shadow-[0_15px_40px_rgba(212,175,55,0.25)] sm:w-auto"
+              className="group relative inline-flex w-full items-center justify-center gap-2 overflow-hidden rounded-xl bg-[#00D6A0] px-6 py-3 text-sm font-bold text-white shadow-[0_10px_30px_rgba(0, 214, 160,0.18)] transition-all duration-300 hover:-translate-y-0.5 hover:bg-[#00A87D] hover:shadow-[0_15px_40px_rgba(0, 214, 160,0.25)] sm:w-auto"
             >
               <span className="relative z-10">Explore Bounties</span>
 
@@ -476,12 +476,12 @@ function CallToAction() {
 
             <Link
               to="/create"
-              className="group inline-flex w-full items-center justify-center gap-2 rounded-xl border px-6 py-3 text-sm font-semibold backdrop-blur-xl transition-all duration-300 hover:-translate-y-0.5 hover:border-[#D4AF37]/40 sm:w-auto"
+              className="group inline-flex w-full items-center justify-center gap-2 rounded-xl border px-6 py-3 text-sm font-semibold backdrop-blur-xl transition-all duration-300 hover:-translate-y-0.5 hover:border-[#00D6A0]/40 sm:w-auto"
               style={{
                 borderColor: dark
                   ? "rgba(255,255,255,0.1)"
                   : "rgba(0,0,0,0.09)",
-                backgroundColor: dark ? "#151715" : "#f6f5ef",
+                backgroundColor: dark ? "#151715" : "#F3F5F3",
                 color: dark ? "#ffffff" : "#111111",
               }}
               onClick={(e) => {
@@ -492,7 +492,7 @@ function CallToAction() {
               <FiPlus
                 className={`transition-transform duration-300 group-hover:rotate-90 ${
                   dark ? "text-white/45" : "text-black/45"
-                } group-hover:text-[#B28B20]`}
+                } group-hover:text-[#00A87D]`}
               />
 
               <span>Create a Bounty</span>
@@ -503,7 +503,7 @@ function CallToAction() {
 
           <div className="cta-rise cta-delay-4 mt-6 flex flex-wrap items-center justify-center gap-x-5 gap-y-2.5">
             <div className="flex items-center gap-1.5 transition-transform duration-300 hover:-translate-y-0.5">
-              <FiShield className="h-3.5 w-3.5 text-[#B28B20]" />
+              <FiShield className="h-3.5 w-3.5 text-[#00A87D]" />
 
               <span
                 className={`text-[9px] font-semibold uppercase tracking-wider ${
@@ -519,7 +519,7 @@ function CallToAction() {
             />
 
             <div className="flex items-center gap-1.5 transition-transform duration-300 hover:-translate-y-0.5">
-              <FiDollarSign className="h-3.5 w-3.5 text-[#B28B20]" />
+              <FiDollarSign className="h-3.5 w-3.5 text-[#00A87D]" />
 
               <span
                 className={`text-[9px] font-semibold uppercase tracking-wider ${
@@ -535,7 +535,7 @@ function CallToAction() {
             />
 
             <div className="flex items-center gap-1.5 transition-transform duration-300 hover:-translate-y-0.5">
-              <FiZap className="h-3.5 w-3.5 text-[#B28B20]" />
+              <FiZap className="h-3.5 w-3.5 text-[#00A87D]" />
 
               <span
                 className={`text-[9px] font-semibold uppercase tracking-wider ${
@@ -551,7 +551,7 @@ function CallToAction() {
             />
 
             <div className="flex items-center gap-1.5 transition-transform duration-300 hover:-translate-y-0.5">
-              <FiCheck className="h-3.5 w-3.5 text-[#B28B20]" />
+              <FiCheck className="h-3.5 w-3.5 text-[#00A87D]" />
 
               <span
                 className={`text-[9px] font-semibold uppercase tracking-wider ${
@@ -566,11 +566,11 @@ function CallToAction() {
           {/* Bottom accent */}
 
           <div className="mx-auto mt-7 flex max-w-xs items-center gap-3">
-            <div className="h-px flex-1 bg-gradient-to-r from-transparent to-[#D4AF37]/30" />
+            <div className="h-px flex-1 bg-gradient-to-r from-transparent to-[#00D6A0]/30" />
 
-            <div className="cta-dot h-1.5 w-1.5 rounded-full bg-[#D4AF37]" />
+            <div className="cta-dot h-1.5 w-1.5 rounded-full bg-[#00D6A0]" />
 
-            <div className="h-px flex-1 bg-gradient-to-l from-transparent to-[#D4AF37]/30" />
+            <div className="h-px flex-1 bg-gradient-to-l from-transparent to-[#00D6A0]/30" />
           </div>
         </div>
       </div>
