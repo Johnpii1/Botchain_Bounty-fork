@@ -67,9 +67,9 @@ function AuthModal({ isOpen, onClose }) {
               mx-auto mb-3
               flex h-10 w-10 items-center justify-center
               rounded-xl
-              bg-[#D4AF37]
+              bg-[#00D6A0]
               text-white
-              shadow-[0_8px_25px_rgba(212,175,55,0.25)]
+              shadow-[0_8px_25px_rgba(0, 214, 160,0.25)]
             "
           >
             <span className="text-sm font-black">HB</span>
@@ -152,7 +152,7 @@ function AuthModal({ isOpen, onClose }) {
             h-[2px] w-24
             -translate-x-1/2
             rounded-full
-            bg-[#D4AF37]
+            bg-[#00D6A0]
           "
         />
       </div>
@@ -182,8 +182,8 @@ function AuthModal({ isOpen, onClose }) {
         }
 
         .auth-modal-close:hover {
-          background: rgba(212, 175, 55, 0.10);
-          color: #D4AF37;
+          background: rgba(0, 214, 160, 0.10);
+          color: #00D6A0;
         }
 
         .auth-modal-title {
@@ -235,12 +235,12 @@ function AuthModal({ isOpen, onClose }) {
         }
 
         .dark .auth-modal-card {
-          border-color: rgba(212, 175, 55, 0.16);
+          border-color: rgba(0, 214, 160, 0.16);
           background: #111311;
           color: #ffffff;
           box-shadow:
             0 25px 80px rgba(0, 0, 0, 0.55),
-            0 0 40px rgba(212, 175, 55, 0.04);
+            0 0 40px rgba(0, 214, 160, 0.04);
         }
 
         .dark .auth-modal-close {
@@ -248,8 +248,8 @@ function AuthModal({ isOpen, onClose }) {
         }
 
         .dark .auth-modal-close:hover {
-          background: rgba(212, 175, 55, 0.10);
-          color: #D4AF37;
+          background: rgba(0, 214, 160, 0.10);
+          color: #00D6A0;
         }
 
         .dark .auth-modal-title {
