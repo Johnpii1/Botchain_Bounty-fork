@@ -117,7 +117,7 @@ function Dashboard({ dark, setDark }) {
   return (
     <div
       className={`min-h-screen overflow-hidden transition-colors duration-500 ${
-        dark ? "bg-[#080908] text-white" : "bg-[#f6f5ef] text-[#111111]"
+        dark ? "bg-[#080B0D] text-white" : "bg-[#F3F5F3] text-[#111111]"
       }`}
     >
       <NavBar dark={dark} setDark={setDark} />
@@ -232,7 +232,7 @@ function Dashboard({ dark, setDark }) {
 
                 <Link
                   to="/create"
-                  className={`group relative flex h-11 items-center gap-2 overflow-hidden rounded-xl px-5 text-sm font-bold shadow-[0_10px_30px_rgba(17,17,17,0.14)] transition-all duration-300 hover:-translate-y-1 hover:bg-[#B28B20] hover:text-white hover:shadow-[0_14px_35px_rgba(212,160,23,0.25)] ${
+                  className={`group relative flex h-11 items-center gap-2 overflow-hidden rounded-xl px-5 text-sm font-bold shadow-[0_10px_30px_rgba(17,17,17,0.14)] transition-all duration-300 hover:-translate-y-1 hover:bg-[#00A87D] hover:text-white hover:shadow-[0_14px_35px_rgba(212,160,23,0.25)] ${
                     dark ? "bg-[#D4A017] text-white" : "bg-gold-700 text-black"
                   }`}
                 >
@@ -242,7 +242,7 @@ function Dashboard({ dark, setDark }) {
                     <FiArrowRight className="text-sm transition-transform duration-300 group-hover:translate-x-1" />
                   </span>
 
-                  <span className="absolute inset-0 -translate-x-full bg-[#B28B20] transition-transform duration-500 group-hover:translate-x-0" />
+                  <span className="absolute inset-0 -translate-x-full bg-[#00A87D] transition-transform duration-500 group-hover:translate-x-0" />
                 </Link>
               </div>
             </div>
@@ -278,7 +278,7 @@ function Dashboard({ dark, setDark }) {
                     className={`flex items-center gap-1.5 rounded-full border px-2.5 py-1 text-[9px] font-bold uppercase tracking-[0.14em] ${
                       dark
                         ? "border-white/[0.07] bg-white/[0.04] text-white/40"
-                        : "border-black/[0.07] bg-[#f6f5ef] text-black/40"
+                        : "border-black/[0.07] bg-[#F3F5F3] text-black/40"
                     }`}
                   >
                     <FiTrendingUp className="text-[10px] text-[#D4A017]" />
@@ -664,7 +664,7 @@ function Dashboard({ dark, setDark }) {
                   className={`flex h-14 w-14 items-center justify-center rounded-2xl border transition-all duration-300 hover:border-[#D4A017]/40 hover:bg-[#D4A017] hover:text-white ${
                     dark
                       ? "border-white/[0.08] bg-[#151715] text-white/30"
-                      : "border-black/[0.08] bg-[#f6f5ef] text-black/30"
+                      : "border-black/[0.08] bg-[#F3F5F3] text-black/30"
                   }`}
                 >
                   <FiSearch className="text-xl" />
