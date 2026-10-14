@@ -33,7 +33,7 @@ export default function ContactPage() {
   };
 
   return (
-    <div className="theme-page min-h-screen overflow-x-hidden bg-[#f7f6f0] text-[#171714]">
+    <div className="theme-page min-h-screen overflow-x-hidden bg-[#F3F5F3] text-[#171714]">
       {/* BACKGROUND */}
       <div className="pointer-events-none fixed inset-0 overflow-hidden">
         <div
@@ -45,11 +45,11 @@ export default function ContactPage() {
           }}
         />
 
-        <div className="absolute -top-40 left-1/2 h-80 w-80 -translate-x-1/2 rounded-full bg-[#d4af37]/[0.07] blur-[130px]" />
+        <div className="absolute -top-40 left-1/2 h-80 w-80 -translate-x-1/2 rounded-full bg-[#00D6A0]/[0.07] blur-[130px]" />
 
-        <div className="absolute right-[-100px] top-1/2 h-72 w-72 rounded-full bg-[#d4af37]/[0.045] blur-[130px]" />
+        <div className="absolute right-[-100px] top-1/2 h-72 w-72 rounded-full bg-[#00D6A0]/[0.045] blur-[130px]" />
 
-        <div className="absolute bottom-[-100px] left-[-80px] h-64 w-64 rounded-full bg-[#d4af37]/[0.04] blur-[120px]" />
+        <div className="absolute bottom-[-100px] left-[-80px] h-64 w-64 rounded-full bg-[#00D6A0]/[0.04] blur-[120px]" />
       </div>
 
       {/* CONTENT */}
@@ -77,13 +77,13 @@ export default function ContactPage() {
               transition-all
               duration-200
               hover:-translate-y-0.5
-              hover:border-[#d4af37]/50
+              hover:border-[#00D6A0]/50
               hover:bg-white
               hover:text-black
               active:scale-[0.98]
             "
           >
-            <FiArrowLeft className="text-base text-[#a98216] transition-transform duration-200 group-hover:-translate-x-0.5" />
+            <FiArrowLeft className="text-base text-[#007E62] transition-transform duration-200 group-hover:-translate-x-0.5" />
             <span>Back</span>
           </Link>
         </div>
@@ -99,13 +99,13 @@ export default function ContactPage() {
               gap-2
               rounded-full
               border
-              border-[#d4af37]/30
-              bg-[#d4af37]/[0.07]
+              border-[#00D6A0]/30
+              bg-[#00D6A0]/[0.07]
               px-3
               py-1.5
             "
           >
-            <span className="h-1.5 w-1.5 rounded-full bg-[#c49b2c]" />
+            <span className="h-1.5 w-1.5 rounded-full bg-[#00D6A0]" />
 
             <span className="text-[10px] font-bold uppercase tracking-[0.18em] text-[#967414] sm:text-xs">
               Get In Touch
@@ -124,7 +124,7 @@ export default function ContactPage() {
               md:text-5xl
             "
           >
-            Contact <span className="text-[#a98216]">Us</span>
+            Contact <span className="text-[#007E62]">Us</span>
           </h1>
 
           {/* DESCRIPTION */}
@@ -163,7 +163,7 @@ export default function ContactPage() {
             "
           >
             {/* SUBTLE ACCENT */}
-            <div className="pointer-events-none absolute -right-24 -top-24 h-48 w-48 rounded-full bg-[#d4af37]/[0.07] blur-3xl" />
+            <div className="pointer-events-none absolute -right-24 -top-24 h-48 w-48 rounded-full bg-[#00D6A0]/[0.07] blur-3xl" />
 
             <div className="relative z-10">
               {/* FORM HEADER */}
@@ -178,9 +178,9 @@ export default function ContactPage() {
                     justify-center
                     rounded-xl
                     border
-                    border-[#d4af37]/25
-                    bg-[#d4af37]/[0.08]
-                    text-[#a98216]
+                    border-[#00D6A0]/25
+                    bg-[#00D6A0]/[0.08]
+                    text-[#007E62]
                   "
                 >
                   <FiMessageCircle className="text-lg" />
@@ -223,7 +223,7 @@ export default function ContactPage() {
                         rounded-xl
                         border
                         border-black/10
-                        bg-[#f7f6f0]
+                        bg-[#F3F5F3]
                         py-3.5
                         pl-11
                         pr-4
@@ -233,10 +233,10 @@ export default function ContactPage() {
                         placeholder:text-black/25
                         transition-all
                         duration-200
-                        focus:border-[#d4af37]/60
+                        focus:border-[#00D6A0]/60
                         focus:bg-white
                         focus:ring-2
-                        focus:ring-[#d4af37]/10
+                        focus:ring-[#00D6A0]/10
                       "
                       required
                     />
@@ -267,7 +267,7 @@ export default function ContactPage() {
                         rounded-xl
                         border
                         border-black/10
-                        bg-[#f7f6f0]
+                        bg-[#F3F5F3]
                         py-3.5
                         pl-11
                         pr-4
@@ -277,10 +277,10 @@ export default function ContactPage() {
                         placeholder:text-black/25
                         transition-all
                         duration-200
-                        focus:border-[#d4af37]/60
+                        focus:border-[#00D6A0]/60
                         focus:bg-white
                         focus:ring-2
-                        focus:ring-[#d4af37]/10
+                        focus:ring-[#00D6A0]/10
                       "
                       required
                     />
@@ -313,7 +313,7 @@ export default function ContactPage() {
                         rounded-xl
                         border
                         border-black/10
-                        bg-[#f7f6f0]
+                        bg-[#F3F5F3]
                         py-3.5
                         pl-11
                         pr-4
@@ -324,10 +324,10 @@ export default function ContactPage() {
                         placeholder:text-black/25
                         transition-all
                         duration-200
-                        focus:border-[#d4af37]/60
+                        focus:border-[#00D6A0]/60
                         focus:bg-white
                         focus:ring-2
-                        focus:ring-[#d4af37]/10
+                        focus:ring-[#00D6A0]/10
                       "
                       required
                     />
@@ -362,7 +362,7 @@ export default function ContactPage() {
                 >
                   <span>Send Message</span>
 
-                  <FiSend className="text-base text-[#d4af37] transition-transform duration-200 group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
+                  <FiSend className="text-base text-[#00D6A0] transition-transform duration-200 group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
                 </button>
               </form>
             </div>
@@ -385,7 +385,7 @@ export default function ContactPage() {
                 transition-all
                 duration-300
                 hover:-translate-y-0.5
-                hover:border-[#d4af37]/35
+                hover:border-[#00D6A0]/35
                 hover:shadow-[0_12px_35px_rgba(0,0,0,0.06)]
                 sm:p-6
               "
@@ -401,12 +401,12 @@ export default function ContactPage() {
                     justify-center
                     rounded-xl
                     border
-                    border-[#d4af37]/20
-                    bg-[#d4af37]/[0.07]
-                    text-[#a98216]
+                    border-[#00D6A0]/20
+                    bg-[#00D6A0]/[0.07]
+                    text-[#007E62]
                     transition-colors
                     duration-300
-                    group-hover:bg-[#d4af37]/10
+                    group-hover:bg-[#00D6A0]/10
                   "
                 >
                   <FiMessageCircle />
@@ -440,7 +440,7 @@ export default function ContactPage() {
                 transition-all
                 duration-300
                 hover:-translate-y-0.5
-                hover:border-[#d4af37]/35
+                hover:border-[#00D6A0]/35
                 hover:shadow-[0_12px_35px_rgba(0,0,0,0.06)]
                 sm:p-6
               "
@@ -456,12 +456,12 @@ export default function ContactPage() {
                     justify-center
                     rounded-xl
                     border
-                    border-[#d4af37]/20
-                    bg-[#d4af37]/[0.07]
-                    text-[#a98216]
+                    border-[#00D6A0]/20
+                    bg-[#00D6A0]/[0.07]
+                    text-[#007E62]
                     transition-colors
                     duration-300
-                    group-hover:bg-[#d4af37]/10
+                    group-hover:bg-[#00D6A0]/10
                   "
                 >
                   <FiUsers />
@@ -494,7 +494,7 @@ export default function ContactPage() {
                 shadow-[0_8px_30px_rgba(0,0,0,0.04)]
                 transition-all
                 duration-300
-                hover:border-[#d4af37]/35
+                hover:border-[#00D6A0]/35
                 hover:shadow-[0_12px_35px_rgba(0,0,0,0.06)]
                 sm:p-6
               "
@@ -510,9 +510,9 @@ export default function ContactPage() {
                     justify-center
                     rounded-xl
                     border
-                    border-[#d4af37]/20
-                    bg-[#d4af37]/[0.07]
-                    text-[#a98216]
+                    border-[#00D6A0]/20
+                    bg-[#00D6A0]/[0.07]
+                    text-[#007E62]
                   "
                 >
                   <FiHash />
@@ -540,14 +540,14 @@ export default function ContactPage() {
                     rounded-xl
                     border
                     border-black/[0.07]
-                    bg-[#f7f6f0]
+                    bg-[#F3F5F3]
                     px-3.5
                     py-3
                     text-sm
                     text-black/50
                     transition-all
                     duration-200
-                    hover:border-[#d4af37]/35
+                    hover:border-[#00D6A0]/35
                     hover:bg-white
                     hover:text-black
                   "
@@ -566,14 +566,14 @@ export default function ContactPage() {
                     rounded-xl
                     border
                     border-black/[0.07]
-                    bg-[#f7f6f0]
+                    bg-[#F3F5F3]
                     px-3.5
                     py-3
                     text-sm
                     text-black/50
                     transition-all
                     duration-200
-                    hover:border-[#d4af37]/35
+                    hover:border-[#00D6A0]/35
                     hover:bg-white
                     hover:text-black
                   "
@@ -592,14 +592,14 @@ export default function ContactPage() {
                     rounded-xl
                     border
                     border-black/[0.07]
-                    bg-[#f7f6f0]
+                    bg-[#F3F5F3]
                     px-3.5
                     py-3
                     text-sm
                     text-black/50
                     transition-all
                     duration-200
-                    hover:border-[#d4af37]/35
+                    hover:border-[#00D6A0]/35
                     hover:bg-white
                     hover:text-black
                   "
@@ -618,13 +618,13 @@ export default function ContactPage() {
                 gap-3
                 rounded-2xl
                 border
-                border-[#d4af37]/20
-                bg-[#d4af37]/[0.05]
+                border-[#00D6A0]/20
+                bg-[#00D6A0]/[0.05]
                 px-5
                 py-4
               "
             >
-              <FiMail className="shrink-0 text-[#a98216]" />
+              <FiMail className="shrink-0 text-[#007E62]" />
 
               <p className="text-xs leading-5 text-black/45">
                 For urgent account or platform issues, please include as
