@@ -15,7 +15,7 @@ import {
 
 export default function WhitepaperPage() {
   return (
-    <div className="theme-page min-h-screen overflow-x-hidden bg-[#f7f6f0] text-[#171714]">
+    <div className="theme-page min-h-screen overflow-x-hidden bg-[#F3F5F3] text-[#171714]">
       {/* BACKGROUND */}
       <div className="pointer-events-none fixed inset-0 overflow-hidden">
         <div
@@ -27,11 +27,11 @@ export default function WhitepaperPage() {
           }}
         />
 
-        <div className="absolute -top-40 left-1/2 h-80 w-80 -translate-x-1/2 rounded-full bg-[#d4af37]/[0.07] blur-[130px]" />
+        <div className="absolute -top-40 left-1/2 h-80 w-80 -translate-x-1/2 rounded-full bg-[#00D6A0]/[0.07] blur-[130px]" />
 
-        <div className="absolute top-1/2 -left-40 h-72 w-72 rounded-full bg-[#d4af37]/[0.035] blur-[120px]" />
+        <div className="absolute top-1/2 -left-40 h-72 w-72 rounded-full bg-[#00D6A0]/[0.035] blur-[120px]" />
 
-        <div className="absolute -bottom-40 right-0 h-80 w-80 rounded-full bg-[#d4af37]/[0.05] blur-[130px]" />
+        <div className="absolute -bottom-40 right-0 h-80 w-80 rounded-full bg-[#00D6A0]/[0.05] blur-[130px]" />
       </div>
 
       {/* MAIN CONTENT */}
@@ -59,13 +59,13 @@ export default function WhitepaperPage() {
               transition-all
               duration-200
               hover:-translate-y-0.5
-              hover:border-[#d4af37]/50
+              hover:border-[#00D6A0]/50
               hover:bg-white
               hover:text-black
               active:scale-95
             "
           >
-            <FiArrowLeft className="text-base text-[#a98216] transition-transform duration-200 group-hover:-translate-x-0.5" />
+            <FiArrowLeft className="text-base text-[#007E62] transition-transform duration-200 group-hover:-translate-x-0.5" />
             <span>Back</span>
           </Link>
         </div>
@@ -81,13 +81,13 @@ export default function WhitepaperPage() {
               gap-2
               rounded-full
               border
-              border-[#d4af37]/30
-              bg-[#d4af37]/[0.07]
+              border-[#00D6A0]/30
+              bg-[#00D6A0]/[0.07]
               px-3
               py-1.5
             "
           >
-            <FiBookOpen className="text-xs text-[#a98216]" />
+            <FiBookOpen className="text-xs text-[#007E62]" />
 
             <span className="text-[10px] font-bold uppercase tracking-[0.18em] text-[#967414] sm:text-xs">
               Official Documentation
@@ -111,7 +111,7 @@ export default function WhitepaperPage() {
           >
             Happy Bounty
             <br />
-            <span className="text-[#a98216]">Whitepaper</span>
+            <span className="text-[#007E62]">Whitepaper</span>
           </h1>
 
           {/* DESCRIPTION */}
@@ -156,7 +156,7 @@ export default function WhitepaperPage() {
             overflow-hidden
             rounded-2xl
             border
-            border-[#d4af37]/25
+            border-[#00D6A0]/25
             bg-white
             p-5
             shadow-[0_10px_35px_rgba(0,0,0,0.045)]
@@ -175,9 +175,9 @@ export default function WhitepaperPage() {
                 justify-center
                 rounded-xl
                 border
-                border-[#d4af37]/25
-                bg-[#d4af37]/[0.08]
-                text-[#a98216]
+                border-[#00D6A0]/25
+                bg-[#00D6A0]/[0.08]
+                text-[#007E62]
               "
             >
               <FiBookOpen />
@@ -305,12 +305,12 @@ export default function WhitepaperPage() {
                     rounded-xl
                     border
                     border-black/[0.07]
-                    bg-[#f7f6f0]
+                    bg-[#F3F5F3]
                     px-4
                     py-3
                     transition-all
                     duration-200
-                    hover:border-[#d4af37]/35
+                    hover:border-[#00D6A0]/35
                     hover:bg-white
                   "
                 >
@@ -324,10 +324,10 @@ export default function WhitepaperPage() {
                       items-center
                       justify-center
                       rounded-full
-                      bg-[#d4af37]/10
+                      bg-[#00D6A0]/10
                       text-[9px]
                       font-bold
-                      text-[#a98216]
+                      text-[#007E62]
                     "
                   >
                     {index + 1}
@@ -428,7 +428,7 @@ export default function WhitepaperPage() {
             overflow-hidden
             rounded-2xl
             border
-            border-[#d4af37]/25
+            border-[#00D6A0]/25
             bg-[#171714]
             p-7
             text-center
@@ -439,7 +439,7 @@ export default function WhitepaperPage() {
           "
         >
           {/* SUBTLE GOLD ACCENT */}
-          <div className="pointer-events-none absolute -right-20 -top-20 h-40 w-40 rounded-full bg-[#d4af37]/10 blur-3xl" />
+          <div className="pointer-events-none absolute -right-20 -top-20 h-40 w-40 rounded-full bg-[#00D6A0]/10 blur-3xl" />
 
           <div className="relative z-10">
             <div
@@ -453,9 +453,9 @@ export default function WhitepaperPage() {
                 justify-center
                 rounded-xl
                 border
-                border-[#d4af37]/25
-                bg-[#d4af37]/10
-                text-[#d4af37]
+                border-[#00D6A0]/25
+                bg-[#00D6A0]/10
+                text-[#00D6A0]
               "
             >
               <FiArrowRight className="text-lg" />
@@ -477,18 +477,18 @@ export default function WhitepaperPage() {
                 items-center
                 gap-2
                 rounded-xl
-                bg-[#d4af37]
+                bg-[#00D6A0]
                 px-6
                 py-3
                 text-sm
                 font-bold
                 text-[#171714]
-                shadow-[0_8px_25px_rgba(212,175,55,0.18)]
+                shadow-[0_8px_25px_rgba(0, 214, 160,0.18)]
                 transition-all
                 duration-200
                 hover:-translate-y-0.5
                 hover:bg-[#e0bd4d]
-                hover:shadow-[0_12px_30px_rgba(212,175,55,0.25)]
+                hover:shadow-[0_12px_30px_rgba(0, 214, 160,0.25)]
                 active:scale-[0.98]
               "
             >
@@ -524,7 +524,7 @@ function WhitepaperSection({ number, icon, title, children }) {
         transition-all
         duration-300
         hover:-translate-y-0.5
-        hover:border-[#d4af37]/30
+        hover:border-[#00D6A0]/30
         hover:shadow-[0_10px_30px_rgba(0,0,0,0.055)]
         sm:rounded-3xl
         sm:p-7
@@ -542,13 +542,13 @@ function WhitepaperSection({ number, icon, title, children }) {
             justify-center
             rounded-xl
             border
-            border-[#d4af37]/20
-            bg-[#d4af37]/[0.07]
-            text-[#a98216]
+            border-[#00D6A0]/20
+            bg-[#00D6A0]/[0.07]
+            text-[#007E62]
             transition-all
             duration-300
-            group-hover:border-[#d4af37]/40
-            group-hover:bg-[#d4af37]/10
+            group-hover:border-[#00D6A0]/40
+            group-hover:bg-[#00D6A0]/10
           "
         >
           {icon}
@@ -557,7 +557,7 @@ function WhitepaperSection({ number, icon, title, children }) {
         <div className="min-w-0 flex-1">
           {/* TITLE */}
           <div className="mb-3 flex items-center gap-3">
-            <span className="text-[10px] font-bold tracking-[0.15em] text-[#a98216]/55">
+            <span className="text-[10px] font-bold tracking-[0.15em] text-[#007E62]/55">
               {number}
             </span>
 
