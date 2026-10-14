@@ -705,26 +705,83 @@ function LandingPage({ dark, setDark }) {
         <Footer />
       </div>
 
-      {/* FLOATING BOT CHAIN PAGE HELPERS */}
+      {/* FLOATING BOT CHAIN HELP BUTTON — RIGHT */}
       <div className="fixed bottom-5 right-4 z-[100] flex flex-col items-end gap-3 sm:bottom-7 sm:right-7">
         {assistantOpen && (
-          <div className={"w-[min(340px,calc(100vw-2rem))] rounded-2xl border p-4 shadow-2xl " + (dark ? "border-white/10 bg-[#0B1210] text-white" : "border-black/10 bg-white text-gray-900")}>
+          <div
+            className={
+              "w-[min(340px,calc(100vw-2rem))] rounded-2xl border p-4 shadow-2xl " +
+              (dark
+                ? "border-white/10 bg-[#0B1210] text-white"
+                : "border-black/10 bg-white text-gray-900")
+            }
+          >
             <div className="mb-3 flex items-center justify-between">
-              <div className="flex items-center gap-2 text-sm font-bold"><FiZap className="text-[#00D6A0]" /> BOT Chain Assistant</div>
-              <button type="button" onClick={() => setAssistantOpen(false)} aria-label="Close assistant" className="rounded-lg p-1 text-[#00D6A0]"><FiX /></button>
+              <div className="flex items-center gap-2 text-sm font-bold">
+                <FiZap className="text-[#00D6A0]" />
+                BOT Chain Help
+              </div>
+              <button
+                type="button"
+                onClick={() => setAssistantOpen(false)}
+                aria-label="Close help message"
+                className="rounded-lg p-1 text-[#00D6A0]"
+              >
+                <FiX />
+              </button>
             </div>
-            <p className={"text-sm leading-6 " + (dark ? "text-white/65" : "text-gray-600")}>Hi! Welcome to BOT Chain. Need help finding bounties or understanding how the platform works?</p>
-            <Link to="/dashboard" onClick={(e) => { e.preventDefault(); setAssistantOpen(false); handleNavigate("/dashboard"); }} className="mt-3 inline-flex items-center gap-2 rounded-xl bg-[#00D6A0] px-3 py-2 text-sm font-semibold text-[#06231B]">Explore bounties <FiArrowRight /></Link>
-            <p className={"mt-3 text-[10px] " + (dark ? "text-white/35" : "text-gray-400")}>Assistant preview — live AI chat is not connected.</p>
+
+            <p className={"text-sm leading-6 " + (dark ? "text-white/65" : "text-gray-600")}>
+              Hi! Welcome to BOT Chain. Need help getting started? Explore the
+              available bounties, choose a task that fits your skills, and follow
+              the instructions to participate.
+            </p>
+
+            <Link
+              to="/dashboard"
+              onClick={(e) => {
+                e.preventDefault();
+                setAssistantOpen(false);
+                handleNavigate("/dashboard");
+              }}
+              className="mt-3 inline-flex items-center gap-2 rounded-xl bg-[#00D6A0] px-3 py-2 text-sm font-semibold text-[#06231B]"
+            >
+              Explore bounties <FiArrowRight />
+            </Link>
+
+            <p className={"mt-3 text-[10px] " + (dark ? "text-white/35" : "text-gray-400")}>
+              Automated welcome message · BOT Chain
+            </p>
           </div>
         )}
-        <button type="button" onClick={() => window.scrollTo({ top: 0, behavior: "smooth" })} aria-label="Scroll to top" title="Back to top" className={"flex h-11 w-11 items-center justify-center rounded-full border border-[#00D6A0]/35 bg-[#0B1210] text-[#00D6A0] shadow-lg transition hover:-translate-y-1 hover:bg-[#00D6A0] hover:text-[#06231B] " + (showScrollTop ? "translate-y-0 opacity-100" : "pointer-events-none translate-y-3 opacity-0")}>
-          <FiArrowUp className="h-5 w-5" />
-        </button>
-        <button type="button" onClick={() => setAssistantOpen((open) => !open)} aria-label="Open BOT Chain assistant" title="Ask BOT Chain" className="flex h-14 w-14 items-center justify-center rounded-full border border-[#00D6A0]/50 bg-[#00D6A0] text-[#06231B] shadow-[0_10px_35px_rgba(0,214,160,0.25)] transition hover:-translate-y-1 hover:scale-105">
+
+        <button
+          type="button"
+          onClick={() => setAssistantOpen((open) => !open)}
+          aria-label={assistantOpen ? "Close BOT Chain help" : "Open BOT Chain help"}
+          title="BOT Chain help"
+          className="flex h-14 w-14 items-center justify-center rounded-full border border-[#00D6A0]/50 bg-[#00D6A0] text-[#06231B] shadow-[0_10px_35px_rgba(0,214,160,0.25)] transition hover:-translate-y-1 hover:scale-105"
+        >
           {assistantOpen ? <FiX className="h-6 w-6" /> : <FiMessageCircle className="h-6 w-6" />}
         </button>
       </div>
+
+      {/* SCROLL-TO-TOP BUTTON — LEFT */}
+      <button
+        type="button"
+        onClick={() => window.scrollTo({ top: 0, behavior: "smooth" })}
+        aria-label="Scroll to top"
+        title="Back to top"
+        className={
+          "fixed bottom-5 left-4 z-[100] flex h-11 w-11 items-center justify-center rounded-full border border-[#00D6A0]/35 bg-[#0B1210] text-[#00D6A0] shadow-lg transition hover:-translate-y-1 hover:bg-[#00D6A0] hover:text-[#06231B] sm:bottom-7 sm:left-7 " +
+          (showScrollTop
+            ? "translate-y-0 opacity-100"
+            : "pointer-events-none translate-y-3 opacity-0")
+        }
+      >
+        <FiArrowUp className="h-5 w-5" />
+      </button>
+
       {/* =========================================
           FEATURED BOUNTY ANIMATIONS
       ========================================== */}
