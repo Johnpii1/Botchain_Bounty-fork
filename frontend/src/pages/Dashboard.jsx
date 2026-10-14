@@ -6,14 +6,18 @@ import { showToast } from "../components/UI/Toast";
 import {
   FiActivity,
   FiArrowRight,
+  FiArrowUp,
   FiCheckCircle,
   FiChevronLeft,
   FiChevronRight,
   FiDollarSign,
+  FiMessageCircle,
   FiPlus,
   FiRefreshCw,
   FiSearch,
   FiTrendingUp,
+  FiX,
+  FiZap,
 } from "react-icons/fi";
 
 import NavBar from "../components/Layout/NavBar";
@@ -34,6 +38,15 @@ function Dashboard({ dark, setDark }) {
     earnings: 0,
   });
   const [enrolledBountyIds, setEnrolledBountyIds] = useState([]);
+  const [showScrollTop, setShowScrollTop] = useState(false);
+  const [helpOpen, setHelpOpen] = useState(false);
+
+  useEffect(() => {
+    const updateScrollState = () => setShowScrollTop(window.scrollY > 360);
+    updateScrollState();
+    window.addEventListener("scroll", updateScrollState, { passive: true });
+    return () => window.removeEventListener("scroll", updateScrollState);
+  }, []);
 
   const API_URL = import.meta.env.VITE_API_URL;
 
@@ -461,8 +474,9 @@ function Dashboard({ dark, setDark }) {
               BOUNTIES HEADER
           ====================================================== */}
 
-          <section className="animate-[fadeInUp_0.7s_ease-out_0.4s_both]">
-            <div className="mb-6 flex flex-col gap-5 xl:flex-row xl:items-center xl:justify-between">
+          <section id="bounty-list" className="scroll-mt-24 animate-[fadeInUp_0.7s_ease-out_0.4s_both]">
+            <div className={`mb-6 rounded-2xl border p-5 sm:p-6 ${dark ? "border-white/[0.08] bg-[#101412]/85" : "border-black/[0.07] bg-white/80 shadow-[0_12px_35px_rgba(17,17,17,0.035)]"}`}>
+              <div className="mb-6 flex flex-col gap-5 xl:flex-row xl:items-center xl:justify-between">
               <div>
                 <div className="flex items-center gap-2">
                   <FiSearch className="text-[#D4A017]" />
@@ -528,7 +542,7 @@ function Dashboard({ dark, setDark }) {
             ====================================================== */}
 
             {loading ? (
-              <div className="grid grid-cols-1 gap-5 md:grid-cols-2">
+              <div className="grid grid-cols-1 items-stretch gap-5 md:grid-cols-2 xl:grid-cols-3">
                 {[1, 2, 3, 4, 5, 6].map((item) => (
                   <div
                     key={item}
@@ -698,7 +712,7 @@ function Dashboard({ dark, setDark }) {
               </div>
             ) : (
               <>
-                <div className="grid grid-cols-1 items-stretch gap-5 md:grid-cols-2">
+                <div className="grid grid-cols-1 items-stretch gap-5 md:grid-cols-2 xl:grid-cols-3">
                   {bounties.map((bounty) => (
                     <BountyCard
                       key={bounty._id}
@@ -782,6 +796,76 @@ function Dashboard({ dark, setDark }) {
       </main>
 
       <Footer />
+
+      {/* Floating help button — right side */}
+      <div className="fixed bottom-5 right-4 z-[100] flex flex-col items-end gap-3 sm:bottom-7 sm:right-7">
+        {helpOpen && (
+          <div className={`w-[min(340px,calc(100vw-2rem))] rounded-2xl border p-4 shadow-2xl backdrop-blur-xl ${dark ? "border-white/10 bg-[#101412] text-white" : "border-black/10 bg-white text-[#171717]"}`}>
+            <div className="mb-3 flex items-center justify-between">
+              <div className="flex items-center gap-2 text-sm font-bold">
+                <FiZap className="text-[#D4A017]" />
+                Happy Bounty Help
+              </div>
+              <button
+                type="button"
+                onClick={() => setHelpOpen(false)}
+                aria-label="Close help message"
+                className="rounded-lg p-1 text-[#D4A017] transition hover:bg-[#D4A017]/10"
+              >
+                <FiX />
+              </button>
+            </div>
+            <p className={`text-sm leading-6 ${dark ? "text-white/65" : "text-black/60"}`}>
+              Welcome to Happy Bounty. Browse available tasks, open a bounty to
+              review its requirements and reward, then follow the instructions
+              to participate. You can also create a bounty to get help with your
+              own work.
+            </p>
+            <div className="mt-4 flex flex-wrap gap-2">
+              <Link
+                to="/create"
+                onClick={() => setHelpOpen(false)}
+                className="inline-flex items-center gap-2 rounded-xl bg-[#D4A017] px-3 py-2 text-xs font-bold text-[#17130A] transition hover:-translate-y-0.5"
+              >
+                Create a bounty <FiArrowRight />
+              </Link>
+              <button
+                type="button"
+                onClick={() => {
+                  setHelpOpen(false);
+                  document.getElementById("bounty-list")?.scrollIntoView({ behavior: "smooth", block: "start" });
+                }}
+                className={`rounded-xl border px-3 py-2 text-xs font-semibold transition ${dark ? "border-white/10 text-white/70 hover:bg-white/5" : "border-black/10 text-black/65 hover:bg-black/5"}`}
+              >
+                Browse tasks
+              </button>
+            </div>
+            <p className={`mt-3 text-[10px] ${dark ? "text-white/35" : "text-black/35"}`}>
+              Automated help message
+            </p>
+          </div>
+        )}
+        <button
+          type="button"
+          onClick={() => setHelpOpen((open) => !open)}
+          aria-label={helpOpen ? "Close Happy Bounty help" : "Open Happy Bounty help"}
+          title="Happy Bounty help"
+          className="flex h-14 w-14 items-center justify-center rounded-full border border-[#D4A017]/40 bg-[#D4A017] text-[#17130A] shadow-[0_10px_35px_rgba(212,160,23,0.25)] transition duration-300 hover:-translate-y-1 hover:scale-105"
+        >
+          {helpOpen ? <FiX className="h-6 w-6" /> : <FiMessageCircle className="h-6 w-6" />}
+        </button>
+      </div>
+
+      {/* Scroll-to-top button — left side */}
+      <button
+        type="button"
+        onClick={() => window.scrollTo({ top: 0, behavior: "smooth" })}
+        aria-label="Scroll to top"
+        title="Back to top"
+        className={`fixed bottom-5 left-4 z-[100] flex h-11 w-11 items-center justify-center rounded-full border border-[#D4A017]/35 bg-[#101412] text-[#D4A017] shadow-lg transition-all duration-300 hover:-translate-y-1 hover:bg-[#D4A017] hover:text-[#17130A] sm:bottom-7 sm:left-7 ${showScrollTop ? "translate-y-0 opacity-100" : "pointer-events-none translate-y-3 opacity-0"}`}
+      >
+        <FiArrowUp className="h-5 w-5" />
+      </button>
 
       {/* =====================================================
           LOCAL ANIMATIONS
