@@ -1,4 +1,3 @@
-
 import { useEffect, useState, useRef } from "react";
 import { useParams, useNavigate } from "react-router-dom";
 import axios from "axios";
@@ -148,9 +147,7 @@ const BountyDetail = () => {
       const hours = Math.floor(
         (difference % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60),
       );
-      const minutes = Math.floor(
-        (difference % (1000 * 60 * 60)) / (1000 * 60),
-      );
+      const minutes = Math.floor((difference % (1000 * 60 * 60)) / (1000 * 60));
       const seconds = Math.floor((difference % (1000 * 60)) / 1000);
 
       setTimeRemaining({ days, hours, minutes, seconds });
@@ -1773,7 +1770,9 @@ const BountyDetail = () => {
                         </span>
 
                         <span className="text-xs text-[#99958a] dark:text-white/35">
-                          {formatDateTime(comment.createdAt || comment.timestamp)}
+                          {formatDateTime(
+                            comment.createdAt || comment.timestamp,
+                          )}
                         </span>
                       </div>
 

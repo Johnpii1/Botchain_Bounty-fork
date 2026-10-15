@@ -1,4 +1,3 @@
-
 import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import { useAccount } from "wagmi";
@@ -94,8 +93,7 @@ function Dashboard({ dark, setDark }) {
       passive: true,
     });
 
-    return () =>
-      window.removeEventListener("scroll", updateScrollState);
+    return () => window.removeEventListener("scroll", updateScrollState);
   }, []);
 
   const loadBounties = async () => {
@@ -208,9 +206,7 @@ function Dashboard({ dark, setDark }) {
   return (
     <div
       className={`min-h-screen overflow-x-clip transition-colors duration-300 ${
-        dark
-          ? "bg-[#080B0D] text-white"
-          : "bg-[#F3F5F3] text-[#111311]"
+        dark ? "bg-[#080B0D] text-white" : "bg-[#F3F5F3] text-[#111311]"
       }`}
     >
       <NavBar dark={dark} setDark={setDark} />
@@ -276,9 +272,8 @@ function Dashboard({ dark, setDark }) {
                 <p
                   className={`mt-5 max-w-xl text-sm leading-7 sm:text-base ${heroMuted}`}
                 >
-                  Discover meaningful tasks, complete bounties, and turn
-                  your contributions into rewards. Your next opportunity
-                  starts here.
+                  Discover meaningful tasks, complete bounties, and turn your
+                  contributions into rewards. Your next opportunity starts here.
                 </p>
 
                 <div className="mt-8 flex flex-wrap gap-3">
@@ -359,13 +354,9 @@ function Dashboard({ dark, setDark }) {
 
                   <div className="mt-5 flex items-center justify-between gap-3">
                     <div>
-                      <p className={`text-xs ${panelMuted}`}>
-                        Completed tasks
-                      </p>
+                      <p className={`text-xs ${panelMuted}`}>Completed tasks</p>
 
-                      <p
-                        className={`mt-1 text-2xl font-bold ${panelValue}`}
-                      >
+                      <p className={`mt-1 text-2xl font-bold ${panelValue}`}>
                         {stats.completed}
                       </p>
                     </div>
@@ -379,8 +370,8 @@ function Dashboard({ dark, setDark }) {
                     <p
                       className={`mt-5 rounded-lg border px-3 py-2.5 text-[11px] leading-5 ${walletNotice}`}
                     >
-                      Connect your wallet to view your personal
-                      contributor statistics.
+                      Connect your wallet to view your personal contributor
+                      statistics.
                     </p>
                   )}
                 </div>
@@ -481,8 +472,8 @@ function Dashboard({ dark, setDark }) {
                 </h2>
 
                 <p className={`mt-3 max-w-xl text-sm leading-6 ${muted}`}>
-                  Browse tasks, discover opportunities that match your
-                  skills, and earn rewards for the work you complete.
+                  Browse tasks, discover opportunities that match your skills,
+                  and earn rewards for the work you complete.
                 </p>
               </div>
 
@@ -646,8 +637,8 @@ function Dashboard({ dark, setDark }) {
                 <p
                   className={`relative mx-auto mt-3 max-w-md text-sm leading-6 ${muted}`}
                 >
-                  There are no opportunities matching this filter right now.
-                  Try another category or check back later.
+                  There are no opportunities matching this filter right now. Try
+                  another category or check back later.
                 </p>
 
                 <div className="relative mt-6 flex flex-wrap justify-center gap-3">
@@ -712,9 +703,7 @@ function Dashboard({ dark, setDark }) {
                   <button
                     type="button"
                     onClick={() =>
-                      setCurrentPage((page) =>
-                        Math.min(totalPages, page + 1)
-                      )
+                      setCurrentPage((page) => Math.min(totalPages, page + 1))
                     }
                     disabled={currentPage >= totalPages}
                     aria-label="Next page"
@@ -754,8 +743,8 @@ function Dashboard({ dark, setDark }) {
                   </h2>
 
                   <p className="mt-3 max-w-xl text-sm leading-6 text-white/80">
-                    Create a bounty, set a reward, and give contributors
-                    the opportunity to help bring your ideas to life.
+                    Create a bounty, set a reward, and give contributors the
+                    opportunity to help bring your ideas to life.
                   </p>
                 </div>
 
@@ -809,8 +798,8 @@ function Dashboard({ dark, setDark }) {
 
           <div className="space-y-4 p-5">
             <p className={`text-sm leading-6 ${subtle}`}>
-              Explore available bounties, review their requirements, and
-              follow the instructions to participate and earn rewards.
+              Explore available bounties, review their requirements, and follow
+              the instructions to participate and earn rewards.
             </p>
 
             <div className={`rounded-xl border p-3 ${surface}`}>
@@ -833,8 +822,8 @@ function Dashboard({ dark, setDark }) {
                 <div>
                   <p className="text-xs font-bold">Post your own work</p>
                   <p className={`mt-1 text-xs leading-5 ${muted}`}>
-                    Offer a reward and invite contributors to help with
-                    your task.
+                    Offer a reward and invite contributors to help with your
+                    task.
                   </p>
                 </div>
               </div>

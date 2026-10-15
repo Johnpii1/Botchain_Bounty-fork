@@ -3,10 +3,14 @@ import { useEffect, useState } from "react";
 
 function LiveTricker() {
   const items = [
-    { label: "Built for BOT Chain", type: "ARC" },
+    { label: "Multi-Chain Bounty Platform", type: "WEB3" },
+    { label: "Explore Arc Bounties", type: "ARC" },
+    { label: "Discover Injective Opportunities", type: "INJECTIVE" },
+    { label: "Build on Botchain", type: "BOTCHAIN" },
+    { label: "Explore Polkadot Bounties", type: "DOT" },
     { label: "Earn USDC Rewards", type: "USDC" },
-    { label: "Complete On-Chain Bounties", type: "BOUNTY" },
-    { label: "Fast USDC Payouts", type: "PAYOUT" },
+    { label: "Complete On-Chain Bounties", type: "BOUNTIES" },
+    { label: "Post Work. Reward Contributors.", type: "CREATE" },
     { label: "New Bounties Added Daily", type: "NEW" },
   ];
 
@@ -40,10 +44,7 @@ function LiveTricker() {
         }
       `}
     >
-      {/* =====================================================
-          SUBTLE BACKGROUND DOTS
-      ====================================================== */}
-
+      {/* SUBTLE BACKGROUND DOTS */}
       <div className="pointer-events-none absolute inset-0 overflow-hidden opacity-50">
         <span className="ticker-bg-dot dot-1" />
         <span className="ticker-bg-dot dot-2" />
@@ -62,17 +63,14 @@ function LiveTricker() {
             transition-all duration-500
             ${
               dark
-                ? "bg-[radial-gradient(circle_at_center,rgba(0, 214, 160,0.055),transparent_65%)]"
-                : "bg-[radial-gradient(circle_at_center,rgba(0, 214, 160,0.025),transparent_65%)]"
+                ? "bg-[radial-gradient(circle_at_center,rgba(0,214,160,0.055),transparent_65%)]"
+                : "bg-[radial-gradient(circle_at_center,rgba(0,214,160,0.025),transparent_65%)]"
             }
           `}
         />
       </div>
 
-      {/* =====================================================
-          LEFT FADE
-      ====================================================== */}
-
+      {/* LEFT FADE */}
       <div
         className={`
           pointer-events-none absolute
@@ -89,10 +87,7 @@ function LiveTricker() {
         `}
       />
 
-      {/* =====================================================
-          RIGHT FADE
-      ====================================================== */}
-
+      {/* RIGHT FADE */}
       <div
         className={`
           pointer-events-none absolute
@@ -109,12 +104,9 @@ function LiveTricker() {
         `}
       />
 
-      {/* =====================================================
-          SUBTLE CENTER ACCENT
-      ====================================================== */}
-
+      {/* CENTER ACCENT */}
       <div
-        className={`
+        className="
           pointer-events-none absolute
           left-1/2 top-1/2
           z-0 h-8 w-96
@@ -123,39 +115,26 @@ function LiveTricker() {
           rounded-full
           bg-[#00D6A0]/[0.04]
           blur-3xl
-        `}
+        "
       />
 
-      {/* =====================================================
-          TICKER
-      ====================================================== */}
-
+      {/* TICKER */}
       <div className="ticker-track relative z-10">
         {[1, 2, 3].map((_, index) => (
           <div key={index} className="ticker-content">
             {items.map((item, i) => (
               <div key={i} className="ticker-item">
-                {/* STATUS DOT */}
-
                 <span className="status-dot" />
-
-                {/* MAIN LABEL */}
 
                 <span className="ticker-label">
                   {item.label}
                 </span>
 
-                {/* CATEGORY */}
-
                 <span className="ticker-category">
                   {item.type}
                 </span>
 
-                {/* SEPARATOR */}
-
-                <span className="ticker-separator">
-                  /
-                </span>
+                <span className="ticker-separator">/</span>
               </div>
             ))}
           </div>
@@ -163,10 +142,7 @@ function LiveTricker() {
       </div>
 
       <style>{`
-        /* =====================================================
-           TICKER TRACK
-        ====================================================== */
-
+        /* TICKER TRACK */
         .ticker-track {
           display: flex;
           width: max-content;
@@ -192,10 +168,7 @@ function LiveTricker() {
           white-space: nowrap;
         }
 
-        /* =====================================================
-           MAIN TEXT
-        ====================================================== */
-
+        /* MAIN TEXT */
         .ticker-label {
           color: ${dark ? "#ffffff" : "#111111"};
           font-size: 13px;
@@ -204,61 +177,44 @@ function LiveTricker() {
           transition: color 0.5s ease;
         }
 
-        /* =====================================================
-           CATEGORY
-        ====================================================== */
-
+        /* CATEGORY BADGE */
         .ticker-category {
           padding: 3px 7px;
           border-radius: 9999px;
-
-          color: ${dark ? "#00D6A0" : "#8a6b16"};
-
+          color: ${dark ? "#00D6A0" : "#008765"};
           background: ${
             dark
               ? "rgba(0, 214, 160, 0.10)"
-              : "rgba(0, 214, 160, 0.055)"
+              : "rgba(0, 168, 125, 0.06)"
           };
-
           border: 1px solid ${
             dark
               ? "rgba(0, 214, 160, 0.30)"
-              : "rgba(0, 214, 160, 0.20)"
+              : "rgba(0, 168, 125, 0.20)"
           };
-
           font-size: 9px;
           font-weight: 900;
           letter-spacing: 0.12em;
-
           transition:
             color 0.5s ease,
             background 0.5s ease,
             border-color 0.5s ease;
         }
 
-        /* =====================================================
-           SEPARATOR
-        ====================================================== */
-
+        /* SEPARATOR */
         .ticker-separator {
           margin-left: 8px;
-
           color: ${
             dark
               ? "rgba(0, 214, 160, 0.45)"
-              : "rgba(0, 214, 160, 0.30)"
+              : "rgba(0, 168, 125, 0.35)"
           };
-
           font-size: 18px;
           font-weight: 500;
-
           transition: color 0.5s ease;
         }
 
-        /* =====================================================
-           STATUS DOT
-        ====================================================== */
-
+        /* STATUS DOT */
         .status-dot {
           display: inline-block;
           width: 6px;
@@ -266,30 +222,21 @@ function LiveTricker() {
           flex-shrink: 0;
           border-radius: 50%;
           background: #00D6A0;
-
           box-shadow:
             0 0 7px rgba(0, 214, 160, 0.45),
             0 0 14px rgba(0, 214, 160, 0.12);
-
-          animation: goldPulse 2.5s ease-in-out infinite;
+          animation: greenPulse 2.5s ease-in-out infinite;
         }
 
-        /* =====================================================
-           BACKGROUND DOTS
-        ====================================================== */
-
+        /* BACKGROUND DOTS */
         .ticker-bg-dot {
           position: absolute;
           width: 3px;
           height: 3px;
           border-radius: 50%;
           background: #00D6A0;
-
-          box-shadow:
-            0 0 8px rgba(0, 214, 160, 0.3);
-
+          box-shadow: 0 0 8px rgba(0, 214, 160, 0.3);
           opacity: ${dark ? "0.25" : "0.18"};
-
           transition: opacity 0.5s ease;
         }
 
@@ -355,10 +302,7 @@ function LiveTricker() {
           animation: bgDotFloat 4s ease-in-out infinite 1.4s;
         }
 
-        /* =====================================================
-           TICKER MOVEMENT
-        ====================================================== */
-
+        /* TICKER MOVEMENT */
         @keyframes tickerScroll {
           from {
             transform: translateX(0);
@@ -369,13 +313,9 @@ function LiveTricker() {
           }
         }
 
-        /* =====================================================
-           GOLD PULSE
-        ====================================================== */
-
-        @keyframes goldPulse {
-          0%,
-          100% {
+        /* GREEN PULSE */
+        @keyframes greenPulse {
+          0%, 100% {
             opacity: 0.45;
             transform: scale(0.8);
           }
@@ -386,13 +326,9 @@ function LiveTricker() {
           }
         }
 
-        /* =====================================================
-           BACKGROUND DOT MOTION
-        ====================================================== */
-
+        /* BACKGROUND DOT MOTION */
         @keyframes bgDotFloat {
-          0%,
-          100% {
+          0%, 100% {
             opacity: 0.1;
             transform: translate3d(0, 0, 0) scale(0.8);
           }
@@ -403,10 +339,7 @@ function LiveTricker() {
           }
         }
 
-        /* =====================================================
-           MOBILE
-        ====================================================== */
-
+        /* MOBILE */
         @media (max-width: 640px) {
           .ticker-item {
             padding: 12px 14px;
@@ -423,7 +356,7 @@ function LiveTricker() {
           }
 
           .ticker-track {
-            animation-duration: 22s;
+            animation-duration: 35s;
           }
 
           .ticker-separator {
@@ -431,18 +364,12 @@ function LiveTricker() {
           }
         }
 
-        /* =====================================================
-           REDUCED MOTION
-        ====================================================== */
-
+        /* REDUCED MOTION */
         @media (prefers-reduced-motion: reduce) {
-          .ticker-track {
-            animation: none;
-          }
-
+          .ticker-track,
           .status-dot,
           .ticker-bg-dot {
-            animation: none;
+            animation: none !important;
           }
         }
       `}</style>
