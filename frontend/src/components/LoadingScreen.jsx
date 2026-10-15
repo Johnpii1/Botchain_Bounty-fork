@@ -1,3 +1,4 @@
+
 import { useEffect, useState } from "react";
 import { FiZap } from "react-icons/fi";
 
@@ -16,7 +17,6 @@ function LoadingScreen({ onComplete }) {
     const animate = (time) => {
       const elapsed = time - start;
       const percentage = Math.min(elapsed / duration, 1);
-
       const eased = 1 - Math.pow(1 - percentage, 3);
 
       setProgress(Math.floor(eased * 100));
@@ -193,27 +193,21 @@ function LoadingScreen({ onComplete }) {
   return (
     <div
       className={`loading-screen fixed inset-0 z-[9999] flex min-h-screen items-center justify-center overflow-hidden transition-opacity duration-500 ${
-        fadeOut ? "pointer-events-none opacity-0" : "opacity-100"
+        fadeOut
+          ? "pointer-events-none opacity-0"
+          : "opacity-100"
       }`}
     >
-      {/* =====================================================
-          BACKGROUND
-      ===================================================== */}
+      {/* BACKGROUND */}
 
       <div className="pointer-events-none absolute inset-0 overflow-hidden">
-        {/* Central warmth */}
-
         <div className="loading-center-glow absolute left-1/2 top-1/2 h-[420px] w-[420px] -translate-x-1/2 -translate-y-1/2 rounded-full blur-[120px]" />
-
-        {/* Corner accents */}
 
         <div className="loading-corner-glow absolute left-[10%] top-[16%] h-32 w-32 rounded-full blur-[90px]" />
 
         <div className="loading-corner-glow absolute bottom-[12%] right-[10%] h-40 w-40 rounded-full blur-[100px]" />
 
-        {/* =================================================
-            SOFT ARCHITECTURAL BRICK
-        ================================================= */}
+        {/* BLOCKCHAIN-INSPIRED BACKGROUND PATTERN */}
 
         <div
           className="loading-brick absolute -inset-20 scale-110"
@@ -235,8 +229,6 @@ function LoadingScreen({ onComplete }) {
           }}
         />
 
-        {/* Soft architectural depth */}
-
         <div
           className="loading-depth absolute -inset-20 scale-110 blur-[8px]"
           style={{
@@ -253,13 +245,9 @@ function LoadingScreen({ onComplete }) {
           }}
         />
 
-        {/* Clean center */}
-
         <div className="loading-center absolute inset-0" />
 
-        {/* =================================================
-            FLOATING BOT CHAIN PARTICLES
-        ================================================= */}
+        {/* FLOATING CRYPTO-INSPIRED PARTICLES */}
 
         {floatingCoins.map((coin, index) => (
           <div
@@ -271,73 +259,62 @@ function LoadingScreen({ onComplete }) {
               animation: `backgroundCoinFloat ${coin.duration} ease-in-out ${coin.delay} infinite`,
             }}
           >
-            <span aria-hidden="true" className="block rounded-full border border-[#00D6A0]/40 bg-[#00D6A0]/20 shadow-[0_0_18px_rgba(0,214,160,0.25)]" style={{ width: `${coin.size}px`, height: `${coin.size}px`, transform: `rotate(${coin.rotate})` }} />
+            <span
+              aria-hidden="true"
+              className="block rounded-full border border-[#00D6A0]/40 bg-[#00D6A0]/20 shadow-[0_0_18px_rgba(0,214,160,0.25)]"
+              style={{
+                width: `${coin.size}px`,
+                height: `${coin.size}px`,
+                transform: `rotate(${coin.rotate})`,
+              }}
+            />
           </div>
         ))}
       </div>
 
-      {/* =====================================================
-          SUBTLE GRID
-      ===================================================== */}
+      {/* SUBTLE GRID */}
 
       <div className="loading-grid pointer-events-none absolute inset-0" />
 
-      {/* =====================================================
-          SCAN LINE
-      ===================================================== */}
+      {/* SCAN LINE */}
 
       <div className="pointer-events-none absolute left-0 top-0 h-px w-full animate-[scan_3s_linear_infinite] bg-gradient-to-r from-transparent via-[#00D6A0]/40 to-transparent" />
 
-      {/* =====================================================
-          MAIN
-      ===================================================== */}
+      {/* MAIN CONTENT */}
 
       <div className="relative z-10 flex w-full max-w-md flex-col items-center px-6">
-        {/* =================================================
-            BOT CHAIN VISUAL
-        ================================================= */}
+        {/* BRAND VISUAL */}
 
         <div className="relative mb-8 flex h-32 w-32 items-center justify-center">
-          {/* Outer gold ring */}
-
           <div className="loading-ring-outer absolute inset-0 animate-[spin_10s_linear_infinite] rounded-full border border-t-[#00D6A0]/70" />
-
-          {/* Inner gold ring */}
 
           <div className="loading-ring-inner absolute inset-3 animate-[spin_7s_linear_infinite_reverse] rounded-full border border-b-[#00A87D]/50" />
 
-          {/* Subtle gold glow */}
-
           <div className="loading-coin-glow absolute h-24 w-24 rounded-full blur-2xl" />
 
-          {/* BOT Chain mark */}
+          <div className="relative z-10 flex h-20 w-20 animate-[coinFloat_4s_ease-in-out_infinite] items-center justify-center rounded-[1.65rem] border border-[#00D6A0]/50 bg-[#071713] shadow-[0_0_45px_rgba(0,214,160,0.22),inset_0_0_20px_rgba(0,214,160,0.08)]">
+            <FiZap
+              className="h-10 w-10 text-[#00D6A0]"
+              strokeWidth={1.8}
+            />
+          </div>
 
-          <div className="relative z-10 flex h-20 w-20 animate-[coinFloat_4s_ease-in-out_infinite] items-center justify-center rounded-[1.65rem] border border-[#00D6A0]/50 bg-[#071713] shadow-[0_0_45px_rgba(0,214,160,0.22),inset_0_0_20px_rgba(0,214,160,0.08)]"><FiZap className="h-10 w-10 text-[#00D6A0]" strokeWidth={1.8} /></div>
+          <span className="absolute right-1 top-7 h-2 w-2 animate-pulse rounded-full bg-[#00D6A0] shadow-[0_0_12px_rgba(0,214,160,0.45)]" />
 
-          {/* Gold orbit dot */}
-
-          <span className="absolute right-1 top-7 h-2 w-2 animate-pulse rounded-full bg-[#00D6A0] shadow-[0_0_12px_rgba(212,175,55,0.45)]" />
-
-          {/* Secondary dot */}
-
-          <span className="absolute bottom-5 left-3 h-1.5 w-1.5 animate-pulse rounded-full bg-[#00A87D] shadow-[0_0_10px_rgba(178,139,32,0.35)]" />
+          <span className="absolute bottom-5 left-3 h-1.5 w-1.5 animate-pulse rounded-full bg-[#00A87D] shadow-[0_0_10px_rgba(0,168,125,0.35)]" />
         </div>
 
-        {/* =================================================
-            BRAND
-        ================================================= */}
+        {/* PLATFORM BRAND */}
 
         <h1 className="loading-title text-center text-2xl font-bold tracking-[0.2em]">
-          BOT CHAIN BOUNTY
+          CHAIN BOUNTY
         </h1>
 
         <p className="loading-subtitle mt-2 text-center text-[10px] font-medium uppercase tracking-[0.35em]">
-          The Future of Web3 Work
+          One Platform. Multiple Chains.
         </p>
 
-        {/* =================================================
-            BOT CHAIN BADGE
-        ================================================= */}
+        {/* MULTI-CHAIN BADGE */}
 
         <div className="loading-badge mt-5 inline-flex items-center gap-2 rounded-full border px-3 py-1.5 shadow-sm">
           <span className="relative flex h-1.5 w-1.5">
@@ -347,18 +324,16 @@ function LoadingScreen({ onComplete }) {
           </span>
 
           <span className="loading-badge-text text-[9px] font-semibold uppercase tracking-[0.2em]">
-            BOT Chain Ecosystem
+            Multi-Chain Ecosystem
           </span>
         </div>
 
-        {/* =================================================
-            PROGRESS
-        ================================================= */}
+        {/* PROGRESS */}
 
         <div className="mt-10 w-full">
           <div className="mb-3 flex items-center justify-between">
             <span className="loading-label text-[10px] font-medium uppercase tracking-[0.2em]">
-              Initializing BOT Chain
+              Preparing Your Experience
             </span>
 
             <span className="font-mono text-xs font-medium text-[#00A87D]">
@@ -376,9 +351,7 @@ function LoadingScreen({ onComplete }) {
           </div>
         </div>
 
-        {/* =================================================
-            STATUS
-        ================================================= */}
+        {/* STATUS */}
 
         <div className="loading-status mt-6 flex w-full items-center justify-between text-[9px] uppercase tracking-[0.18em]">
           <span>
@@ -387,26 +360,24 @@ function LoadingScreen({ onComplete }) {
               : progress < 70
                 ? "Loading Bounties"
                 : progress < 100
-                  ? "Verifying Rewards"
+                  ? "Preparing Rewards"
                   : "Ready"}
           </span>
 
           <span className="flex items-center gap-2">
             <span className="h-1.5 w-1.5 animate-pulse rounded-full bg-[#00D6A0]" />
-            Network Online
+            Platform Online
           </span>
         </div>
 
-        {/* =================================================
-            BOTTOM TEXT
-        ================================================= */}
+        {/* BOTTOM MESSAGE */}
 
         <div className="loading-bottom mt-10 flex items-center gap-3 text-[9px] uppercase tracking-[0.25em]">
-          <span>Find</span>
+          <span>Discover</span>
 
           <span className="loading-divider h-px w-5" />
 
-          <span>Build</span>
+          <span>Contribute</span>
 
           <span className="loading-divider h-px w-5" />
 
@@ -414,21 +385,17 @@ function LoadingScreen({ onComplete }) {
         </div>
       </div>
 
-      {/* =====================================================
-          CORNER DETAILS
-      ===================================================== */}
+      {/* CORNER DETAILS */}
 
       <div className="loading-corner-text absolute left-6 top-6 text-[8px] uppercase tracking-[0.25em]">
-        HB // 001
+        CB // 001
       </div>
 
       <div className="loading-corner-text absolute bottom-6 right-6 text-[8px] uppercase tracking-[0.25em]">
-        BOT CHAIN // WEB3
+        MULTI-CHAIN // WEB3
       </div>
 
-      {/* =====================================================
-          THEME STYLES
-      ===================================================== */}
+      {/* THEME STYLES */}
 
       <style>{`
         .loading-screen {
@@ -529,9 +496,7 @@ function LoadingScreen({ onComplete }) {
           color: rgba(0, 0, 0, 0.2);
         }
 
-        /* =====================================================
-           DARK MODE
-        ===================================================== */
+        /* DARK MODE */
 
         .dark .loading-screen {
           background: #080908;
@@ -575,6 +540,7 @@ function LoadingScreen({ onComplete }) {
               rgba(255, 255, 255, 0.08) 1px,
               transparent 1px
             );
+          background-size: 70px 70px;
         }
 
         .dark .loading-ring-outer {
@@ -630,9 +596,7 @@ function LoadingScreen({ onComplete }) {
           color: rgba(255, 255, 255, 0.25);
         }
 
-        /* =====================================================
-           ANIMATIONS
-        ===================================================== */
+        /* ANIMATIONS */
 
         @keyframes scan {
           0% {
@@ -685,7 +649,9 @@ function LoadingScreen({ onComplete }) {
         }
 
         @media (prefers-reduced-motion: reduce) {
-          .loading-screen * {
+          .loading-screen *,
+          .loading-screen *::before,
+          .loading-screen *::after {
             animation: none !important;
             transition: none !important;
           }
