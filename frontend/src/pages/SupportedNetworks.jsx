@@ -1,177 +1,248 @@
 
-// import { FiArrowUpRight, FiCheckCircle } from "react-icons/fi";
+import React from "react";
+import { FiArrowUpRight } from "react-icons/fi";
 
-// import eth2 from "../assets/images/eth2.png";
-// import ctc from "../assets/images/ctc.jpg";
-// import injecoin from "../assets/images/injecoin.png";
+import dotLogo from "../assets/images/pok.png";
+import botLogo from "../assets/images/bot.png";
+import arcLogo from "../assets/images/arc.png";
 
-// const tickerItems = [
-//   {
-//     name: "Ethereum",
-//     image: eth2,
-//   },
-//   {
-//     name: "Creditcoin",
-//     image: ctc,
-//   },
-//   {
-//     name: "Injective",
-//     image: injecoin,
-//   },
-// ];
+const tickerItems = [
+  { name: "Polkadot", image: dotLogo, symbol: "DOT" },
+  { name: "BOT", image: botLogo, symbol: "BOT" },
+  { name: "Arc", image: arcLogo, symbol: "ARC" },
+];
 
-// function TickerItem({ item }) {
-//   return (
-//     <div className="flex shrink-0 items-center gap-4">
-//       {/* NETWORK LOGO */}
-//       <div className="flex h-11 w-11 items-center justify-center rounded-2xl border border-white/[0.08] bg-[#0d0d0e] shadow-[0_0_25px_rgba(255,255,255,0.02)]">
-//         <img
-//           src={item.image}
-//           alt={item.name}
-//           className="h-7 w-7 object-contain"
-//         />
-//       </div>
+export default function SupportedNetworks({ dark = true }) {
+  return (
+    <section
+      className={`relative overflow-hidden py-12 sm:py-16 ${
+        dark ? "bg-[#080908] text-white" : "bg-[#f6f5ef] text-[#171717]"
+      }`}
+    >
+      <style>{`
+        @keyframes happyBountyTicker {
+          from {
+            transform: translateX(0);
+          }
+          to {
+            transform: translateX(-50%);
+          }
+        }
 
-//       {/* NETWORK NAME */}
-//       <span className="whitespace-nowrap text-sm font-semibold tracking-[-0.01em] text-white">
-//         {item.name}
-//       </span>
-//     </div>
-//   );
-// }
+        .happy-bounty-ticker-track {
+          display: flex;
+          width: max-content;
+          animation: happyBountyTicker 32s linear infinite;
+          will-change: transform;
+        }
 
-// export default function SupportedNetworks() {
-//   return (
-//     <section className="relative overflow-hidden border-y border-white/[0.06] bg-[#070708] py-4">
-//       {/* =====================================================
-//           BACKGROUND GLOW
-//       ===================================================== */}
-//       <div className="pointer-events-none absolute inset-0">
-//         <div className="absolute left-[15%] top-1/2 h-24 w-72 -translate-y-1/2 rounded-full bg-[#FF1AC6]/[0.035] blur-[80px]" />
+        .happy-bounty-ticker:hover .happy-bounty-ticker-track {
+          animation-play-state: paused;
+        }
 
-//         <div className="absolute right-[15%] top-1/2 h-24 w-72 -translate-y-1/2 rounded-full bg-purple-600/[0.035] blur-[80px]" />
-//       </div>
+        .happy-bounty-ticker-group {
+          display: flex;
+          flex: none;
+          align-items: center;
+        }
 
-//       {/* =====================================================
-//           MAIN TICKER
-//       ===================================================== */}
-//       <div className="relative flex items-center">
-//         {/* ===================================================
-//             SECTION LABEL
-//         =================================================== */}
-//         <div className="relative z-20 flex shrink-0 items-center gap-2 border-r border-white/[0.08] bg-[#070708] px-5 py-3 sm:px-8">
-//           {/* LIVE DOT */}
-//           <span className="relative flex h-2 w-2">
-//             <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-[#FF1AC6] opacity-60" />
+        .happy-bounty-ticker-item {
+          display: flex;
+          flex: none;
+          align-items: center;
+          gap: 12px;
+          padding: 0 28px;
+          white-space: nowrap;
+        }
 
-//             <span className="relative inline-flex h-2 w-2 rounded-full bg-[#FF1AC6] shadow-[0_0_10px_rgba(255,26,198,0.9)]" />
-//           </span>
+        /* Desktop: narrower ticker with consistent spacing */
+        @media (min-width: 1024px) {
+          .happy-bounty-ticker-item {
+            gap: 16px;
+            padding-left: 32px;
+            padding-right: 32px;
+          }
+        }
 
-//           <span className="whitespace-nowrap text-[9px] font-semibold uppercase tracking-[0.2em] text-gray-400">
-//             Supported Networks
-//           </span>
-//         </div>
+        @media (prefers-reduced-motion: reduce) {
+          .happy-bounty-ticker-track {
+            animation: none;
+            transform: none;
+          }
+        }
+      `}</style>
 
-//         {/* ===================================================
-//             TICKER VIEWPORT
-//         =================================================== */}
-//         <div className="relative min-w-0 flex-1 overflow-hidden">
-//           {/* LEFT FADE */}
-//           <div className="pointer-events-none absolute left-0 top-0 z-10 h-full w-16 bg-gradient-to-r from-[#070708] to-transparent" />
+      {/* Subtle background accent */}
+      <div
+        aria-hidden="true"
+        className="pointer-events-none absolute left-1/2 top-0 h-40 w-[70%] -translate-x-1/2 rounded-full opacity-[0.07] blur-3xl"
+        style={{ background: "#00D6A0" }}
+      />
 
-//           {/* RIGHT FADE */}
-//           <div className="pointer-events-none absolute right-0 top-0 z-10 h-full w-16 bg-gradient-to-l from-[#070708] to-transparent" />
+      {/* Heading */}
+      <div className="relative mx-auto mb-8 max-w-7xl px-5 text-center sm:mb-10 sm:px-8">
+        <div
+          className={`mb-3 inline-flex items-center gap-2 rounded-full border px-3 py-1.5 text-xs font-semibold ${
+            dark
+              ? "border-[#00D6A0]/20 bg-[#00D6A0]/[0.07] text-[#00D6A0]"
+              : "border-[#008A66]/20 bg-[#00A879]/[0.07] text-[#008A66]"
+          }`}
+        >
+          <span className="relative flex h-2 w-2">
+            <span
+              className="absolute inline-flex h-full w-full animate-ping rounded-full opacity-50"
+              style={{ background: "#00D6A0" }}
+            />
+            <span
+              className="relative inline-flex h-2 w-2 rounded-full"
+              style={{ background: "#00D6A0" }}
+            />
+          </span>
+          Supported Ecosystem
+        </div>
 
-//           {/* MOVING TRACK */}
-//           <div className="web3-ticker-track flex w-max items-center">
-//             {/* FIRST SET */}
-//             <div className="flex items-center gap-20 px-10">
-//               {tickerItems.map((item, index) => (
-//                 <div
-//                   key={`first-${item.name}-${index}`}
-//                   className="flex items-center gap-20"
-//                 >
-//                   <TickerItem item={item} />
+        <h2 className="text-2xl font-bold tracking-tight sm:text-3xl">
+          Built for{" "}
+          <span style={{ color: "#00D6A0" }}>Multiple Networks</span>
+        </h2>
 
-//                   {/* SEPARATOR */}
-//                   <span className="h-1 w-1 shrink-0 rounded-full bg-[#FF1AC6]/30" />
-//                 </div>
-//               ))}
-//             </div>
+        <p
+          className={`mx-auto mt-3 max-w-xl text-sm leading-6 sm:text-base ${
+            dark ? "text-gray-400" : "text-gray-600"
+          }`}
+        >
+          Explore the networks supported by Happy Bounty and discover new
+          opportunities to earn rewards.
+        </p>
+      </div>
 
-//             {/* SECOND SET
-//                 Keeps the ticker animation seamless */}
-//             <div className="flex items-center gap-20 px-10">
-//               {tickerItems.map((item, index) => (
-//                 <div
-//                   key={`second-${item.name}-${index}`}
-//                   className="flex items-center gap-20"
-//                 >
-//                   <TickerItem item={item} />
+      {/* Centered, narrower infinite ticker */}
+      <div
+        className={`happy-bounty-ticker relative mx-auto w-full overflow-hidden border-y lg:max-w-5xl lg:rounded-xl xl:max-w-6xl ${
+          dark
+            ? "border-white/[0.08] bg-white/[0.015]"
+            : "border-black/[0.08] bg-black/[0.015]"
+        }`}
+        aria-label="Supported networks: Polkadot DOT, BOT, and Arc ARC"
+      >
+        {/* Left fade */}
+        <div
+          aria-hidden="true"
+          className={`pointer-events-none absolute inset-y-0 left-0 z-10 w-12 sm:w-24 ${
+            dark
+              ? "bg-gradient-to-r from-[#080908] to-transparent"
+              : "bg-gradient-to-r from-[#f6f5ef] to-transparent"
+          }`}
+        />
 
-//                   {/* SEPARATOR */}
-//                   <span className="h-1 w-1 shrink-0 rounded-full bg-[#FF1AC6]/30" />
-//                 </div>
-//               ))}
-//             </div>
-//           </div>
-//         </div>
+        {/* Right fade */}
+        <div
+          aria-hidden="true"
+          className={`pointer-events-none absolute inset-y-0 right-0 z-10 w-12 sm:w-24 ${
+            dark
+              ? "bg-gradient-to-l from-[#080908] to-transparent"
+              : "bg-gradient-to-l from-[#f6f5ef] to-transparent"
+          }`}
+        />
 
-//         {/* ===================================================
-//             STATUS
-//         =================================================== */}
-//         <div className="relative z-20 hidden shrink-0 items-center gap-2 border-l border-white/[0.08] bg-[#070708] px-6 py-3 lg:flex">
-//           <FiCheckCircle
-//             size={12}
-//             className="text-[#FF1AC6]"
-//           />
+        <div className="happy-bounty-ticker-track py-5 sm:py-6">
+          {/* First sequence */}
+          <div className="happy-bounty-ticker-group">
+            {tickerItems.map((item) => (
+              <div
+                key={item.symbol}
+                className="happy-bounty-ticker-item"
+              >
+                <div
+                  className={`flex h-11 w-11 shrink-0 items-center justify-center rounded-full border p-2 sm:h-12 sm:w-12 ${
+                    dark
+                      ? "border-white/10 bg-white/[0.04]"
+                      : "border-black/10 bg-white/70"
+                  }`}
+                >
+                  <img
+                    src={item.image}
+                    alt={`${item.name} logo`}
+                    className="h-full w-full object-contain"
+                    loading="lazy"
+                  />
+                </div>
 
-//           <span className="whitespace-nowrap text-[9px] uppercase tracking-[0.16em] text-gray-500">
-//             Multi-Chain
-//           </span>
+                <div className="flex flex-col">
+                  <span className="text-sm font-semibold sm:text-base">
+                    {item.name}
+                  </span>
+                  <span className="mt-0.5 text-xs font-medium tracking-wider text-gray-500">
+                    {item.symbol}
+                  </span>
+                </div>
 
-//           <FiArrowUpRight
-//             size={11}
-//             className="text-gray-600"
-//           />
-//         </div>
-//       </div>
+                <span
+                  aria-hidden="true"
+                  className={`ml-3 h-1.5 w-1.5 shrink-0 rounded-full sm:ml-5 ${
+                    dark ? "bg-white/20" : "bg-black/20"
+                  }`}
+                />
+              </div>
+            ))}
+          </div>
 
-//       {/* =====================================================
-//           ANIMATION
-//       ===================================================== */}
-//       <style>{`
-//         .web3-ticker-track {
-//           animation: web3Ticker 30s linear infinite;
-//           will-change: transform;
-//         }
+          {/* Second identical sequence for seamless looping */}
+          <div className="happy-bounty-ticker-group" aria-hidden="true">
+            {tickerItems.map((item) => (
+              <div
+                key={item.symbol}
+                className="happy-bounty-ticker-item"
+              >
+                <div
+                  className={`flex h-11 w-11 shrink-0 items-center justify-center rounded-full border p-2 sm:h-12 sm:w-12 ${
+                    dark
+                      ? "border-white/10 bg-white/[0.04]"
+                      : "border-black/10 bg-white/70"
+                  }`}
+                >
+                  <img
+                    src={item.image}
+                    alt=""
+                    className="h-full w-full object-contain"
+                    loading="lazy"
+                  />
+                </div>
 
-//         .web3-ticker-track:hover {
-//           animation-play-state: paused;
-//         }
+                <div className="flex flex-col">
+                  <span className="text-sm font-semibold sm:text-base">
+                    {item.name}
+                  </span>
+                  <span className="mt-0.5 text-xs font-medium tracking-wider text-gray-500">
+                    {item.symbol}
+                  </span>
+                </div>
 
-//         @keyframes web3Ticker {
-//           from {
-//             transform: translateX(0);
-//           }
+                <span
+                  className={`ml-3 h-1.5 w-1.5 shrink-0 rounded-full sm:ml-5 ${
+                    dark ? "bg-white/20" : "bg-black/20"
+                  }`}
+                />
+              </div>
+            ))}
+          </div>
+        </div>
+      </div>
 
-//           to {
-//             transform: translateX(-50%);
-//           }
-//         }
-
-//         @media (max-width: 639px) {
-//           .web3-ticker-track {
-//             animation-duration: 24s;
-//           }
-//         }
-
-//         @media (prefers-reduced-motion: reduce) {
-//           .web3-ticker-track {
-//             animation: none;
-//           }
-//         }
-//       `}</style>
-//     </section>
-//   );
-// }
+      {/* Footer text */}
+      <div
+        className={`mt-5 flex items-center justify-center gap-2 px-5 text-xs ${
+          dark ? "text-gray-500" : "text-gray-500"
+        }`}
+      >
+        <span>More opportunities.</span>
+        <span style={{ color: "#00D6A0" }}>One ecosystem.</span>
+        <FiArrowUpRight
+          className="shrink-0"
+          style={{ color: "#00D6A0" }}
+          aria-hidden="true"
+        />
+      </div>
+    </section>
+  );
+}
