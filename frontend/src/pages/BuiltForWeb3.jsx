@@ -1,52 +1,96 @@
+
 import { useEffect, useState } from "react";
 import {
   FiArrowUpRight,
   FiCheckCircle,
-  FiCode,
-  FiCreditCard,
   FiDollarSign,
   FiShield,
   FiZap,
+  FiLayers,
+  FiActivity,
+  FiGlobe,
+  FiLink,
 } from "react-icons/fi";
+
+import dotLogo from "../assets/images/pok.png";
+import botLogo from "../assets/images/bot.png";
+import arcLogo from "../assets/images/arc.png";
+
+const networks = [
+  {
+    name: "DOT",
+    fullName: "Polkadot ecosystem",
+    logo: dotLogo,
+    className: "network-dot",
+  },
+  {
+    name: "BOT",
+    fullName: "BOT Chain",
+    logo: botLogo,
+    className: "network-bot",
+  },
+  {
+    name: "ARC",
+    fullName: "Arc ecosystem",
+    logo: arcLogo,
+    className: "network-arc",
+  },
+];
 
 const features = [
   {
-    icon: FiCode,
-    title: "Built for BOT Chain",
+    icon: FiLayers,
+    number: "01",
+    title: "Multi-chain opportunities",
     description:
-      "Fresh Bounty is being shaped around Arc as the infrastructure for a focused on-chain bounty experience.",
+      "Bring bounty creators and contributors together across supported blockchain ecosystems.",
+    label: "NETWORK FLEXIBILITY",
   },
   {
     icon: FiDollarSign,
-    title: "USDC Rewards",
+    number: "02",
+    title: "Reward-driven work",
     description:
-      "Use USDC as the reward layer for bounty opportunities, giving creators and contributors a clear reward currency.",
+      "Create tasks with clearly stated rewards. Available reward assets depend on the bounty and its supported network.",
+    label: "CLEAR REWARDS",
   },
   {
-    icon: FiCreditCard,
-    title: "Wallet Integration",
+    icon: FiLink,
+    number: "03",
+    title: "Wallet connectivity",
     description:
-      "Connect your wallet to interact with bounty opportunities, rewards, and your Web3 activity.",
+      "Connect a compatible wallet to access the blockchain features and bounty interactions available to you.",
+    label: "WEB3 ACCESS",
   },
   {
     icon: FiShield,
-    title: "On-chain Verification",
+    number: "04",
+    title: "Blockchain transparency",
     description:
-      "Bounty activity and blockchain transactions can be verified on-chain instead of relying entirely on centralized records.",
+      "Where transactions are recorded on-chain, users can inspect the relevant records using supported network tools.",
+    label: "VERIFIABLE ACTIVITY",
   },
 ];
 
 export default function BuiltForWeb3() {
-  const [dark, setDark] = useState(
-    document.documentElement.classList.contains("dark")
+  const [dark, setDark] = useState(() =>
+    typeof document !== "undefined"
+      ? document.documentElement.classList.contains("dark")
+      : true
   );
 
   useEffect(() => {
-    const observer = new MutationObserver(() => {
-      setDark(document.documentElement.classList.contains("dark"));
-    });
+    const root = document.documentElement;
 
-    observer.observe(document.documentElement, {
+    const updateTheme = () => {
+      setDark(root.classList.contains("dark"));
+    };
+
+    updateTheme();
+
+    const observer = new MutationObserver(updateTheme);
+
+    observer.observe(root, {
       attributes: true,
       attributeFilter: ["class"],
     });
@@ -54,30 +98,40 @@ export default function BuiltForWeb3() {
     return () => observer.disconnect();
   }, []);
 
+  const colors = {
+    background: dark ? "#080908" : "#f6f5ef",
+    card: dark ? "#101311" : "#FFFFFF",
+    text: dark ? "#F5F7F6" : "#171C19",
+    muted: dark ? "#929D97" : "#747D77",
+    border: dark
+      ? "rgba(255,255,255,0.085)"
+      : "rgba(20,40,28,0.10)",
+    soft: dark
+      ? "rgba(255,255,255,0.035)"
+      : "rgba(20,40,28,0.035)",
+    accent: "#00D6A0",
+    accentText: dark ? "#00D6A0" : "#008A66",
+  };
+
   return (
     <section
-      className={`relative overflow-hidden px-5 py-20 transition-colors duration-500 sm:px-8 lg:px-10 ${
-        dark
-          ? "bg-[#080B0D] text-white"
-          : "bg-[#F3F5F3] text-[#111111]"
-      }`}
+      className="web3-section relative isolate overflow-hidden px-4 py-20 transition-colors duration-500 sm:px-8 sm:py-24 lg:px-10 lg:py-28"
       style={{
-        backgroundColor: dark ? "#080B0D" : "#F3F5F3",
+        backgroundColor: colors.background,
+        color: colors.text,
       }}
     >
-      {/* =====================================================
-          SUBTLE ARCHITECTURAL BACKGROUND
-      ===================================================== */}
-
+      {/* Subtle animated background */}
       <div
-        className="pointer-events-none absolute inset-0 opacity-40"
+        aria-hidden="true"
+        className="web3-grid pointer-events-none absolute inset-0"
         style={{
           backgroundImage: `
             linear-gradient(
               ${
                 dark
-                  ? "rgba(0, 214, 160,0.025)"
-                  : "rgba(105,82,35,0.025)"
+                  ? "rgba(0,214,160,0.035)"
+                  : "rgba(0,120,85,0.035)"
               } 1px,
               transparent 1px
             ),
@@ -85,371 +139,454 @@ export default function BuiltForWeb3() {
               90deg,
               ${
                 dark
-                  ? "rgba(0, 214, 160,0.018)"
-                  : "rgba(105,82,35,0.02)"
+                  ? "rgba(0,214,160,0.035)"
+                  : "rgba(0,120,85,0.035)"
               } 1px,
               transparent 1px
             )
           `,
-          backgroundSize: "64px 32px",
-          maskImage:
-            "linear-gradient(to bottom, black, transparent 88%)",
+          backgroundSize: "48px 48px",
+          maskImage: "linear-gradient(to bottom, black, transparent 90%)",
           WebkitMaskImage:
-            "linear-gradient(to bottom, black, transparent 88%)",
+            "linear-gradient(to bottom, black, transparent 90%)",
         }}
       />
 
-      {/* =====================================================
-          MAIN CONTAINER
-      ===================================================== */}
+      <div
+        aria-hidden="true"
+        className="web3-ambient pointer-events-none absolute left-1/2 top-0 h-72 w-[min(700px,100%)] -translate-x-1/2 rounded-full blur-[120px]"
+        style={{
+          backgroundColor: dark
+            ? "rgba(0,214,160,0.055)"
+            : "rgba(0,168,125,0.055)",
+        }}
+      />
 
       <div className="relative z-10 mx-auto max-w-7xl">
-        {/* =====================================================
-            HEADER
-        ===================================================== */}
-
-        <div className="mx-auto max-w-2xl text-center">
-          {/* BADGE */}
-
+        {/* Heading */}
+        <div className="mx-auto max-w-3xl text-center">
           <div
-            className="mb-4 inline-flex items-center gap-2 rounded-full border px-3 py-1.5 backdrop-blur-xl transition-colors duration-500"
+            className="mb-6 inline-flex items-center gap-2.5 rounded-full border px-3.5 py-2"
             style={{
-              borderColor: dark
-                ? "rgba(0, 214, 160,0.18)"
-                : "rgba(35,31,22,0.08)",
-              backgroundColor: dark
-                ? "rgba(255,255,255,0.035)"
-                : "rgba(255,255,255,0.82)",
-              boxShadow: dark
-                ? "0 8px 25px rgba(0,0,0,0.18)"
-                : "0 8px 25px rgba(35,31,22,0.035)",
+              borderColor: colors.border,
+              backgroundColor: colors.soft,
             }}
           >
-            <FiZap
-              size={12}
-              className="text-[#00A87D]"
-            />
-
-            <span
-              className={`text-[10px] font-semibold uppercase tracking-[0.18em] ${
-                dark ? "text-white/55" : "text-[#77736b]"
-              }`}
-            >
-              BOT Chain Infrastructure
+            <span className="relative flex h-2 w-2">
+              <span
+                className="absolute inline-flex h-full w-full animate-ping rounded-full opacity-30"
+                style={{ backgroundColor: colors.accent }}
+              />
+              <span
+                className="relative inline-flex h-2 w-2 rounded-full"
+                style={{ backgroundColor: colors.accent }}
+              />
             </span>
 
             <span
-              className={`h-1 w-1 rounded-full ${
-                dark ? "bg-white/20" : "bg-black/20"
-              }`}
-            />
-
-            <span className="text-[10px] font-bold uppercase tracking-[0.15em] text-[#00A87D]">
-              USDC
+              className="text-[10px] font-semibold uppercase tracking-[0.18em] sm:text-[11px]"
+              style={{ color: colors.muted }}
+            >
+              One platform. Multiple ecosystems.
             </span>
           </div>
 
-          {/* TITLE */}
-
           <h2
-            className={`text-3xl font-bold tracking-[-0.04em] transition-colors duration-500 sm:text-4xl lg:text-5xl ${
-              dark ? "text-white" : "text-[#111111]"
-            }`}
+            className="text-3xl font-bold leading-[1.12] tracking-[-0.045em] sm:text-4xl md:text-5xl lg:text-[58px]"
+            style={{ color: colors.text }}
           >
-            Built for{" "}
-            <span className="text-[#00A87D]">
-              Web3 Work
+            Built for Web3.
+            <br />
+            <span style={{ color: colors.accentText }}>
+              Open to opportunity.
             </span>
           </h2>
 
-          {/* DESCRIPTION */}
-
           <p
-            className={`mx-auto mt-4 max-w-xl text-sm leading-relaxed transition-colors duration-500 sm:text-base ${
-              dark ? "text-white/55" : "text-[#77736b]"
-            }`}
+            className="mx-auto mt-5 max-w-2xl text-sm leading-7 sm:mt-6 sm:text-base"
+            style={{ color: colors.muted }}
           >
-            Fresh Bounty combines bounty discovery, wallet interaction,
-            and on-chain reward flows into a practical marketplace
-            designed around Arc and USDC.
+            Happy Bounty connects people who need work done with contributors
+            ready to do it. Explore bounty opportunities, contribute your
+            skills, and earn rewards through supported blockchain integrations.
           </p>
         </div>
 
-        {/* =====================================================
-            TECHNOLOGY CARDS
-        ===================================================== */}
+        {/* Network strip */}
+        <div
+          className="network-panel mx-auto mt-10 max-w-4xl rounded-2xl border p-4 sm:mt-12 sm:p-5"
+          style={{
+            backgroundColor: colors.card,
+            borderColor: colors.border,
+          }}
+        >
+          <div className="mb-4 flex flex-wrap items-center justify-between gap-2 px-1">
+            <span
+              className="text-[10px] font-bold uppercase tracking-[0.17em]"
+              style={{ color: colors.muted }}
+            >
+              Supported ecosystem highlights
+            </span>
 
-        <div className="mx-auto mt-12 max-w-5xl">
-          <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
-            {features.map((feature, index) => {
-              const Icon = feature.icon;
-
-              return (
-                <div
-                  key={feature.title}
-                  className="group relative"
-                >
-                  <div
-                    className="relative h-full overflow-hidden rounded-[22px] border p-5 transition-all duration-500 hover:-translate-y-1.5"
-                    style={{
-                      backgroundColor: dark
-                        ? "#111311"
-                        : "#ffffff",
-                      borderColor: dark
-                        ? "rgba(255,255,255,0.07)"
-                        : "rgba(35,31,22,0.08)",
-                      boxShadow: dark
-                        ? "0 14px 40px rgba(0,0,0,0.28)"
-                        : "0 14px 40px rgba(35,31,22,0.045)",
-                    }}
-                  >
-                    {/* TOP GOLD ACCENT */}
-
-                    <div
-                      className="absolute left-0 right-0 top-0 h-px opacity-0 transition-opacity duration-500 group-hover:opacity-100"
-                      style={{
-                        background:
-                          "linear-gradient(to right, transparent, #00D6A0, transparent)",
-                      }}
-                    />
-
-                    {/* SUBTLE GOLD CORNER ACCENT */}
-
-                    <div
-                      className="pointer-events-none absolute -right-16 -top-16 h-32 w-32 rounded-full bg-[#00D6A0]/[0.035] blur-[55px] opacity-60 transition-all duration-500 group-hover:bg-[#00D6A0]/[0.07] group-hover:opacity-100"
-                    />
-
-                    {/* NUMBER */}
-
-                    <div
-                      className={`absolute right-4 top-4 text-[10px] font-semibold tracking-widest transition-colors duration-500 ${
-                        dark
-                          ? "text-white/[0.16]"
-                          : "text-black/[0.14]"
-                      }`}
-                    >
-                      0{index + 1}
-                    </div>
-
-                    {/* ICON */}
-
-                    <div
-                      className="relative mb-5 flex h-11 w-11 items-center justify-center rounded-xl border bg-[#00D6A0]/[0.06] text-[#00A87D] transition-all duration-500 group-hover:scale-110"
-                      style={{
-                        borderColor: "rgba(0, 214, 160,0.22)",
-                      }}
-                    >
-                      <Icon
-                        size={19}
-                        className="transition-transform duration-500"
-                      />
-                    </div>
-
-                    {/* TITLE */}
-
-                    <h3
-                      className={`relative text-base font-semibold transition-colors duration-500 ${
-                        dark ? "text-white" : "text-[#171717]"
-                      }`}
-                    >
-                      {feature.title}
-                    </h3>
-
-                    {/* DESCRIPTION */}
-
-                    <p
-                      className={`relative mt-2 text-xs leading-relaxed transition-colors duration-500 ${
-                        dark ? "text-white/50" : "text-[#77736b]"
-                      }`}
-                    >
-                      {feature.description}
-                    </p>
-
-                    {/* VERIFIED */}
-
-                    <div className="relative mt-5 flex items-center gap-1.5">
-                      <FiCheckCircle
-                        size={11}
-                        className="text-[#00A87D]"
-                      />
-
-                      <span
-                        className={`text-[9px] uppercase tracking-[0.12em] transition-colors duration-500 ${
-                          dark
-                            ? "text-white/35"
-                            : "text-[#99958c]"
-                        }`}
-                      >
-                        Arc / Web3 enabled
-                      </span>
-                    </div>
-                  </div>
-                </div>
-              );
-            })}
+            <span
+              className="flex items-center gap-1.5 text-[10px] font-medium"
+              style={{ color: colors.accentText }}
+            >
+              <FiGlobe size={13} />
+              Multi-chain vision
+            </span>
           </div>
-        </div>
 
-        {/* =====================================================
-            TRANSPARENCY PANEL
-        ===================================================== */}
-
-        <div className="mx-auto mt-6 max-w-5xl">
-          <div
-            className="relative overflow-hidden rounded-[22px] border p-5 transition-all duration-500 sm:p-6"
-            style={{
-              backgroundColor: dark
-                ? "#111311"
-                : "#ffffff",
-              borderColor: dark
-                ? "rgba(255,255,255,0.07)"
-                : "rgba(35,31,22,0.08)",
-              boxShadow: dark
-                ? "0 15px 50px rgba(0,0,0,0.3)"
-                : "0 15px 50px rgba(35,31,22,0.05)",
-            }}
-          >
-            {/* GOLD ARCHITECTURAL LINE */}
-
-            <div
-              className="absolute left-1/2 top-0 h-px w-2/3 -translate-x-1/2"
-              style={{
-                background:
-                  "linear-gradient(to right, transparent, rgba(0, 214, 160,0.55), transparent)",
-              }}
-            />
-
-            <div className="relative flex flex-col gap-5 sm:flex-row sm:items-center sm:justify-between">
-              {/* LEFT */}
-
-              <div className="flex items-start gap-4">
+          <div className="grid grid-cols-1 gap-3 sm:grid-cols-3">
+            {networks.map((network, index) => (
+              <div
+                key={network.name}
+                className={`network-item ${network.className} group flex items-center gap-3 rounded-xl border p-3.5 transition-all duration-300 hover:-translate-y-1`}
+                style={{
+                  borderColor: colors.border,
+                  backgroundColor: colors.soft,
+                  animationDelay: `${index * 120}ms`,
+                }}
+              >
                 <div
-                  className="flex h-10 w-10 shrink-0 items-center justify-center rounded-xl border bg-[#00D6A0]/[0.06]"
+                  className="flex h-11 w-11 shrink-0 items-center justify-center overflow-hidden rounded-xl border"
                   style={{
-                    borderColor: "rgba(0, 214, 160,0.22)",
+                    backgroundColor: colors.card,
+                    borderColor: colors.border,
                   }}
                 >
-                  <FiShield
-                    size={17}
-                    className="text-[#00A87D]"
+                  <img
+                    src={network.logo}
+                    alt={`${network.name} logo`}
+                    className="h-7 w-7 object-contain transition-transform duration-300 group-hover:scale-110"
+                    loading="lazy"
+                    onError={(event) => {
+                      event.currentTarget.style.display = "none";
+                    }}
                   />
                 </div>
 
-                <div>
+                <div className="min-w-0">
                   <p
-                    className={`text-sm font-semibold transition-colors duration-500 ${
-                      dark ? "text-white" : "text-[#171717]"
-                    }`}
+                    className="text-sm font-bold"
+                    style={{ color: colors.text }}
                   >
-                    Transparent by design
+                    {network.name}
                   </p>
-
                   <p
-                    className={`mt-1 max-w-xl text-xs leading-relaxed transition-colors duration-500 ${
-                      dark ? "text-white/50" : "text-[#77736b]"
-                    }`}
+                    className="mt-1 text-[11px] leading-4"
+                    style={{ color: colors.muted }}
                   >
-                    Bounty activity and blockchain transactions can be
-                    independently verified instead of relying entirely
-                    on a centralized payment record.
+                    {network.fullName}
                   </p>
                 </div>
+
+                <FiArrowUpRight
+                  className="ml-auto shrink-0 opacity-40 transition-all duration-300 group-hover:-translate-y-0.5 group-hover:translate-x-0.5 group-hover:opacity-100"
+                  style={{ color: colors.accentText }}
+                  size={16}
+                />
               </div>
+            ))}
+          </div>
+        </div>
 
-              {/* RIGHT STATUS */}
+        {/* Feature cards */}
+        <div className="mt-12 grid gap-4 sm:mt-16 sm:grid-cols-2 xl:grid-cols-4">
+          {features.map((feature, index) => {
+            const Icon = feature.icon;
 
-              <div
-                className="flex shrink-0 items-center gap-2 self-start rounded-full border bg-[#00D6A0]/[0.045] px-3 py-2 sm:self-auto"
+            return (
+              <article
+                key={feature.number}
+                className="web3-card group relative flex min-h-[265px] flex-col overflow-hidden rounded-2xl border p-5 transition-all duration-300 sm:p-6"
                 style={{
-                  borderColor: "rgba(0, 214, 160,0.2)",
+                  backgroundColor: colors.card,
+                  borderColor: colors.border,
+                  boxShadow: dark
+                    ? "0 12px 35px rgba(0,0,0,0.13)"
+                    : "0 12px 35px rgba(20,40,28,0.035)",
+                  animationDelay: `${index * 100}ms`,
                 }}
               >
-                <span
-                  className="h-1.5 w-1.5 rounded-full bg-[#00D6A0]"
+                <div
+                  aria-hidden="true"
+                  className="web3-card-top pointer-events-none absolute inset-x-5 top-0 h-px opacity-0 transition-opacity duration-300 group-hover:opacity-100"
                   style={{
-                    boxShadow:
-                      "0 0 10px rgba(0, 214, 160,0.55)",
+                    background: `linear-gradient(90deg, transparent, ${colors.accent}, transparent)`,
                   }}
                 />
 
-                <span
-                  className={`text-[9px] font-semibold uppercase tracking-[0.14em] transition-colors duration-500 ${
-                    dark ? "text-white/50" : "text-[#77736b]"
-                  }`}
-                >
-                  Arc / USDC
-                </span>
+                <div className="flex items-start justify-between">
+                  <div
+                    className="flex h-12 w-12 items-center justify-center rounded-xl border transition-transform duration-300 group-hover:-translate-y-0.5"
+                    style={{
+                      color: colors.accentText,
+                      backgroundColor: dark
+                        ? "rgba(0,214,160,0.075)"
+                        : "rgba(0,168,125,0.07)",
+                      borderColor: dark
+                        ? "rgba(0,214,160,0.18)"
+                        : "rgba(0,168,125,0.18)",
+                    }}
+                  >
+                    <Icon size={21} strokeWidth={1.8} />
+                  </div>
 
-                <FiArrowUpRight
-                  size={11}
-                  className="text-[#00A87D]"
-                />
+                  <span
+                    className="pt-1 text-xs font-medium tracking-[0.12em]"
+                    style={{
+                      color: dark
+                        ? "rgba(255,255,255,0.24)"
+                        : "rgba(20,40,28,0.30)",
+                    }}
+                  >
+                    {feature.number}
+                  </span>
+                </div>
+
+                <h3
+                  className="mt-6 text-lg font-semibold tracking-tight"
+                  style={{ color: colors.text }}
+                >
+                  {feature.title}
+                </h3>
+
+                <p
+                  className="mt-2 flex-1 text-[13px] leading-6"
+                  style={{ color: colors.muted }}
+                >
+                  {feature.description}
+                </p>
+
+                <div
+                  className="mt-6 flex items-center gap-2 border-t pt-4"
+                  style={{ borderColor: colors.border }}
+                >
+                  <FiCheckCircle
+                    size={13}
+                    style={{ color: colors.accentText }}
+                  />
+
+                  <span
+                    className="text-[9px] font-semibold uppercase tracking-[0.13em]"
+                    style={{ color: colors.muted }}
+                  >
+                    {feature.label}
+                  </span>
+                </div>
+              </article>
+            );
+          })}
+        </div>
+
+        {/* Transparency panel */}
+        <div
+          className="web3-transparency relative mt-5 overflow-hidden rounded-2xl border"
+          style={{
+            backgroundColor: colors.card,
+            borderColor: colors.border,
+          }}
+        >
+          <div
+            aria-hidden="true"
+            className="absolute bottom-0 left-0 top-0 w-1"
+            style={{ backgroundColor: colors.accent }}
+          />
+
+          <div className="flex flex-col gap-6 p-5 sm:p-7 md:flex-row md:items-center md:justify-between md:gap-8">
+            <div className="flex items-start gap-4">
+              <div
+                className="flex h-12 w-12 shrink-0 items-center justify-center rounded-xl border"
+                style={{
+                  color: colors.accentText,
+                  backgroundColor: dark
+                    ? "rgba(0,214,160,0.075)"
+                    : "rgba(0,168,125,0.07)",
+                  borderColor: dark
+                    ? "rgba(0,214,160,0.18)"
+                    : "rgba(0,168,125,0.18)",
+                }}
+              >
+                <FiShield size={21} />
               </div>
+
+              <div>
+                <h3
+                  className="text-base font-semibold sm:text-lg"
+                  style={{ color: colors.text }}
+                >
+                  Transparency where it matters
+                </h3>
+
+                <p
+                  className="mt-2 max-w-2xl text-sm leading-6"
+                  style={{ color: colors.muted }}
+                >
+                  When bounty activity uses on-chain transactions, those
+                  records can be checked on the relevant blockchain. Each
+                  opportunity follows its own requirements and supported
+                  integrations.
+                </p>
+              </div>
+            </div>
+
+            <div
+              className="flex shrink-0 items-center gap-3 rounded-xl border px-4 py-3"
+              style={{
+                borderColor: colors.border,
+                backgroundColor: colors.soft,
+              }}
+            >
+              <FiActivity
+                size={17}
+                style={{ color: colors.accentText }}
+              />
+
+              <div>
+                <p
+                  className="text-xs font-semibold"
+                  style={{ color: colors.text }}
+                >
+                  Connected Web3 experiences
+                </p>
+                <p
+                  className="mt-1 text-[10px]"
+                  style={{ color: colors.muted }}
+                >
+                  Based on supported integrations
+                </p>
+              </div>
+
+              <FiArrowUpRight
+                size={16}
+                style={{ color: colors.accentText }}
+              />
             </div>
           </div>
         </div>
 
-        {/* =====================================================
-            BOTTOM SYSTEM LABEL
-        ===================================================== */}
+        {/* Bottom information strip */}
+        <div
+          className="mt-8 flex flex-wrap items-center justify-center gap-x-5 gap-y-3 border-t pt-6"
+          style={{ borderColor: colors.border }}
+        >
+          {[
+            { icon: FiLayers, label: "Multiple ecosystems" },
+            { icon: FiDollarSign, label: "Bounty rewards" },
+            { icon: FiZap, label: "Community powered" },
+          ].map((item) => {
+            const Icon = item.icon;
 
-        <div className="mt-7 flex flex-wrap items-center justify-center gap-x-5 gap-y-2">
-          <span className="text-[9px] font-bold uppercase tracking-[0.2em] text-[#00A87D]">
-            ARC
-          </span>
-
-          <span
-            className={`h-1 w-1 rounded-full ${
-              dark ? "bg-white/20" : "bg-black/20"
-            }`}
-          />
-
-          <span
-            className={`text-[9px] font-semibold uppercase tracking-[0.18em] ${
-              dark ? "text-white/40" : "text-[#8b8880]"
-            }`}
-          >
-            USDC
-          </span>
-
-          <span
-            className={`h-1 w-1 rounded-full ${
-              dark ? "bg-white/20" : "bg-black/20"
-            }`}
-          />
-
-          <span
-            className={`text-[9px] font-semibold uppercase tracking-[0.18em] ${
-              dark ? "text-white/40" : "text-[#8b8880]"
-            }`}
-          >
-            BOUNTY INFRASTRUCTURE
-          </span>
-
-          <span
-            className={`h-1 w-1 rounded-full ${
-              dark ? "bg-white/20" : "bg-black/20"
-            }`}
-          />
-
-          <span
-            className={`text-[9px] font-semibold uppercase tracking-[0.18em] ${
-              dark ? "text-white/40" : "text-[#8b8880]"
-            }`}
-          >
-            ON-CHAIN
-          </span>
+            return (
+              <span
+                key={item.label}
+                className="flex items-center gap-2 text-[10px] font-semibold uppercase tracking-[0.15em]"
+                style={{ color: colors.muted }}
+              >
+                <Icon size={13} style={{ color: colors.accentText }} />
+                {item.label}
+              </span>
+            );
+          })}
         </div>
       </div>
 
-      {/* =====================================================
-          REDUCED MOTION
-      ===================================================== */}
-
       <style>{`
+        .web3-grid {
+          animation: web3GridDrift 28s linear infinite;
+        }
+
+        .web3-ambient {
+          animation: web3AmbientFloat 12s ease-in-out infinite alternate;
+        }
+
+        .network-item {
+          animation: web3NetworkEnter 600ms cubic-bezier(.22, 1, .36, 1) both;
+        }
+
+        .web3-card {
+          animation: web3CardEnter 650ms cubic-bezier(.22, 1, .36, 1) both;
+        }
+
+        .web3-card:hover {
+          transform: translateY(-5px);
+          border-color: rgba(0, 214, 160, 0.3) !important;
+          box-shadow: 0 18px 42px rgba(0, 0, 0, 0.10);
+        }
+
+        .web3-transparency {
+          transition:
+            border-color 300ms ease,
+            transform 300ms ease;
+        }
+
+        @keyframes web3GridDrift {
+          from {
+            background-position: 0 0;
+          }
+          to {
+            background-position: 48px 48px;
+          }
+        }
+
+        @keyframes web3AmbientFloat {
+          from {
+            transform: translate(-50%, 0) scale(0.95);
+          }
+          to {
+            transform: translate(calc(-50% + 16px), 18px) scale(1.06);
+          }
+        }
+
+        @keyframes web3NetworkEnter {
+          from {
+            opacity: 0;
+            transform: translateY(10px);
+          }
+          to {
+            opacity: 1;
+            transform: translateY(0);
+          }
+        }
+
+        @keyframes web3CardEnter {
+          from {
+            opacity: 0;
+            transform: translateY(14px);
+          }
+          to {
+            opacity: 1;
+            transform: translateY(0);
+          }
+        }
+
+        @media (max-width: 639px) {
+          .web3-grid {
+            background-size: 36px 36px;
+          }
+
+          .web3-ambient {
+            filter: blur(80px);
+          }
+
+          .web3-card:hover {
+            transform: none;
+          }
+        }
+
         @media (prefers-reduced-motion: reduce) {
-          .group {
-            transition: none !important;
+          .web3-section *,
+          .web3-section *::before,
+          .web3-section *::after {
+            animation: none !important;
+            transition-duration: 0.01ms !important;
+            scroll-behavior: auto !important;
+          }
+
+          .web3-card:hover,
+          .network-item:hover {
+            transform: none;
           }
         }
       `}</style>

@@ -1,20 +1,36 @@
 
 import { useEffect, useState } from "react";
 
+import dotLogo from "../../assets/images/pok.png";
+import botLogo from "../../assets/images/bot.png";
+import arcLogo from "../../assets/images/arc.png";
+
 function LiveTricker() {
   const items = [
     { label: "Multi-Chain Bounty Platform", type: "WEB3" },
-    { label: "Explore Arc Bounties", type: "ARC" },
+    {
+      label: "Explore Arc Bounties",
+      type: "ARC",
+      logo: arcLogo,
+    },
     { label: "Discover Injective Opportunities", type: "INJECTIVE" },
-    { label: "Build on Botchain", type: "BOTCHAIN" },
-    { label: "Explore Polkadot Bounties", type: "DOT" },
+    {
+      label: "Build on Botchain",
+      type: "BOTCHAIN",
+      logo: botLogo,
+    },
+    {
+      label: "Explore Polkadot Bounties",
+      type: "DOT",
+      logo: dotLogo,
+    },
     { label: "Earn USDC Rewards", type: "USDC" },
     { label: "Complete On-Chain Bounties", type: "BOUNTIES" },
     { label: "Post Work. Reward Contributors.", type: "CREATE" },
     { label: "New Bounties Added Daily", type: "NEW" },
   ];
 
-  const [dark, setDark] = useState(
+  const [dark, setDark] = useState(() =>
     document.documentElement.classList.contains("dark")
   );
 
@@ -35,8 +51,7 @@ function LiveTricker() {
     <div
       className={`
         relative mt-1 w-full overflow-hidden
-        border-y
-        transition-all duration-500
+        border-y transition-all duration-500
         ${
           dark
             ? "border-white/[0.07] bg-[#080B0D]"
@@ -46,21 +61,16 @@ function LiveTricker() {
     >
       {/* SUBTLE BACKGROUND DOTS */}
       <div className="pointer-events-none absolute inset-0 overflow-hidden opacity-50">
-        <span className="ticker-bg-dot dot-1" />
-        <span className="ticker-bg-dot dot-2" />
-        <span className="ticker-bg-dot dot-3" />
-        <span className="ticker-bg-dot dot-4" />
-        <span className="ticker-bg-dot dot-5" />
-        <span className="ticker-bg-dot dot-6" />
-        <span className="ticker-bg-dot dot-7" />
-        <span className="ticker-bg-dot dot-8" />
-        <span className="ticker-bg-dot dot-9" />
-        <span className="ticker-bg-dot dot-10" />
+        {Array.from({ length: 10 }, (_, index) => (
+          <span
+            key={index}
+            className={`ticker-bg-dot dot-${index + 1}`}
+          />
+        ))}
 
         <div
           className={`
-            absolute inset-0
-            transition-all duration-500
+            absolute inset-0 transition-all duration-500
             ${
               dark
                 ? "bg-[radial-gradient(circle_at_center,rgba(0,214,160,0.055),transparent_65%)]"
@@ -73,11 +83,8 @@ function LiveTricker() {
       {/* LEFT FADE */}
       <div
         className={`
-          pointer-events-none absolute
-          bottom-0 left-0 top-0
-          z-30 w-24
-          bg-gradient-to-r
-          to-transparent
+          pointer-events-none absolute bottom-0 left-0 top-0
+          z-30 w-24 bg-gradient-to-r to-transparent
           transition-all duration-500
           ${
             dark
@@ -90,11 +97,8 @@ function LiveTricker() {
       {/* RIGHT FADE */}
       <div
         className={`
-          pointer-events-none absolute
-          bottom-0 right-0 top-0
-          z-30 w-24
-          bg-gradient-to-l
-          to-transparent
+          pointer-events-none absolute bottom-0 right-0 top-0
+          z-30 w-24 bg-gradient-to-l to-transparent
           transition-all duration-500
           ${
             dark
@@ -107,23 +111,21 @@ function LiveTricker() {
       {/* CENTER ACCENT */}
       <div
         className="
-          pointer-events-none absolute
-          left-1/2 top-1/2
-          z-0 h-8 w-96
-          -translate-x-1/2
-          -translate-y-1/2
-          rounded-full
-          bg-[#00D6A0]/[0.04]
-          blur-3xl
+          pointer-events-none absolute left-1/2 top-1/2 z-0
+          h-8 w-96 -translate-x-1/2 -translate-y-1/2
+          rounded-full bg-[#00D6A0]/[0.04] blur-3xl
         "
       />
 
       {/* TICKER */}
       <div className="ticker-track relative z-10">
-        {[1, 2, 3].map((_, index) => (
-          <div key={index} className="ticker-content">
-            {items.map((item, i) => (
-              <div key={i} className="ticker-item">
+        {[1, 2, 3].map((copy) => (
+          <div key={copy} className="ticker-content">
+            {items.map((item, index) => (
+              <div
+                key={`${copy}-${index}`}
+                className="ticker-item"
+              >
                 <span className="status-dot" />
 
                 <span className="ticker-label">
@@ -131,7 +133,16 @@ function LiveTricker() {
                 </span>
 
                 <span className="ticker-category">
-                  {item.type}
+                  {item.logo && (
+                    <img
+                      src={item.logo}
+                      alt={`${item.type} logo`}
+                      className="ticker-logo"
+                      loading="lazy"
+                    />
+                  )}
+
+                  <span>{item.type}</span>
                 </span>
 
                 <span className="ticker-separator">/</span>
@@ -157,6 +168,7 @@ function LiveTricker() {
         .ticker-content {
           display: flex;
           align-items: center;
+          flex-shrink: 0;
           padding-right: 20px;
         }
 
@@ -166,6 +178,7 @@ function LiveTricker() {
           gap: 10px;
           padding: 13px 18px;
           white-space: nowrap;
+          flex-shrink: 0;
         }
 
         /* MAIN TEXT */
@@ -179,6 +192,10 @@ function LiveTricker() {
 
         /* CATEGORY BADGE */
         .ticker-category {
+          display: inline-flex;
+          align-items: center;
+          justify-content: center;
+          gap: 5px;
           padding: 3px 7px;
           border-radius: 9999px;
           color: ${dark ? "#00D6A0" : "#008765"};
@@ -195,10 +212,25 @@ function LiveTricker() {
           font-size: 9px;
           font-weight: 900;
           letter-spacing: 0.12em;
+          white-space: nowrap;
           transition:
             color 0.5s ease,
             background 0.5s ease,
             border-color 0.5s ease;
+        }
+
+        /* NETWORK LOGOS */
+        .ticker-logo {
+          display: block;
+          width: 16px;
+          height: 16px;
+          object-fit: contain;
+          flex-shrink: 0;
+          transition: transform 0.3s ease;
+        }
+
+        .ticker-category:hover .ticker-logo {
+          transform: scale(1.12);
         }
 
         /* SEPARATOR */
@@ -352,7 +384,14 @@ function LiveTricker() {
           }
 
           .ticker-category {
+            gap: 4px;
+            padding: 3px 6px;
             font-size: 8px;
+          }
+
+          .ticker-logo {
+            width: 14px;
+            height: 14px;
           }
 
           .ticker-track {
