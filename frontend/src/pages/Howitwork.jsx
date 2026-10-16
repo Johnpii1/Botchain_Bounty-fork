@@ -19,6 +19,8 @@ import {
 import { SiPolkadot } from "react-icons/si";
 import happyBountyVideo from "../Video/happy-demo.mp4";
 
+
+
 export default function HowItWorks() {
   const sectionRef = useRef(null);
   const [isVisible, setIsVisible] = useState(false);
