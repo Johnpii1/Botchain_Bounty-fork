@@ -307,7 +307,7 @@ function LoadingScreen({ onComplete }) {
         {/* PLATFORM BRAND */}
 
         <h1 className="loading-title text-center text-2xl font-bold tracking-[0.2em]">
-          CHAIN BOUNTY
+          HAPPY BOUNTY
         </h1>
 
         <p className="loading-subtitle mt-2 text-center text-[10px] font-medium uppercase tracking-[0.35em]">

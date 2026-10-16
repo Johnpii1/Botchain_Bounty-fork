@@ -1,6 +1,4 @@
 import { useEffect, useRef, useState } from "react";
-import { Link } from "react-router-dom";
-
 import {
   FiArrowUpRight,
   FiBriefcase,
@@ -18,15 +16,27 @@ import {
   FiUsers,
   FiZap,
 } from "react-icons/fi";
-
 import { SiPolkadot } from "react-icons/si";
+import happyBountyVideo from "../Video/happy-demo.mp4";
 
 export default function HowItWorks() {
   const sectionRef = useRef(null);
-
   const [isVisible, setIsVisible] = useState(false);
   const [activeChain, setActiveChain] = useState("Arc");
-  const [dark, setDark] = useState(true);
+
+  const [dark, setDark] = useState(() => {
+    if (typeof document === "undefined") return true;
+
+    const root = document.documentElement;
+    const body = document.body;
+
+    return (
+      root.classList.contains("dark") ||
+      body.classList.contains("dark") ||
+      root.getAttribute("data-theme") === "dark" ||
+      body.getAttribute("data-theme") === "dark"
+    );
+  });
 
   const chains = [
     {
@@ -94,7 +104,7 @@ export default function HowItWorks() {
   const selectedChain =
     chains.find((chain) => chain.name === activeChain) || chains[0];
 
-  // Keep the section synchronized with the site's existing theme.
+  // Detect dark/light mode changes on the html and body elements.
   useEffect(() => {
     if (typeof document === "undefined") return undefined;
 
@@ -103,24 +113,25 @@ export default function HowItWorks() {
 
     const updateTheme = () => {
       const isDark =
-        root.classList.contains("dark") || body.classList.contains("dark");
+        root.classList.contains("dark") ||
+        body.classList.contains("dark") ||
+        root.getAttribute("data-theme") === "dark" ||
+        body.getAttribute("data-theme") === "dark";
 
-      setDark(isDark);
+      setDark((current) => (current === isDark ? current : isDark));
     };
 
     updateTheme();
 
     const observer = new MutationObserver(updateTheme);
 
-    observer.observe(root, {
+    const options = {
       attributes: true,
-      attributeFilter: ["class"],
-    });
+      attributeFilter: ["class", "data-theme"],
+    };
 
-    observer.observe(body, {
-      attributes: true,
-      attributeFilter: ["class"],
-    });
+    observer.observe(root, options);
+    observer.observe(body, options);
 
     return () => observer.disconnect();
   }, []);
@@ -449,6 +460,55 @@ export default function HowItWorks() {
           ))}
         </div>
 
+        {/* HAPPY BOUNTY DEMO VIDEO */}
+        <section className="hiw-demo-section">
+          <div className="hiw-demo-heading">
+            <div className="hiw-section-kicker">SEE IT IN ACTION</div>
+            <h3>From task to reward.</h3>
+            <p>
+              Watch how Happy Bounty connects task creators with contributors
+              who complete tasks and earn rewards.
+            </p>
+          </div>
+
+          <div className="hiw-demo-video-frame">
+            <video
+              className="hiw-demo-video"
+              src={happyBountyVideo}
+              autoPlay
+              loop
+              controls
+              muted
+              playsInline
+              preload="auto"
+              aria-label="Happy Bounty demonstration video"
+            >
+              Your browser does not support video playback.
+            </video>
+          </div>
+
+          <div className="hiw-demo-caption">
+            <span>
+              <FiCheckCircle />
+              Discover a task
+            </span>
+
+            <FiChevronRight />
+
+            <span>
+              <FiCheckCircle />
+              Submit your work
+            </span>
+
+            <FiChevronRight />
+
+            <span>
+              <FiCheckCircle />
+              Earn your reward
+            </span>
+          </div>
+        </section>
+
         {/* CREATE A BOUNTY */}
         <div className="hiw-create-banner">
           <div
@@ -472,7 +532,10 @@ export default function HowItWorks() {
               help bring your ideas to life.
             </p>
           </div>
-          <div className="hiw-create-button">Your Skills, Your Rewards</div>
+
+          <div className="hiw-create-button">
+            Your Skills, Your Rewards
+          </div>
         </div>
 
         {/* ECOSYSTEM FOOTER */}
@@ -1498,6 +1561,83 @@ export default function HowItWorks() {
           background: rgba(0,214,160,.08);
         }
 
+        /* HAPPY BOUNTY DEMO VIDEO */
+        .hiw-demo-section {
+          width: 100%;
+          max-width: 1000px;
+          margin: 65px auto 0;
+        }
+
+        .hiw-demo-heading {
+          max-width: 650px;
+          margin: 0 auto 25px;
+          text-align: center;
+        }
+
+        .hiw-demo-heading h3 {
+          margin: 0;
+          color: var(--hiw-text);
+          font-size: clamp(1.7rem, 4vw, 2.5rem);
+          font-weight: 850;
+          letter-spacing: -.045em;
+        }
+
+        .hiw-demo-heading p {
+          margin: 12px auto 0;
+          color: var(--hiw-muted);
+          font-size: 13px;
+          line-height: 1.8;
+        }
+
+        /* These backgrounds now follow the active theme. */
+        .hiw-demo-video-frame {
+          width: 100%;
+          overflow: hidden;
+          border: 1px solid rgba(0,214,160,.28);
+          border-radius: 22px;
+          background: var(--hiw-card);
+          box-shadow: 0 25px 70px var(--hiw-shadow);
+          transition: background .3s ease, border-color .3s ease;
+        }
+
+        .hiw-demo-video {
+          display: block;
+          width: 100%;
+          height: auto;
+          aspect-ratio: 16 / 9;
+          object-fit: contain;
+          background: var(--hiw-card);
+          transition: background .3s ease;
+        }
+
+        .hiw-demo-caption {
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          flex-wrap: wrap;
+          gap: 12px;
+          margin-top: 20px;
+        }
+
+        .hiw-demo-caption span {
+          display: inline-flex;
+          align-items: center;
+          gap: 7px;
+          color: var(--hiw-muted);
+          font-size: 11px;
+          font-weight: 700;
+        }
+
+        .hiw-demo-caption span svg,
+        .hiw-demo-caption > svg {
+          color: var(--hiw-accent);
+        }
+
+        .hiw-demo-caption > svg {
+          font-size: 14px;
+          opacity: .7;
+        }
+
         .hiw-create-banner {
           position: relative;
           display: flex;
@@ -1857,6 +1997,34 @@ export default function HowItWorks() {
 
           .hiw-step-content h4 {
             font-size: 17px;
+          }
+
+          .hiw-demo-section {
+            margin-top: 45px;
+          }
+
+          .hiw-demo-heading {
+            margin-bottom: 20px;
+          }
+
+          .hiw-demo-heading p {
+            font-size: 12px;
+          }
+
+          .hiw-demo-video-frame {
+            border-radius: 14px;
+          }
+
+          .hiw-demo-caption {
+            gap: 9px;
+          }
+
+          .hiw-demo-caption span {
+            font-size: 9px;
+          }
+
+          .hiw-demo-caption > svg {
+            font-size: 11px;
           }
 
           .hiw-create-banner {
