@@ -23,6 +23,7 @@ import Hero from "./Hero";
 import HowItWorks from "./Howitwork";
 import PlatformStats from "./PlatformStats";
 import Features from "./Features";
+import ImpactStats from "./ImpactStats"
 import Testimonials from "./Testimonials";
 import CallToAction from "./CallToAction";
 import SupportedNetworks from "./SupportedNetworks";
@@ -468,6 +469,12 @@ function LandingPage({ dark, setDark }) {
         <Features />
       </section>
 
+      {/* IMPACTSTATS */}
+      <div data-reveal>
+        <ImpactStats />
+      </div>
+
+
       {/* TESTIMONIALS / COMMUNITY USE CASES */}
       <section data-reveal>
         <Testimonials />
@@ -482,6 +489,7 @@ function LandingPage({ dark, setDark }) {
       <section data-reveal>
         <BuiltForWeb3 />
       </section>
+
 
       {/* THIRD LIVE TICKER */}
       <div data-reveal>
