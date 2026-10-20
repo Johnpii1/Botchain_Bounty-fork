@@ -72,10 +72,10 @@ const networks = [
     color: "#42A5F5",
   },
   {
-    name: "Polkadot",
+    name: "Portaldot",
     logo: PolkadotLogo,
-    description: "Polkadot ecosystem",
-    color: "#E6007A",
+    description: "Portaldot ecosystem",
+    color: "#C9B7FF",
   },
 ];
 
@@ -609,7 +609,7 @@ function Features() {
               borderColor: palette.border,
             }}
           >
-            {["ARC", "INJECTIVE", "BOTCHAIN", "POLKADOT", "USDC REWARDS"].map(
+            {["ARC", "INJECTIVE", "BOTCHAIN", "PORTALDOT", "USDC REWARDS"].map(
               (label, index) => (
                 <div key={label} className="flex items-center gap-4 sm:gap-5">
                   <span

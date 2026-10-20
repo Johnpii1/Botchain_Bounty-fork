@@ -7,7 +7,7 @@ import botLogo from "../assets/images/bot.png";
 import arcLogo from "../assets/images/arc.png";
 
 const tickerItems = [
-  { name: "Polkadot", image: dotLogo, symbol: "DOT" },
+  { name: "Portaldot", image: dotLogo, symbol: "DOT" },
   { name: "BOT", image: botLogo, symbol: "BOT" },
   { name: "Arc", image: arcLogo, symbol: "ARC" },
 ];
@@ -123,7 +123,7 @@ export default function SupportedNetworks({ dark = true }) {
             ? "border-white/[0.08] bg-white/[0.015]"
             : "border-black/[0.08] bg-black/[0.015]"
         }`}
-        aria-label="Supported networks: Polkadot DOT, BOT, and Arc ARC"
+        aria-label="Supported networks: Portaldot DOT, BOT, and Arc ARC"
       >
         {/* Left fade */}
         <div

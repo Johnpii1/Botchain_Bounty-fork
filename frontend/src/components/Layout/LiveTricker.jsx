@@ -20,7 +20,7 @@ function LiveTricker() {
       logo: botLogo,
     },
     {
-      label: "Explore Polkadot Bounties",
+      label: "Explore Portaldot Bounties",
       type: "DOT",
       logo: dotLogo,
     },
@@ -50,7 +50,7 @@ function LiveTricker() {
   return (
     <div
       className={`
-        relative mt-1 w-full overflow-hidden
+        relative mt-6 md:mt-3 w-full overflow-hidden
         border-y transition-all duration-500
         ${
           dark
