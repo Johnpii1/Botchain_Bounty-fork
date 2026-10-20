@@ -25,12 +25,12 @@ function ThemedRainbowKitProvider({ children }) {
       theme={
         dark
           ? darkTheme({
-              accentColor: "#d4af37",
-              accentColorForeground: "#171714",
+              accentColor: "#00D6A0",
+              accentColorForeground: "#06251c",
               borderRadius: "medium",
             })
           : lightTheme({
-              accentColor: "#b28b20",
+              accentColor: "#00B889",
               accentColorForeground: "#ffffff",
               borderRadius: "medium",
             })
