@@ -125,7 +125,7 @@ function NavBar() {
                 ${
                   dark
                     ? "border-white/[0.08] bg-[#121212]/95 shadow-[0_12px_40px_rgba(0,0,0,0.35)]"
-                    : "border-black/[0.08] bg-[#f6f5ef]/95"
+                    : "border-black/[0.08] bg-[#F3F5F3]/95"
                 }
               `
               : `
@@ -154,7 +154,7 @@ function NavBar() {
             rounded-full
             bg-gradient-to-r
             from-transparent
-            via-[#D4AF37]
+            via-[#00D6A0]
             to-transparent
             transition-all duration-500
             ${scrolled ? "w-28 opacity-100" : "w-40 opacity-90"}
@@ -174,7 +174,7 @@ function NavBar() {
                 ? `
                   rounded-full
                   bg-gradient-to-b
-                  from-[#D4AF37]/[0.035]
+                  from-[#00D6A0]/[0.035]
                   via-transparent
                   to-transparent
                   opacity-100
@@ -201,7 +201,7 @@ function NavBar() {
                   w-auto object-contain
                   transition-all duration-500
                   group-hover:scale-[1.04]
-                  ${scrolled ? "h-[45px]" : "h-[60px] sm:h-[58px]"}
+                  ${scrolled ? "h-[35px]" : "h-[50px] sm:h-[40px] md:h-[60px]"} "}
                 `}
                 src={HappyBounty}
                 alt="Happy Bounty"
@@ -219,7 +219,7 @@ function NavBar() {
                   w-auto h-1 object-contain
                   transition-all duration-500
                   group-hover:scale-[1.04]
-                  ${scrolled ? "h-[45px]" : "h-[60px] sm:h-[58px]"}
+                  ${scrolled ? "h-[35px]" : "h-[50px] sm:h-[40px] md:h-[60px]"}
                 `}
                 src={HappyBounty}
                 alt="Happy Bounty"
@@ -277,11 +277,11 @@ function NavBar() {
                 ${
                   isOpen
                     ? dark
-                      ? "border-[#D4AF37]/40 bg-[#D4AF37]/10 text-white"
-                      : "border-[#D4AF37]/30 bg-[#D4AF37]/[0.08] text-[#111111]"
+                      ? "border-[#00D6A0]/40 bg-[#00D6A0]/10 text-white"
+                      : "border-[#00D6A0]/30 bg-[#00D6A0]/[0.08] text-[#111111]"
                     : dark
-                      ? "border-white/[0.10] bg-[#1a1a1a]/70 text-white hover:border-[#D4AF37]/30 hover:bg-[#D4AF37]/10"
-                      : "border-black/[0.06] bg-white/[0.55] text-[#222222] hover:border-[#D4AF37]/25 hover:bg-[#D4AF37]/[0.055]"
+                      ? "border-white/[0.10] bg-[#1a1a1a]/70 text-white hover:border-[#00D6A0]/30 hover:bg-[#00D6A0]/10"
+                      : "border-black/[0.06] bg-white/[0.55] text-[#222222] hover:border-[#00D6A0]/25 hover:bg-[#00D6A0]/[0.055]"
                 }
 
                 md:px-0
@@ -324,10 +324,10 @@ function NavBar() {
 
                   ${
                     isOpen
-                      ? "rotate-180 text-[#D4AF37]"
+                      ? "rotate-180 text-[#00D6A0]"
                       : dark
-                        ? "text-white/40 group-hover:text-[#D4AF37]"
-                        : "text-black/40 group-hover:text-[#D4AF37]"
+                        ? "text-white/40 group-hover:text-[#00D6A0]"
+                        : "text-black/40 group-hover:text-[#00D6A0]"
                   }
                 `}
               />
@@ -395,8 +395,8 @@ function NavBar() {
                   <span
                     className="
                       h-1.5 w-1.5 rounded-full
-                      bg-[#D4AF37]
-                      shadow-[0_0_10px_rgba(212,175,55,0.45)]
+                      bg-[#00D6A0]
+                      shadow-[0_0_10px_rgba(0, 214, 160,0.45)]
                     "
                   />
                 </div>
@@ -414,8 +414,8 @@ function NavBar() {
                   transition-all duration-200
                   ${
                     dark
-                      ? "hover:bg-[#D4AF37]/[0.08]"
-                      : "hover:bg-[#D4AF37]/[0.06]"
+                      ? "hover:bg-[#00D6A0]/[0.08]"
+                      : "hover:bg-[#00D6A0]/[0.06]"
                   }
                 `}
               >
@@ -426,8 +426,8 @@ function NavBar() {
                       transition-colors duration-200
                       ${
                         dark
-                          ? "text-white group-hover:text-[#D4AF37]"
-                          : "text-[#222222] group-hover:text-[#B28B20]"
+                          ? "text-white group-hover:text-[#00D6A0]"
+                          : "text-[#222222] group-hover:text-[#00A87D]"
                       }
                     `}
                   >
@@ -455,7 +455,7 @@ function NavBar() {
                     h-4 w-4
                     transition-all duration-200
                     group-hover:translate-x-1
-                    group-hover:text-[#D4AF37]
+                    group-hover:text-[#00D6A0]
                     ${dark ? "text-white/25" : "text-black/25"}
                   `}
                 />
@@ -473,8 +473,8 @@ function NavBar() {
                   transition-all duration-200
                   ${
                     dark
-                      ? "border-white/[0.07] hover:bg-[#D4AF37]/[0.08]"
-                      : "border-black/[0.06] hover:bg-[#D4AF37]/[0.06]"
+                      ? "border-white/[0.07] hover:bg-[#00D6A0]/[0.08]"
+                      : "border-black/[0.06] hover:bg-[#00D6A0]/[0.06]"
                   }
                 `}
               >
@@ -485,8 +485,8 @@ function NavBar() {
                       transition-colors duration-200
                       ${
                         dark
-                          ? "text-white group-hover:text-[#D4AF37]"
-                          : "text-[#222222] group-hover:text-[#B28B20]"
+                          ? "text-white group-hover:text-[#00D6A0]"
+                          : "text-[#222222] group-hover:text-[#00A87D]"
                       }
                     `}
                   >
@@ -514,7 +514,7 @@ function NavBar() {
                     h-4 w-4
                     transition-all duration-200
                     group-hover:translate-x-1
-                    group-hover:text-[#D4AF37]
+                    group-hover:text-[#00D6A0]
                     ${dark ? "text-white/25" : "text-black/25"}
                   `}
                 />
@@ -532,8 +532,8 @@ function NavBar() {
                   transition-all duration-200
                   ${
                     dark
-                      ? "border-white/[0.07] hover:bg-[#D4AF37]/[0.08]"
-                      : "border-black/[0.06] hover:bg-[#D4AF37]/[0.06]"
+                      ? "border-white/[0.07] hover:bg-[#00D6A0]/[0.08]"
+                      : "border-black/[0.06] hover:bg-[#00D6A0]/[0.06]"
                   }
                 `}
               >
@@ -544,8 +544,8 @@ function NavBar() {
                       transition-colors duration-200
                       ${
                         dark
-                          ? "text-white group-hover:text-[#D4AF37]"
-                          : "text-[#222222] group-hover:text-[#B28B20]"
+                          ? "text-white group-hover:text-[#00D6A0]"
+                          : "text-[#222222] group-hover:text-[#00A87D]"
                       }
                     `}
                   >
@@ -573,7 +573,7 @@ function NavBar() {
                     h-4 w-4
                     transition-all duration-200
                     group-hover:translate-x-1
-                    group-hover:text-[#D4AF37]
+                    group-hover:text-[#00D6A0]
                     ${dark ? "text-white/25" : "text-black/25"}
                   `}
                 />

@@ -9,7 +9,7 @@ function Skeleton({ className = "" }) {
 
 export function BountyDetailSkeleton() {
   return (
-    <div className="mx-auto grid w-full max-w-6xl gap-6 px-4 py-12 lg:grid-cols-[1.6fr_0.9fr] sm:px-6">
+    <div className="mx-auto grid w-full max-w-6xl gap-6 px-4 py-12  sm:px-6">
       <section className="skeleton-surface space-y-6 rounded-3xl p-6 sm:p-8">
         <Skeleton className="h-4 w-28" />
         <Skeleton className="h-10 w-4/5" />

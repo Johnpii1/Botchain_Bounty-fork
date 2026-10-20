@@ -1,16 +1,36 @@
 
 import { useEffect, useState } from "react";
 
+import dotLogo from "../../assets/images/pok.png";
+import botLogo from "../../assets/images/bot.png";
+import arcLogo from "../../assets/images/arc.png";
+
 function LiveTricker() {
   const items = [
-    { label: "Built for Arc", type: "ARC" },
+    { label: "Multi-Chain Bounty Platform", type: "WEB3" },
+    {
+      label: "Explore Arc Bounties",
+      type: "ARC",
+      logo: arcLogo,
+    },
+    { label: "Discover Injective Opportunities", type: "INJECTIVE" },
+    {
+      label: "Build on Botchain",
+      type: "BOTCHAIN",
+      logo: botLogo,
+    },
+    {
+      label: "Explore Portaldot Bounties",
+      type: "DOT",
+      logo: dotLogo,
+    },
     { label: "Earn USDC Rewards", type: "USDC" },
-    { label: "Complete On-Chain Bounties", type: "BOUNTY" },
-    { label: "Fast USDC Payouts", type: "PAYOUT" },
+    { label: "Complete On-Chain Bounties", type: "BOUNTIES" },
+    { label: "Post Work. Reward Contributors.", type: "CREATE" },
     { label: "New Bounties Added Daily", type: "NEW" },
   ];
 
-  const [dark, setDark] = useState(
+  const [dark, setDark] = useState(() =>
     document.documentElement.classList.contains("dark")
   );
 
@@ -30,132 +50,102 @@ function LiveTricker() {
   return (
     <div
       className={`
-        relative mt-1 w-full overflow-hidden
-        border-y
-        transition-all duration-500
+        relative mt-6 md:mt-3 w-full overflow-hidden
+        border-y transition-all duration-500
         ${
           dark
-            ? "border-white/[0.07] bg-[#080908]"
+            ? "border-white/[0.07] bg-[#080B0D]"
             : "border-black/[0.07] bg-white"
         }
       `}
     >
-      {/* =====================================================
-          SUBTLE BACKGROUND DOTS
-      ====================================================== */}
-
+      {/* SUBTLE BACKGROUND DOTS */}
       <div className="pointer-events-none absolute inset-0 overflow-hidden opacity-50">
-        <span className="ticker-bg-dot dot-1" />
-        <span className="ticker-bg-dot dot-2" />
-        <span className="ticker-bg-dot dot-3" />
-        <span className="ticker-bg-dot dot-4" />
-        <span className="ticker-bg-dot dot-5" />
-        <span className="ticker-bg-dot dot-6" />
-        <span className="ticker-bg-dot dot-7" />
-        <span className="ticker-bg-dot dot-8" />
-        <span className="ticker-bg-dot dot-9" />
-        <span className="ticker-bg-dot dot-10" />
+        {Array.from({ length: 10 }, (_, index) => (
+          <span
+            key={index}
+            className={`ticker-bg-dot dot-${index + 1}`}
+          />
+        ))}
 
         <div
           className={`
-            absolute inset-0
-            transition-all duration-500
+            absolute inset-0 transition-all duration-500
             ${
               dark
-                ? "bg-[radial-gradient(circle_at_center,rgba(212,175,55,0.055),transparent_65%)]"
-                : "bg-[radial-gradient(circle_at_center,rgba(212,175,55,0.025),transparent_65%)]"
+                ? "bg-[radial-gradient(circle_at_center,rgba(0,214,160,0.055),transparent_65%)]"
+                : "bg-[radial-gradient(circle_at_center,rgba(0,214,160,0.025),transparent_65%)]"
             }
           `}
         />
       </div>
 
-      {/* =====================================================
-          LEFT FADE
-      ====================================================== */}
-
+      {/* LEFT FADE */}
       <div
         className={`
-          pointer-events-none absolute
-          bottom-0 left-0 top-0
-          z-30 w-24
-          bg-gradient-to-r
-          to-transparent
+          pointer-events-none absolute bottom-0 left-0 top-0
+          z-30 w-24 bg-gradient-to-r to-transparent
           transition-all duration-500
           ${
             dark
-              ? "from-[#080908] via-[#080908]/95"
+              ? "from-[#080B0D] via-[#080B0D]/95"
               : "from-white via-white/95"
           }
         `}
       />
 
-      {/* =====================================================
-          RIGHT FADE
-      ====================================================== */}
-
+      {/* RIGHT FADE */}
       <div
         className={`
-          pointer-events-none absolute
-          bottom-0 right-0 top-0
-          z-30 w-24
-          bg-gradient-to-l
-          to-transparent
+          pointer-events-none absolute bottom-0 right-0 top-0
+          z-30 w-24 bg-gradient-to-l to-transparent
           transition-all duration-500
           ${
             dark
-              ? "from-[#080908] via-[#080908]/95"
+              ? "from-[#080B0D] via-[#080B0D]/95"
               : "from-white via-white/95"
           }
         `}
       />
 
-      {/* =====================================================
-          SUBTLE CENTER ACCENT
-      ====================================================== */}
-
+      {/* CENTER ACCENT */}
       <div
-        className={`
-          pointer-events-none absolute
-          left-1/2 top-1/2
-          z-0 h-8 w-96
-          -translate-x-1/2
-          -translate-y-1/2
-          rounded-full
-          bg-[#D4AF37]/[0.04]
-          blur-3xl
-        `}
+        className="
+          pointer-events-none absolute left-1/2 top-1/2 z-0
+          h-8 w-96 -translate-x-1/2 -translate-y-1/2
+          rounded-full bg-[#00D6A0]/[0.04] blur-3xl
+        "
       />
 
-      {/* =====================================================
-          TICKER
-      ====================================================== */}
-
+      {/* TICKER */}
       <div className="ticker-track relative z-10">
-        {[1, 2, 3].map((_, index) => (
-          <div key={index} className="ticker-content">
-            {items.map((item, i) => (
-              <div key={i} className="ticker-item">
-                {/* STATUS DOT */}
-
+        {[1, 2, 3].map((copy) => (
+          <div key={copy} className="ticker-content">
+            {items.map((item, index) => (
+              <div
+                key={`${copy}-${index}`}
+                className="ticker-item"
+              >
                 <span className="status-dot" />
-
-                {/* MAIN LABEL */}
 
                 <span className="ticker-label">
                   {item.label}
                 </span>
 
-                {/* CATEGORY */}
-
                 <span className="ticker-category">
-                  {item.type}
+                  {item.logo && (
+                    <img
+                      src={item.logo}
+                      alt={`${item.type} logo`}
+                      className="ticker-logo"
+                      loading="lazy"
+                    />
+                  )}
+
+                  <span>{item.type}</span>
                 </span>
 
-                {/* SEPARATOR */}
-
-                <span className="ticker-separator">
-                  /
-                </span>
+                <span className="ticker-separator">/</span>
               </div>
             ))}
           </div>
@@ -163,10 +153,7 @@ function LiveTricker() {
       </div>
 
       <style>{`
-        /* =====================================================
-           TICKER TRACK
-        ====================================================== */
-
+        /* TICKER TRACK */
         .ticker-track {
           display: flex;
           width: max-content;
@@ -181,6 +168,7 @@ function LiveTricker() {
         .ticker-content {
           display: flex;
           align-items: center;
+          flex-shrink: 0;
           padding-right: 20px;
         }
 
@@ -190,12 +178,10 @@ function LiveTricker() {
           gap: 10px;
           padding: 13px 18px;
           white-space: nowrap;
+          flex-shrink: 0;
         }
 
-        /* =====================================================
-           MAIN TEXT
-        ====================================================== */
-
+        /* MAIN TEXT */
         .ticker-label {
           color: ${dark ? "#ffffff" : "#111111"};
           font-size: 13px;
@@ -204,92 +190,85 @@ function LiveTricker() {
           transition: color 0.5s ease;
         }
 
-        /* =====================================================
-           CATEGORY
-        ====================================================== */
-
+        /* CATEGORY BADGE */
         .ticker-category {
+          display: inline-flex;
+          align-items: center;
+          justify-content: center;
+          gap: 5px;
           padding: 3px 7px;
           border-radius: 9999px;
-
-          color: ${dark ? "#D4AF37" : "#8a6b16"};
-
+          color: ${dark ? "#00D6A0" : "#008765"};
           background: ${
             dark
-              ? "rgba(212, 175, 55, 0.10)"
-              : "rgba(212, 175, 55, 0.055)"
+              ? "rgba(0, 214, 160, 0.10)"
+              : "rgba(0, 168, 125, 0.06)"
           };
-
           border: 1px solid ${
             dark
-              ? "rgba(212, 175, 55, 0.30)"
-              : "rgba(212, 175, 55, 0.20)"
+              ? "rgba(0, 214, 160, 0.30)"
+              : "rgba(0, 168, 125, 0.20)"
           };
-
           font-size: 9px;
           font-weight: 900;
           letter-spacing: 0.12em;
-
+          white-space: nowrap;
           transition:
             color 0.5s ease,
             background 0.5s ease,
             border-color 0.5s ease;
         }
 
-        /* =====================================================
-           SEPARATOR
-        ====================================================== */
+        /* NETWORK LOGOS */
+        .ticker-logo {
+          display: block;
+          width: 16px;
+          height: 16px;
+          object-fit: contain;
+          flex-shrink: 0;
+          transition: transform 0.3s ease;
+        }
 
+        .ticker-category:hover .ticker-logo {
+          transform: scale(1.12);
+        }
+
+        /* SEPARATOR */
         .ticker-separator {
           margin-left: 8px;
-
           color: ${
             dark
-              ? "rgba(212, 175, 55, 0.45)"
-              : "rgba(212, 175, 55, 0.30)"
+              ? "rgba(0, 214, 160, 0.45)"
+              : "rgba(0, 168, 125, 0.35)"
           };
-
           font-size: 18px;
           font-weight: 500;
-
           transition: color 0.5s ease;
         }
 
-        /* =====================================================
-           STATUS DOT
-        ====================================================== */
-
+        /* STATUS DOT */
         .status-dot {
           display: inline-block;
           width: 6px;
           height: 6px;
           flex-shrink: 0;
           border-radius: 50%;
-          background: #D4AF37;
-
+          background: #00D6A0;
           box-shadow:
-            0 0 7px rgba(212, 175, 55, 0.45),
-            0 0 14px rgba(212, 175, 55, 0.12);
-
-          animation: goldPulse 2.5s ease-in-out infinite;
+            0 0 7px rgba(0, 214, 160, 0.45),
+            0 0 14px rgba(0, 214, 160, 0.12);
+          animation: greenPulse 2.5s ease-in-out infinite;
         }
 
-        /* =====================================================
-           BACKGROUND DOTS
-        ====================================================== */
-
+        /* BACKGROUND DOTS */
         .ticker-bg-dot {
           position: absolute;
           width: 3px;
           height: 3px;
           border-radius: 50%;
-          background: #D4AF37;
-
-          box-shadow:
-            0 0 8px rgba(212, 175, 55, 0.3);
-
+          background: #00D6A0;
+          box-shadow: 0 0 8px rgba(0, 214, 160, 0.3);
           opacity: ${dark ? "0.25" : "0.18"};
-
           transition: opacity 0.5s ease;
         }
 
@@ -355,10 +334,7 @@ function LiveTricker() {
           animation: bgDotFloat 4s ease-in-out infinite 1.4s;
         }
 
-        /* =====================================================
-           TICKER MOVEMENT
-        ====================================================== */
-
+        /* TICKER MOVEMENT */
         @keyframes tickerScroll {
           from {
             transform: translateX(0);
@@ -369,13 +345,9 @@ function LiveTricker() {
           }
         }
 
-        /* =====================================================
-           GOLD PULSE
-        ====================================================== */
-
-        @keyframes goldPulse {
-          0%,
-          100% {
+        /* GREEN PULSE */
+        @keyframes greenPulse {
+          0%, 100% {
             opacity: 0.45;
             transform: scale(0.8);
           }
@@ -386,13 +358,9 @@ function LiveTricker() {
           }
         }
 
-        /* =====================================================
-           BACKGROUND DOT MOTION
-        ====================================================== */
-
+        /* BACKGROUND DOT MOTION */
         @keyframes bgDotFloat {
-          0%,
-          100% {
+          0%, 100% {
             opacity: 0.1;
             transform: translate3d(0, 0, 0) scale(0.8);
           }
@@ -403,10 +371,7 @@ function LiveTricker() {
           }
         }
 
-        /* =====================================================
-           MOBILE
-        ====================================================== */
-
+        /* MOBILE */
         @media (max-width: 640px) {
           .ticker-item {
             padding: 12px 14px;
@@ -419,11 +384,18 @@ function LiveTricker() {
           }
 
           .ticker-category {
+            gap: 4px;
+            padding: 3px 6px;
             font-size: 8px;
           }
 
+          .ticker-logo {
+            width: 14px;
+            height: 14px;
+          }
+
           .ticker-track {
-            animation-duration: 22s;
+            animation-duration: 35s;
           }
 
           .ticker-separator {
@@ -431,18 +403,12 @@ function LiveTricker() {
           }
         }
 
-        /* =====================================================
-           REDUCED MOTION
-        ====================================================== */
-
+        /* REDUCED MOTION */
         @media (prefers-reduced-motion: reduce) {
-          .ticker-track {
-            animation: none;
-          }
-
+          .ticker-track,
           .status-dot,
           .ticker-bg-dot {
-            animation: none;
+            animation: none !important;
           }
         }
       `}</style>

@@ -32,7 +32,7 @@ export default function FAQPage() {
   ];
 
   return (
-    <div className="theme-page min-h-screen overflow-x-hidden bg-[#f7f6f0] text-[#171714]">
+    <div className="theme-page min-h-screen overflow-x-hidden bg-[#F3F5F3] text-[#171714]">
       {/* BACKGROUND */}
       <div className="pointer-events-none fixed inset-0 overflow-hidden">
         <div
@@ -44,9 +44,9 @@ export default function FAQPage() {
           }}
         />
 
-        <div className="absolute -top-32 left-1/2 h-80 w-80 -translate-x-1/2 rounded-full bg-[#d4af37]/[0.07] blur-[120px]" />
+        <div className="absolute -top-32 left-1/2 h-80 w-80 -translate-x-1/2 rounded-full bg-[#00D6A0]/[0.07] blur-[120px]" />
 
-        <div className="absolute bottom-0 right-0 h-72 w-72 rounded-full bg-[#d4af37]/[0.05] blur-[120px]" />
+        <div className="absolute bottom-0 right-0 h-72 w-72 rounded-full bg-[#00D6A0]/[0.05] blur-[120px]" />
       </div>
 
       {/* CONTENT */}
@@ -75,13 +75,13 @@ export default function FAQPage() {
                 transition-all
                 duration-200
                 hover:-translate-y-0.5
-                hover:border-[#d4af37]/50
+                hover:border-[#00D6A0]/50
                 hover:bg-white
                 hover:text-black
                 active:scale-95
               "
             >
-              <FiArrowLeft className="text-base text-[#b28d19] transition-transform duration-200 group-hover:-translate-x-0.5" />
+              <FiArrowLeft className="text-base text-[#00A87D] transition-transform duration-200 group-hover:-translate-x-0.5" />
               <span>Back</span>
             </Link>
           </div>
@@ -95,15 +95,15 @@ export default function FAQPage() {
               gap-2
               rounded-full
               border
-              border-[#d4af37]/30
-              bg-[#d4af37]/[0.07]
+              border-[#00D6A0]/30
+              bg-[#00D6A0]/[0.07]
               px-3
               py-1.5
             "
           >
-            <span className="h-1.5 w-1.5 rounded-full bg-[#c49b2c]" />
+            <span className="h-1.5 w-1.5 rounded-full bg-[#00D6A0]" />
 
-            <span className="text-[10px] font-bold uppercase tracking-[0.18em] text-[#9b7715] sm:text-xs">
+            <span className="text-[10px] font-bold uppercase tracking-[0.18em] text-[#007E62] sm:text-xs">
               Help Center
             </span>
           </div>
@@ -123,7 +123,7 @@ export default function FAQPage() {
             "
           >
             Frequently Asked{" "}
-            <span className="text-[#b28d19]">Questions</span>
+            <span className="text-[#00A87D]">Questions</span>
           </h1>
 
           {/* DESCRIPTION */}
@@ -163,11 +163,11 @@ export default function FAQPage() {
               shadow-[0_10px_35px_rgba(0,0,0,0.05)]
               transition-all
               duration-200
-              focus-within:border-[#d4af37]/60
+              focus-within:border-[#00D6A0]/60
               focus-within:shadow-[0_12px_40px_rgba(180,140,25,0.08)]
             "
           >
-            <FiSearch className="shrink-0 text-lg text-black/30 transition-colors group-focus-within:text-[#b28d19]" />
+            <FiSearch className="shrink-0 text-lg text-black/30 transition-colors group-focus-within:text-[#00A87D]" />
 
             <input
               type="text"
@@ -202,9 +202,9 @@ export default function FAQPage() {
                 transition-all
                 duration-300
                 hover:-translate-y-0.5
-                hover:border-[#d4af37]/35
+                hover:border-[#00D6A0]/35
                 hover:shadow-[0_10px_30px_rgba(0,0,0,0.06)]
-                open:border-[#d4af37]/50
+                open:border-[#00D6A0]/50
                 open:shadow-[0_12px_35px_rgba(180,140,25,0.07)]
               "
             >
@@ -252,16 +252,16 @@ export default function FAQPage() {
                     rounded-lg
                     border
                     border-black/10
-                    bg-[#f7f6f0]
+                    bg-[#F3F5F3]
                     text-black/40
                     transition-all
                     duration-300
-                    group-hover:border-[#d4af37]/40
-                    group-hover:text-[#a98216]
+                    group-hover:border-[#00D6A0]/40
+                    group-hover:text-[#007E62]
                     group-open:rotate-180
-                    group-open:border-[#d4af37]/50
-                    group-open:bg-[#d4af37]/10
-                    group-open:text-[#a98216]
+                    group-open:border-[#00D6A0]/50
+                    group-open:bg-[#00D6A0]/10
+                    group-open:text-[#007E62]
                   "
                 >
                   <FiChevronDown className="text-sm" />
@@ -297,7 +297,7 @@ export default function FAQPage() {
             overflow-hidden
             rounded-2xl
             border
-            border-[#d4af37]/25
+            border-[#00D6A0]/25
             bg-white
             p-6
             text-center
@@ -308,7 +308,7 @@ export default function FAQPage() {
           "
         >
           {/* TOP ACCENT */}
-          <div className="mx-auto mb-6 h-1 w-12 rounded-full bg-[#d4af37]" />
+          <div className="mx-auto mb-6 h-1 w-12 rounded-full bg-[#00D6A0]" />
 
           {/* ICON */}
           <div
@@ -322,9 +322,9 @@ export default function FAQPage() {
               justify-center
               rounded-xl
               border
-              border-[#d4af37]/25
-              bg-[#d4af37]/[0.08]
-              text-[#a98216]
+              border-[#00D6A0]/25
+              bg-[#00D6A0]/[0.08]
+              text-[#007E62]
             "
           >
             <FiMessageCircle className="text-lg" />
