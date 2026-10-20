@@ -16,51 +16,39 @@ import {
   FiUsers,
   FiZap,
 } from "react-icons/fi";
-import { SiPolkadot } from "react-icons/si";
+import PolkadotLogo from "../assets/images/pok.png";
+import ArcLogo from "../assets/images/arc.png";
+import BotchainLogo from "../assets/images/bot.png";
+
 import happyBountyVideo from "../Video/happy-demo.mp4";
-
-
 
 export default function HowItWorks() {
   const sectionRef = useRef(null);
   const [isVisible, setIsVisible] = useState(false);
   const [activeChain, setActiveChain] = useState("Arc");
-
-  const [dark, setDark] = useState(() => {
-    if (typeof document === "undefined") return true;
-
-    const root = document.documentElement;
-    const body = document.body;
-
-    return (
-      root.classList.contains("dark") ||
-      body.classList.contains("dark") ||
-      root.getAttribute("data-theme") === "dark" ||
-      body.getAttribute("data-theme") === "dark"
-    );
-  });
+  const [dark, setDark] = useState(true);
 
   const chains = [
     {
       name: "Arc",
-      symbol: "ARC",
-      description: "Discover and complete bounties on Arc.",
+      symbol: "USDC",
+      description: "Explore bounty opportunities in the Arc ecosystem.",
       color: "#00D6A0",
-      icon: <FiGlobe />,
+      img: ArcLogo,
     },
     {
       name: "Botchain",
       symbol: "BOT",
-      description: "Connect with tasks and contributors on Botchain.",
-      color: "#42A5F5",
-      icon: <FiZap />,
+      description: "Explore bounty opportunities in the Botchain ecosystem.",
+      color: "#00D6A0",
+      img: BotchainLogo,
     },
     {
-      name: "Polkadot",
+      name: "Portaldot",
       symbol: "DOT",
-      description: "Explore bounty opportunities in the Polkadot ecosystem.",
-      color: "#E6007A",
-      icon: <SiPolkadot />,
+      description: "Explore bounty opportunities in the Portaldot ecosystem.",
+      color: "#C9B7FF",
+      img: PolkadotLogo,
     },
   ];
 
@@ -72,7 +60,6 @@ export default function HowItWorks() {
         "Explore available tasks, compare rewards, and find opportunities that match your skills and interests.",
       icon: <FiTarget />,
       tag: "FIND YOUR NEXT TASK",
-      visual: "discover",
     },
     {
       number: "02",
@@ -81,7 +68,6 @@ export default function HowItWorks() {
         "Connect your wallet, choose a bounty, and complete the task according to the creator's requirements.",
       icon: <FiUsers />,
       tag: "PUT YOUR SKILLS TO WORK",
-      visual: "connect",
     },
     {
       number: "03",
@@ -90,7 +76,6 @@ export default function HowItWorks() {
         "Submit your work for review. The bounty creator checks your contribution before approving it.",
       icon: <FiCheckCircle />,
       tag: "SHOW WHAT YOU CAN DO",
-      visual: "verify",
     },
     {
       number: "04",
@@ -99,54 +84,47 @@ export default function HowItWorks() {
         "Receive your reward after approval, build your reputation, and discover your next opportunity.",
       icon: <FiTrendingUp />,
       tag: "TURN WORK INTO REWARDS",
-      visual: "earn",
     },
   ];
 
   const selectedChain =
     chains.find((chain) => chain.name === activeChain) || chains[0];
 
-  // Detect dark/light mode changes on the html and body elements.
   useEffect(() => {
-    if (typeof document === "undefined") return undefined;
-
-    const root = document.documentElement;
-    const body = document.body;
-
     const updateTheme = () => {
-      const isDark =
-        root.classList.contains("dark") ||
-        body.classList.contains("dark") ||
-        root.getAttribute("data-theme") === "dark" ||
-        body.getAttribute("data-theme") === "dark";
+      const root = document.documentElement;
+      const body = document.body;
 
-      setDark((current) => (current === isDark ? current : isDark));
+      setDark(
+        root.classList.contains("dark") ||
+          body.classList.contains("dark") ||
+          root.getAttribute("data-theme") === "dark" ||
+          body.getAttribute("data-theme") === "dark",
+      );
     };
 
     updateTheme();
 
     const observer = new MutationObserver(updateTheme);
-
     const options = {
       attributes: true,
       attributeFilter: ["class", "data-theme"],
     };
 
-    observer.observe(root, options);
-    observer.observe(body, options);
+    observer.observe(document.documentElement, options);
+    observer.observe(document.body, options);
 
     return () => observer.disconnect();
   }, []);
 
-  // Reveal the section when it enters the viewport.
   useEffect(() => {
     const section = sectionRef.current;
 
-    if (!section) return undefined;
+    if (!section) return;
 
     if (typeof IntersectionObserver === "undefined") {
       setIsVisible(true);
-      return undefined;
+      return;
     }
 
     const observer = new IntersectionObserver(
@@ -176,7 +154,6 @@ export default function HowItWorks() {
       <div className="hiw-glow hiw-glow-two" aria-hidden="true" />
 
       <div className="hiw-container">
-        {/* HEADER */}
         <header className="hiw-header">
           <div className="hiw-eyebrow">
             <span className="hiw-live-dot" />
@@ -198,21 +175,17 @@ export default function HowItWorks() {
 
           <div className="hiw-header-points">
             <span>
-              <FiCheckCircle />
-              Multiple ecosystems
+              <FiCheckCircle /> Multiple ecosystems
             </span>
             <span>
-              <FiShield />
-              Wallet-based participation
+              <FiShield /> Wallet-based participation
             </span>
             <span>
-              <FiZap />
-              Reward-driven tasks
+              <FiZap /> Reward-driven tasks
             </span>
           </div>
         </header>
 
-        {/* MULTI-CHAIN ECOSYSTEM */}
         <div className="hiw-ecosystem">
           <div className="hiw-ecosystem-heading">
             <div>
@@ -238,10 +211,20 @@ export default function HowItWorks() {
                 style={{ "--chain-color": chain.color }}
                 onClick={() => setActiveChain(chain.name)}
                 aria-pressed={activeChain === chain.name}
-                aria-label={`Select ${chain.name} ecosystem`}
               >
                 <div className="hiw-chain-card-top">
-                  <span className="hiw-chain-icon">{chain.icon}</span>
+                  <span className="hiw-chain-icon">
+                    {chain.img ? (
+                      <img
+                        src={chain.img}
+                        alt={`${chain.name} logo`}
+                        className="hiw-chain-logo"
+                      />
+                    ) : (
+                      chain.icon
+                    )}
+                  </span>
+
                   <span className="hiw-chain-symbol">{chain.symbol}</span>
                 </div>
 
@@ -267,15 +250,16 @@ export default function HowItWorks() {
           </div>
 
           <div className="hiw-selected-network" aria-live="polite">
-            <div
-              className="hiw-selected-network-icon"
-              style={{ "--chain-color": selectedChain.color }}
-            >
-              {selectedChain.icon}
-            </div>
-
             <div className="hiw-selected-network-copy">
               <span>SELECTED ECOSYSTEM</span>
+
+              <img
+                src={ArcLogo}
+                alt="Arc logo"
+                className="hiw-selected-network-icon size-12 object-contain my-3"
+                style={{ "--chain-color": selectedChain.color }}
+              />
+
               <strong>{selectedChain.name}</strong>
               <p>{selectedChain.description}</p>
             </div>
@@ -290,7 +274,6 @@ export default function HowItWorks() {
           </div>
         </div>
 
-        {/* HOW IT WORKS */}
         <div className="hiw-process-heading">
           <div>
             <div className="hiw-section-kicker">YOUR JOURNEY</div>
@@ -316,101 +299,91 @@ export default function HowItWorks() {
                 <span className="hiw-step-mini-icon">{step.icon}</span>
               </div>
 
-              <div className={`hiw-visual hiw-visual-${step.visual}`}>
-                {step.visual === "discover" && (
+              <div className="hiw-visual">
+                {index === 0 && (
                   <>
                     <div className="hiw-orbit hiw-orbit-a" />
                     <div className="hiw-orbit hiw-orbit-b" />
 
-                    <div className="hiw-discover-window">
+                    <div className="hiw-visual-card">
                       <div className="hiw-window-dots">
                         <i />
                         <i />
                         <i />
                       </div>
 
-                      <div className="hiw-discover-row">
-                        <div className="hiw-mini-task-icon">
+                      <div className="hiw-mini-row">
+                        <span className="hiw-mini-icon">
                           <FiCode />
-                        </div>
-
-                        <div className="hiw-mini-task-copy">
-                          <span />
-                          <span />
-                        </div>
-
+                        </span>
+                        <span className="hiw-mini-lines">
+                          <i />
+                          <i />
+                        </span>
                         <FiChevronRight />
                       </div>
 
-                      <div className="hiw-discover-row">
-                        <div className="hiw-mini-task-icon hiw-mini-task-alt">
+                      <div className="hiw-mini-row">
+                        <span className="hiw-mini-icon">
                           <FiZap />
-                        </div>
-
-                        <div className="hiw-mini-task-copy">
-                          <span />
-                          <span />
-                        </div>
-
+                        </span>
+                        <span className="hiw-mini-lines">
+                          <i />
+                          <i />
+                        </span>
                         <FiChevronRight />
                       </div>
                     </div>
 
-                    <span className="hiw-floating-symbol hiw-symbol-one">
+                    <span className="hiw-floating-icon hiw-floating-one">
                       <FiTarget />
                     </span>
-
-                    <span className="hiw-floating-symbol hiw-symbol-two">
+                    <span className="hiw-floating-icon hiw-floating-two">
                       <FiStar />
                     </span>
                   </>
                 )}
 
-                {step.visual === "connect" && (
+                {index === 1 && (
                   <>
-                    <div className="hiw-connect-line hiw-connect-line-one" />
-                    <div className="hiw-connect-line hiw-connect-line-two" />
+                    <div className="hiw-connect-line hiw-line-one" />
+                    <div className="hiw-connect-line hiw-line-two" />
 
                     <div className="hiw-connect-center">
                       <FiGlobe />
                     </div>
 
-                    <div className="hiw-connect-node hiw-connect-node-one">
+                    <div className="hiw-connect-node hiw-node-one">
                       <FiUserPlus />
                     </div>
-
-                    <div className="hiw-connect-node hiw-connect-node-two">
+                    <div className="hiw-connect-node hiw-node-two">
                       <FiUsers />
                     </div>
-
-                    <div className="hiw-connect-node hiw-connect-node-three">
+                    <div className="hiw-connect-node hiw-node-three">
                       <FiCode />
                     </div>
-
-                    <span className="hiw-connect-particle" />
                   </>
                 )}
 
-                {step.visual === "verify" && (
+                {index === 2 && (
                   <>
-                    <div className="hiw-verify-ring hiw-verify-ring-one" />
-                    <div className="hiw-verify-ring hiw-verify-ring-two" />
+                    <div className="hiw-verify-ring hiw-ring-one" />
+                    <div className="hiw-verify-ring hiw-ring-two" />
 
                     <div className="hiw-verify-card">
                       <div className="hiw-verify-card-top">
                         <span>SUBMISSION</span>
-                        <span className="hiw-verify-status">IN REVIEW</span>
+                        <span className="hiw-review-status">IN REVIEW</span>
                       </div>
 
                       <div className="hiw-verify-lines">
-                        <span />
-                        <span />
-                        <span />
+                        <i />
+                        <i />
+                        <i />
                       </div>
 
-                      <div className="hiw-verify-card-bottom">
-                        <FiShield />
-                        Work verification
+                      <div className="hiw-verify-bottom">
+                        <FiShield /> Work verification
                       </div>
                     </div>
 
@@ -420,28 +393,26 @@ export default function HowItWorks() {
                   </>
                 )}
 
-                {step.visual === "earn" && (
+                {index === 3 && (
                   <>
                     <div className="hiw-earn-ring hiw-earn-ring-one" />
                     <div className="hiw-earn-ring hiw-earn-ring-two" />
 
                     <div className="hiw-earn-card">
                       <div className="hiw-earn-dollar">$</div>
-
-                      <div className="hiw-earn-copy">
+                      <div>
                         <span>BOUNTY REWARD</span>
                         <strong>USDC</strong>
                         <small>After approval</small>
                       </div>
-
                       <div className="hiw-earn-check">
                         <FiCheck />
                       </div>
                     </div>
 
-                    <span className="hiw-earn-particle hiw-earn-particle-one" />
-                    <span className="hiw-earn-particle hiw-earn-particle-two" />
-                    <span className="hiw-earn-particle hiw-earn-particle-three" />
+                    <span className="hiw-earn-particle hiw-particle-one" />
+                    <span className="hiw-earn-particle hiw-particle-two" />
+                    <span className="hiw-earn-particle hiw-particle-three" />
                   </>
                 )}
               </div>
@@ -462,7 +433,6 @@ export default function HowItWorks() {
           ))}
         </div>
 
-        {/* HAPPY BOUNTY DEMO VIDEO */}
         <section className="hiw-demo-section">
           <div className="hiw-demo-heading">
             <div className="hiw-section-kicker">SEE IT IN ACTION</div>
@@ -477,12 +447,10 @@ export default function HowItWorks() {
             <video
               className="hiw-demo-video"
               src={happyBountyVideo}
-              autoPlay
-              loop
               controls
               muted
               playsInline
-              preload="auto"
+              preload="metadata"
               aria-label="Happy Bounty demonstration video"
             >
               Your browser does not support video playback.
@@ -491,36 +459,22 @@ export default function HowItWorks() {
 
           <div className="hiw-demo-caption">
             <span>
-              <FiCheckCircle />
-              Discover a task
+              <FiCheckCircle /> Discover a task
             </span>
-
             <FiChevronRight />
-
             <span>
-              <FiCheckCircle />
-              Submit your work
+              <FiCheckCircle /> Submit your work
             </span>
-
             <FiChevronRight />
-
             <span>
-              <FiCheckCircle />
-              Earn your reward
+              <FiCheckCircle /> Earn your reward
             </span>
           </div>
         </section>
 
-        {/* CREATE A BOUNTY */}
         <div className="hiw-create-banner">
-          <div
-            className="hiw-create-decoration hiw-create-decoration-one"
-            aria-hidden="true"
-          />
-          <div
-            className="hiw-create-decoration hiw-create-decoration-two"
-            aria-hidden="true"
-          />
+          <div className="hiw-create-decoration hiw-decoration-one" />
+          <div className="hiw-create-decoration hiw-decoration-two" />
 
           <div className="hiw-create-icon">
             <FiBriefcase />
@@ -536,11 +490,10 @@ export default function HowItWorks() {
           </div>
 
           <div className="hiw-create-button">
-            Your Skills, Your Rewards
+            Explore Opportunities <FiArrowUpRight />
           </div>
         </div>
 
-        {/* ECOSYSTEM FOOTER */}
         <footer className="hiw-footer">
           <div className="hiw-footer-intro">
             <span className="hiw-live-dot" />
@@ -555,8 +508,8 @@ export default function HowItWorks() {
               </span>
             ))}
 
-            <span className="hiw-footer-chain hiw-footer-usdc">
-              <i />
+            <span className="hiw-footer-chain">
+              <i className="hiw-usdc-dot" />
               USDC Rewards
             </span>
           </div>
@@ -566,9 +519,7 @@ export default function HowItWorks() {
       <style>{`
         .hiw-section {
           --hiw-accent: #00D6A0;
-          --hiw-gold: #c5a23c;
           position: relative;
-          z-index: 0;
           isolation: isolate;
           width: 100%;
           padding: 100px 24px 70px;
@@ -584,7 +535,6 @@ export default function HowItWorks() {
           --hiw-muted: #929b97;
           --hiw-border: rgba(255,255,255,.09);
           --hiw-card: #101513;
-          --hiw-card-hover: #151c19;
           --hiw-soft: rgba(255,255,255,.035);
           --hiw-shadow: rgba(0,0,0,.24);
           color-scheme: dark;
@@ -595,8 +545,7 @@ export default function HowItWorks() {
           --hiw-text: #111713;
           --hiw-muted: #737b76;
           --hiw-border: rgba(20,30,25,.11);
-          --hiw-card: #ffffff;
-          --hiw-card-hover: #ffffff;
+          --hiw-card: #fff;
           --hiw-soft: rgba(15,30,25,.035);
           --hiw-shadow: rgba(20,30,25,.06);
           color-scheme: light;
@@ -737,7 +686,6 @@ export default function HowItWorks() {
         }
 
         .hiw-ecosystem {
-          position: relative;
           padding: 30px;
           margin-bottom: 80px;
           border: 1px solid var(--hiw-border);
@@ -805,7 +753,6 @@ export default function HowItWorks() {
         }
 
         .hiw-chain-card {
-          position: relative;
           display: flex;
           flex-direction: column;
           align-items: flex-start;
@@ -818,7 +765,7 @@ export default function HowItWorks() {
           background: var(--hiw-soft);
           cursor: pointer;
           font: inherit;
-          transition: transform .3s ease, border-color .3s ease, background .3s ease, box-shadow .3s ease;
+          transition: transform .3s ease, border-color .3s ease, background .3s ease;
         }
 
         .hiw-chain-card:hover {
@@ -835,7 +782,6 @@ export default function HowItWorks() {
         .hiw-chain-card.hiw-chain-active {
           border-color: var(--chain-color);
           background: color-mix(in srgb, var(--chain-color) 8%, var(--hiw-card));
-          box-shadow: 0 8px 28px color-mix(in srgb, var(--chain-color) 9%, transparent);
         }
 
         .hiw-chain-card-top {
@@ -892,10 +838,6 @@ export default function HowItWorks() {
           color: var(--chain-color);
           font-size: 10px;
           font-weight: 800;
-        }
-
-        .hiw-chain-select svg {
-          font-size: 13px;
         }
 
         .hiw-selected-network {
@@ -982,61 +924,34 @@ export default function HowItWorks() {
         .hiw-process-grid {
           display: grid;
           grid-template-columns: repeat(4, minmax(0, 1fr));
-          gap: 16px;
+          gap: 15px;
         }
 
         .hiw-step-card {
-          position: relative;
           min-width: 0;
-          padding: 20px 19px 17px;
+          padding: 20px;
           overflow: hidden;
           border: 1px solid var(--hiw-border);
-          border-radius: 21px;
+          border-radius: 20px;
           background: var(--hiw-card);
-          box-shadow: 0 15px 38px var(--hiw-shadow);
-          transition: transform .35s ease, border-color .35s ease, background .35s ease, box-shadow .35s ease;
+          box-shadow: 0 16px 45px var(--hiw-shadow);
+          opacity: 0;
+          transform: translateY(24px);
+          transition: opacity .6s ease, transform .6s ease, border-color .3s ease;
+          transition-delay: calc(var(--step-index) * 90ms);
         }
 
         .hiw-visible .hiw-step-card {
-          animation: hiwCardReveal .7s cubic-bezier(.2,.8,.2,1) both;
-          animation-delay: calc(var(--step-index) * 100ms);
-        }
-
-        .hiw-step-card::before {
-          content: "";
-          position: absolute;
-          top: 0;
-          left: 15%;
-          right: 15%;
-          height: 1px;
-          background: linear-gradient(90deg, transparent, rgba(0,214,160,.8), transparent);
-          opacity: .65;
-        }
-
-        .hiw-step-card::after {
-          content: "";
-          position: absolute;
-          inset: 0;
-          pointer-events: none;
-          background: radial-gradient(circle at 50% 30%, rgba(0,214,160,.07), transparent 55%);
-          opacity: 0;
-          transition: opacity .35s ease;
+          opacity: 1;
+          transform: translateY(0);
         }
 
         .hiw-step-card:hover {
-          transform: translateY(-7px);
-          border-color: rgba(0,214,160,.28);
-          background: var(--hiw-card-hover);
-          box-shadow: 0 24px 55px var(--hiw-shadow), 0 0 28px rgba(0,214,160,.045);
+          border-color: rgba(0,214,160,.35);
         }
 
-        .hiw-step-card:hover::after {
-          opacity: 1;
-        }
-
-        .hiw-step-top {
-          position: relative;
-          z-index: 2;
+        .hiw-step-top,
+        .hiw-step-bottom {
           display: flex;
           align-items: center;
           justify-content: space-between;
@@ -1045,21 +960,20 @@ export default function HowItWorks() {
         .hiw-step-number {
           color: var(--hiw-muted);
           font-size: 10px;
-          font-weight: 800;
-          letter-spacing: .15em;
+          font-weight: 850;
+          letter-spacing: .12em;
         }
 
         .hiw-step-mini-icon {
-          display: flex;
-          align-items: center;
-          justify-content: center;
-          width: 31px;
-          height: 31px;
-          border: 1px solid rgba(0,214,160,.22);
+          display: grid;
+          place-items: center;
+          width: 34px;
+          height: 34px;
+          border: 1px solid rgba(0,214,160,.2);
           border-radius: 10px;
-          background: rgba(0,214,160,.07);
+          background: rgba(0,214,160,.08);
           color: var(--hiw-accent);
-          font-size: 15px;
+          font-size: 17px;
         }
 
         .hiw-visual {
@@ -1067,28 +981,46 @@ export default function HowItWorks() {
           display: flex;
           align-items: center;
           justify-content: center;
-          height: 170px;
-          margin: 8px 0 13px;
+          height: 190px;
+          margin: 12px -5px;
           overflow: hidden;
+          border-radius: 14px;
+          background: radial-gradient(circle, rgba(0,214,160,.09), transparent 70%);
         }
 
-        .hiw-discover-window {
+        .hiw-orbit {
+          position: absolute;
+          width: 155px;
+          height: 155px;
+          border: 1px solid rgba(0,214,160,.2);
+          border-radius: 50%;
+          animation: hiwOrbit 15s linear infinite;
+        }
+
+        .hiw-orbit-a {
+          transform: rotate(30deg) scaleY(.45);
+        }
+
+        .hiw-orbit-b {
+          transform: rotate(-30deg) scaleY(.45);
+          animation-direction: reverse;
+        }
+
+        .hiw-visual-card {
           position: relative;
-          z-index: 2;
-          width: 184px;
-          padding: 11px;
+          z-index: 1;
+          width: 175px;
+          padding: 12px;
           border: 1px solid var(--hiw-border);
-          border-radius: 13px;
-          background: var(--hiw-card-hover);
-          box-shadow: 0 17px 35px var(--hiw-shadow);
-          animation: hiwFloat 4s ease-in-out infinite;
+          border-radius: 12px;
+          background: var(--hiw-card);
+          box-shadow: 0 12px 30px var(--hiw-shadow);
         }
 
         .hiw-window-dots {
           display: flex;
           gap: 4px;
-          padding-bottom: 10px;
-          border-bottom: 1px solid var(--hiw-border);
+          margin-bottom: 12px;
         }
 
         .hiw-window-dots i {
@@ -1096,434 +1028,325 @@ export default function HowItWorks() {
           height: 5px;
           border-radius: 50%;
           background: var(--hiw-muted);
-          opacity: .5;
+          opacity: .6;
         }
 
-        .hiw-discover-row {
+        .hiw-mini-row {
           display: flex;
           align-items: center;
-          gap: 9px;
-          padding: 10px 0 2px;
-        }
-
-        .hiw-mini-task-icon {
-          display: flex;
-          align-items: center;
-          justify-content: center;
-          width: 28px;
-          height: 28px;
-          flex-shrink: 0;
-          border-radius: 8px;
-          background: rgba(0,214,160,.1);
-          color: var(--hiw-accent);
-          font-size: 13px;
-        }
-
-        .hiw-mini-task-alt {
-          color: #c6a64b;
-          background: rgba(198,166,75,.1);
-        }
-
-        .hiw-mini-task-copy {
-          display: flex;
-          flex: 1;
-          flex-direction: column;
-          gap: 5px;
-        }
-
-        .hiw-mini-task-copy span {
-          height: 4px;
-          width: 88%;
-          border-radius: 999px;
-          background: var(--hiw-border);
-        }
-
-        .hiw-mini-task-copy span:last-child {
-          width: 55%;
-        }
-
-        .hiw-discover-row > svg {
+          gap: 8px;
+          padding: 8px 0;
+          border-top: 1px solid var(--hiw-border);
           color: var(--hiw-muted);
           font-size: 12px;
         }
 
-        .hiw-orbit {
-          position: absolute;
-          width: 210px;
-          height: 100px;
-          border: 1px solid rgba(0,214,160,.16);
-          border-radius: 50%;
-        }
-
-        .hiw-orbit-a {
-          transform: rotate(35deg);
-          animation: hiwOrbit 12s linear infinite;
-        }
-
-        .hiw-orbit-b {
-          width: 195px;
-          height: 115px;
-          border-color: rgba(198,166,75,.19);
-          transform: rotate(-35deg);
-          animation: hiwOrbit 15s linear infinite reverse;
-        }
-
-        .hiw-floating-symbol {
-          position: absolute;
-          z-index: 3;
-          display: flex;
-          align-items: center;
-          justify-content: center;
-          width: 30px;
-          height: 30px;
-          border: 1px solid var(--hiw-border);
-          border-radius: 10px;
-          background: var(--hiw-card-hover);
-          box-shadow: 0 8px 20px var(--hiw-shadow);
+        .hiw-mini-icon {
+          display: grid;
+          place-items: center;
+          width: 27px;
+          height: 27px;
+          border-radius: 7px;
+          background: rgba(0,214,160,.1);
           color: var(--hiw-accent);
         }
 
-        .hiw-symbol-one {
-          top: 18px;
-          left: 8px;
+        .hiw-mini-lines {
+          display: grid;
+          flex: 1;
+          gap: 5px;
+        }
+
+        .hiw-mini-lines i {
+          height: 4px;
+          border-radius: 4px;
+          background: var(--hiw-border);
+        }
+
+        .hiw-mini-lines i:first-child {
+          width: 75%;
+        }
+
+        .hiw-mini-lines i:last-child {
+          width: 45%;
+        }
+
+        .hiw-floating-icon {
+          position: absolute;
+          display: grid;
+          place-items: center;
+          width: 32px;
+          height: 32px;
+          border: 1px solid rgba(0,214,160,.25);
+          border-radius: 10px;
+          background: var(--hiw-card);
+          color: var(--hiw-accent);
           animation: hiwFloat 3s ease-in-out infinite;
         }
 
-        .hiw-symbol-two {
-          right: 5px;
-          bottom: 16px;
-          color: #c6a64b;
-          animation: hiwFloat 3.5s ease-in-out infinite .6s;
+        .hiw-floating-one {
+          top: 25px;
+          left: 12px;
+        }
+
+        .hiw-floating-two {
+          right: 12px;
+          bottom: 22px;
+          animation-delay: .7s;
+        }
+
+        .hiw-connect-line {
+          position: absolute;
+          width: 105px;
+          height: 1px;
+          background: rgba(0,214,160,.35);
+          transform-origin: center;
+        }
+
+        .hiw-line-one {
+          transform: rotate(-35deg);
+        }
+
+        .hiw-line-two {
+          transform: rotate(35deg);
         }
 
         .hiw-connect-center,
         .hiw-connect-node {
           position: absolute;
-          z-index: 2;
-          display: flex;
-          align-items: center;
-          justify-content: center;
+          display: grid;
+          place-items: center;
           border: 1px solid rgba(0,214,160,.25);
-          border-radius: 50%;
-          background: var(--hiw-card-hover);
+          border-radius: 15px;
+          background: var(--hiw-card);
           color: var(--hiw-accent);
-          box-shadow: 0 10px 25px var(--hiw-shadow), 0 0 20px rgba(0,214,160,.06);
+          box-shadow: 0 8px 24px var(--hiw-shadow);
         }
 
         .hiw-connect-center {
-          width: 62px;
-          height: 62px;
+          width: 58px;
+          height: 58px;
           font-size: 25px;
-          animation: hiwFloat 4s ease-in-out infinite;
         }
 
         .hiw-connect-node {
-          width: 39px;
-          height: 39px;
-          font-size: 16px;
+          width: 38px;
+          height: 38px;
+          font-size: 17px;
         }
 
-        .hiw-connect-node-one {
-          top: 16px;
-          left: 14px;
-          animation: hiwFloat 3.4s ease-in-out infinite;
-        }
-
-        .hiw-connect-node-two {
+        .hiw-node-one {
           top: 20px;
-          right: 12px;
-          color: #c6a64b;
-          border-color: rgba(198,166,75,.25);
-          animation: hiwFloat 3.8s ease-in-out infinite .4s;
+          left: 30px;
         }
 
-        .hiw-connect-node-three {
-          right: 35px;
-          bottom: 8px;
-          animation: hiwFloat 4s ease-in-out infinite .8s;
+        .hiw-node-two {
+          top: 25px;
+          right: 25px;
         }
 
-        .hiw-connect-line {
+        .hiw-node-three {
+          right: 45px;
+          bottom: 15px;
+        }
+
+        .hiw-verify-ring,
+        .hiw-earn-ring {
           position: absolute;
-          z-index: 1;
-          width: 70px;
-          height: 1px;
-          background: linear-gradient(90deg, transparent, rgba(0,214,160,.65), transparent);
-          transform-origin: center;
-        }
-
-        .hiw-connect-line-one {
-          top: 55px;
-          left: 27px;
-          transform: rotate(35deg);
-        }
-
-        .hiw-connect-line-two {
-          right: 20px;
-          bottom: 46px;
-          transform: rotate(-35deg);
-        }
-
-        .hiw-connect-particle {
-          position: absolute;
-          width: 5px;
-          height: 5px;
+          width: 145px;
+          height: 145px;
+          border: 1px solid rgba(0,214,160,.18);
           border-radius: 50%;
-          background: var(--hiw-accent);
-          box-shadow: 0 0 12px rgba(0,214,160,.7);
-          animation: hiwParticle 3s ease-in-out infinite;
+        }
+
+        .hiw-ring-one,
+        .hiw-earn-ring-one {
+          transform: scaleX(.55);
+        }
+
+        .hiw-ring-two,
+        .hiw-earn-ring-two {
+          transform: scaleY(.55);
         }
 
         .hiw-verify-card {
           position: relative;
-          z-index: 2;
+          z-index: 1;
           width: 190px;
           padding: 13px;
           border: 1px solid var(--hiw-border);
-          border-radius: 13px;
-          background: var(--hiw-card-hover);
-          box-shadow: 0 15px 35px var(--hiw-shadow);
-          animation: hiwFloat 4.5s ease-in-out infinite;
+          border-radius: 12px;
+          background: var(--hiw-card);
+          box-shadow: 0 12px 30px var(--hiw-shadow);
         }
 
         .hiw-verify-card-top {
           display: flex;
-          justify-content: space-between;
           align-items: center;
+          justify-content: space-between;
           gap: 6px;
-          color: var(--hiw-muted);
-          font-size: 7px;
-          font-weight: 800;
-          letter-spacing: .1em;
+          font-size: 8px;
+          font-weight: 850;
         }
 
-        .hiw-verify-status {
-          padding: 4px 6px;
-          border-radius: 5px;
-          background: rgba(198,166,75,.1);
+        .hiw-review-status {
           color: #c6a64b;
-          font-size: 6px;
+          font-size: 7px;
         }
 
         .hiw-verify-lines {
-          display: flex;
-          flex-direction: column;
+          display: grid;
           gap: 7px;
-          margin-top: 16px;
+          margin: 15px 0;
         }
 
-        .hiw-verify-lines span {
-          width: 90%;
+        .hiw-verify-lines i {
           height: 5px;
-          border-radius: 999px;
+          border-radius: 5px;
           background: var(--hiw-border);
         }
 
-        .hiw-verify-lines span:nth-child(2) {
-          width: 68%;
+        .hiw-verify-lines i:last-child {
+          width: 60%;
         }
 
-        .hiw-verify-lines span:nth-child(3) {
-          width: 48%;
-        }
-
-        .hiw-verify-card-bottom {
+        .hiw-verify-bottom {
           display: flex;
           align-items: center;
-          gap: 6px;
-          margin-top: 15px;
+          gap: 7px;
           padding-top: 10px;
           border-top: 1px solid var(--hiw-border);
           color: var(--hiw-muted);
           font-size: 8px;
         }
 
-        .hiw-verify-card-bottom svg {
+        .hiw-verify-bottom svg {
           color: var(--hiw-accent);
-          font-size: 12px;
-        }
-
-        .hiw-verify-ring {
-          position: absolute;
-          width: 190px;
-          height: 95px;
-          border: 1px solid rgba(0,214,160,.17);
-          border-radius: 50%;
-        }
-
-        .hiw-verify-ring-one {
-          transform: rotate(35deg);
-          animation: hiwOrbit 13s linear infinite;
-        }
-
-        .hiw-verify-ring-two {
-          width: 165px;
-          height: 110px;
-          border-color: rgba(198,166,75,.17);
-          transform: rotate(-30deg);
-          animation: hiwOrbit 17s linear infinite reverse;
         }
 
         .hiw-verify-check {
           position: absolute;
-          z-index: 4;
-          top: 12px;
-          right: 5px;
-          display: flex;
-          align-items: center;
-          justify-content: center;
-          width: 32px;
-          height: 32px;
-          border: 1px solid rgba(0,214,160,.28);
+          right: 18px;
+          bottom: 24px;
+          z-index: 2;
+          display: grid;
+          place-items: center;
+          width: 34px;
+          height: 34px;
+          border: 3px solid var(--hiw-card);
           border-radius: 50%;
-          background: var(--hiw-card-hover);
-          color: var(--hiw-accent);
-          box-shadow: 0 8px 20px var(--hiw-shadow);
-          animation: hiwCheckPulse 2.5s ease-in-out infinite;
+          background: var(--hiw-accent);
+          color: #06251c;
+          animation: hiwCheckPulse 2s ease-in-out infinite;
         }
 
         .hiw-earn-card {
           position: relative;
-          z-index: 2;
+          z-index: 1;
           display: flex;
           align-items: center;
-          gap: 10px;
-          width: 205px;
-          padding: 14px;
+          gap: 11px;
+          padding: 15px;
           border: 1px solid rgba(0,214,160,.25);
-          border-radius: 15px;
-          background: var(--hiw-card-hover);
-          box-shadow: 0 17px 35px var(--hiw-shadow), 0 0 25px rgba(0,214,160,.06);
-          animation: hiwFloat 4s ease-in-out infinite;
+          border-radius: 14px;
+          background: var(--hiw-card);
+          box-shadow: 0 12px 30px var(--hiw-shadow);
         }
 
         .hiw-earn-dollar {
-          display: flex;
-          align-items: center;
-          justify-content: center;
-          width: 41px;
-          height: 41px;
-          flex-shrink: 0;
-          border: 1px solid rgba(0,214,160,.23);
+          display: grid;
+          place-items: center;
+          width: 44px;
+          height: 44px;
           border-radius: 12px;
-          background: rgba(0,214,160,.09);
+          background: rgba(0,214,160,.12);
           color: var(--hiw-accent);
           font-size: 24px;
           font-weight: 850;
         }
 
-        .hiw-earn-copy {
-          display: flex;
-          flex-direction: column;
-          gap: 4px;
+        .hiw-earn-card > div:nth-child(2) {
+          display: grid;
+          gap: 3px;
         }
 
-        .hiw-earn-copy span {
+        .hiw-earn-card span,
+        .hiw-earn-card > div:nth-child(2) > span {
           color: var(--hiw-muted);
           font-size: 7px;
-          font-weight: 800;
-          letter-spacing: .12em;
+          font-weight: 850;
+          letter-spacing: .08em;
         }
 
-        .hiw-earn-copy strong {
+        .hiw-earn-card strong {
           color: var(--hiw-text);
           font-size: 16px;
-          font-weight: 850;
         }
 
-        .hiw-earn-copy small {
-          color: var(--hiw-accent);
+        .hiw-earn-card small {
+          color: var(--hiw-muted);
           font-size: 8px;
         }
 
         .hiw-earn-check {
-          display: flex;
-          align-items: center;
-          justify-content: center;
-          width: 21px;
-          height: 21px;
+          display: grid;
+          place-items: center;
+          width: 24px;
+          height: 24px;
           margin-left: auto;
-          flex-shrink: 0;
           border-radius: 50%;
           background: rgba(0,214,160,.12);
           color: var(--hiw-accent);
-          font-size: 12px;
-        }
-
-        .hiw-earn-ring {
-          position: absolute;
-          width: 215px;
-          height: 105px;
-          border: 1px solid rgba(0,214,160,.13);
-          border-radius: 50%;
-        }
-
-        .hiw-earn-ring-one {
-          transform: rotate(-20deg);
-          animation: hiwOrbit 14s linear infinite;
-        }
-
-        .hiw-earn-ring-two {
-          width: 170px;
-          height: 130px;
-          border-color: rgba(198,166,75,.18);
-          transform: rotate(35deg);
-          animation: hiwOrbit 18s linear infinite reverse;
         }
 
         .hiw-earn-particle {
           position: absolute;
-          z-index: 3;
-          width: 5px;
-          height: 5px;
+          width: 6px;
+          height: 6px;
           border-radius: 50%;
           background: var(--hiw-accent);
-          box-shadow: 0 0 10px rgba(0,214,160,.6);
-          animation: hiwParticle 3.5s ease-in-out infinite;
+          animation: hiwParticle 2s ease-in-out infinite;
         }
 
-        .hiw-earn-particle-one {
-          top: 16px;
-          left: 22px;
+        .hiw-particle-one {
+          top: 28px;
+          left: 28px;
         }
 
-        .hiw-earn-particle-two {
-          right: 18px;
-          bottom: 16px;
-          background: #c6a64b;
-          animation-delay: .7s;
+        .hiw-particle-two {
+          top: 45px;
+          right: 25px;
+          animation-delay: .5s;
         }
 
-        .hiw-earn-particle-three {
-          right: 10px;
-          top: 24px;
-          animation-delay: 1.1s;
+        .hiw-particle-three {
+          bottom: 28px;
+          left: 40px;
+          animation-delay: 1s;
         }
 
         .hiw-step-content {
-          position: relative;
-          z-index: 2;
+          margin-top: 12px;
         }
 
         .hiw-step-tag {
-          display: inline-block;
-          margin-bottom: 10px;
           color: var(--hiw-accent);
           font-size: 8px;
           font-weight: 850;
-          letter-spacing: .13em;
+          letter-spacing: .12em;
         }
 
         .hiw-step-content h4 {
-          margin: 0 0 9px;
+          margin: 10px 0;
           color: var(--hiw-text);
           font-size: 16px;
           font-weight: 800;
+          line-height: 1.4;
           letter-spacing: -.025em;
         }
 
         .hiw-step-content p {
-          min-height: 88px;
+          min-height: 92px;
           margin: 0;
           color: var(--hiw-muted);
           font-size: 11px;
@@ -1531,85 +1354,70 @@ export default function HowItWorks() {
         }
 
         .hiw-step-bottom {
-          position: relative;
-          z-index: 2;
-          display: flex;
-          align-items: center;
-          justify-content: space-between;
-          margin-top: 19px;
-          padding-top: 13px;
+          margin-top: 20px;
+          padding-top: 14px;
           border-top: 1px solid var(--hiw-border);
+        }
+
+        .hiw-step-bottom > span:first-child {
           color: var(--hiw-muted);
           font-size: 8px;
           font-weight: 800;
-          letter-spacing: .13em;
+          letter-spacing: .12em;
         }
 
         .hiw-step-bottom-icon {
-          display: flex;
-          align-items: center;
-          justify-content: center;
-          width: 26px;
-          height: 26px;
+          display: grid;
+          place-items: center;
+          width: 28px;
+          height: 28px;
           border: 1px solid var(--hiw-border);
-          border-radius: 8px;
+          border-radius: 9px;
           color: var(--hiw-accent);
-          font-size: 13px;
-          transition: transform .25s ease, background .25s ease;
         }
 
-        .hiw-step-card:hover .hiw-step-bottom-icon {
-          transform: translate(2px, -2px);
-          background: rgba(0,214,160,.08);
-        }
-
-        /* HAPPY BOUNTY DEMO VIDEO */
         .hiw-demo-section {
-          width: 100%;
-          max-width: 1000px;
-          margin: 65px auto 0;
+          margin-top: 75px;
         }
 
         .hiw-demo-heading {
           max-width: 650px;
-          margin: 0 auto 25px;
+          margin: 0 auto 28px;
           text-align: center;
         }
 
         .hiw-demo-heading h3 {
           margin: 0;
           color: var(--hiw-text);
-          font-size: clamp(1.7rem, 4vw, 2.5rem);
+          font-size: clamp(1.6rem, 3.5vw, 2.3rem);
           font-weight: 850;
-          letter-spacing: -.045em;
+          letter-spacing: -.05em;
         }
 
         .hiw-demo-heading p {
-          margin: 12px auto 0;
+          margin: 12px 0 0;
           color: var(--hiw-muted);
           font-size: 13px;
           line-height: 1.8;
         }
 
-        /* These backgrounds now follow the active theme. */
         .hiw-demo-video-frame {
-          width: 100%;
+          max-width: 1000px;
+          margin: 0 auto;
           overflow: hidden;
-          border: 1px solid rgba(0,214,160,.28);
-          border-radius: 22px;
-          background: var(--hiw-card);
+          border: 1px solid var(--hiw-border);
+          border-radius: 20px;
+          background: #050807;
           box-shadow: 0 25px 70px var(--hiw-shadow);
-          transition: background .3s ease, border-color .3s ease;
         }
 
         .hiw-demo-video {
           display: block;
           width: 100%;
-          height: auto;
+          max-height: 600px;
           aspect-ratio: 16 / 9;
           object-fit: contain;
-          background: var(--hiw-card);
-          transition: background .3s ease;
+          background: #050807;
         }
 
         .hiw-demo-caption {
@@ -1617,8 +1425,8 @@ export default function HowItWorks() {
           align-items: center;
           justify-content: center;
           flex-wrap: wrap;
-          gap: 12px;
-          margin-top: 20px;
+          gap: 14px;
+          margin-top: 18px;
         }
 
         .hiw-demo-caption span {
@@ -1626,18 +1434,12 @@ export default function HowItWorks() {
           align-items: center;
           gap: 7px;
           color: var(--hiw-muted);
-          font-size: 11px;
+          font-size: 10px;
           font-weight: 700;
         }
 
-        .hiw-demo-caption span svg,
-        .hiw-demo-caption > svg {
+        .hiw-demo-caption svg {
           color: var(--hiw-accent);
-        }
-
-        .hiw-demo-caption > svg {
-          font-size: 14px;
-          opacity: .7;
         }
 
         .hiw-create-banner {
@@ -1663,12 +1465,12 @@ export default function HowItWorks() {
           pointer-events: none;
         }
 
-        .hiw-create-decoration-one {
+        .hiw-decoration-one {
           right: 90px;
           top: -120px;
         }
 
-        .hiw-create-decoration-two {
+        .hiw-decoration-two {
           right: 30px;
           top: -90px;
           width: 130px;
@@ -1678,9 +1480,8 @@ export default function HowItWorks() {
         .hiw-create-icon {
           position: relative;
           z-index: 1;
-          display: flex;
-          align-items: center;
-          justify-content: center;
+          display: grid;
+          place-items: center;
           width: 56px;
           height: 56px;
           flex-shrink: 0;
@@ -1736,12 +1537,11 @@ export default function HowItWorks() {
           text-decoration: none;
           font-size: 11px;
           font-weight: 850;
-          transition: transform .25s ease, box-shadow .25s ease, background .25s ease;
+          transition: transform .25s ease, box-shadow .25s ease;
         }
 
         .hiw-create-button:hover {
           transform: translateY(-2px);
-          background: #16e2b0;
           box-shadow: 0 10px 25px rgba(0,214,160,.2);
         }
 
@@ -1794,19 +1594,8 @@ export default function HowItWorks() {
           border-radius: 50%;
         }
 
-        .hiw-footer-usdc i {
+        .hiw-usdc-dot {
           background: #2775ca;
-        }
-
-        @keyframes hiwCardReveal {
-          from {
-            opacity: 0;
-            transform: translateY(24px);
-          }
-          to {
-            opacity: 1;
-            transform: translateY(0);
-          }
         }
 
         @keyframes hiwPulse {
@@ -1822,39 +1611,39 @@ export default function HowItWorks() {
 
         @keyframes hiwFloat {
           0%, 100% {
-            translate: 0 0;
+            transform: translateY(0);
           }
           50% {
-            translate: 0 -6px;
+            transform: translateY(-6px);
           }
         }
 
         @keyframes hiwOrbit {
           from {
-            rotate: 0deg;
+            transform: rotate(0deg);
           }
           to {
-            rotate: 360deg;
+            transform: rotate(360deg);
           }
         }
 
         @keyframes hiwParticle {
           0%, 100% {
             opacity: .25;
-            translate: 0 0;
+            transform: translate(0, 0);
           }
           50% {
             opacity: 1;
-            translate: 8px -9px;
+            transform: translate(8px, -9px);
           }
         }
 
         @keyframes hiwCheckPulse {
           0%, 100% {
-            scale: 1;
+            transform: scale(1);
           }
           50% {
-            scale: 1.08;
+            transform: scale(1.08);
           }
         }
 
@@ -2025,10 +1814,6 @@ export default function HowItWorks() {
             font-size: 9px;
           }
 
-          .hiw-demo-caption > svg {
-            font-size: 11px;
-          }
-
           .hiw-create-banner {
             align-items: flex-start;
             flex-direction: column;
@@ -2063,7 +1848,6 @@ export default function HowItWorks() {
           .hiw-section *::after {
             animation-duration: .01ms !important;
             animation-iteration-count: 1 !important;
-            scroll-behavior: auto !important;
             transition-duration: .01ms !important;
           }
 

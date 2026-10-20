@@ -19,7 +19,7 @@ import arcLogo from "../assets/images/arc.png";
 const networks = [
   {
     name: "DOT",
-    fullName: "Polkadot ecosystem",
+    fullName: "Portaldot ecosystem",
     logo: dotLogo,
     className: "network-dot",
   },

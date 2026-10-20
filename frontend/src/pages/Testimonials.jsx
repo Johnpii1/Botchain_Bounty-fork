@@ -1,7 +1,8 @@
-
 import { useEffect, useRef, useState } from "react";
 import {
+  FiArrowRight,
   FiArrowUpRight,
+  FiCheckCircle,
   FiCode,
   FiCompass,
   FiDollarSign,
@@ -26,9 +27,10 @@ const communityUseCases = [
     network: "MULTI-CHAIN",
     tag: "POST A BOUNTY",
     message:
-      "Turn your project goals into clear, rewarding tasks. Set the requirements, define the reward, and invite contributors to help bring your ideas to life.",
+      "Turn your project goals into clear, rewarding tasks. Define the requirements, set the reward, and invite contributors to bring your ideas to life.",
     footer: "Create opportunities",
     status: "Creator workflow",
+    number: "01",
   },
   {
     icon: FiPenTool,
@@ -37,9 +39,10 @@ const communityUseCases = [
     network: "REWARDS",
     tag: "EARN BY BUILDING",
     message:
-      "Discover opportunities that match your skills, complete the requested work, submit your contribution, and earn rewards when your work is approved.",
+      "Discover opportunities that match your skills, complete the work, submit your contribution, and earn rewards when your work is approved.",
     footer: "Put your skills to work",
     status: "Contributor workflow",
+    number: "02",
   },
   {
     icon: FiLayers,
@@ -48,9 +51,10 @@ const communityUseCases = [
     network: "ON-CHAIN",
     tag: "BUILD TOGETHER",
     message:
-      "Break bigger ideas into focused tasks. Make requirements easier to understand and give contributors a clear path from submission to reward.",
+      "Break ambitious ideas into focused tasks. Give contributors clear requirements and a straightforward path from submission to reward.",
     footer: "Build with clarity",
     status: "Task-based work",
+    number: "03",
   },
   {
     icon: FiDollarSign,
@@ -59,9 +63,10 @@ const communityUseCases = [
     network: "FUNDING",
     tag: "REWARD GOOD WORK",
     message:
-      "Define what needs to be done and the reward attached to it. Give contributors a straightforward way to understand the opportunity before getting started.",
+      "Define the work that needs to be done and the reward attached to it. Help contributors understand the opportunity before getting started.",
     footer: "Reward contributions",
     status: "Defined rewards",
+    number: "04",
   },
   {
     icon: FiGlobe,
@@ -70,9 +75,10 @@ const communityUseCases = [
     network: "GLOBAL",
     tag: "OPEN OPPORTUNITIES",
     message:
-      "Find work beyond your immediate network. Bounties help connect people with useful skills to projects that need their contributions.",
+      "Find work beyond your immediate network. Connect your skills with projects and communities that need your contributions.",
     footer: "Work across communities",
     status: "Open participation",
+    number: "05",
   },
   {
     icon: FiUsers,
@@ -81,9 +87,10 @@ const communityUseCases = [
     network: "COMMUNITY",
     tag: "GROW TOGETHER",
     message:
-      "Encourage people to contribute to community goals through clearly defined tasks and rewards that give everyone a shared objective.",
+      "Turn community goals into actionable tasks. Give people a shared objective and meaningful reasons to participate and contribute.",
     footer: "Bring people together",
     status: "Community-driven",
+    number: "06",
   },
   {
     icon: FiTarget,
@@ -92,9 +99,10 @@ const communityUseCases = [
     network: "CREATIVITY",
     tag: "MAKE AN IMPACT",
     message:
-      "From content and design to research and social campaigns, create opportunities for people to turn creative skills into meaningful contributions.",
+      "From content and design to research and social campaigns, turn creative skills into meaningful contributions for growing projects.",
     footer: "Create and contribute",
     status: "Flexible tasks",
+    number: "07",
   },
   {
     icon: FiShield,
@@ -103,9 +111,10 @@ const communityUseCases = [
     network: "TRANSPARENCY",
     tag: "CLEAR EXPECTATIONS",
     message:
-      "Keep the task, submission requirements, and reward expectations easy to understand so creators and contributors can work with greater clarity.",
+      "Keep tasks, submission requirements, and rewards clear so creators and contributors can work together with greater confidence.",
     footer: "Keep work organized",
     status: "Clear requirements",
+    number: "08",
   },
 ];
 
@@ -114,39 +123,68 @@ const networks = [
     name: "Polkadot",
     symbol: "DOT",
     logo: dotLogo,
-    tone: "border-pink-500/25",
     alt: "Polkadot logo",
+    tone: "border-purple-500/20",
+    glow: "group-hover:shadow-[0_0_25px_rgba(230,0,122,0.10)]",
   },
   {
     name: "BOT Chain",
     symbol: "BOT",
     logo: botLogo,
-    tone: "border-[#00D6A0]/25",
     alt: "BOT Chain logo",
+    tone: "border-[#00D6A0]/20",
+    glow: "group-hover:shadow-[0_0_25px_rgba(0,214,160,0.10)]",
   },
   {
     name: "Arc",
     symbol: "ARC",
     logo: arcLogo,
-    tone: "border-blue-500/25",
     alt: "Arc network logo",
+    tone: "border-blue-500/20",
+    glow: "group-hover:shadow-[0_0_25px_rgba(59,130,246,0.10)]",
+  },
+];
+
+const valuePoints = [
+  {
+    icon: FiCompass,
+    title: "Discover opportunities",
+    description:
+      "Explore tasks that match your interests, goals, and skills.",
+  },
+  {
+    icon: FiZap,
+    title: "Turn effort into value",
+    description:
+      "Complete meaningful work and pursue the rewards attached to it.",
+  },
+  {
+    icon: FiShield,
+    title: "Know what to expect",
+    description:
+      "Understand task requirements and reward details before you begin.",
   },
 ];
 
 function Testimonials() {
-  const testimonialsRef = useRef(null);
+  const sectionRef = useRef(null);
   const [isVisible, setIsVisible] = useState(false);
   const [dark, setDark] = useState(() => {
     if (typeof document === "undefined") return false;
+
     return document.documentElement.classList.contains("dark");
   });
 
   useEffect(() => {
     const root = document.documentElement;
 
-    const observer = new MutationObserver(() => {
+    const updateTheme = () => {
       setDark(root.classList.contains("dark"));
-    });
+    };
+
+    updateTheme();
+
+    const observer = new MutationObserver(updateTheme);
 
     observer.observe(root, {
       attributes: true,
@@ -157,10 +195,14 @@ function Testimonials() {
   }, []);
 
   useEffect(() => {
-    const section = testimonialsRef.current;
+    const section = sectionRef.current;
+
     if (!section) return;
 
-    if (typeof IntersectionObserver === "undefined") {
+    if (
+      typeof IntersectionObserver === "undefined" ||
+      window.matchMedia("(prefers-reduced-motion: reduce)").matches
+    ) {
       setIsVisible(true);
       return;
     }
@@ -169,10 +211,12 @@ function Testimonials() {
       ([entry]) => {
         if (entry.isIntersecting) {
           setIsVisible(true);
-          observer.unobserve(section);
+          observer.unobserve(entry.target);
         }
       },
-      { threshold: 0.08 },
+      {
+        threshold: 0.08,
+      },
     );
 
     observer.observe(section);
@@ -188,27 +232,27 @@ function Testimonials() {
   return (
     <>
       <style>{`
-        @keyframes hb-section-enter {
+        @keyframes hb-enter {
           from {
             opacity: 0;
-            transform: translateY(24px);
+            transform: translate3d(0, 26px, 0);
           }
           to {
             opacity: 1;
-            transform: translateY(0);
+            transform: translate3d(0, 0, 0);
           }
         }
 
-        @keyframes hb-community-scroll {
+        @keyframes hb-marquee {
           from {
-            transform: translateX(0);
+            transform: translate3d(0, 0, 0);
           }
           to {
-            transform: translateX(-50%);
+            transform: translate3d(-50%, 0, 0);
           }
         }
 
-        @keyframes hb-soft-float {
+        @keyframes hb-float {
           0%, 100% {
             transform: translateY(0);
           }
@@ -217,10 +261,10 @@ function Testimonials() {
           }
         }
 
-        @keyframes hb-status-pulse {
+        @keyframes hb-pulse {
           0%, 100% {
-            opacity: .55;
-            transform: scale(.9);
+            opacity: .5;
+            transform: scale(.85);
           }
           50% {
             opacity: 1;
@@ -228,61 +272,121 @@ function Testimonials() {
           }
         }
 
-        .hb-community-heading {
+        @keyframes hb-glow {
+          0%, 100% {
+            opacity: .35;
+          }
+          50% {
+            opacity: .7;
+          }
+        }
+
+        .hb-reveal {
           opacity: 0;
         }
 
-        .hb-community-heading.hb-visible {
-          animation: hb-section-enter .75s cubic-bezier(.22, 1, .36, 1) forwards;
+        .hb-reveal.hb-visible {
+          animation: hb-enter .8s cubic-bezier(.22, 1, .36, 1) forwards;
         }
 
         .hb-community-track {
           display: flex;
           width: max-content;
+          animation: hb-marquee 75s linear infinite;
           will-change: transform;
-          animation: hb-community-scroll 70s linear infinite;
         }
 
-        .hb-community-track:hover {
+        .hb-community-marquee:hover .hb-community-track,
+        .hb-community-marquee:focus-within .hb-community-track {
           animation-play-state: paused;
         }
 
         .hb-community-card {
           transition:
-            transform .35s ease,
+            transform .35s cubic-bezier(.2, .8, .2, 1),
             border-color .35s ease,
-            box-shadow .35s ease;
+            box-shadow .35s ease,
+            background-color .35s ease;
         }
 
         .hb-community-card:hover {
-          transform: translateY(-6px);
-          border-color: rgba(0, 214, 160, .42);
+          transform: translateY(-7px);
+          border-color: rgba(0, 214, 160, .38);
+          box-shadow: 0 20px 55px rgba(0, 214, 160, .055);
         }
 
         .hb-community-icon {
-          animation: hb-soft-float 5s ease-in-out infinite;
+          transition:
+            transform .35s ease,
+            background-color .35s ease,
+            border-color .35s ease;
         }
 
-        .hb-community-status-dot {
-          animation: hb-status-pulse 2.4s ease-in-out infinite;
+        .hb-community-card:hover .hb-community-icon {
+          transform: translateY(-2px) scale(1.04);
+          background-color: rgba(0, 214, 160, .13);
+          border-color: rgba(0, 214, 160, .35);
+        }
+
+        .hb-network-chip {
+          transition:
+            transform .3s ease,
+            border-color .3s ease,
+            box-shadow .3s ease;
+        }
+
+        .hb-network-chip:hover {
+          transform: translateY(-3px);
         }
 
         .hb-network-logo {
-          width: 30px;
-          height: 30px;
+          width: 29px;
+          height: 29px;
           object-fit: contain;
           flex-shrink: 0;
         }
 
+        .hb-status-dot {
+          animation: hb-pulse 2.5s ease-in-out infinite;
+        }
+
+        .hb-background-glow {
+          animation: hb-glow 8s ease-in-out infinite;
+        }
+
+        .hb-section-grid {
+          background-image:
+            linear-gradient(
+              rgba(0, 214, 160, .035) 1px,
+              transparent 1px
+            ),
+            linear-gradient(
+              90deg,
+              rgba(0, 214, 160, .035) 1px,
+              transparent 1px
+            );
+          background-size: 54px 54px;
+          mask-image: linear-gradient(
+            to bottom,
+            black,
+            transparent 85%
+          );
+          -webkit-mask-image: linear-gradient(
+            to bottom,
+            black,
+            transparent 85%
+          );
+        }
+
         @media (max-width: 768px) {
           .hb-community-track {
-            animation-duration: 58s;
+            animation-duration: 65s;
           }
         }
 
         @media (prefers-reduced-motion: reduce) {
-          .hb-community-heading,
-          .hb-community-heading.hb-visible {
+          .hb-reveal,
+          .hb-reveal.hb-visible {
             opacity: 1;
             animation: none !important;
             transform: none !important;
@@ -301,67 +405,57 @@ function Testimonials() {
 
           .hb-community-card,
           .hb-community-icon,
-          .hb-community-status-dot {
+          .hb-network-chip,
+          .hb-status-dot,
+          .hb-background-glow {
             animation: none !important;
             transition: none !important;
           }
 
-          .hb-community-card:hover {
+          .hb-community-card:hover,
+          .hb-network-chip:hover {
             transform: none;
           }
         }
       `}</style>
 
       <section
-        ref={testimonialsRef}
+        ref={sectionRef}
         aria-labelledby="hb-community-title"
-        className={`relative z-10 mx-3 overflow-hidden rounded-[28px] border transition-colors duration-300 sm:mx-5 md:mx-8 md:rounded-[36px] lg:mx-12 ${
+        className={`relative z-10 mx-3 overflow-hidden rounded-[28px] border transition-colors duration-500 sm:mx-5 md:mx-8 md:rounded-[36px] lg:mx-12 ${
           dark
-            ? "border-white/[0.06] bg-[#080908] text-white"
-            : "border-black/[0.05] bg-[#f6f5ef] text-[#171916]"
+            ? "border-white/[0.07] bg-[#080908] text-white"
+            : "border-black/[0.06] bg-[#f6f5ef] text-[#171916]"
         }`}
       >
-        {/* Background grid */}
+        {/* Background effects */}
         <div
           aria-hidden="true"
-          className="pointer-events-none absolute inset-0"
-          style={{
-            backgroundImage: `
-              linear-gradient(
-                ${dark ? "rgba(0,214,160,0.045)" : "rgba(50,70,52,0.045)"} 1px,
-                transparent 1px
-              ),
-              linear-gradient(
-                90deg,
-                ${dark ? "rgba(0,214,160,0.035)" : "rgba(50,70,52,0.035)"} 1px,
-                transparent 1px
-              )
-            `,
-            backgroundSize: "56px 56px",
-            maskImage: "linear-gradient(to bottom, black, transparent 78%)",
-            WebkitMaskImage:
-              "linear-gradient(to bottom, black, transparent 78%)",
-          }}
+          className="hb-section-grid pointer-events-none absolute inset-0"
         />
 
-        {/* Accent glow */}
         <div
           aria-hidden="true"
-          className="pointer-events-none absolute -top-36 left-1/2 h-72 w-[min(80%,700px)] -translate-x-1/2 rounded-full bg-[#00D6A0]/[0.08] blur-[100px]"
+          className="hb-background-glow pointer-events-none absolute -top-36 left-1/2 h-80 w-[min(85%,760px)] -translate-x-1/2 rounded-full bg-[#00D6A0]/[0.09] blur-[110px]"
+        />
+
+        <div
+          aria-hidden="true"
+          className="pointer-events-none absolute -bottom-48 -right-20 h-80 w-80 rounded-full bg-[#00D6A0]/[0.045] blur-[100px]"
         />
 
         <div className="relative mx-auto w-full max-w-[1600px] py-14 sm:py-16 md:py-20 lg:py-24">
-          {/* Header */}
+          {/* Main heading */}
           <header
-            className={`hb-community-heading ${
+            className={`hb-reveal ${
               isVisible ? "hb-visible" : ""
-            } mx-auto mb-10 max-w-4xl px-4 text-center sm:mb-14 md:px-8`}
+            } mx-auto mb-12 max-w-5xl px-5 text-center sm:mb-14 md:px-8 lg:mb-16`}
           >
             <div
-              className={`mb-6 inline-flex max-w-full flex-wrap items-center justify-center gap-2.5 rounded-full border px-3.5 py-2 sm:px-4 ${
+              className={`mb-7 inline-flex max-w-full flex-wrap items-center justify-center gap-2.5 rounded-full border px-4 py-2 ${
                 dark
                   ? "border-white/[0.09] bg-white/[0.035]"
-                  : "border-black/[0.08] bg-white/75"
+                  : "border-black/[0.07] bg-white/75"
               }`}
             >
               <span className="relative flex h-2 w-2 shrink-0">
@@ -370,11 +464,11 @@ function Testimonials() {
               </span>
 
               <span
-                className={`text-[9px] font-bold uppercase tracking-[0.16em] sm:text-[10px] sm:tracking-[0.2em] ${
+                className={`text-[9px] font-bold uppercase tracking-[0.17em] sm:text-[10px] sm:tracking-[0.2em] ${
                   dark ? "text-white/65" : "text-[#686c64]"
                 }`}
               >
-                One platform. More possibilities.
+                Built for people who build
               </span>
 
               <span
@@ -383,107 +477,145 @@ function Testimonials() {
                 }`}
               />
 
-              <span className="text-[9px] font-bold uppercase tracking-[0.15em] text-[#00A87D] sm:text-[10px]">
+              <span className="text-[9px] font-bold uppercase tracking-[0.14em] text-[#00A87D] sm:text-[10px]">
                 Happy Bounty
               </span>
             </div>
 
             <h2
               id="hb-community-title"
-              className={`text-3xl font-bold leading-[1.12] tracking-[-0.045em] sm:text-4xl md:text-5xl lg:text-6xl ${
+              className={`text-[clamp(2.3rem,6.3vw,5.3rem)] font-bold leading-[1.03] tracking-[-0.065em] ${
                 dark ? "text-white" : "text-[#171916]"
               }`}
             >
-              Great work starts with{" "}
-              <span className="text-[#00A87D]">
-                the right opportunity.
+              One community.
+              <br />
+              <span className="bg-gradient-to-r from-[#00A87D] via-[#00D6A0] to-[#00A87D] bg-clip-text text-transparent">
+                Endless possibilities.
               </span>
             </h2>
 
             <p
-              className={`mx-auto mt-5 max-w-2xl text-sm leading-7 sm:mt-6 sm:text-base ${
+              className={`mx-auto mt-6 max-w-2xl text-sm leading-7 sm:mt-7 sm:text-base sm:leading-8 ${
                 dark ? "text-white/55" : "text-[#72756d]"
               }`}
             >
-              Whether you're posting a task or bringing an idea to life,
-              Happy Bounty connects creators and contributors through
-              clearly defined work and rewards.
+              Good ideas need great people. Happy Bounty brings project
+              creators and talented contributors together through clear
+              tasks, meaningful work, and rewards.
             </p>
 
-            {/* Network logos */}
-            <div className="mt-7 flex flex-wrap items-center justify-center gap-3">
-              {networks.map((network) => (
+            {/* Ecosystem selector chips */}
+            <div className="mt-8 flex flex-wrap items-center justify-center gap-3 sm:mt-9">
+              {networks.map((network, index) => (
                 <div
                   key={network.symbol}
-                  className={`inline-flex items-center gap-3 rounded-xl border px-4 py-2.5 transition-transform duration-300 hover:-translate-y-1 ${
+                  className={`hb-network-chip group inline-flex items-center gap-3 rounded-2xl border px-3.5 py-3 sm:px-4 ${
                     dark
                       ? `bg-white/[0.025] ${network.tone}`
                       : `bg-white/80 ${network.tone}`
-                  }`}
+                  } ${network.glow}`}
+                  style={{
+                    animationDelay: `${index * 100}ms`,
+                  }}
                 >
-                  <img
-                    src={network.logo}
-                    alt={network.alt}
-                    className="hb-network-logo"
-                    loading="lazy"
-                    onError={(event) => {
-                      event.currentTarget.style.display = "none";
-                    }}
-                  />
-
-                  <span
-                    className={`text-xs font-semibold ${
-                      dark ? "text-white/75" : "text-[#51564d]"
+                  <div
+                    className={`flex h-10 w-10 items-center justify-center rounded-xl border ${
+                      dark
+                        ? "border-white/[0.07] bg-white/[0.035]"
+                        : "border-black/[0.04] bg-[#f8f9f5]"
                     }`}
                   >
-                    {network.name}
-                  </span>
+                    <img
+                      src={network.logo}
+                      alt={network.alt}
+                      className="hb-network-logo"
+                      loading="lazy"
+                      onError={(event) => {
+                        event.currentTarget.style.display = "none";
+                      }}
+                    />
+                  </div>
+
+                  <div className="text-left">
+                    <p
+                      className={`text-xs font-bold ${
+                        dark ? "text-white/90" : "text-[#282d27]"
+                      }`}
+                    >
+                      {network.name}
+                    </p>
+
+                    <p
+                      className={`mt-1 text-[9px] font-semibold tracking-[0.15em] ${
+                        dark ? "text-white/35" : "text-[#85897f]"
+                      }`}
+                    >
+                      {network.symbol}
+                    </p>
+                  </div>
+
+                  <FiArrowUpRight
+                    aria-hidden="true"
+                    className={`ml-1 h-3.5 w-3.5 transition-transform duration-300 group-hover:-translate-y-0.5 group-hover:translate-x-0.5 ${
+                      dark ? "text-white/30" : "text-black/30"
+                    }`}
+                  />
                 </div>
               ))}
             </div>
 
             <p
-              className={`mt-3 text-[10px] leading-5 ${
+              className={`mt-4 text-[10px] leading-5 ${
                 dark ? "text-white/35" : "text-[#8a8d83]"
               }`}
             >
-              Network support depends on the integrations available in your
-              platform.
+              Explore the ecosystems represented on Happy Bounty.
             </p>
           </header>
 
-          {/* Use-case section label */}
-          <div className="mb-5 flex items-center justify-between gap-3 px-5 sm:px-8 lg:px-12">
+          {/* Section heading */}
+          <div
+            className={`hb-reveal ${
+              isVisible ? "hb-visible" : ""
+            } mb-6 flex items-end justify-between gap-4 px-5 sm:mb-7 sm:px-8 lg:px-12`}
+            style={{ animationDelay: "120ms" }}
+          >
             <div>
-              <p
-                className={`text-[10px] font-bold uppercase tracking-[0.2em] ${
-                  dark ? "text-white/40" : "text-[#888b81]"
-                }`}
-              >
+              <p className="text-[9px] font-bold uppercase tracking-[0.22em] text-[#00A87D] sm:text-[10px]">
                 Explore the possibilities
               </p>
 
               <h3
-                className={`mt-1 text-base font-semibold sm:text-lg ${
-                  dark ? "text-white/90" : "text-[#282d27]"
+                className={`mt-2 text-lg font-bold tracking-[-0.035em] sm:text-2xl ${
+                  dark ? "text-white" : "text-[#242921]"
                 }`}
               >
-                Made for people who make things happen
+                Find your place in the ecosystem.
               </h3>
+
+              <p
+                className={`mt-2 max-w-xl text-xs leading-6 sm:text-sm ${
+                  dark ? "text-white/45" : "text-[#777b72]"
+                }`}
+              >
+                From posting your first bounty to delivering your next big
+                contribution, there's a place for you here.
+              </p>
             </div>
 
-            <span
-              className={`hidden items-center gap-2 text-xs sm:flex ${
+            <div
+              className={`hidden shrink-0 items-center gap-2 pb-1 text-xs sm:flex ${
                 dark ? "text-white/40" : "text-[#85897f]"
               }`}
             >
-              <FiArrowUpRight className="text-[#00A87D]" />
-              Scroll to explore
-            </span>
+              <span className="h-1.5 w-1.5 rounded-full bg-[#00D6A0]" />
+              Hover to explore
+            </div>
           </div>
 
-          {/* Moving cards */}
-          <div className="hb-community-marquee relative w-full">
+          {/* Seamless moving cards */}
+          <div className="hb-community-marquee relative w-full overflow-hidden">
             <div
               aria-hidden="true"
               className={`pointer-events-none absolute inset-y-0 left-0 z-10 w-8 bg-gradient-to-r to-transparent sm:w-14 lg:w-20 ${
@@ -501,7 +633,7 @@ function Testimonials() {
             <div className="hb-community-track">
               {duplicatedUseCases.map((item, index) => (
                 <CommunityCard
-                  key={`${item.role}-${index}`}
+                  key={`${item.number}-${index}`}
                   item={item}
                   dark={dark}
                   isDuplicate={index >= communityUseCases.length}
@@ -510,68 +642,75 @@ function Testimonials() {
             </div>
           </div>
 
-          {/* Bottom value points */}
-          <div className="mx-4 mt-10 grid grid-cols-1 gap-3 sm:mx-8 sm:mt-14 sm:grid-cols-3 lg:mx-12">
-            <ValuePoint
-              dark={dark}
-              icon={<FiCompass />}
-              title="Discover opportunities"
-              description="Explore tasks that fit your interests and skills."
-            />
-
-            <ValuePoint
-              dark={dark}
-              icon={<FiZap />}
-              title="Turn effort into value"
-              description="Complete work and pursue the rewards attached to it."
-            />
-
-            <ValuePoint
-              dark={dark}
-              icon={<FiShield />}
-              title="Know what to expect"
-              description="Start with clearer requirements and reward details."
-            />
+          {/* Value points */}
+          <div
+            className={`hb-reveal ${
+              isVisible ? "hb-visible" : ""
+            } mx-4 mt-12 grid grid-cols-1 gap-3 sm:mx-8 sm:mt-16 sm:grid-cols-3 sm:gap-4 lg:mx-12`}
+            style={{ animationDelay: "220ms" }}
+          >
+            {valuePoints.map((point, index) => (
+              <ValuePoint
+                key={point.title}
+                dark={dark}
+                point={point}
+                index={index}
+              />
+            ))}
           </div>
 
           {/* Closing statement */}
           <div
-            className={`mx-4 mt-8 flex flex-col items-center justify-between gap-4 rounded-2xl border px-5 py-5 text-center sm:mx-8 sm:flex-row sm:px-6 sm:text-left lg:mx-12 ${
+            className={`hb-reveal ${
+              isVisible ? "hb-visible" : ""
+            } mx-4 mt-7 flex flex-col items-center justify-between gap-5 rounded-3xl border p-5 sm:mx-8 sm:mt-9 sm:flex-row sm:p-7 lg:mx-12 ${
               dark
-                ? "border-white/[0.07] bg-white/[0.025]"
-                : "border-black/[0.06] bg-white/55"
+                ? "border-white/[0.075] bg-white/[0.025]"
+                : "border-black/[0.06] bg-white/70"
             }`}
+            style={{ animationDelay: "300ms" }}
           >
-            <div className="flex items-start gap-3">
-              <div className="mt-0.5 flex h-10 w-10 shrink-0 items-center justify-center rounded-xl border border-[#00D6A0]/20 bg-[#00D6A0]/[0.08] text-[#00A87D]">
+            <div className="flex w-full items-start gap-3.5 sm:w-auto">
+              <div className="flex h-11 w-11 shrink-0 items-center justify-center rounded-2xl border border-[#00D6A0]/20 bg-[#00D6A0]/[0.08] text-[#00A87D]">
                 <FiUsers className="h-5 w-5" />
               </div>
 
               <div>
-                <p
-                  className={`text-sm font-semibold ${
-                    dark ? "text-white/90" : "text-[#242921]"
+                <h3
+                  className={`text-sm font-bold sm:text-base ${
+                    dark ? "text-white" : "text-[#242921]"
                   }`}
                 >
-                  Your skills have somewhere to go.
-                </p>
+                  Your next opportunity starts here.
+                </h3>
 
                 <p
-                  className={`mt-1 text-xs leading-5 ${
+                  className={`mt-1.5 max-w-xl text-xs leading-6 sm:text-sm ${
                     dark ? "text-white/45" : "text-[#777b72]"
                   }`}
                 >
-                  Find a task, post your own bounty, and help good ideas move
-                  forward.
+                  Discover a task, share your expertise, or create a bounty
+                  that moves your project forward.
                 </p>
               </div>
             </div>
 
-            <div className="inline-flex shrink-0 items-center gap-2 text-xs font-semibold text-[#00A87D]">
-              <span className="h-1.5 w-1.5 rounded-full bg-[#00D6A0]" />
+            <div className="inline-flex shrink-0 items-center gap-2 rounded-full border border-[#00D6A0]/20 bg-[#00D6A0]/[0.06] px-4 py-2.5 text-[10px] font-bold text-[#00A87D] sm:text-xs">
+              <span className="hb-status-dot h-1.5 w-1.5 rounded-full bg-[#00D6A0]" />
               Built around meaningful work
-              <FiArrowUpRight className="h-4 w-4" />
+              <FiArrowUpRight className="h-3.5 w-3.5" />
             </div>
+          </div>
+
+          {/* Bottom brand detail */}
+          <div
+            className={`mt-9 flex items-center justify-center gap-2 px-4 text-center text-[9px] font-medium tracking-wide sm:mt-12 sm:text-[10px] ${
+              dark ? "text-white/25" : "text-[#989b91]"
+            }`}
+          >
+            <span className="h-px w-7 bg-[#00D6A0]/30" />
+            CREATE. CONTRIBUTE. EARN.
+            <span className="h-px w-7 bg-[#00D6A0]/30" />
           </div>
         </div>
       </section>
@@ -584,24 +723,24 @@ function CommunityCard({ item, dark, isDuplicate }) {
 
   return (
     <article
-      aria-hidden={isDuplicate ? "true" : undefined}
-      className={`hb-community-card group mx-2.5 flex w-[290px] shrink-0 flex-col rounded-[24px] border p-5 sm:mx-3 sm:w-[350px] sm:rounded-[28px] sm:p-7 ${
+      aria-hidden={isDuplicate ? true : undefined}
+      className={`hb-community-card group mx-2 flex w-[285px] shrink-0 flex-col rounded-[24px] border p-5 sm:mx-3 sm:w-[340px] sm:rounded-[28px] sm:p-7 ${
         dark
-          ? "border-white/[0.08] bg-[#111411] shadow-[0_18px_55px_rgba(0,0,0,0.20)]"
-          : "border-black/[0.07] bg-white shadow-[0_18px_55px_rgba(35,31,22,0.045)]"
+          ? "border-white/[0.075] bg-[#101310] shadow-[0_16px_50px_rgba(0,0,0,0.18)]"
+          : "border-black/[0.065] bg-white shadow-[0_16px_45px_rgba(35,31,22,0.035)]"
       }`}
     >
-      {/* Card heading */}
+      {/* Card top */}
       <div className="flex items-start justify-between gap-3">
         <div className="hb-community-icon flex h-12 w-12 shrink-0 items-center justify-center rounded-2xl border border-[#00D6A0]/20 bg-[#00D6A0]/[0.07] text-[#00A87D] sm:h-14 sm:w-14">
-          <Icon className="h-5 w-5 sm:h-6 sm:w-6" />
+          <Icon aria-hidden="true" className="h-5 w-5 sm:h-6 sm:w-6" />
         </div>
 
         <span
           className={`rounded-full border px-2.5 py-1.5 text-[8px] font-bold tracking-[0.12em] sm:text-[9px] ${
             dark
               ? "border-white/[0.08] bg-white/[0.025] text-white/45"
-              : "border-black/[0.07] bg-[#f8f9f5] text-[#74796f]"
+              : "border-black/[0.06] bg-[#f8f9f5] text-[#74796f]"
           }`}
         >
           {item.network}
@@ -610,12 +749,22 @@ function CommunityCard({ item, dark, isDuplicate }) {
 
       {/* Card content */}
       <div className="mt-6 flex-1">
-        <span className="inline-flex rounded-full border border-[#00D6A0]/20 bg-[#00D6A0]/[0.06] px-2.5 py-1 text-[9px] font-bold tracking-[0.13em] text-[#00A87D]">
-          {item.tag}
-        </span>
+        <div className="flex items-center justify-between gap-2">
+          <span className="inline-flex rounded-full border border-[#00D6A0]/20 bg-[#00D6A0]/[0.06] px-2.5 py-1.5 text-[8px] font-bold tracking-[0.13em] text-[#00A87D] sm:text-[9px]">
+            {item.tag}
+          </span>
+
+          <span
+            className={`text-[10px] font-semibold tabular-nums ${
+              dark ? "text-white/20" : "text-black/20"
+            }`}
+          >
+            /{item.number}
+          </span>
+        </div>
 
         <h4
-          className={`mt-4 text-xl font-bold tracking-[-0.035em] sm:text-2xl ${
+          className={`mt-4 text-xl font-bold tracking-[-0.04em] sm:text-2xl ${
             dark ? "text-white" : "text-[#20241e]"
           }`}
         >
@@ -623,7 +772,7 @@ function CommunityCard({ item, dark, isDuplicate }) {
         </h4>
 
         <p
-          className={`mt-1 text-xs font-medium ${
+          className={`mt-1.5 text-xs font-medium ${
             dark ? "text-white/40" : "text-[#85897f]"
           }`}
         >
@@ -631,7 +780,7 @@ function CommunityCard({ item, dark, isDuplicate }) {
         </p>
 
         <p
-          className={`mt-4 min-h-[132px] text-[13px] leading-7 sm:min-h-[140px] sm:text-sm ${
+          className={`mt-4 min-h-[140px] text-[13px] leading-7 sm:min-h-[140px] sm:text-sm ${
             dark ? "text-white/60" : "text-[#62665d]"
           }`}
         >
@@ -641,7 +790,7 @@ function CommunityCard({ item, dark, isDuplicate }) {
 
       {/* Card footer */}
       <div
-        className={`mt-6 flex items-center justify-between gap-3 border-t pt-4 ${
+        className={`mt-5 flex items-center justify-between gap-2 border-t pt-4 ${
           dark ? "border-white/[0.07]" : "border-black/[0.06]"
         }`}
       >
@@ -654,7 +803,7 @@ function CommunityCard({ item, dark, isDuplicate }) {
         </span>
 
         <span className="flex shrink-0 items-center gap-1.5 text-[9px] font-semibold text-[#00A87D] sm:text-[10px]">
-          <span className="hb-community-status-dot h-1.5 w-1.5 rounded-full bg-[#00D6A0]" />
+          <span className="hb-status-dot h-1.5 w-1.5 rounded-full bg-[#00D6A0]" />
           {item.status}
         </span>
       </div>
@@ -662,36 +811,44 @@ function CommunityCard({ item, dark, isDuplicate }) {
   );
 }
 
-function ValuePoint({ dark, icon, title, description }) {
+function ValuePoint({ dark, point, index }) {
+  const Icon = point.icon;
+
   return (
     <div
-      className={`flex items-start gap-3.5 rounded-2xl border p-4 sm:p-5 ${
+      className={`group flex items-start gap-3.5 rounded-2xl border p-4 transition-all duration-300 hover:-translate-y-1 sm:p-5 ${
         dark
-          ? "border-white/[0.065] bg-white/[0.02]"
-          : "border-black/[0.055] bg-white/65"
+          ? "border-white/[0.065] bg-white/[0.02] hover:border-[#00D6A0]/25 hover:bg-white/[0.035]"
+          : "border-black/[0.055] bg-white/65 hover:border-[#00D6A0]/30 hover:bg-white"
       }`}
+      style={{ animationDelay: `${index * 100}ms` }}
     >
-      <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-xl border border-[#00D6A0]/20 bg-[#00D6A0]/[0.07] text-[#00A87D]">
-        {icon}
+      <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-xl border border-[#00D6A0]/20 bg-[#00D6A0]/[0.07] text-[#00A87D] transition-transform duration-300 group-hover:scale-105">
+        <Icon aria-hidden="true" className="h-5 w-5" />
       </div>
 
       <div>
         <h4
-          className={`text-sm font-semibold ${
+          className={`text-sm font-bold ${
             dark ? "text-white/90" : "text-[#292e27]"
           }`}
         >
-          {title}
+          {point.title}
         </h4>
 
         <p
-          className={`mt-1 text-xs leading-5 ${
+          className={`mt-1.5 text-xs leading-6 ${
             dark ? "text-white/45" : "text-[#7a7e75]"
           }`}
         >
-          {description}
+          {point.description}
         </p>
       </div>
+
+      <FiCheckCircle
+        aria-hidden="true"
+        className="ml-auto mt-1 h-4 w-4 shrink-0 text-[#00A87D]/50"
+      />
     </div>
   );
 }

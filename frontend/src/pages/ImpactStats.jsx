@@ -114,10 +114,10 @@ export default function ImpactStats() {
   return (
     <section
       id="impact"
-      className="bg-[#f6f5ef] py-16 text-black
+      className="bg-[#f6f5ef] text-black
         transition-colors duration-300
         dark:bg-[#080908] dark:text-white
-        sm:py-20 lg:py-24"
+        sm:py-8 lg:py-10"
     >
       <div className="mx-auto max-w-7xl px-5 sm:px-8 lg:px-10">
         {/* Section heading */}

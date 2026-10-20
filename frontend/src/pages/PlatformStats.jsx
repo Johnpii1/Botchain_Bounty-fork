@@ -16,7 +16,7 @@ import botLogo from "../assets/images/bot.png";
 import arcLogo from "../assets/images/arc.png";
 
 const networks = [
-  { name: "Polkadot", symbol: "DOT", image: dotLogo },
+  { name: "Portaldot", symbol: "DOT", image: dotLogo },
   { name: "BOT Chain", symbol: "BOT", image: botLogo },
   { name: "Arc", symbol: "ARC", image: arcLogo },
 ];

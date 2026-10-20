@@ -14,10 +14,10 @@ import {
   FiShield,
 } from "react-icons/fi";
 
+import UsdcLogo from "../assets/images/us.png";
 import ArcLogo from "../assets/images/arc.png";
 import InjectiveLogo from "../assets/images/inj.png";
 import BotchainLogo from "../assets/images/bot.png";
-import UsdcLogo from "../assets/images/us.png";
 import PolkadotLogo from "../assets/images/pok.png";
 
 const heroMessages = [
@@ -31,7 +31,7 @@ const networks = [
   { name: "Arc", logo: ArcLogo, className: "chain-arc" },
   { name: "Injective", logo: InjectiveLogo, className: "chain-injective" },
   { name: "Botchain", logo: BotchainLogo, className: "chain-botchain" },
-  { name: "Polkadot", logo: PolkadotLogo, className: "chain-polkadot" },
+  { name: "Portaldot", logo: PolkadotLogo, className: "chain-polkadot" },
   { name: "USDC", logo: UsdcLogo, className: "chain-usdc" },
 ];
 
@@ -39,7 +39,7 @@ const tickerItems = [
   { name: "Arc", logo: ArcLogo, className: "chain-arc" },
   { name: "Injective", logo: InjectiveLogo, className: "chain-injective" },
   { name: "Botchain", logo: BotchainLogo, className: "chain-botchain" },
-  { name: "Polkadot", logo: PolkadotLogo, className: "chain-polkadot" },
+  { name: "Portaldot", logo: PolkadotLogo, className: "chain-polkadot" },
   { name: "USDC Rewards", logo: UsdcLogo, className: "chain-usdc" },
   { name: "Crypto Bounties", logo: null, className: "chain-bounty" },
 ];
@@ -48,7 +48,7 @@ const features = [
   {
     icon: FiLink,
     title: "Multi-Chain",
-    description: "Arc, Injective, Botchain, Polkadot",
+    description: "Arc, Injective, Botchain, Portaldot",
   },
   {
     icon: FiGift,
@@ -235,7 +235,7 @@ export default function Hero({ dark }) {
           <div className="mt-5 flex flex-wrap items-center justify-center gap-2 sm:justify-start">
             {networks
               .filter((network) =>
-                ["Arc", "Injective", "Botchain", "Polkadot"].includes(
+                ["Arc", "Injective", "Botchain", "Portaldot"].includes(
                   network.name
                 )
               )
@@ -320,7 +320,7 @@ export default function Hero({ dark }) {
         <div
           ref={visualRef}
           className="chain-hero-visual relative mx-auto flex min-h-[360px] w-full max-w-[590px] items-center justify-center sm:min-h-[470px] lg:min-h-[550px]"
-          aria-label="Multi-chain bounty ecosystem featuring Arc, Injective, Botchain, and Polkadot"
+          aria-label="Multi-chain bounty ecosystem featuring Arc, Injective, Botchain, and Portaldot"
         >
           <div className="chain-hero-scene relative flex h-[360px] w-full items-center justify-center sm:h-[470px] lg:h-[540px]">
             <div className="chain-hero-ring chain-hero-ring-one" />
@@ -404,7 +404,7 @@ export default function Hero({ dark }) {
                 className="chain-hero-token chain-polkadot"
               />
               <span className="chain-hero-badge-label">
-                <strong>Polkadot</strong>
+                <strong>Portaldot</strong>
                 <small>Connect and contribute</small>
               </span>
             </div>
@@ -624,8 +624,8 @@ export default function Hero({ dark }) {
         }
 
         .chain-polkadot {
-          color: #FFFFFF;
-          background: linear-gradient(135deg, #E6007A, #A80059);
+        color: #C9B7FF;
+          background: linear-gradient(135deg, #5834B8, #29165D);
         }
 
         .chain-bounty {
