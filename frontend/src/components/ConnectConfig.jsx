@@ -1,4 +1,3 @@
-
 import { ConnectButton } from "@rainbow-me/rainbowkit";
 import "@rainbow-me/rainbowkit/styles.css";
 import { useTheme } from "../context/ThemeContext";
@@ -19,23 +18,19 @@ function ConnectConfig() {
         authenticationStatus,
         mounted,
       }) => {
-        const ready =
-          mounted && authenticationStatus !== "loading";
+        const ready = mounted && authenticationStatus !== "loading";
 
         const connected =
           ready &&
           account &&
           chain &&
-          (!authenticationStatus ||
-            authenticationStatus === "authenticated");
+          (!authenticationStatus || authenticationStatus === "authenticated");
 
         const surface = dark
           ? "border-white/10 bg-[#121512] text-white"
           : "border-[#e2e8e3] bg-white text-[#17211c]";
 
-        const muted = dark
-          ? "text-white/45"
-          : "text-[#78857d]";
+        const muted = dark ? "text-white/45" : "text-[#78857d]";
 
         const interactive = dark
           ? "bg-white/[0.04] hover:bg-white/[0.08]"
@@ -68,13 +63,7 @@ function ConnectConfig() {
                       strokeWidth="1.8"
                       className="h-5 w-5"
                     >
-                      <rect
-                        x="3.5"
-                        y="5"
-                        width="17"
-                        height="14"
-                        rx="3"
-                      />
+                      <rect x="3.5" y="5" width="17" height="14" rx="3" />
                       <path d="M3.5 9h17" />
                       <path d="M7.5 14h3" />
                     </svg>
@@ -132,16 +121,16 @@ function ConnectConfig() {
                   </span>
                 </span>
 
-                <span className="text-sm font-bold text-red-500">
-                  Switch ↗
-                </span>
+                <span className="text-sm font-bold text-red-500">Switch ↗</span>
               </button>
             ) : (
               <div
                 className={`w-full rounded-2xl border p-2 shadow-[0_12px_35px_rgba(0,0,0,0.05)] transition-colors duration-300 ${surface}`}
               >
                 <div className="mb-2 flex items-center justify-between px-2 pt-1">
-                  <span className={`text-[10px] font-bold uppercase tracking-[0.16em] ${muted}`}>
+                  <span
+                    className={`text-[10px] font-bold uppercase tracking-[0.16em] ${muted}`}
+                  >
                     Wallet connected
                   </span>
 
@@ -227,7 +216,9 @@ function ConnectConfig() {
                         <span className="block truncate text-xs font-bold">
                           {account.displayName}
                         </span>
-                        <span className={`mt-0.5 block truncate text-[10px] ${muted}`}>
+                        <span
+                          className={`mt-0.5 block truncate text-[10px] ${muted}`}
+                        >
                           {account.displayBalance || "Manage wallet"}
                         </span>
                       </span>
