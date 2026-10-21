@@ -5,20 +5,18 @@ import { useNav } from "../hooks/useNav";
 import {
   FiArrowUpRight,
   FiCheckCircle,
-  FiLayers,
-  FiZap,
-  FiLink,
   FiGift,
-  FiTrendingUp,
   FiGlobe,
+  FiLayers,
+  FiLink,
   FiShield,
+  FiTrendingUp,
+  FiZap,
 } from "react-icons/fi";
 
 import UsdcLogo from "../assets/images/us.png";
 import ArcLogo from "../assets/images/arc.png";
-import InjectiveLogo from "../assets/images/inj.png";
 import BotchainLogo from "../assets/images/bot.png";
-import PolkadotLogo from "../assets/images/pok.png";
 
 const heroMessages = [
   "Crypto Bounties.",
@@ -28,58 +26,58 @@ const heroMessages = [
 ];
 
 const networks = [
-  { name: "Arc", logo: ArcLogo, className: "chain-arc" },
-  { name: "Injective", logo: InjectiveLogo, className: "chain-injective" },
-  { name: "Botchain", logo: BotchainLogo, className: "chain-botchain" },
-  { name: "Portaldot", logo: PolkadotLogo, className: "chain-polkadot" },
-  { name: "USDC", logo: UsdcLogo, className: "chain-usdc" },
+  { name: "Arc", logo: ArcLogo },
+  { name: "Botchain", logo: BotchainLogo },
 ];
 
 const tickerItems = [
-  { name: "Arc", logo: ArcLogo, className: "chain-arc" },
-  { name: "Injective", logo: InjectiveLogo, className: "chain-injective" },
-  { name: "Botchain", logo: BotchainLogo, className: "chain-botchain" },
-  { name: "Portaldot", logo: PolkadotLogo, className: "chain-polkadot" },
-  { name: "USDC Rewards", logo: UsdcLogo, className: "chain-usdc" },
-  { name: "Crypto Bounties", logo: null, className: "chain-bounty" },
+  { name: "Arc Ecosystem", logo: ArcLogo },
+  { name: "Botchain", logo: BotchainLogo },
+  { name: "USDC Rewards", logo: UsdcLogo },
+  { name: "Real Opportunities", logo: null },
 ];
 
 const features = [
   {
     icon: FiLink,
-    title: "Multi-Chain",
-    description: "Arc, Injective, Botchain, Portaldot",
+    title: "Multi-chain opportunities",
+    description:
+      "Discover bounty opportunities across supported ecosystems.",
   },
   {
     icon: FiGift,
-    title: "Real Rewards",
-    description: "Earn crypto rewards",
+    title: "Real rewards",
+    description:
+      "Complete tasks and earn rewards when your work is approved.",
   },
   {
     icon: FiShield,
-    title: "Bounty System",
-    description: "Submit work for approval",
+    title: "Transparent workflow",
+    description:
+      "Submit your work and follow the bounty approval process.",
   },
   {
     icon: FiZap,
-    title: "Take Action",
-    description: "Find your next opportunity",
+    title: "Build and earn",
+    description:
+      "Find your next challenge, contribute, and grow your skills.",
   },
 ];
 
 function NetworkLogo({ logo, name, className = "" }) {
   return (
-    <span
-      className={`chain-hero-logo-wrap ${className}`}
-      aria-label={`${name} logo`}
-    >
-      <img
-        src={logo}
-        alt={name}
-        className="chain-hero-logo"
-        loading="eager"
-        draggable="false"
-      />
+    <span className={`hb-logo-wrap ${className}`} aria-label={name}>
+      {logo ? (
+        <img
+          src={logo}
+          alt={name}
+          className="hb-logo-image"
+          loading="eager"
+          draggable="false"
+        />
+      ) : (
+        <FiCheckCircle />
+      )}
     </span>
   );
 }
@@ -88,6 +86,7 @@ export default function Hero({ dark }) {
   const [heroText, setHeroText] = useState(0);
   const [displayText, setDisplayText] = useState("");
   const [isDeleting, setIsDeleting] = useState(false);
+
   const visualRef = useRef(null);
   const { handleNavigate } = useNav();
 
@@ -125,11 +124,14 @@ export default function Hero({ dark }) {
 
     const handleMove = (event) => {
       const bounds = visual.getBoundingClientRect();
+
+      if (!bounds.width || !bounds.height) return;
+
       const x = (event.clientX - bounds.left) / bounds.width - 0.5;
       const y = (event.clientY - bounds.top) / bounds.height - 0.5;
 
-      visual.style.setProperty("--tilt-x", `${y * -4}deg`);
-      visual.style.setProperty("--tilt-y", `${x * 4}deg`);
+      visual.style.setProperty("--tilt-x", `${y * -3}deg`);
+      visual.style.setProperty("--tilt-y", `${x * 3}deg`);
     };
 
     const resetTilt = () => {
@@ -146,36 +148,38 @@ export default function Hero({ dark }) {
     };
   }, []);
 
+  const navigate = (path) => (event) => {
+    event.preventDefault();
+    handleNavigate(path);
+  };
+
   return (
     <section
-      className={`chain-hero relative isolate w-full overflow-hidden transition-colors duration-500 ${
+      className={`hb-hero relative isolate w-full max-w-none overflow-x-clip overflow-y-hidden transition-colors duration-500 ${
         dark ? "bg-[#080B0D] text-white" : "bg-[#F3F5F3] text-[#111916]"
       }`}
     >
+      {/* Background effects */}
       <div
-        className="chain-hero-grid pointer-events-none absolute inset-0"
+        className="hb-grid pointer-events-none absolute inset-0"
         aria-hidden="true"
       />
-      <div
-        className="chain-hero-glow chain-hero-glow-one pointer-events-none absolute"
-        aria-hidden="true"
-      />
-      <div
-        className="chain-hero-glow chain-hero-glow-two pointer-events-none absolute"
-        aria-hidden="true"
-      />
-      <div className="chain-hero-noise pointer-events-none absolute inset-0" />
 
-      <div className="relative z-10 mx-auto grid min-h-[650px] w-full max-w-7xl items-center gap-8 px-5 pb-12 pt-28 sm:px-8 sm:pb-16 sm:pt-32 lg:min-h-[720px] lg:grid-cols-[0.95fr_1.05fr] lg:gap-4 lg:px-10 lg:pt-28">
-        <div className="chain-hero-copy mx-auto w-full max-w-2xl text-center sm:text-left">
+      <div className="hb-glow hb-glow-one pointer-events-none absolute" />
+      <div className="hb-glow hb-glow-two pointer-events-none absolute" />
+
+      {/* Full-width hero content */}
+      <div className="relative z-10 grid min-h-[650px] w-full max-w-none grid-cols-1 items-center gap-8 px-5 pb-12 pt-28 sm:px-8 sm:pt-32 lg:min-h-[720px] lg:grid-cols-2 lg:gap-8 lg:px-12 xl:px-16 2xl:px-20">
+        {/* Left content */}
+        <div className="mx-auto w-full max-w-2xl text-center sm:text-left lg:mx-0">
           <div
-            className={`mb-6 inline-flex max-w-full items-center gap-2.5 rounded-full border px-3.5 py-2 text-[11px] font-semibold tracking-wide backdrop-blur-xl sm:px-4 sm:text-xs ${
+            className={`mb-6 inline-flex items-center gap-2.5 rounded-full border px-4 py-2 text-[11px] font-semibold tracking-wide backdrop-blur-xl sm:text-xs ${
               dark
-                ? "border-[#00D6A0]/25 bg-white/[0.035] text-white/90"
+                ? "border-[#00D6A0]/25 bg-white/[0.035] text-white/85"
                 : "border-[#00A87D]/25 bg-white/80 text-[#18251F] shadow-sm"
             }`}
           >
-            <span className="relative flex h-2 w-2 shrink-0">
+            <span className="relative flex h-2 w-2">
               <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-[#00D6A0] opacity-40" />
               <span className="relative h-2 w-2 rounded-full bg-[#00D6A0]" />
             </span>
@@ -193,90 +197,72 @@ export default function Hero({ dark }) {
                 dark ? "text-white/45" : "text-[#6C7771]"
               }`}
             >
-              ARC · INJ · BOT · DOT
+              ARC · BOTCHAIN
             </span>
           </div>
 
-          <div>
-            <h1
-              className={`text-4xl font-extrabold leading-[1.04] tracking-[-0.055em] sm:text-5xl md:text-6xl lg:text-[4.35rem] ${
-                dark ? "text-white" : "text-[#111916]"
-              }`}
-            >
-              Make a living
-            </h1>
+          <h1
+            className={`text-4xl font-extrabold leading-[1.04] tracking-[-0.055em] sm:text-5xl md:text-6xl lg:text-[4.4rem] xl:text-[5rem] ${
+              dark ? "text-white" : "text-[#111916]"
+            }`}
+          >
+            Turn your skills
+            <br />
+            into <span className="hb-gradient-text">rewards.</span>
+          </h1>
 
-            <h1
-              className={`mt-1 text-4xl font-extrabold leading-[1.04] tracking-[-0.055em] sm:text-5xl md:text-6xl lg:text-[4.35rem] ${
-                dark ? "text-white" : "text-[#111916]"
-              }`}
-            >
-              from
-            </h1>
-
-            <div className="mt-2 flex min-h-[49px] min-w-0 items-center justify-center overflow-hidden sm:min-h-[66px] sm:justify-start md:min-h-[78px]">
-              <div className="flex max-w-full min-w-0 items-center whitespace-nowrap text-3xl font-extrabold leading-none tracking-[-0.045em] sm:text-4xl md:text-6xl lg:text-[4.1rem]">
-                <span className="chain-hero-type-text">{displayText}</span>
-                <span className="ml-1 inline-block h-[0.8em] w-[3px] shrink-0 rounded-full bg-[#00D6A0]" />
-              </div>
+          <div className="mt-4 flex min-h-[48px] items-center justify-center overflow-hidden sm:justify-start md:min-h-[60px]">
+            <div className="flex max-w-full items-center whitespace-nowrap text-xl font-extrabold tracking-tight sm:text-3xl md:text-4xl">
+              <span className="text-[#00D6A0]">{displayText}</span>
+              <span className="ml-1 inline-block h-[0.8em] w-[3px] rounded-full bg-[#00D6A0]" />
             </div>
           </div>
 
           <p
-            className={`mx-auto mt-6 max-w-xl text-sm font-medium leading-7 sm:mx-0 sm:text-base ${
+            className={`mx-auto mt-5 max-w-xl text-sm font-medium leading-7 sm:mx-0 sm:text-base ${
               dark ? "text-white/60" : "text-[#4C5A53]"
             }`}
           >
             Complete quests, earn crypto rewards, and build your skills across
-            multiple networks. Post bounties, find talented contributors, and
-            get quality work done on-chain.
+            supported networks. Post bounties, find talented contributors, and
+            get quality work done.
           </p>
 
-          <div className="mt-5 flex flex-wrap items-center justify-center gap-2 sm:justify-start">
-            {networks
-              .filter((network) =>
-                ["Arc", "Injective", "Botchain", "Portaldot"].includes(
-                  network.name
-                )
-              )
-              .map((network) => (
-                <span
-                  key={network.name}
-                  className={`chain-hero-network-pill ${
-                    dark
-                      ? "border-white/10 bg-white/[0.035] text-white/75"
-                      : "border-black/[0.08] bg-white/75 text-[#33443A]"
-                  }`}
-                >
-                  <NetworkLogo
-                    logo={network.logo}
-                    name={network.name}
-                    className="chain-hero-network-logo"
-                  />
-                  {network.name}
-                </span>
-              ))}
+          {/* Supported networks */}
+          <div className="mt-5 flex flex-wrap justify-center gap-2 sm:justify-start">
+            {networks.map((network) => (
+              <span
+                key={network.name}
+                className={`hb-network-pill ${
+                  dark
+                    ? "border-white/10 bg-white/[0.035] text-white/80"
+                    : "border-black/[0.08] bg-white/75 text-[#33443A]"
+                }`}
+              >
+                <NetworkLogo
+                  logo={network.logo}
+                  name={network.name}
+                  className="hb-network-logo"
+                />
+                {network.name}
+              </span>
+            ))}
           </div>
 
-          <div className="mt-7 flex w-full flex-wrap justify-center gap-3 sm:justify-start">
+          {/* Action buttons */}
+          <div className="mt-7 flex flex-wrap justify-center gap-3 sm:justify-start">
             <Link
               to="/dashboard"
-              onClick={(event) => {
-                event.preventDefault();
-                handleNavigate("/dashboard");
-              }}
-              className="chain-hero-primary group inline-flex items-center justify-center gap-2 rounded-xl bg-[#00D6A0] px-6 py-3.5 text-sm font-bold text-[#06251C] shadow-[0_10px_30px_rgba(0,214,160,0.16)] transition-all duration-300 hover:-translate-y-0.5 hover:bg-[#24E6B4] hover:shadow-[0_14px_36px_rgba(0,214,160,0.24)]"
+              onClick={navigate("/dashboard")}
+              className="hb-primary-btn group inline-flex items-center justify-center gap-2 rounded-xl bg-[#00D6A0] px-6 py-3.5 text-sm font-bold text-[#06251C] transition-all duration-300 hover:-translate-y-0.5 hover:bg-[#24E6B4]"
             >
               Explore Bounties
-              <FiArrowUpRight className="transition-transform duration-300 group-hover:-translate-y-0.5 group-hover:translate-x-0.5" />
+              <FiArrowUpRight className="transition-transform duration-300 group-hover:translate-x-1 group-hover:-translate-y-1" />
             </Link>
 
             <Link
               to="/create"
-              onClick={(event) => {
-                event.preventDefault();
-                handleNavigate("/create");
-              }}
+              onClick={navigate("/create")}
               className={`group inline-flex items-center justify-center gap-2 rounded-xl border px-6 py-3.5 text-sm font-bold transition-all duration-300 hover:-translate-y-0.5 ${
                 dark
                   ? "border-white/15 bg-white/[0.035] text-white hover:border-[#00D6A0]/60 hover:text-[#00D6A0]"
@@ -284,21 +270,19 @@ export default function Hero({ dark }) {
               }`}
             >
               Create a Bounty
-              <FiArrowUpRight className="transition-transform duration-300 group-hover:-translate-y-0.5 group-hover:translate-x-0.5" />
+              <FiArrowUpRight className="transition-transform duration-300 group-hover:translate-x-1 group-hover:-translate-y-1" />
             </Link>
           </div>
 
+          {/* Animated headline indicators */}
           <div className="mt-7 flex items-center justify-center gap-3 sm:justify-start">
-            <div
-              className="flex gap-1.5"
-              aria-label={`Headline ${heroText + 1} of ${heroMessages.length}`}
-            >
+            <div className="flex gap-1.5">
               {heroMessages.map((message, index) => (
                 <span
                   key={message}
                   className={`h-1.5 rounded-full transition-all duration-500 ${
                     index === heroText
-                      ? "w-7 bg-[#00D6A0] shadow-[0_0_12px_rgba(0,214,160,0.3)]"
+                      ? "w-7 bg-[#00D6A0]"
                       : dark
                         ? "w-1.5 bg-white/20"
                         : "w-1.5 bg-black/15"
@@ -317,175 +301,151 @@ export default function Hero({ dark }) {
           </div>
         </div>
 
+        {/* Right visual */}
         <div
           ref={visualRef}
-          className="chain-hero-visual relative mx-auto flex min-h-[360px] w-full max-w-[590px] items-center justify-center sm:min-h-[470px] lg:min-h-[550px]"
-          aria-label="Multi-chain bounty ecosystem featuring Arc, Injective, Botchain, and Portaldot"
+          className="hb-visual relative mx-auto flex min-h-[350px] w-full max-w-[720px] items-center justify-center lg:min-h-[550px] lg:max-w-none"
         >
-          <div className="chain-hero-scene relative flex h-[360px] w-full items-center justify-center sm:h-[470px] lg:h-[540px]">
-            <div className="chain-hero-ring chain-hero-ring-one" />
-            <div className="chain-hero-ring chain-hero-ring-two" />
-            <div className="chain-hero-ring chain-hero-ring-three" />
-            <div className="chain-hero-core-glow" />
+          <div className="hb-scene relative flex h-[350px] w-full items-center justify-center sm:h-[470px] lg:h-[540px]">
+            <div className="hb-orbit hb-orbit-one" />
+            <div className="hb-orbit hb-orbit-two" />
+            <div className="hb-orbit hb-orbit-three" />
+            <div className="hb-center-glow" />
 
-            <span className="chain-hero-node chain-hero-node-one" />
-            <span className="chain-hero-node chain-hero-node-two" />
-            <span className="chain-hero-node chain-hero-node-three" />
-            <span className="chain-hero-node chain-hero-node-four" />
+            <span className="hb-node hb-node-one" />
+            <span className="hb-node hb-node-two" />
+            <span className="hb-node hb-node-three" />
+            <span className="hb-node hb-node-four" />
 
+            {/* Central platform */}
             <div
-              className={`chain-hero-core relative z-10 flex h-40 w-40 flex-col items-center justify-center rounded-full border sm:h-48 sm:w-48 ${
+              className={`hb-core relative z-10 flex h-40 w-40 items-center justify-center rounded-full border sm:h-48 sm:w-48 ${
                 dark
                   ? "border-[#00D6A0]/30 bg-[#091511]/90"
-                  : "border-white/90 bg-white/85"
+                  : "border-white/90 bg-white/90"
               }`}
             >
-              <div className="chain-hero-core-inner flex h-[76%] w-[76%] flex-col items-center justify-center rounded-full border border-[#00D6A0]/20">
-                <FiGlobe className="mb-2 h-8 w-8 text-[#00D6A0] sm:h-9 sm:w-9" />
+              <div className="flex h-[76%] w-[76%] flex-col items-center justify-center rounded-full border border-[#00D6A0]/20">
+                <FiGlobe className="mb-2 h-9 w-9 text-[#00D6A0]" />
 
                 <span
-                  className={`text-base font-extrabold tracking-tight sm:text-lg ${
+                  className={`text-base font-extrabold sm:text-lg ${
                     dark ? "text-white" : "text-[#13231B]"
                   }`}
                 >
-                  Multi-Chain
+                  Happy Bounty
                 </span>
 
-                <span
-                  className={`mt-1 text-[9px] font-bold uppercase tracking-[0.19em] ${
-                    dark ? "text-[#00D6A0]/75" : "text-[#008A66]"
-                  }`}
-                >
-                  Bounty Hub
+                <span className="mt-1 text-[9px] font-bold uppercase tracking-[0.16em] text-[#00D6A0]">
+                  Work. Earn. Grow.
                 </span>
               </div>
             </div>
 
-            <div className="chain-hero-orbit-badge chain-hero-badge-arc">
+            {/* Arc floating card */}
+            <div
+              className={`hb-orbit-card hb-card-arc ${
+                dark ? "bg-[#0C1713]" : "bg-white"
+              }`}
+            >
               <NetworkLogo
                 logo={ArcLogo}
                 name="Arc"
-                className="chain-hero-token chain-arc"
+                className="hb-token hb-arc"
               />
-              <span className="chain-hero-badge-label">
+              <span>
                 <strong>Arc</strong>
                 <small>Explore bounties</small>
               </span>
             </div>
 
-            <div className="chain-hero-orbit-badge chain-hero-badge-injective">
-              <NetworkLogo
-                logo={InjectiveLogo}
-                name="Injective"
-                className="chain-hero-token chain-injective"
-              />
-              <span className="chain-hero-badge-label">
-                <strong>Injective</strong>
-                <small>Find opportunities</small>
-              </span>
-            </div>
-
-            <div className="chain-hero-orbit-badge chain-hero-badge-botchain">
+            {/* Botchain floating card */}
+            <div
+              className={`hb-orbit-card hb-card-botchain ${
+                dark ? "bg-[#0C1713]" : "bg-white"
+              }`}
+            >
               <NetworkLogo
                 logo={BotchainLogo}
                 name="Botchain"
-                className="chain-hero-token chain-botchain"
+                className="hb-token hb-botchain"
               />
-              <span className="chain-hero-badge-label">
+              <span>
                 <strong>Botchain</strong>
                 <small>Build and earn</small>
               </span>
             </div>
 
-            <div className="chain-hero-orbit-badge chain-hero-badge-polkadot">
-              <NetworkLogo
-                logo={PolkadotLogo}
-                name="Polkadot"
-                className="chain-hero-token chain-polkadot"
-              />
-              <span className="chain-hero-badge-label">
-                <strong>Portaldot</strong>
-                <small>Connect and contribute</small>
-              </span>
-            </div>
-
+            {/* Reward card */}
             <div
-              className={`chain-hero-float-card chain-hero-card-top ${
+              className={`hb-float-card hb-reward-card ${
                 dark
-                  ? "border-white/10 bg-[#111917]/90 text-white"
-                  : "border-white/80 bg-white/90 text-[#15231C]"
+                  ? "border-white/10 bg-[#111917]/95 text-white"
+                  : "border-white bg-white/95 text-[#15231C]"
               }`}
             >
-              <span className="chain-hero-card-icon">
+              <span className="hb-card-icon">
                 <FiGift />
               </span>
               <span>
-                <strong>Crypto Rewards</strong>
-                <small>Complete tasks and earn</small>
+                <strong>Crypto rewards</strong>
+                <small>Put your skills to work</small>
               </span>
             </div>
 
+            {/* Approval card */}
             <div
-              className={`chain-hero-float-card chain-hero-card-bottom ${
+              className={`hb-float-card hb-approval-card ${
                 dark
-                  ? "border-white/10 bg-[#111917]/90 text-white"
-                  : "border-white/80 bg-white/90 text-[#15231C]"
+                  ? "border-white/10 bg-[#111917]/95 text-white"
+                  : "border-white bg-white/95 text-[#15231C]"
               }`}
             >
-              <span className="chain-hero-card-icon">
+              <span className="hb-card-icon">
                 <FiCheckCircle />
               </span>
               <span>
-                <strong>Work Gets Rewarded</strong>
-                <small>Contribute. Submit. Earn.</small>
+                <strong>Work gets rewarded</strong>
+                <small>Submit. Get approved. Earn.</small>
               </span>
             </div>
 
-            <div className="chain-hero-mini-label chain-hero-mini-left">
+            <div className="hb-mini-label hb-mini-left">
               <FiLayers />
-              <span>One Platform</span>
+              <span>One platform</span>
             </div>
 
-            <div className="chain-hero-mini-label chain-hero-mini-right">
+            <div className="hb-mini-label hb-mini-right">
               <FiTrendingUp />
-              <span>More Opportunities</span>
+              <span>More opportunities</span>
             </div>
           </div>
         </div>
       </div>
 
-      <div className="relative z-10 mx-auto max-w-7xl px-5 pb-8 sm:px-8 lg:px-10 lg:pb-10">
+      {/* Full-width moving network ticker */}
+      <div className="relative z-10 w-full max-w-none px-5 pb-10 sm:px-8 lg:px-12 xl:px-16 2xl:px-20">
         <div
-          className={`chain-hero-ticker overflow-hidden rounded-2xl border ${
+          className={`hb-ticker overflow-hidden rounded-2xl border ${
             dark
               ? "border-white/10 bg-white/[0.025]"
               : "border-black/[0.07] bg-white/65"
           }`}
         >
-          <div className="chain-hero-ticker-track">
-            {[0, 1, 2].map((copy) => (
+          <div className="hb-ticker-track">
+            {[0, 1].map((copy) => (
               <div
                 key={copy}
-                className="chain-hero-ticker-group"
-                aria-hidden={copy !== 0 ? "true" : undefined}
+                className="hb-ticker-group"
+                aria-hidden={copy === 1}
               >
                 {tickerItems.map((item) => (
-                  <div className="chain-hero-ticker-item" key={item.name}>
-                    {item.logo ? (
-                      <NetworkLogo
-                        logo={item.logo}
-                        name={item.name}
-                        className={`chain-hero-ticker-icon ${item.className}`}
-                      />
-                    ) : (
-                      <span
-                        className={`chain-hero-ticker-icon ${item.className}`}
-                        aria-hidden="true"
-                      >
-                        ✓
-                      </span>
-                    )}
-
+                  <div className="hb-ticker-item" key={item.name}>
+                    <NetworkLogo
+                      logo={item.logo}
+                      name={item.name}
+                      className="hb-ticker-logo"
+                    />
                     <span
                       className={`text-xs font-bold sm:text-sm ${
                         dark ? "text-white/75" : "text-[#293A31]"
@@ -493,8 +453,7 @@ export default function Hero({ dark }) {
                     >
                       {item.name}
                     </span>
-
-                    <span className="chain-hero-ticker-separator">/</span>
+                    <span className="hb-separator">/</span>
                   </div>
                 ))}
               </div>
@@ -503,14 +462,56 @@ export default function Hero({ dark }) {
         </div>
       </div>
 
+      {/* Full-width feature cards */}
+      <div className="relative z-10 grid w-full max-w-none grid-cols-1 gap-3 px-5 pb-16 sm:grid-cols-2 sm:px-8 lg:grid-cols-4 lg:px-12 lg:pb-20 xl:px-16 2xl:px-20">
+        {features.map((feature) => {
+          const Icon = feature.icon;
+
+          return (
+            <article
+              key={feature.title}
+              className={`hb-feature rounded-2xl border p-5 transition-all duration-300 hover:-translate-y-1 ${
+                dark
+                  ? "border-white/[0.08] bg-white/[0.025] hover:border-[#00D6A0]/30"
+                  : "border-black/[0.07] bg-white/70 hover:border-[#00A87D]/30 hover:bg-white"
+              }`}
+            >
+              <span className="hb-feature-icon">
+                <Icon />
+              </span>
+
+              <h2
+                className={`mt-4 text-sm font-extrabold ${
+                  dark ? "text-white" : "text-[#17251D]"
+                }`}
+              >
+                {feature.title}
+              </h2>
+
+              <p
+                className={`mt-2 text-xs leading-6 ${
+                  dark ? "text-white/50" : "text-[#657168]"
+                }`}
+              >
+                {feature.description}
+              </p>
+            </article>
+          );
+        })}
+      </div>
+
+      {/* Component styles */}
       <style>{`
-        .chain-hero {
-          --hero-green: #00D6A0;
-          --hero-green-dark: #00A87D;
+        .hb-hero {
+          --hb-green: #00D6A0;
+          --hb-green-dark: #00A87D;
+          isolation: isolate;
+          width: 100%;
+          max-width: none;
         }
 
-        .chain-hero-grid {
-          opacity: ${dark ? "0.18" : "0.12"};
+        .hb-grid {
+          opacity: ${dark ? ".17" : ".10"};
           background-image:
             linear-gradient(to right, ${
               dark ? "rgba(255,255,255,.045)" : "rgba(15,55,38,.06)"
@@ -522,47 +523,47 @@ export default function Hero({ dark }) {
           mask-image: linear-gradient(to bottom, black, transparent 95%);
         }
 
-        .chain-hero-glow {
+        .hb-glow {
           position: absolute;
           width: 25rem;
           height: 25rem;
-          border-radius: 999px;
-          filter: blur(105px);
+          border-radius: 50%;
           background: #00D6A0;
+          filter: blur(105px);
           pointer-events: none;
         }
 
-        .chain-hero-glow-one {
-          top: 5rem;
+        .hb-glow-one {
+          top: 4rem;
           right: -13rem;
-          opacity: ${dark ? ".10" : ".09"};
+          opacity: ${dark ? ".10" : ".08"};
         }
 
-        .chain-hero-glow-two {
-          bottom: -15rem;
-          left: -12rem;
-          opacity: .055;
+        .hb-glow-two {
+          bottom: 0;
+          left: -15rem;
+          opacity: ${dark ? ".07" : ".045"};
         }
 
-        .chain-hero-noise {
-          pointer-events: none;
-          opacity: ${dark ? ".08" : ".025"};
-          background-image: radial-gradient(
-            ${dark ? "#FFFFFF" : "#102A20"} .6px,
-            transparent .6px
-          );
-          background-size: 13px 13px;
-          mask-image: linear-gradient(to bottom, black, transparent 85%);
+        .hb-gradient-text {
+          background: linear-gradient(100deg, #00D6A0, #58F4C5, #00A87D);
+          -webkit-background-clip: text;
+          background-clip: text;
+          -webkit-text-fill-color: transparent;
         }
 
-        .chain-hero-type-text {
-          color: #00D6A0;
+        .hb-primary-btn {
+          box-shadow: 0 10px 30px rgba(0,214,160,.16);
         }
 
-        .chain-hero-network-pill {
+        .hb-primary-btn:hover {
+          box-shadow: 0 14px 36px rgba(0,214,160,.24);
+        }
+
+        .hb-network-pill {
           display: inline-flex;
           align-items: center;
-          gap: 7px;
+          gap: 8px;
           padding: 6px 10px;
           border: 1px solid;
           border-radius: 999px;
@@ -571,20 +572,20 @@ export default function Hero({ dark }) {
           transition: transform .25s ease, border-color .25s ease;
         }
 
-        .chain-hero-network-pill:hover {
+        .hb-network-pill:hover {
           transform: translateY(-2px);
           border-color: rgba(0,214,160,.55);
         }
 
-        .chain-hero-logo-wrap {
+        .hb-logo-wrap {
           display: inline-flex;
+          flex-shrink: 0;
           align-items: center;
           justify-content: center;
           overflow: hidden;
-          flex-shrink: 0;
         }
 
-        .chain-hero-logo {
+        .hb-logo-image {
           display: block;
           width: 100%;
           height: 100%;
@@ -592,102 +593,68 @@ export default function Hero({ dark }) {
           object-position: center;
         }
 
-        .chain-hero-network-logo {
-          width: 21px;
-          height: 21px;
-          border-radius: 50%;
+        .hb-network-logo {
+          width: 22px;
+          height: 22px;
           padding: 2px;
-        }
-
-        .chain-hero-network-logo .chain-hero-logo {
           border-radius: 50%;
         }
 
-        .chain-arc {
-          color: #C9B7FF;
-          background: linear-gradient(135deg, #5834B8, #29165D);
-        }
-
-        .chain-injective {
-          color: #8BEAFF;
-          background: linear-gradient(135deg, #126C98, #103A63);
-        }
-
-        .chain-botchain {
-          color: #65FFD1;
-          background: linear-gradient(135deg, #087D60, #064B3D);
-        }
-
-        .chain-usdc {
-          color: #FFFFFF;
-          background: linear-gradient(135deg, #2775CA, #124B91);
-        }
-
-        .chain-polkadot {
-        color: #C9B7FF;
-          background: linear-gradient(135deg, #5834B8, #29165D);
-        }
-
-        .chain-bounty {
-          color: #06251C;
-          background: #00D6A0;
-        }
-
-        .chain-hero-visual {
+        .hb-visual {
           perspective: 1200px;
           --tilt-x: 0deg;
           --tilt-y: 0deg;
         }
 
-        .chain-hero-scene {
+        .hb-scene {
           transform: rotateX(var(--tilt-x)) rotateY(var(--tilt-y));
           transform-style: preserve-3d;
           transition: transform 450ms cubic-bezier(.16,1,.3,1);
         }
 
-        .chain-hero-ring {
+        .hb-orbit {
           position: absolute;
-          border: 1px solid rgba(0,214,160,.2);
+          border: 1px solid rgba(0,214,160,.19);
           border-radius: 50%;
           pointer-events: none;
         }
 
-        .chain-hero-ring-one {
+        .hb-orbit-one {
           width: 86%;
           height: 43%;
           transform: rotate(-28deg);
-          animation: chainRingOne 22s linear infinite;
+          animation: hbOrbitOne 24s linear infinite;
         }
 
-        .chain-hero-ring-two {
+        .hb-orbit-two {
           width: 68%;
           height: 66%;
           border-color: ${
             dark ? "rgba(255,255,255,.12)" : "rgba(10,70,48,.13)"
           };
           transform: rotate(35deg);
-          animation: chainRingTwo 27s linear infinite;
+          animation: hbOrbitTwo 28s linear infinite;
         }
 
-        .chain-hero-ring-three {
+        .hb-orbit-three {
           width: 55%;
           height: 82%;
           border-color: rgba(0,214,160,.13);
           transform: rotate(55deg);
-          animation: chainRingOne 35s linear infinite;
+          animation: hbOrbitOne 36s linear infinite;
         }
 
-        .chain-hero-core-glow {
+        .hb-center-glow {
           position: absolute;
           width: 45%;
           aspect-ratio: 1;
           border-radius: 50%;
           background: rgba(0,214,160,.14);
           filter: blur(55px);
-          animation: chainGlowPulse 5s ease-in-out infinite;
+          animation: hbGlowPulse 5s ease-in-out infinite;
         }
 
-        .chain-hero-core {
+        .hb-core {
           border-color: rgba(0,214,160,.3);
           box-shadow:
             0 0 0 10px rgba(0,214,160,.025),
@@ -695,14 +662,10 @@ export default function Hero({ dark }) {
             0 0 75px rgba(0,214,160,.12),
             inset 0 0 40px rgba(0,214,160,.07);
           backdrop-filter: blur(18px);
-          animation: chainCoreFloat 6s ease-in-out infinite;
+          animation: hbCoreFloat 6s ease-in-out infinite;
         }
 
-        .chain-hero-core-inner {
-          box-shadow: inset 0 0 25px rgba(0,214,160,.06);
-        }
-
-        .chain-hero-orbit-badge {
+        .hb-orbit-card {
           position: absolute;
           z-index: 15;
           display: flex;
@@ -713,16 +676,13 @@ export default function Hero({ dark }) {
             dark ? "rgba(255,255,255,.12)" : "rgba(15,55,38,.10)"
           };
           border-radius: 16px;
-          background: ${
-            dark ? "rgba(12,23,19,.92)" : "rgba(255,255,255,.92)"
-          };
           box-shadow: 0 14px 38px rgba(0,0,0,.10);
           backdrop-filter: blur(18px);
-          animation: chainBadgeFloat 6s ease-in-out infinite;
+          animation: hbBadgeFloat 6s ease-in-out infinite;
         }
 
-        .chain-hero-token {
-          display: flex;
+        .hb-token {
+          display: inline-flex;
           width: 43px;
           height: 43px;
           flex: 0 0 43px;
@@ -734,51 +694,46 @@ export default function Hero({ dark }) {
           box-shadow: 0 0 22px rgba(0,214,160,.08);
         }
 
-        .chain-hero-token .chain-hero-logo {
+        .hb-token img {
           border-radius: 50%;
         }
 
-        .chain-hero-badge-label strong {
+        .hb-arc {
+          background: linear-gradient(135deg, #5834B8, #29165D);
+        }
+
+        .hb-botchain {
+          background: linear-gradient(135deg, #087D60, #064B3D);
+        }
+
+        .hb-orbit-card strong {
           display: block;
+          color: ${dark ? "#fff" : "#17251D"};
           font-size: 11px;
           font-weight: 800;
-          letter-spacing: -.01em;
-          color: ${dark ? "#FFFFFF" : "#17251D"};
         }
 
-        .chain-hero-badge-label small {
+        .hb-orbit-card small {
           display: block;
           margin-top: 3px;
+          color: ${dark ? "rgba(255,255,255,.48)" : "#718078"};
           font-size: 9px;
           white-space: nowrap;
-          color: ${dark ? "rgba(255,255,255,.48)" : "#718078"};
         }
 
-        .chain-hero-badge-arc {
+        .hb-card-arc {
           top: 23%;
           left: 2%;
           animation-delay: -1s;
         }
 
-        .chain-hero-badge-injective {
-          top: 18%;
-          right: 0;
-          animation-delay: -3s;
-        }
-
-        .chain-hero-badge-botchain {
-          right: 7%;
+        .hb-card-botchain {
+          right: 5%;
           bottom: 19%;
           animation-delay: -2s;
         }
 
-        .chain-hero-badge-polkadot {
-          bottom: 17%;
-          left: 5%;
-          animation-delay: -2.5s;
-        }
-
-        .chain-hero-float-card {
+        .hb-float-card {
           position: absolute;
           z-index: 20;
           display: flex;
@@ -790,22 +745,22 @@ export default function Hero({ dark }) {
           border-radius: 15px;
           box-shadow: 0 18px 48px rgba(0,0,0,.10);
           backdrop-filter: blur(16px);
-          animation: chainCardFloat 6s ease-in-out infinite;
+          animation: hbCardFloat 6s ease-in-out infinite;
         }
 
-        .chain-hero-card-top {
+        .hb-reward-card {
           top: 5%;
           left: 20%;
           animation-delay: -2s;
         }
 
-        .chain-hero-card-bottom {
+        .hb-approval-card {
           bottom: 5%;
           left: 0;
           animation-delay: -4s;
         }
 
-        .chain-hero-card-icon {
+        .hb-card-icon {
           display: flex;
           width: 34px;
           height: 34px;
@@ -818,13 +773,13 @@ export default function Hero({ dark }) {
           font-size: 16px;
         }
 
-        .chain-hero-float-card strong {
+        .hb-float-card strong {
           display: block;
           font-size: 11px;
           font-weight: 800;
         }
 
-        .chain-hero-float-card small {
+        .hb-float-card small {
           display: block;
           margin-top: 3px;
           font-size: 9px;
@@ -832,29 +787,28 @@ export default function Hero({ dark }) {
           white-space: nowrap;
         }
 
-        .chain-hero-mini-label {
+        .hb-mini-label {
           position: absolute;
           z-index: 15;
           display: flex;
           align-items: center;
           gap: 6px;
-          color: #00D6A0;
+          color: ${dark ? "#00D6A0" : "#008A66"};
           font-size: 10px;
           font-weight: 800;
-          letter-spacing: .025em;
         }
 
-        .chain-hero-mini-left {
+        .hb-mini-left {
           top: 39%;
           left: 0;
         }
 
-        .chain-hero-mini-right {
+        .hb-mini-right {
           right: 0;
           bottom: 36%;
         }
 
-        .chain-hero-node {
+        .hb-node {
           position: absolute;
           z-index: 5;
           width: 5px;
@@ -862,33 +816,33 @@ export default function Hero({ dark }) {
           border-radius: 50%;
           background: #00D6A0;
           box-shadow: 0 0 18px rgba(0,214,160,.8);
-          animation: chainNodePulse 3.5s ease-in-out infinite;
+          animation: hbNodePulse 3.5s ease-in-out infinite;
         }
 
-        .chain-hero-node-one {
+        .hb-node-one {
           top: 15%;
           left: 38%;
         }
 
-        .chain-hero-node-two {
-          right: 17%;
+        .hb-node-two {
           top: 41%;
+          right: 17%;
           animation-delay: -1s;
         }
 
-        .chain-hero-node-three {
-          left: 21%;
+        .hb-node-three {
           bottom: 24%;
+          left: 21%;
           animation-delay: -2s;
         }
 
-        .chain-hero-node-four {
+        .hb-node-four {
           right: 29%;
           bottom: 12%;
           animation-delay: -2.5s;
         }
 
-        .chain-hero-ticker {
+        .hb-ticker {
           border-color: rgba(0,214,160,.17);
           mask-image: linear-gradient(
             to right,
@@ -899,23 +853,23 @@ export default function Hero({ dark }) {
           );
         }
 
-        .chain-hero-ticker-track {
+        .hb-ticker-track {
           display: flex;
           width: max-content;
-          animation: chainTickerMove 36s linear infinite;
+          animation: hbTickerMove 38s linear infinite;
         }
 
-        .chain-hero-ticker:hover .chain-hero-ticker-track {
+        .hb-ticker:hover .hb-ticker-track {
           animation-play-state: paused;
         }
 
-        .chain-hero-ticker-group {
+        .hb-ticker-group {
           display: flex;
           flex-shrink: 0;
           align-items: center;
         }
 
-        .chain-hero-ticker-item {
+        .hb-ticker-item {
           display: flex;
           align-items: center;
           gap: 10px;
@@ -923,224 +877,168 @@ export default function Hero({ dark }) {
           white-space: nowrap;
         }
 
-        .chain-hero-ticker-icon {
-          display: inline-flex;
+        .hb-ticker-logo {
           width: 27px;
           height: 27px;
           flex: 0 0 27px;
-          align-items: center;
-          justify-content: center;
           padding: 4px;
           border: 1px solid rgba(255,255,255,.12);
           border-radius: 50%;
-          font-size: 11px;
-          font-weight: 900;
+          background: rgba(0,214,160,.10);
         }
 
-        .chain-hero-ticker-icon .chain-hero-logo {
-          border-radius: 50%;
-        }
-
-        .chain-hero-ticker-separator {
+        .hb-separator {
           margin-left: 9px;
           color: #00D6A0;
           font-size: 16px;
-          font-weight: 400;
         }
 
-        @keyframes chainRingOne {
+        .hb-feature {
+          backdrop-filter: blur(10px);
+        }
+
+        .hb-feature-icon {
+          display: inline-flex;
+          width: 40px;
+          height: 40px;
+          align-items: center;
+          justify-content: center;
+          border: 1px solid rgba(0,214,160,.18);
+          border-radius: 13px;
+          background: rgba(0,214,160,.09);
+          color: #00D6A0;
+          font-size: 18px;
+        }
+
+        @keyframes hbOrbitOne {
           from { transform: rotate(-28deg); }
           to { transform: rotate(332deg); }
         }
 
-        @keyframes chainRingTwo {
+        @keyframes hbOrbitTwo {
           from { transform: rotate(35deg); }
           to { transform: rotate(-325deg); }
         }
 
-        @keyframes chainGlowPulse {
+        @keyframes hbGlowPulse {
           0%, 100% { opacity: .65; transform: scale(.95); }
           50% { opacity: 1; transform: scale(1.12); }
         }
 
-        @keyframes chainCoreFloat {
+        @keyframes hbCoreFloat {
           0%, 100% { transform: translateY(0); }
           50% { transform: translateY(-7px); }
         }
 
-        @keyframes chainBadgeFloat {
+        @keyframes hbBadgeFloat {
           0%, 100% { translate: 0 0; }
           50% { translate: 0 -7px; }
         }
 
-        @keyframes chainCardFloat {
+        @keyframes hbCardFloat {
           0%, 100% { transform: translateY(0); }
           50% { transform: translateY(-7px); }
         }
 
-        @keyframes chainNodePulse {
+        @keyframes hbNodePulse {
           0%, 100% { opacity: .3; transform: scale(.8); }
           50% { opacity: 1; transform: scale(1.4); }
         }
 
-        @keyframes chainTickerMove {
+        @keyframes hbTickerMove {
           from { transform: translateX(0); }
-          to { transform: translateX(-33.333333%); }
+          to { transform: translateX(-50%); }
         }
 
         @media (max-width: 640px) {
-          .chain-hero-visual {
-            min-height: 350px;
-          }
+          .hb-visual { min-height: 350px; }
+          .hb-scene { height: 350px; }
+          .hb-orbit-one { width: 98%; }
+          .hb-orbit-two { width: 78%; }
 
-          .chain-hero-scene {
-            height: 350px;
-          }
-
-          .chain-hero-ring-one {
-            width: 98%;
-          }
-
-          .chain-hero-ring-two {
-            width: 78%;
-          }
-
-          .chain-hero-orbit-badge {
+          .hb-orbit-card {
             gap: 6px;
             padding: 7px;
             border-radius: 13px;
           }
 
-          .chain-hero-token {
+          .hb-token {
             width: 34px;
             height: 34px;
             flex-basis: 34px;
             padding: 5px;
           }
 
-          .chain-hero-badge-label strong {
-            font-size: 10px;
-          }
+          .hb-orbit-card strong { font-size: 10px; }
+          .hb-orbit-card small { font-size: 8px; }
 
-          .chain-hero-badge-label small {
-            font-size: 8px;
-          }
-
-          .chain-hero-badge-arc {
+          .hb-card-arc {
             top: 22%;
             left: 0;
           }
 
-          .chain-hero-badge-injective {
-            top: 19%;
-            right: 0;
-          }
-
-          .chain-hero-badge-botchain {
+          .hb-card-botchain {
             right: 1%;
             bottom: 17%;
           }
 
-          .chain-hero-badge-polkadot {
-            bottom: 16%;
-            left: 0;
-          }
-
-          .chain-hero-card-top {
+          .hb-reward-card {
             top: 3%;
             left: 15%;
           }
 
-          .chain-hero-card-bottom {
+          .hb-approval-card {
             bottom: 2%;
             left: 0;
           }
 
-          .chain-hero-float-card {
+          .hb-float-card {
             max-width: 190px;
             padding: 9px;
             gap: 7px;
           }
 
-          .chain-hero-float-card strong {
-            font-size: 9px;
-          }
+          .hb-float-card strong { font-size: 9px; }
+          .hb-float-card small { font-size: 8px; }
 
-          .chain-hero-float-card small {
-            font-size: 8px;
-          }
-
-          .chain-hero-card-icon {
+          .hb-card-icon {
             width: 29px;
             height: 29px;
             flex-basis: 29px;
           }
 
-          .chain-hero-mini-label {
-            font-size: 8px;
-          }
+          .hb-mini-label { font-size: 8px; }
+          .hb-mini-left { top: 43%; }
+          .hb-mini-right { bottom: 38%; }
 
-          .chain-hero-mini-left {
-            top: 43%;
-          }
-
-          .chain-hero-mini-right {
-            bottom: 38%;
-          }
-
-          .chain-hero-ticker-item {
+          .hb-ticker-item {
             gap: 8px;
             padding: 12px 14px;
           }
         }
 
         @media (max-width: 390px) {
-          .chain-hero-badge-label small {
-            display: none;
-          }
-
-          .chain-hero-orbit-badge {
-            padding: 6px;
-          }
-
-          .chain-hero-badge-arc {
-            left: -2%;
-          }
-
-          .chain-hero-badge-injective {
-            right: -2%;
-          }
-
-          .chain-hero-badge-botchain {
-            right: -1%;
-          }
-
-          .chain-hero-badge-polkadot {
-            left: -1%;
-          }
-
-          .chain-hero-card-top {
-            left: 10%;
-          }
-
-          .chain-hero-mini-label {
-            font-size: 7px;
-          }
+          .hb-orbit-card small { display: none; }
+          .hb-orbit-card { padding: 6px; }
+          .hb-card-arc { left: -2%; }
+          .hb-card-botchain { right: -1%; }
+          .hb-reward-card { left: 10%; }
+          .hb-mini-label { font-size: 7px; }
         }
 
         @media (prefers-reduced-motion: reduce) {
-          .chain-hero-glow,
-          .chain-hero-ring,
-          .chain-hero-core-glow,
-          .chain-hero-core,
-          .chain-hero-orbit-badge,
-          .chain-hero-float-card,
-          .chain-hero-node,
-          .chain-hero-ticker-track {
+          .hb-glow,
+          .hb-orbit,
+          .hb-center-glow,
+          .hb-core,
+          .hb-orbit-card,
+          .hb-float-card,
+          .hb-node,
+          .hb-ticker-track {
             animation: none !important;
           }
 
-          .chain-hero-scene {
+          .hb-scene {
             transform: none !important;
             transition: none !important;
           }

@@ -1,7 +1,5 @@
 
 import { useEffect, useState } from "react";
-
-import dotLogo from "../../assets/images/pok.png";
 import botLogo from "../../assets/images/bot.png";
 import arcLogo from "../../assets/images/arc.png";
 
@@ -12,17 +10,6 @@ function LiveTricker() {
       label: "Explore Arc Bounties",
       type: "ARC",
       logo: arcLogo,
-    },
-    { label: "Discover Injective Opportunities", type: "INJECTIVE" },
-    {
-      label: "Build on Botchain",
-      type: "BOTCHAIN",
-      logo: botLogo,
-    },
-    {
-      label: "Explore Portaldot Bounties",
-      type: "DOT",
-      logo: dotLogo,
     },
     { label: "Earn USDC Rewards", type: "USDC" },
     { label: "Complete On-Chain Bounties", type: "BOUNTIES" },
