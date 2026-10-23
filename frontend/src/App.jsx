@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { BrowserRouter, Route, Routes, useNavigate } from "react-router-dom";
-import { useAccount } from "wagmi"; 
+import { useAccount } from "wagmi";
 
 import LandingPage from "./pages/LandingPage";
 import Dashboard from "./pages/Dashboard";
@@ -11,6 +11,7 @@ import Admin from "./pages/Admin";
 import FAQPage from "./pages/Faqs";
 import WhitepaperPage from "./pages/WhitePaper";
 import ContactUs from "./pages/ContactUs";
+import CookieConsent from "./pages/CookieConsent";
 
 import LoadingScreen from "./components/LoadingScreen";
 import { useTheme } from "./context/ThemeContext";
@@ -107,6 +108,8 @@ function App() {
 
           <Route path="*" element={<h1>404 Not Found</h1>} />
         </Routes>
+
+        <CookieConsent />
       </BrowserRouter>
     </div>
   );
