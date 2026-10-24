@@ -1,72 +1,104 @@
+import { useEffect, useRef, useState } from "react";
+import {
+  FiArrowLeft,
+  FiArrowRight,
+  FiArrowUpRight,
+  FiCheckCircle,
+  FiCode,
+  FiCompass,
+  FiDollarSign,
+  FiGlobe,
+  FiLayers,
+  FiPenTool,
+  FiShield,
+  FiTarget,
+  FiUsers,
+  FiZap,
+} from "react-icons/fi";
 
-import { useCallback, useEffect, useRef, useState } from "react";
-import ArcLogo from "../assets/images/arc.png";
-import BotchainLogo from "../assets/images/bot.png";
+import botLogo from "../assets/images/bot.png";
+import arcLogo from "../assets/images/arc.png";
 
 const communityUseCases = [
   {
-    title: "Bounty Creator",
-    role: "Project Owner",
-    quote:
-      "Create meaningful tasks, attract talented contributors, and reward people for work that moves your project forward.",
-    initials: "BC",
-    color: "#00D6A0",
+    icon: FiCode,
+    role: "Bounty Creator",
+    type: "For project builders",
+    category: "CREATE",
+    message:
+      "Turn your project goals into clear, rewarding tasks. Define requirements, set rewards, and invite contributors to bring your ideas to life.",
+    footer: "Create opportunities",
+    number: "01",
   },
   {
-    title: "Bounty Contributor",
-    role: "Independent Contributor",
-    quote:
-      "Discover opportunities, complete tasks, showcase your skills, and earn rewards for the value you deliver.",
-    initials: "BT",
-    color: "#56D6B0",
+    icon: FiPenTool,
+    role: "Bounty Contributor",
+    type: "For independent talent",
+    category: "CONTRIBUTE",
+    message:
+      "Discover opportunities that match your skills, complete the work, submit your contribution, and earn rewards when your work is approved.",
+    footer: "Put your skills to work",
+    number: "02",
   },
   {
-    title: "Web3 Developer",
-    role: "Developer",
-    quote:
-      "Put your technical skills to work by solving real problems and contributing to projects across the ecosystem.",
-    initials: "WD",
-    color: "#43BFA0",
+    icon: FiLayers,
+    role: "Web3 Developer",
+    type: "For technical teams",
+    category: "BUILD",
+    message:
+      "Break ambitious ideas into focused tasks. Give contributors clear requirements and a straightforward path from submission to reward.",
+    footer: "Build with clarity",
+    number: "03",
   },
   {
-    title: "Project Founder",
-    role: "Startup Founder",
-    quote:
-      "Turn project goals into actionable bounties and connect with people who can help bring your vision to life.",
-    initials: "PF",
-    color: "#8CD9C3",
+    icon: FiDollarSign,
+    role: "Project Founder",
+    type: "For growing projects",
+    category: "REWARD",
+    message:
+      "Define the work that needs to be done and the reward attached to it. Help contributors understand each opportunity before they begin.",
+    footer: "Reward good work",
+    number: "04",
   },
   {
-    title: "Global Contributor",
-    role: "Remote Worker",
-    quote:
-      "Find opportunities beyond borders and contribute your skills wherever you are in the world.",
-    initials: "GC",
-    color: "#00A87D",
+    icon: FiGlobe,
+    role: "Global Contributor",
+    type: "For remote collaboration",
+    category: "GLOBAL",
+    message:
+      "Find opportunities beyond your immediate network. Connect your skills with projects and communities that need your contributions.",
+    footer: "Work across communities",
+    number: "05",
   },
   {
-    title: "Community Builder",
-    role: "Community Member",
-    quote:
-      "Help ecosystems grow by participating in initiatives, completing meaningful work, and collaborating with others.",
-    initials: "CB",
-    color: "#7BDCC0",
+    icon: FiUsers,
+    role: "Community Builder",
+    type: "For Web3 communities",
+    category: "COMMUNITY",
+    message:
+      "Turn community goals into actionable tasks. Give people a shared objective and meaningful reasons to participate and contribute.",
+    footer: "Bring people together",
+    number: "06",
   },
   {
-    title: "Creative Contributor",
-    role: "Designer & Creator",
-    quote:
-      "Use your creative skills to help teams communicate better, build stronger brands, and deliver better experiences.",
-    initials: "CC",
-    color: "#42C9A4",
+    icon: FiTarget,
+    role: "Creative Contributor",
+    type: "For creative projects",
+    category: "CREATIVITY",
+    message:
+      "From content and design to research and social campaigns, turn creative skills into meaningful contributions for growing projects.",
+    footer: "Create and contribute",
+    number: "07",
   },
   {
-    title: "Independent Builder",
-    role: "Solo Builder",
-    quote:
-      "Build your reputation through real contributions and discover new ways to turn your skills into opportunities.",
-    initials: "IB",
-    color: "#009B75",
+    icon: FiShield,
+    role: "Independent Builder",
+    type: "For transparent workflows",
+    category: "CLARITY",
+    message:
+      "Keep tasks, submission requirements, and rewards clear so creators and contributors know what to expect when working together.",
+    footer: "Work with confidence",
+    number: "08",
   },
 ];
 
@@ -74,849 +106,933 @@ const networks = [
   {
     name: "Arc",
     symbol: "ARC",
+    logo: arcLogo,
     description: "Explore opportunities in the Arc ecosystem.",
-    logo: ArcLogo,
   },
   {
     name: "BOTCHAIN",
     symbol: "BOT",
-    description: "Contribute to projects and opportunities in BOTCHAIN.",
-    logo: BotchainLogo,
+    logo: botLogo,
+    description: "Discover tasks and contribute to BOTCHAIN projects.",
   },
 ];
 
 const valuePoints = [
   {
-    number: "01",
+    icon: FiCompass,
     title: "Discover opportunities",
     description:
-      "Explore tasks and challenges that match your skills and interests.",
+      "Explore tasks that match your interests, goals, and skills.",
   },
   {
-    number: "02",
-    title: "Contribute your skills",
+    icon: FiZap,
+    title: "Turn effort into value",
     description:
-      "Work on meaningful tasks and submit your completed contributions.",
+      "Complete meaningful work and pursue the rewards attached to it.",
   },
   {
-    number: "03",
-    title: "Earn rewards",
+    icon: FiShield,
+    title: "Know what to expect",
     description:
-      "Get rewarded when your submitted work is reviewed and approved.",
+      "Understand task requirements and reward details before you begin.",
   },
 ];
 
+function useDarkTheme() {
+  const [dark, setDark] = useState(() => {
+    if (typeof document === "undefined") return false;
+    return document.documentElement.classList.contains("dark");
+  });
+
+  useEffect(() => {
+    const root = document.documentElement;
+
+    const updateTheme = () => {
+      setDark(root.classList.contains("dark"));
+    };
+
+    updateTheme();
+
+    const observer = new MutationObserver(updateTheme);
+
+    observer.observe(root, {
+      attributes: true,
+      attributeFilter: ["class"],
+    });
+
+    return () => observer.disconnect();
+  }, []);
+
+  return dark;
+}
+
+function useReveal() {
+  const sectionRef = useRef(null);
+  const [isVisible, setIsVisible] = useState(false);
+
+  useEffect(() => {
+    const section = sectionRef.current;
+
+    if (!section) return;
+
+    const reduceMotion =
+      typeof window !== "undefined" &&
+      window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+
+    if (
+      typeof IntersectionObserver === "undefined" ||
+      reduceMotion
+    ) {
+      setIsVisible(true);
+      return;
+    }
+
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        if (entry.isIntersecting) {
+          setIsVisible(true);
+          observer.unobserve(entry.target);
+        }
+      },
+      { threshold: 0.06 },
+    );
+
+    observer.observe(section);
+
+    return () => observer.disconnect();
+  }, []);
+
+  return { sectionRef, isVisible };
+}
+
 export default function Testimonials() {
+  const dark = useDarkTheme();
+  const { sectionRef, isVisible } = useReveal();
+
   const [activeSlide, setActiveSlide] = useState(0);
   const [visibleCount, setVisibleCount] = useState(3);
   const [isPaused, setIsPaused] = useState(false);
-  const [useDarkTheme, setUseDarkTheme] = useState(true);
-
-  const touchStartX = useRef(0);
-  const touchEndX = useRef(0);
-  const viewportRef = useRef(null);
-  const slideRef = useRef(null);
   const [slideStep, setSlideStep] = useState(0);
 
-  const maxSlide = Math.max(0, communityUseCases.length - visibleCount);
+  const viewportRef = useRef(null);
+  const firstSlideRef = useRef(null);
+  const touchStartX = useRef(null);
+  const touchStartY = useRef(null);
 
-  const updateVisibleCount = useCallback(() => {
-    if (typeof window === "undefined") return;
+  const maxSlide = Math.max(
+    0,
+    communityUseCases.length - visibleCount,
+  );
 
-    if (window.innerWidth < 640) {
-      setVisibleCount(1);
-    } else if (window.innerWidth < 1024) {
-      setVisibleCount(2);
-    } else {
-      setVisibleCount(3);
-    }
-  }, []);
-
+  // Keep the number of visible cards responsive.
   useEffect(() => {
+    const updateVisibleCount = () => {
+      if (window.innerWidth < 640) {
+        setVisibleCount(1);
+      } else if (window.innerWidth < 1024) {
+        setVisibleCount(2);
+      } else {
+        setVisibleCount(3);
+      }
+    };
+
     updateVisibleCount();
 
     window.addEventListener("resize", updateVisibleCount);
-    return () => window.removeEventListener("resize", updateVisibleCount);
-  }, [updateVisibleCount]);
 
-  useEffect(() => {
-    setActiveSlide((current) =>
-      Math.min(current, Math.max(0, communityUseCases.length - visibleCount))
-    );
-  }, [visibleCount]);
+    return () =>
+      window.removeEventListener("resize", updateVisibleCount);
+  }, []);
 
+  // Measure one card plus the real CSS gap so the track moves
+  // by exactly one card on mobile, tablet, and desktop.
   useEffect(() => {
     const viewport = viewportRef.current;
-    const slide = slideRef.current;
+    const firstSlide = firstSlideRef.current;
 
-    if (!viewport || !slide) return;
+    if (!viewport || !firstSlide) return;
 
-    const measure = () => {
-      const slideWidth = slide.getBoundingClientRect().width;
-      const styles = window.getComputedStyle(slide.parentElement);
-      const gap = parseFloat(styles.columnGap || styles.gap || "0") || 0;
+    const measureSlide = () => {
+      const slideWidth = firstSlide.getBoundingClientRect().width;
+      const track = firstSlide.parentElement;
+
+      if (!track) return;
+
+      const trackStyles = window.getComputedStyle(track);
+      const gap =
+        parseFloat(trackStyles.columnGap) ||
+        parseFloat(trackStyles.gap) ||
+        0;
 
       setSlideStep(slideWidth + gap);
     };
 
-    measure();
+    measureSlide();
 
-    const observer = new ResizeObserver(measure);
-    observer.observe(viewport);
-    observer.observe(slide);
+    if (typeof ResizeObserver !== "undefined") {
+      const observer = new ResizeObserver(measureSlide);
 
-    return () => observer.disconnect();
+      observer.observe(viewport);
+      observer.observe(firstSlide);
+
+      return () => observer.disconnect();
+    }
+
+    window.addEventListener("resize", measureSlide);
+
+    return () =>
+      window.removeEventListener("resize", measureSlide);
   }, [visibleCount]);
 
-  const goToSlide = useCallback(
-    (index) => {
-      setActiveSlide(Math.max(0, Math.min(index, maxSlide)));
-    },
-    [maxSlide]
-  );
-
-  const nextSlide = useCallback(() => {
-    setActiveSlide((current) => (current >= maxSlide ? 0 : current + 1));
-  }, [maxSlide]);
-
-  const previousSlide = useCallback(() => {
-    setActiveSlide((current) => (current <= 0 ? maxSlide : current - 1));
-  }, [maxSlide]);
-
+  // Keep the active position valid after a responsive layout change.
   useEffect(() => {
-    if (isPaused || maxSlide === 0) return;
+    setActiveSlide((current) => Math.min(current, maxSlide));
+  }, [maxSlide]);
+
+  // Automatically advance the carousel every 3.5 seconds.
+  // Pause when the section is not visible, when the user is
+  // interacting with it, or when reduced motion is requested.
+  useEffect(() => {
+    if (!isVisible || isPaused || maxSlide === 0) return;
+
+    const motionPreference = window.matchMedia(
+      "(prefers-reduced-motion: reduce)",
+    );
+
+    if (motionPreference.matches) return;
 
     const timer = window.setInterval(() => {
-      setActiveSlide((current) => (current >= maxSlide ? 0 : current + 1));
+      setActiveSlide((current) =>
+        current >= maxSlide ? 0 : current + 1,
+      );
     }, 3500);
 
     return () => window.clearInterval(timer);
-  }, [isPaused, maxSlide]);
+  }, [isVisible, isPaused, maxSlide]);
 
-  const handleTouchStart = (event) => {
-    touchStartX.current = event.touches[0].clientX;
-    touchEndX.current = event.touches[0].clientX;
-    setIsPaused(true);
+  const goToSlide = (index) => {
+    setActiveSlide(Math.max(0, Math.min(index, maxSlide)));
   };
 
-  const handleTouchMove = (event) => {
-    touchEndX.current = event.touches[0].clientX;
+  const nextSlide = () => {
+    setActiveSlide((current) =>
+      current >= maxSlide ? 0 : current + 1,
+    );
   };
 
-  const handleTouchEnd = () => {
-    const distance = touchStartX.current - touchEndX.current;
-
-    if (Math.abs(distance) > 45) {
-      if (distance > 0) {
-        nextSlide();
-      } else {
-        previousSlide();
-      }
-    }
-
-    setIsPaused(false);
+  const previousSlide = () => {
+    setActiveSlide((current) =>
+      current <= 0 ? maxSlide : current - 1,
+    );
   };
 
-  const theme = useDarkTheme
+  const theme = dark
     ? {
-        background: "#080908",
-        surface: "#111411",
-        card: "#151A17",
-        border: "rgba(255,255,255,0.09)",
-        text: "#F4F7F5",
-        muted: "#9AA59F",
-        subtle: "#68746D",
+        section: "border-white/[0.07] bg-[#080908] text-white",
+        muted: "text-white/50",
+        subtle: "text-white/35",
+        surface: "border-white/[0.08] bg-[#101310]",
+        softSurface: "border-white/[0.07] bg-white/[0.025]",
+        heading: "text-white",
+        description: "text-white/55",
+        divider: "border-white/[0.08]",
+        networkSurface: "border-white/[0.09] bg-white/[0.025]",
       }
     : {
-        background: "#F6F5EF",
-        surface: "#FFFFFF",
-        card: "#FFFFFF",
-        border: "rgba(8,25,16,0.12)",
-        text: "#15221B",
-        muted: "#5F6C64",
-        subtle: "#7B877F",
+        section: "border-black/[0.06] bg-[#f6f5ef] text-[#171916]",
+        muted: "text-[#72776e]",
+        subtle: "text-[#8a8e85]",
+        surface: "border-black/[0.07] bg-white",
+        softSurface: "border-black/[0.06] bg-white/70",
+        heading: "text-[#171916]",
+        description: "text-[#72776e]",
+        divider: "border-black/[0.07]",
+        networkSurface: "border-black/[0.07] bg-white/80",
       };
 
   return (
-    <section
-      className={`hb-testimonials ${useDarkTheme ? "theme-dark" : "theme-light"}`}
-      style={{
-        "--hb-bg": theme.background,
-        "--hb-surface": theme.surface,
-        "--hb-card": theme.card,
-        "--hb-border": theme.border,
-        "--hb-text": theme.text,
-        "--hb-muted": theme.muted,
-        "--hb-subtle": theme.subtle,
-        background: theme.background,
-        color: theme.text,
-      }}
-    >
+    <>
       <style>{`
-        .hb-testimonials {
-          width: 100%;
-          overflow: hidden;
-          padding: 88px 0;
-          font-family: inherit;
-          transition: background 0.3s ease, color 0.3s ease;
+        @keyframes hb-section-enter {
+          from {
+            opacity: 0;
+            transform: translateY(22px);
+          }
+          to {
+            opacity: 1;
+            transform: translateY(0);
+          }
         }
 
-        .hb-testimonials *,
-        .hb-testimonials *::before,
-        .hb-testimonials *::after {
-          box-sizing: border-box;
+        @keyframes hb-soft-glow {
+          0%, 100% {
+            opacity: .4;
+            transform: translateX(-50%) scale(1);
+          }
+          50% {
+            opacity: .75;
+            transform: translateX(-50%) scale(1.08);
+          }
         }
 
-        .hb-container {
-          width: min(1180px, calc(100% - 40px));
-          margin: 0 auto;
+        .hb-community-reveal {
+          opacity: 0;
         }
 
-        .hb-section-heading {
-          max-width: 720px;
-          margin: 0 auto 42px;
-          text-align: center;
+        .hb-community-reveal.hb-community-visible {
+          animation: hb-section-enter .75s cubic-bezier(.2,.75,.25,1) forwards;
         }
 
-        .hb-eyebrow {
-          display: inline-flex;
-          align-items: center;
-          gap: 9px;
-          padding: 8px 13px;
-          border: 1px solid rgba(0,214,160,0.25);
-          border-radius: 999px;
-          color: #00D6A0;
-          font-size: 12px;
-          font-weight: 700;
-          letter-spacing: 0.1em;
-          text-transform: uppercase;
+        .hb-community-network {
+          transition: transform .25s ease, border-color .25s ease,
+            box-shadow .25s ease;
         }
 
-        .hb-eyebrow-dot {
-          width: 7px;
-          height: 7px;
-          border-radius: 50%;
-          background: #00D6A0;
-          box-shadow: 0 0 12px rgba(0,214,160,0.6);
+        .hb-community-network:hover {
+          transform: translateY(-3px);
+          border-color: rgba(0, 214, 160, .4);
+          box-shadow: 0 12px 35px rgba(0, 214, 160, .07);
         }
 
-        .hb-section-title {
-          margin: 20px 0 14px;
-          font-size: clamp(32px, 5vw, 54px);
-          line-height: 1.08;
-          letter-spacing: -0.045em;
-          font-weight: 750;
+        .hb-community-grid {
+          background-image:
+            linear-gradient(rgba(0,214,160,.035) 1px, transparent 1px),
+            linear-gradient(90deg, rgba(0,214,160,.035) 1px, transparent 1px);
+          background-size: 52px 52px;
+          mask-image: linear-gradient(to bottom, black, transparent 90%);
+          -webkit-mask-image: linear-gradient(to bottom, black, transparent 90%);
         }
 
-        .hb-gradient-text {
-          color: #00D6A0;
+        .hb-community-glow {
+          animation: hb-soft-glow 9s ease-in-out infinite;
         }
 
-        .hb-section-description {
-          max-width: 620px;
-          margin: 0 auto;
-          color: var(--hb-muted);
-          font-size: 16px;
-          line-height: 1.8;
-        }
-
-        .hb-theme-toggle {
-          display: flex;
-          justify-content: center;
-          margin: 0 0 24px;
-        }
-
-        .hb-theme-button {
-          display: inline-flex;
-          align-items: center;
-          gap: 8px;
-          padding: 9px 13px;
-          color: var(--hb-muted);
-          background: var(--hb-surface);
-          border: 1px solid var(--hb-border);
-          border-radius: 999px;
-          cursor: pointer;
-          font-size: 12px;
-          transition: all 0.2s ease;
-        }
-
-        .hb-theme-button:hover {
-          border-color: #00D6A0;
-          color: #00D6A0;
-        }
-
-        .hb-carousel {
-          position: relative;
-          margin: 0 auto;
-        }
-
+        /* Curved card carousel */
         .hb-curve-viewport {
-          width: 100%;
           overflow: hidden;
-          padding: 18px 0 28px;
+          padding: 30px 2px 38px;
           touch-action: pan-y;
         }
 
         .hb-curve-track {
           display: flex;
-          align-items: stretch;
-          gap: 20px;
+          align-items: center;
+          gap: 18px;
+          transition: transform .65s cubic-bezier(.22,.75,.25,1);
           will-change: transform;
-          transition: transform 650ms cubic-bezier(0.22, 1, 0.36, 1);
         }
 
         .hb-curve-slide {
-          flex: 0 0 calc((100% - 40px) / 3);
+          flex: 0 0 calc((100% - 36px) / 3);
           min-width: 0;
-        }
-
-        .hb-curve-card {
-          position: relative;
-          display: flex;
-          flex-direction: column;
-          height: 100%;
-          min-height: 315px;
-          padding: 25px;
-          overflow: hidden;
-          background: var(--hb-card);
-          border: 1px solid var(--hb-border);
-          border-radius: 22px;
+          transform: translateY(22px) scale(.94);
+          opacity: .78;
           transition:
-            border-color 250ms ease,
-            background 250ms ease,
-            box-shadow 250ms ease,
-            transform 250ms ease;
+            transform .65s cubic-bezier(.22,.75,.25,1),
+            opacity .5s ease,
+            filter .5s ease;
         }
 
-        .hb-curve-card:hover {
-          transform: translateY(-5px);
-          border-color: rgba(0,214,160,0.4);
-          box-shadow: 0 16px 40px rgba(0,214,160,0.06);
+        .hb-curve-slide.is-active {
+          transform: translateY(-16px) scale(1);
+          opacity: 1;
+          z-index: 2;
         }
 
-        .hb-curve-card::before {
-          content: "";
-          position: absolute;
-          top: 0;
-          left: 25px;
-          width: 45px;
-          height: 2px;
-          background: #00D6A0;
-          border-radius: 999px;
+        .hb-curve-slide.is-near {
+          transform: translateY(8px) scale(.97);
+          opacity: .94;
         }
 
-        .hb-card-top {
-          display: flex;
-          align-items: center;
-          justify-content: space-between;
-          gap: 12px;
-          margin-bottom: 22px;
+        .hb-curve-slide .hb-community-card {
+          height: 100%;
         }
 
-        .hb-avatar {
-          display: grid;
-          place-items: center;
-          width: 48px;
-          height: 48px;
-          flex: 0 0 48px;
-          border-radius: 15px;
-          color: #07140F;
-          font-size: 13px;
-          font-weight: 800;
-        }
-
-        .hb-card-role {
-          color: var(--hb-muted);
-          font-size: 12px;
-          text-align: right;
-        }
-
-        .hb-quote-mark {
-          margin-bottom: 8px;
-          color: #00D6A0;
-          font-family: Georgia, serif;
-          font-size: 38px;
-          line-height: 0.8;
-        }
-
-        .hb-card-quote {
-          flex: 1;
-          margin: 0 0 24px;
-          color: var(--hb-muted);
-          font-size: 14px;
-          line-height: 1.85;
-        }
-
-        .hb-card-footer {
-          display: flex;
-          align-items: center;
-          justify-content: space-between;
-          gap: 12px;
-          padding-top: 17px;
-          border-top: 1px solid var(--hb-border);
-        }
-
-        .hb-card-name {
-          margin: 0;
-          color: var(--hb-text);
-          font-size: 15px;
-          font-weight: 700;
-        }
-
-        .hb-card-label {
-          display: block;
-          margin-top: 4px;
-          color: var(--hb-subtle);
-          font-size: 11px;
-        }
-
-        .hb-card-index {
-          color: var(--hb-subtle);
-          font-size: 11px;
-          letter-spacing: 0.08em;
-        }
-
-        .hb-carousel-controls {
-          display: flex;
+        .hb-curve-controls button {
+          display: inline-flex;
           align-items: center;
           justify-content: center;
-          gap: 18px;
-          margin-top: 8px;
+          width: 44px;
+          height: 44px;
+          border-radius: 9999px;
+          border: 1px solid rgba(0,214,160,.25);
+          background: rgba(0,214,160,.07);
+          color: #00A87D;
+          transition: background .2s ease, transform .2s ease,
+            border-color .2s ease;
         }
 
-        .hb-arrow {
-          display: grid;
-          place-items: center;
-          width: 43px;
-          height: 43px;
-          color: var(--hb-text);
-          background: var(--hb-surface);
-          border: 1px solid var(--hb-border);
-          border-radius: 50%;
-          cursor: pointer;
-          font-size: 20px;
-          transition: all 200ms ease;
+        .hb-curve-controls button:hover:not(:disabled) {
+          background: rgba(0,214,160,.16);
+          border-color: rgba(0,214,160,.55);
+          transform: translateY(-2px);
         }
 
-        .hb-arrow:hover {
-          color: #07140F;
-          background: #00D6A0;
-          border-color: #00D6A0;
-        }
-
-        .hb-arrow:focus-visible,
-        .hb-dot:focus-visible,
-        .hb-theme-button:focus-visible {
+        .hb-curve-controls button:focus-visible,
+        .hb-curve-dot:focus-visible {
           outline: 2px solid #00D6A0;
           outline-offset: 4px;
         }
 
-        .hb-dots {
+        .hb-curve-dots {
           display: flex;
           align-items: center;
           justify-content: center;
-          gap: 7px;
+          gap: 8px;
         }
 
-        .hb-dot {
+        .hb-curve-dot {
           width: 7px;
           height: 7px;
           padding: 0;
-          background: var(--hb-subtle);
           border: 0;
-          border-radius: 999px;
-          cursor: pointer;
-          transition: all 250ms ease;
+          border-radius: 9999px;
+          background: rgba(0,168,125,.28);
+          transition: width .3s ease, background .3s ease;
         }
 
-        .hb-dot.active {
-          width: 23px;
+        .hb-curve-dot.is-current {
+          width: 24px;
           background: #00D6A0;
-        }
-
-        .hb-auto-label {
-          display: flex;
-          justify-content: center;
-          align-items: center;
-          gap: 7px;
-          margin-top: 15px;
-          color: var(--hb-subtle);
-          font-size: 11px;
-        }
-
-        .hb-auto-indicator {
-          width: 6px;
-          height: 6px;
-          background: #00D6A0;
-          border-radius: 50%;
-          animation: hb-pulse 1.6s ease-in-out infinite;
-        }
-
-        @keyframes hb-pulse {
-          0%, 100% { opacity: 1; }
-          50% { opacity: 0.3; }
-        }
-
-        .hb-network-grid {
-          display: grid;
-          grid-template-columns: repeat(2, minmax(0, 1fr));
-          gap: 20px;
-          margin-top: 78px;
-        }
-
-        .hb-network-card {
-          display: flex;
-          align-items: center;
-          gap: 20px;
-          padding: 25px;
-          background: var(--hb-surface);
-          border: 1px solid var(--hb-border);
-          border-radius: 20px;
-          transition: border-color 200ms ease, transform 200ms ease;
-        }
-
-        .hb-network-card:hover {
-          transform: translateY(-3px);
-          border-color: rgba(0,214,160,0.4);
-        }
-
-        .hb-network-logo {
-          display: grid;
-          place-items: center;
-          width: 62px;
-          height: 62px;
-          flex: 0 0 62px;
-          padding: 10px;
-          background: var(--hb-card);
-          border: 1px solid var(--hb-border);
-          border-radius: 16px;
-        }
-
-        .hb-network-logo img {
-          display: block;
-          width: 100%;
-          height: 100%;
-          object-fit: contain;
-        }
-
-        .hb-network-name {
-          margin: 0 0 5px;
-          color: var(--hb-text);
-          font-size: 18px;
-          font-weight: 750;
-        }
-
-        .hb-network-symbol {
-          margin-left: 7px;
-          color: #00D6A0;
-          font-size: 11px;
-          font-weight: 700;
-        }
-
-        .hb-network-description {
-          margin: 0;
-          color: var(--hb-muted);
-          font-size: 13px;
-          line-height: 1.7;
-        }
-
-        .hb-value-grid {
-          display: grid;
-          grid-template-columns: repeat(3, minmax(0, 1fr));
-          gap: 20px;
-          margin-top: 78px;
-        }
-
-        .hb-value-card {
-          padding: 23px;
-          background: transparent;
-          border: 1px solid var(--hb-border);
-          border-radius: 18px;
-        }
-
-        .hb-value-number {
-          display: inline-block;
-          margin-bottom: 24px;
-          color: #00D6A0;
-          font-size: 12px;
-          font-weight: 800;
-          letter-spacing: 0.1em;
-        }
-
-        .hb-value-title {
-          margin: 0 0 10px;
-          color: var(--hb-text);
-          font-size: 17px;
-          font-weight: 700;
-        }
-
-        .hb-value-description {
-          margin: 0;
-          color: var(--hb-muted);
-          font-size: 13px;
-          line-height: 1.8;
         }
 
         @media (max-width: 1023px) {
+          .hb-curve-track {
+            gap: 16px;
+          }
+
           .hb-curve-slide {
-            flex-basis: calc((100% - 20px) / 2);
+            flex-basis: calc((100% - 16px) / 2);
           }
 
-          .hb-network-grid {
-            margin-top: 58px;
-          }
-
-          .hb-value-grid {
-            margin-top: 58px;
+          .hb-curve-slide.is-active {
+            transform: translateY(-12px) scale(1);
           }
         }
 
         @media (max-width: 639px) {
-          .hb-testimonials {
-            padding: 64px 0;
-          }
-
-          .hb-container {
-            width: calc(100% - 32px);
-          }
-
-          .hb-section-heading {
-            margin-bottom: 28px;
-          }
-
-          .hb-section-description {
-            font-size: 14px;
+          .hb-curve-viewport {
+            padding: 18px 2px 24px;
           }
 
           .hb-curve-track {
-            gap: 14px;
+            gap: 12px;
           }
 
           .hb-curve-slide {
             flex-basis: 100%;
+            transform: translateY(8px) scale(.97);
+            opacity: .85;
           }
 
-          .hb-curve-card {
-            min-height: 290px;
-            padding: 23px;
+          .hb-curve-slide.is-active {
+            transform: translateY(-4px) scale(1);
+            opacity: 1;
           }
 
-          .hb-network-grid,
-          .hb-value-grid {
-            grid-template-columns: 1fr;
-            gap: 14px;
-            margin-top: 48px;
-          }
-
-          .hb-network-card {
-            padding: 19px;
-          }
-
-          .hb-network-logo {
-            width: 54px;
-            height: 54px;
-            flex-basis: 54px;
-          }
-
-          .hb-carousel-controls {
-            gap: 14px;
+          .hb-curve-slide.is-near {
+            transform: translateY(4px) scale(.985);
           }
         }
 
         @media (prefers-reduced-motion: reduce) {
-          .hb-testimonials *,
-          .hb-testimonials *::before,
-          .hb-testimonials *::after {
-            animation-duration: 0.01ms !important;
-            animation-iteration-count: 1 !important;
-            scroll-behavior: auto !important;
-            transition-duration: 0.01ms !important;
+          .hb-community-reveal,
+          .hb-community-reveal.hb-community-visible {
+            opacity: 1;
+            animation: none !important;
+            transform: none !important;
+          }
+
+          .hb-community-glow {
+            animation: none !important;
+          }
+
+          .hb-community-network,
+          .hb-curve-track,
+          .hb-curve-slide,
+          .hb-curve-dot,
+          .hb-curve-controls button {
+            transition: none !important;
+          }
+
+          .hb-community-network:hover,
+          .hb-curve-controls button:hover:not(:disabled) {
+            transform: none;
           }
         }
       `}</style>
 
-      <div className="hb-container">
-        <div className="hb-section-heading">
-          <div className="hb-eyebrow">
-            <span className="hb-eyebrow-dot" />
-            Built for contributors
-          </div>
-
-          <h2 className="hb-section-title">
-            Real skills.
-            <br />
-            <span className="hb-gradient-text">Real opportunities.</span>
-          </h2>
-
-          <p className="hb-section-description">
-            Whether you are building a project or contributing your skills,
-            Happy Bounty connects meaningful work with people ready to get it
-            done.
-          </p>
-        </div>
-
-        <div className="hb-theme-toggle">
-          <button
-            type="button"
-            className="hb-theme-button"
-            onClick={() => setUseDarkTheme((current) => !current)}
-            aria-label={`Switch to ${useDarkTheme ? "light" : "dark"} theme`}
-          >
-            <span aria-hidden="true">{useDarkTheme ? "☀" : "☾"}</span>
-            Switch to {useDarkTheme ? "light" : "dark"} mode
-          </button>
-        </div>
+      <section
+        ref={sectionRef}
+        aria-labelledby="hb-community-title"
+        className={`relative isolate mx-3 my-6 overflow-hidden rounded-[28px] border transition-colors duration-300 sm:mx-5 sm:my-8 md:mx-8 md:rounded-[36px] lg:mx-12 ${theme.section}`}
+      >
+        <div
+          aria-hidden="true"
+          className="hb-community-grid pointer-events-none absolute inset-0 -z-10"
+        />
 
         <div
-          className="hb-carousel"
-          onMouseEnter={() => setIsPaused(true)}
-          onMouseLeave={() => setIsPaused(false)}
-          onFocusCapture={() => setIsPaused(true)}
-          onBlurCapture={(event) => {
-            if (!event.currentTarget.contains(event.relatedTarget)) {
-              setIsPaused(false);
-            }
-          }}
-        >
-          <div
-            className="hb-curve-viewport"
-            ref={viewportRef}
-            onTouchStart={(event) => {
-              touchStartX.current = event.touches[0].clientX;
-              touchEndX.current = event.touches[0].clientX;
-              setIsPaused(true);
-            }}
-            onTouchMove={(event) => {
-              touchEndX.current = event.touches[0].clientX;
-            }}
-            onTouchEnd={() => {
-              const distance = touchStartX.current - touchEndX.current;
+          aria-hidden="true"
+          className="hb-community-glow pointer-events-none absolute -top-36 left-1/2 -z-10 h-80 w-[min(760px,100%)] -translate-x-1/2 rounded-full bg-[#00D6A0]/[0.09] blur-[110px]"
+        />
 
-              if (Math.abs(distance) > 45) {
-                if (distance > 0) nextSlide();
-                else previousSlide();
-              }
+        <div
+          aria-hidden="true"
+          className="pointer-events-none absolute -bottom-48 -right-24 -z-10 h-96 w-96 rounded-full bg-[#00D6A0]/[0.045] blur-[100px]"
+        />
 
-              setIsPaused(false);
-            }}
+        <div className="relative mx-auto max-w-[1440px] px-5 py-14 sm:px-8 sm:py-16 md:py-20 lg:px-12 lg:py-24">
+          {/* Hero heading */}
+          <header
+            className={`hb-community-reveal ${
+              isVisible ? "hb-community-visible" : ""
+            } mx-auto max-w-4xl text-center`}
           >
-            <div
-              className="hb-curve-track"
-              style={{
-                transform: `translateX(-${activeSlide * slideStep}px)`,
-              }}
+            <div className="mb-6 inline-flex items-center gap-2.5 rounded-full border border-[#00D6A0]/20 bg-[#00D6A0]/[0.06] px-4 py-2">
+              <span className="h-1.5 w-1.5 rounded-full bg-[#00D6A0]" />
+              <span className="text-[9px] font-bold uppercase tracking-[0.17em] text-[#00A87D] sm:text-[10px]">
+                Built for people who build
+              </span>
+            </div>
+
+            <h2
+              id="hb-community-title"
+              className={`text-[clamp(2.5rem,6.5vw,5.5rem)] font-bold leading-[1.02] tracking-[-0.065em] ${theme.heading}`}
             >
-              {communityUseCases.map((item, index) => (
-                <div
-                  className="hb-curve-slide"
-                  key={item.title}
-                  ref={index === 0 ? slideRef : null}
-                >
-                  <article className="hb-curve-card">
-                    <div className="hb-card-top">
-                      <div
-                        className="hb-avatar"
-                        style={{ background: item.color }}
-                      >
-                        {item.initials}
-                      </div>
-                      <span className="hb-card-role">{item.role}</span>
-                    </div>
+              Your skills have
+              <br />
+              <span className="bg-gradient-to-r from-[#008A66] via-[#00D6A0] to-[#00A87D] bg-clip-text text-transparent">
+                real potential.
+              </span>
+            </h2>
 
-                    <div className="hb-quote-mark" aria-hidden="true">
-                      “
-                    </div>
+            <p
+              className={`mx-auto mt-6 max-w-2xl text-sm leading-7 sm:mt-7 sm:text-base sm:leading-8 ${theme.description}`}
+            >
+              Happy Bounty connects project creators with people ready
+              to contribute. Discover tasks, deliver valuable work, and
+              pursue rewards for your skills.
+            </p>
+          </header>
 
-                    <p className="hb-card-quote">{item.quote}</p>
-
-                    <div className="hb-card-footer">
-                      <div>
-                        <h3 className="hb-card-name">{item.title}</h3>
-                        <span className="hb-card-label">
-                          Happy Bounty community
-                        </span>
-                      </div>
-                      <span className="hb-card-index">
-                        {String(index + 1).padStart(2, "0")} /{" "}
-                        {String(communityUseCases.length).padStart(2, "0")}
-                      </span>
-                    </div>
-                  </article>
+          {/* Ecosystem cards */}
+          <div
+            className={`hb-community-reveal ${
+              isVisible ? "hb-community-visible" : ""
+            } mx-auto mt-10 grid max-w-3xl grid-cols-1 gap-3 sm:mt-12 sm:grid-cols-2 sm:gap-4`}
+            style={{ animationDelay: "100ms" }}
+          >
+            {networks.map((network) => (
+              <article
+                key={network.symbol}
+                className={`hb-community-network group flex items-center gap-4 rounded-2xl border p-4 sm:p-5 ${theme.networkSurface}`}
+              >
+                <div className="flex h-12 w-12 shrink-0 items-center justify-center rounded-xl border border-[#00D6A0]/15 bg-[#00D6A0]/[0.06] p-2.5">
+                  <img
+                    src={network.logo}
+                    alt={`${network.name} logo`}
+                    className="h-full w-full object-contain"
+                    loading="lazy"
+                  />
                 </div>
-              ))}
+
+                <div className="min-w-0 flex-1">
+                  <div className="flex flex-wrap items-center gap-2">
+                    <h3 className={`text-sm font-bold sm:text-base ${theme.heading}`}>
+                      {network.name}
+                    </h3>
+                    <span className="rounded-md bg-[#00D6A0]/[0.09] px-2 py-1 text-[9px] font-bold tracking-[0.12em] text-[#00A87D]">
+                      {network.symbol}
+                    </span>
+                  </div>
+
+                  <p className={`mt-1.5 text-xs leading-5 ${theme.muted}`}>
+                    {network.description}
+                  </p>
+                </div>
+
+                <FiArrowUpRight
+                  aria-hidden="true"
+                  className={`h-4 w-4 shrink-0 ${
+                    dark ? "text-white/35" : "text-black/35"
+                  }`}
+                />
+              </article>
+            ))}
+          </div>
+
+          <p className={`mt-4 text-center text-[10px] ${theme.subtle}`}>
+            Opportunities across the Arc and BOTCHAIN ecosystems.
+          </p>
+
+          {/* Curved carousel heading */}
+          <div
+            className={`hb-community-reveal ${
+              isVisible ? "hb-community-visible" : ""
+            } mb-3 mt-16 flex flex-col gap-3 sm:mb-5 sm:mt-20 sm:flex-row sm:items-end sm:justify-between`}
+            style={{ animationDelay: "180ms" }}
+          >
+            <div>
+              <p className="text-[10px] font-bold uppercase tracking-[0.2em] text-[#00A87D]">
+                One platform. Many possibilities.
+              </p>
+
+              <h3 className={`mt-3 text-2xl font-bold tracking-[-0.045em] sm:text-3xl lg:text-4xl ${theme.heading}`}>
+                Find your place here.
+              </h3>
+
+              <p className={`mt-3 max-w-xl text-sm leading-7 ${theme.muted}`}>
+                Whether you create tasks or complete them, there is a
+                way to turn your skills and ideas into meaningful work.
+              </p>
+            </div>
+
+            <div className="flex items-center justify-between gap-4 sm:justify-end">
+              <span className={`text-xs ${theme.muted}`}>
+                {String(activeSlide + 1).padStart(2, "0")}{" "}
+                <span className="mx-1 text-[#00A87D]">/</span>{" "}
+                {String(maxSlide + 1).padStart(2, "0")}
+              </span>
+
+              <div className="hb-curve-controls flex gap-2">
+                <button
+                  type="button"
+                  aria-label="Previous community card"
+                  onClick={previousSlide}
+                  onFocus={() => setIsPaused(true)}
+                >
+                  <FiArrowLeft aria-hidden="true" />
+                </button>
+                <button
+                  type="button"
+                  aria-label="Next community card"
+                  onClick={nextSlide}
+                  onFocus={() => setIsPaused(true)}
+                >
+                  <FiArrowRight aria-hidden="true" />
+                </button>
+              </div>
             </div>
           </div>
 
-          <div className="hb-carousel-controls">
-            <button
-              type="button"
-              className="hb-arrow"
-              onClick={previousSlide}
-              aria-label="Previous community card"
-            >
-              &#8592;
-            </button>
+          {/* Curved community carousel */}
+          <div
+            className={`hb-community-reveal ${
+              isVisible ? "hb-community-visible" : ""
+            }`}
+            style={{ animationDelay: "220ms" }}
+          >
+            <div
+              ref={viewportRef}
+              className="hb-curve-viewport"
+              onMouseEnter={() => setIsPaused(true)}
+              onMouseLeave={() => setIsPaused(false)}
+              onFocusCapture={() => setIsPaused(true)}
+              onBlurCapture={(event) => {
+                if (
+                  !event.currentTarget.contains(event.relatedTarget)
+                ) {
+                  setIsPaused(false);
+                }
+              }}
+              onTouchStart={(event) => {
+                touchStartX.current = event.touches[0].clientX;
+                touchStartY.current = event.touches[0].clientY;
+                setIsPaused(true);
+              }}
+              onTouchEnd={(event) => {
+                if (
+                  touchStartX.current === null ||
+                  touchStartY.current === null
+                ) {
+                  setIsPaused(false);
+                  return;
+                }
 
-            <div className="hb-dots" aria-label="Choose carousel slide">
+                const deltaX =
+                  event.changedTouches[0].clientX -
+                  touchStartX.current;
+                const deltaY =
+                  event.changedTouches[0].clientY -
+                  touchStartY.current;
+
+                if (
+                  Math.abs(deltaX) > 45 &&
+                  Math.abs(deltaX) > Math.abs(deltaY)
+                ) {
+                  if (deltaX < 0) nextSlide();
+                  else previousSlide();
+                }
+
+                touchStartX.current = null;
+                touchStartY.current = null;
+
+                // Allow the user to finish the swipe before resuming.
+                window.setTimeout(() => setIsPaused(false), 1800);
+              }}
+              onTouchCancel={() => {
+                touchStartX.current = null;
+                touchStartY.current = null;
+                setIsPaused(false);
+              }}
+            >
+              <div
+                className="hb-curve-track"
+                style={{
+                  transform: `translate3d(-${activeSlide * slideStep}px, 0, 0)`,
+                }}
+              >
+                {communityUseCases.map((item, index) => {
+                  const distance = Math.abs(index - activeSlide);
+                  const isActive =
+                    index === activeSlide + Math.floor(visibleCount / 2);
+                  const isNear = distance <= 1;
+
+                  return (
+                    <div
+                      key={item.number}
+                      ref={index === 0 ? firstSlideRef : undefined}
+                      className={`hb-curve-slide ${
+                        isActive ? "is-active" : ""
+                      } ${isNear ? "is-near" : ""}`}
+                    >
+                      <CommunityCard
+                        item={item}
+                        dark={dark}
+                        visible={isVisible}
+                        index={index}
+                      />
+                    </div>
+                  );
+                })}
+              </div>
+            </div>
+
+            <div
+              className="hb-curve-dots mt-2"
+              aria-label="Choose a carousel page"
+            >
               {Array.from({ length: maxSlide + 1 }, (_, index) => (
                 <button
                   key={index}
                   type="button"
-                  className={`hb-dot ${
-                    activeSlide === index ? "active" : ""
+                  aria-label={`Go to carousel position ${index + 1}`}
+                  aria-current={activeSlide === index ? "true" : undefined}
+                  className={`hb-curve-dot ${
+                    activeSlide === index ? "is-current" : ""
                   }`}
                   onClick={() => goToSlide(index)}
-                  aria-label={`Go to slide ${index + 1}`}
-                  aria-current={activeSlide === index ? "true" : undefined}
+                  onFocus={() => setIsPaused(true)}
                 />
               ))}
             </div>
 
-            <button
-              type="button"
-              className="hb-arrow"
-              onClick={nextSlide}
-              aria-label="Next community card"
-            >
-              &#8594;
-            </button>
+            <p className={`mt-3 text-center text-[10px] ${theme.subtle}`}>
+              {isPaused
+                ? "Carousel paused"
+                : "Cards advance automatically"}
+            </p>
           </div>
 
-          <div className="hb-auto-label" aria-live="polite">
-            <span className="hb-auto-indicator" />
-            {isPaused ? "Autoplay paused" : "Automatically rotating"}
-          </div>
-        </div>
+          {/* Value points */}
+          <div
+            className={`hb-community-reveal ${
+              isVisible ? "hb-community-visible" : ""
+            } mt-14 sm:mt-20`}
+            style={{ animationDelay: "250ms" }}
+          >
+            <div className="mb-6">
+              <p className="text-[10px] font-bold uppercase tracking-[0.2em] text-[#00A87D]">
+                Designed around contribution
+              </p>
 
-        <div className="hb-network-grid">
-          {networks.map((network) => (
-            <article className="hb-network-card" key={network.name}>
-              <div className="hb-network-logo">
-                <img src={network.logo} alt={`${network.name} logo`} />
+              <h3 className={`mt-3 text-xl font-bold tracking-[-0.04em] sm:text-2xl ${theme.heading}`}>
+                A clearer way to get work done.
+              </h3>
+            </div>
+
+            <div className="grid grid-cols-1 gap-3 sm:grid-cols-3 sm:gap-4">
+              {valuePoints.map((point) => (
+                <ValuePoint
+                  key={point.title}
+                  point={point}
+                  dark={dark}
+                />
+              ))}
+            </div>
+          </div>
+
+          {/* Closing CTA */}
+          <div
+            className={`hb-community-reveal ${
+              isVisible ? "hb-community-visible" : ""
+            } mt-8 flex flex-col gap-6 rounded-3xl border p-5 sm:mt-10 sm:flex-row sm:items-center sm:justify-between sm:p-8 lg:p-9 ${
+              dark
+                ? "border-white/[0.08] bg-white/[0.025]"
+                : "border-black/[0.06] bg-white/75"
+            }`}
+            style={{ animationDelay: "320ms" }}
+          >
+            <div className="flex items-start gap-4">
+              <div className="flex h-12 w-12 shrink-0 items-center justify-center rounded-2xl border border-[#00D6A0]/20 bg-[#00D6A0]/[0.08] text-[#00A87D]">
+                <FiUsers className="h-5 w-5" />
               </div>
+
               <div>
-                <h3 className="hb-network-name">
-                  {network.name}
-                  <span className="hb-network-symbol">{network.symbol}</span>
+                <h3 className={`text-base font-bold tracking-tight sm:text-lg ${theme.heading}`}>
+                  Your next opportunity starts here.
                 </h3>
-                <p className="hb-network-description">
-                  {network.description}
+
+                <p className={`mt-2 max-w-xl text-xs leading-6 sm:text-sm ${theme.muted}`}>
+                  Discover a task, share your expertise, or create a
+                  bounty that moves your project forward.
                 </p>
               </div>
-            </article>
-          ))}
+            </div>
+
+            <a
+              href="/dashboard"
+              className="group inline-flex min-h-12 shrink-0 items-center justify-center gap-3 rounded-xl bg-[#00D6A0] px-5 py-3 text-sm font-bold text-[#06251c] transition-all duration-300 hover:-translate-y-0.5 hover:bg-[#18e6b1] hover:shadow-lg hover:shadow-[#00D6A0]/15 focus:outline-none focus:ring-2 focus:ring-[#00D6A0] focus:ring-offset-2 focus:ring-offset-transparent"
+            >
+              Explore bounties
+              <FiArrowRight className="h-4 w-4 transition-transform duration-300 group-hover:translate-x-1" />
+            </a>
+          </div>
+
+          {/* Brand footer */}
+          <div className={`mt-10 flex items-center justify-center gap-3 text-center text-[9px] font-semibold tracking-[0.2em] sm:mt-12 ${theme.subtle}`}>
+            <span className="h-px w-8 bg-[#00D6A0]/40" />
+            CREATE. CONTRIBUTE. EARN.
+            <span className="h-px w-8 bg-[#00D6A0]/40" />
+          </div>
+        </div>
+      </section>
+    </>
+  );
+}
+
+function CommunityCard({ item, dark, visible, index }) {
+  const Icon = item.icon;
+
+  return (
+    <article
+      className={`hb-community-card hb-community-reveal ${
+        visible ? "hb-community-visible" : ""
+      } group flex min-h-[320px] flex-col overflow-hidden rounded-2xl border p-5 sm:min-h-[340px] sm:rounded-3xl sm:p-6 ${
+        dark
+          ? "border-white/[0.08] bg-[#101310]"
+          : "border-black/[0.07] bg-white shadow-sm"
+      }`}
+      style={{
+        animationDelay: `${Math.min(index * 40, 250)}ms`,
+      }}
+    >
+      <div className="flex items-start justify-between gap-3">
+        <div className="flex h-12 w-12 shrink-0 items-center justify-center rounded-xl border border-[#00D6A0]/20 bg-[#00D6A0]/[0.07] text-[#00A87D] transition-all duration-300 group-hover:-translate-y-0.5 group-hover:bg-[#00D6A0]/[0.13]">
+          <Icon aria-hidden="true" className="h-5 w-5" />
         </div>
 
-        <div className="hb-value-grid">
-          {valuePoints.map((point) => (
-            <article className="hb-value-card" key={point.number}>
-              <span className="hb-value-number">{point.number}</span>
-              <h3 className="hb-value-title">{point.title}</h3>
-              <p className="hb-value-description">{point.description}</p>
-            </article>
-          ))}
-        </div>
+        <span
+          className={`rounded-full border px-2.5 py-1.5 text-[9px] font-bold tracking-[0.12em] ${
+            dark
+              ? "border-white/[0.08] bg-white/[0.025] text-white/45"
+              : "border-black/[0.06] bg-[#f7f8f3] text-[#74796f]"
+          }`}
+        >
+          {item.category}
+        </span>
       </div>
-    </section>
+
+      <div className="mt-6 flex-1">
+        <p className="text-[10px] font-semibold tracking-[0.12em] text-[#00A87D]">
+          {item.number} / 08
+        </p>
+
+        <h4
+          className={`mt-2 text-xl font-bold tracking-[-0.04em] sm:text-[22px] ${
+            dark ? "text-white" : "text-[#20241e]"
+          }`}
+        >
+          {item.role}
+        </h4>
+
+        <p
+          className={`mt-1.5 text-xs font-medium ${
+            dark ? "text-white/40" : "text-[#85897f]"
+          }`}
+        >
+          {item.type}
+        </p>
+
+        <p
+          className={`mt-4 text-[13px] leading-6 sm:text-sm sm:leading-7 ${
+            dark ? "text-white/55" : "text-[#62665d]"
+          }`}
+        >
+          {item.message}
+        </p>
+      </div>
+
+      <div
+        className={`mt-5 flex items-center justify-between gap-3 border-t pt-4 ${
+          dark ? "border-white/[0.08]" : "border-black/[0.06]"
+        }`}
+      >
+        <span
+          className={`text-[11px] font-medium ${
+            dark ? "text-white/45" : "text-[#777b72]"
+          }`}
+        >
+          {item.footer}
+        </span>
+
+        <FiArrowUpRight
+          aria-hidden="true"
+          className="h-4 w-4 shrink-0 text-[#00A87D] transition-transform duration-300 group-hover:-translate-y-0.5 group-hover:translate-x-0.5"
+        />
+      </div>
+    </article>
+  );
+}
+
+function ValuePoint({ dark, point }) {
+  const Icon = point.icon;
+
+  return (
+    <article
+      className={`group flex items-start gap-4 rounded-2xl border p-4 transition-colors duration-300 hover:border-[#00D6A0]/30 sm:p-5 ${
+        dark
+          ? "border-white/[0.07] bg-white/[0.02] hover:bg-white/[0.04]"
+          : "border-black/[0.06] bg-white/70 hover:bg-white"
+      }`}
+    >
+      <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-xl border border-[#00D6A0]/20 bg-[#00D6A0]/[0.07] text-[#00A87D] transition-transform duration-300 group-hover:scale-105">
+        <Icon aria-hidden="true" className="h-5 w-5" />
+      </div>
+
+      <div className="min-w-0 flex-1">
+        <h4
+          className={`text-sm font-bold ${
+            dark ? "text-white/90" : "text-[#292e27]"
+          }`}
+        >
+          {point.title}
+        </h4>
+
+        <p
+          className={`mt-1.5 text-xs leading-6 ${
+            dark ? "text-white/45" : "text-[#7a7e75]"
+          }`}
+        >
+          {point.description}
+        </p>
+      </div>
+
+      <FiCheckCircle
+        aria-hidden="true"
+        className="mt-1 h-4 w-4 shrink-0 text-[#00A87D]/60"
+      />
+    </article>
   );
 }
