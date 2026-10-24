@@ -247,17 +247,19 @@ function Features() {
           style={{
             backgroundImage: `
               linear-gradient(
-                ${dark
-                  ? "rgba(0,214,160,0.025)"
-                  : "rgba(0,138,102,0.035)"
+                ${
+                  dark
+                    ? "rgba(0,214,160,0.025)"
+                    : "rgba(0,138,102,0.035)"
                 } 1px,
                 transparent 1px
               ),
               linear-gradient(
                 90deg,
-                ${dark
-                  ? "rgba(0,214,160,0.025)"
-                  : "rgba(0,138,102,0.035)"
+                ${
+                  dark
+                    ? "rgba(0,214,160,0.025)"
+                    : "rgba(0,138,102,0.035)"
                 } 1px,
                 transparent 1px
               )
@@ -295,10 +297,7 @@ function Features() {
                 backgroundColor: palette.accentSoft,
               }}
             >
-              <FiZap
-                size={13}
-                style={{ color: palette.accent }}
-              />
+              <FiZap size={13} style={{ color: palette.accent }} />
 
               <span
                 className="text-[10px] font-bold uppercase tracking-[0.17em] sm:text-[11px]"
@@ -335,7 +334,7 @@ function Features() {
                   event.preventDefault();
                   handleNavigate("/dashboard");
                 }}
-                className="hb-cta group inline-flex w-full items-center justify-center gap-3 rounded-xl px-6 py-3.5 text-sm font-bold transition-all duration-300 hover:-translate-y-0.5 sm:w-auto"
+                className="hb-cta group inline-flex w-full items-center justify-center gap-2 rounded-xl px-4 py-2.5 text-xs font-bold transition-all duration-300 hover:-translate-y-0.5 sm:w-auto sm:gap-3 sm:px-6 sm:py-3.5 sm:text-sm"
                 style={{
                   backgroundColor: palette.accent,
                   color: "#06130E",
@@ -344,22 +343,19 @@ function Features() {
               >
                 Explore opportunities
 
-                <FiArrowUpRight
-                  className="hb-arrow"
-                  size={17}
-                />
+                <FiArrowUpRight className="hb-arrow h-4 w-4 shrink-0 sm:h-[17px] sm:w-[17px]" />
               </Link>
 
               <a
                 href="#hb-ecosystems"
-                className="inline-flex w-full items-center justify-center gap-2 rounded-xl border px-6 py-3.5 text-sm font-semibold transition-colors duration-300 hover:border-[#00D6A0] sm:w-auto"
+                className="inline-flex w-full items-center justify-center gap-2 rounded-xl border px-4 py-2.5 text-xs font-semibold transition-colors duration-300 hover:border-[#00D6A0] sm:w-auto sm:px-6 sm:py-3.5 sm:text-sm"
                 style={{
                   color: palette.text,
                   backgroundColor: palette.subtle,
                   borderColor: palette.border,
                 }}
               >
-                <FiLayers size={16} />
+                <FiLayers className="h-4 w-4 shrink-0 sm:h-4 sm:w-4" />
                 Explore ecosystems
               </a>
             </div>
@@ -665,7 +661,7 @@ function Features() {
                   event.preventDefault();
                   handleNavigate("/dashboard");
                 }}
-                className="hb-cta group relative inline-flex shrink-0 items-center justify-center gap-3 rounded-xl px-6 py-3.5 text-sm font-bold transition-all duration-300 hover:-translate-y-0.5"
+                className="hb-cta group relative inline-flex shrink-0 items-center justify-center gap-2 rounded-xl px-4 py-2.5 text-xs font-bold transition-all duration-300 hover:-translate-y-0.5 sm:gap-3 sm:px-6 sm:py-3.5 sm:text-sm"
                 style={{
                   color: "#06130E",
                   backgroundColor: palette.accent,
@@ -673,10 +669,7 @@ function Features() {
               >
                 Start exploring
 
-                <FiArrowUpRight
-                  size={17}
-                  className="hb-arrow"
-                />
+                <FiArrowUpRight className="hb-arrow h-4 w-4 shrink-0 sm:h-[17px] sm:w-[17px]" />
               </Link>
             </div>
           </div>
