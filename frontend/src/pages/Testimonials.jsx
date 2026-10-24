@@ -1,856 +1,922 @@
-import { useEffect, useRef, useState } from "react";
-import {
-  FiArrowRight,
-  FiArrowUpRight,
-  FiCheckCircle,
-  FiCode,
-  FiCompass,
-  FiDollarSign,
-  FiGlobe,
-  FiLayers,
-  FiPenTool,
-  FiShield,
-  FiTarget,
-  FiUsers,
-  FiZap,
-} from "react-icons/fi";
 
-import dotLogo from "../assets/images/pok.png";
-import botLogo from "../assets/images/bot.png";
-import arcLogo from "../assets/images/arc.png";
+import { useCallback, useEffect, useRef, useState } from "react";
+import ArcLogo from "../assets/images/arc.png";
+import BotchainLogo from "../assets/images/bot.png";
 
 const communityUseCases = [
   {
-    icon: FiCode,
-    role: "Bounty Creator",
-    type: "For project builders",
-    network: "MULTI-CHAIN",
-    tag: "POST A BOUNTY",
-    message:
-      "Turn your project goals into clear, rewarding tasks. Define the requirements, set the reward, and invite contributors to bring your ideas to life.",
-    footer: "Create opportunities",
-    status: "Creator workflow",
-    number: "01",
+    title: "Bounty Creator",
+    role: "Project Owner",
+    quote:
+      "Create meaningful tasks, attract talented contributors, and reward people for work that moves your project forward.",
+    initials: "BC",
+    color: "#00D6A0",
   },
   {
-    icon: FiPenTool,
-    role: "Bounty Contributor",
-    type: "For independent talent",
-    network: "REWARDS",
-    tag: "EARN BY BUILDING",
-    message:
-      "Discover opportunities that match your skills, complete the work, submit your contribution, and earn rewards when your work is approved.",
-    footer: "Put your skills to work",
-    status: "Contributor workflow",
-    number: "02",
+    title: "Bounty Contributor",
+    role: "Independent Contributor",
+    quote:
+      "Discover opportunities, complete tasks, showcase your skills, and earn rewards for the value you deliver.",
+    initials: "BT",
+    color: "#56D6B0",
   },
   {
-    icon: FiLayers,
-    role: "Web3 Developer",
-    type: "For technical teams",
-    network: "ON-CHAIN",
-    tag: "BUILD TOGETHER",
-    message:
-      "Break ambitious ideas into focused tasks. Give contributors clear requirements and a straightforward path from submission to reward.",
-    footer: "Build with clarity",
-    status: "Task-based work",
-    number: "03",
+    title: "Web3 Developer",
+    role: "Developer",
+    quote:
+      "Put your technical skills to work by solving real problems and contributing to projects across the ecosystem.",
+    initials: "WD",
+    color: "#43BFA0",
   },
   {
-    icon: FiDollarSign,
-    role: "Project Founder",
-    type: "For growing projects",
-    network: "FUNDING",
-    tag: "REWARD GOOD WORK",
-    message:
-      "Define the work that needs to be done and the reward attached to it. Help contributors understand the opportunity before getting started.",
-    footer: "Reward contributions",
-    status: "Defined rewards",
-    number: "04",
+    title: "Project Founder",
+    role: "Startup Founder",
+    quote:
+      "Turn project goals into actionable bounties and connect with people who can help bring your vision to life.",
+    initials: "PF",
+    color: "#8CD9C3",
   },
   {
-    icon: FiGlobe,
-    role: "Global Contributor",
-    type: "For remote collaboration",
-    network: "GLOBAL",
-    tag: "OPEN OPPORTUNITIES",
-    message:
-      "Find work beyond your immediate network. Connect your skills with projects and communities that need your contributions.",
-    footer: "Work across communities",
-    status: "Open participation",
-    number: "05",
+    title: "Global Contributor",
+    role: "Remote Worker",
+    quote:
+      "Find opportunities beyond borders and contribute your skills wherever you are in the world.",
+    initials: "GC",
+    color: "#00A87D",
   },
   {
-    icon: FiUsers,
-    role: "Community Builder",
-    type: "For Web3 communities",
-    network: "COMMUNITY",
-    tag: "GROW TOGETHER",
-    message:
-      "Turn community goals into actionable tasks. Give people a shared objective and meaningful reasons to participate and contribute.",
-    footer: "Bring people together",
-    status: "Community-driven",
-    number: "06",
+    title: "Community Builder",
+    role: "Community Member",
+    quote:
+      "Help ecosystems grow by participating in initiatives, completing meaningful work, and collaborating with others.",
+    initials: "CB",
+    color: "#7BDCC0",
   },
   {
-    icon: FiTarget,
-    role: "Creative Contributor",
-    type: "For creative projects",
-    network: "CREATIVITY",
-    tag: "MAKE AN IMPACT",
-    message:
-      "From content and design to research and social campaigns, turn creative skills into meaningful contributions for growing projects.",
-    footer: "Create and contribute",
-    status: "Flexible tasks",
-    number: "07",
+    title: "Creative Contributor",
+    role: "Designer & Creator",
+    quote:
+      "Use your creative skills to help teams communicate better, build stronger brands, and deliver better experiences.",
+    initials: "CC",
+    color: "#42C9A4",
   },
   {
-    icon: FiShield,
-    role: "Independent Builder",
-    type: "For transparent workflows",
-    network: "TRANSPARENCY",
-    tag: "CLEAR EXPECTATIONS",
-    message:
-      "Keep tasks, submission requirements, and rewards clear so creators and contributors can work together with greater confidence.",
-    footer: "Keep work organized",
-    status: "Clear requirements",
-    number: "08",
+    title: "Independent Builder",
+    role: "Solo Builder",
+    quote:
+      "Build your reputation through real contributions and discover new ways to turn your skills into opportunities.",
+    initials: "IB",
+    color: "#009B75",
   },
 ];
 
 const networks = [
   {
-    name: "Polkadot",
-    symbol: "DOT",
-    logo: dotLogo,
-    alt: "Polkadot logo",
-    tone: "border-purple-500/20",
-    glow: "group-hover:shadow-[0_0_25px_rgba(230,0,122,0.10)]",
-  },
-  {
-    name: "BOT Chain",
-    symbol: "BOT",
-    logo: botLogo,
-    alt: "BOT Chain logo",
-    tone: "border-[#00D6A0]/20",
-    glow: "group-hover:shadow-[0_0_25px_rgba(0,214,160,0.10)]",
-  },
-  {
     name: "Arc",
     symbol: "ARC",
-    logo: arcLogo,
-    alt: "Arc network logo",
-    tone: "border-blue-500/20",
-    glow: "group-hover:shadow-[0_0_25px_rgba(59,130,246,0.10)]",
+    description: "Explore opportunities in the Arc ecosystem.",
+    logo: ArcLogo,
+  },
+  {
+    name: "BOTCHAIN",
+    symbol: "BOT",
+    description: "Contribute to projects and opportunities in BOTCHAIN.",
+    logo: BotchainLogo,
   },
 ];
 
 const valuePoints = [
   {
-    icon: FiCompass,
+    number: "01",
     title: "Discover opportunities",
     description:
-      "Explore tasks that match your interests, goals, and skills.",
+      "Explore tasks and challenges that match your skills and interests.",
   },
   {
-    icon: FiZap,
-    title: "Turn effort into value",
+    number: "02",
+    title: "Contribute your skills",
     description:
-      "Complete meaningful work and pursue the rewards attached to it.",
+      "Work on meaningful tasks and submit your completed contributions.",
   },
   {
-    icon: FiShield,
-    title: "Know what to expect",
+    number: "03",
+    title: "Earn rewards",
     description:
-      "Understand task requirements and reward details before you begin.",
+      "Get rewarded when your submitted work is reviewed and approved.",
   },
 ];
 
-function Testimonials() {
-  const sectionRef = useRef(null);
-  const [isVisible, setIsVisible] = useState(false);
-  const [dark, setDark] = useState(() => {
-    if (typeof document === "undefined") return false;
+export default function Testimonials() {
+  const [activeSlide, setActiveSlide] = useState(0);
+  const [visibleCount, setVisibleCount] = useState(3);
+  const [isPaused, setIsPaused] = useState(false);
+  const [useDarkTheme, setUseDarkTheme] = useState(true);
 
-    return document.documentElement.classList.contains("dark");
-  });
+  const touchStartX = useRef(0);
+  const touchEndX = useRef(0);
+  const viewportRef = useRef(null);
+  const slideRef = useRef(null);
+  const [slideStep, setSlideStep] = useState(0);
+
+  const maxSlide = Math.max(0, communityUseCases.length - visibleCount);
+
+  const updateVisibleCount = useCallback(() => {
+    if (typeof window === "undefined") return;
+
+    if (window.innerWidth < 640) {
+      setVisibleCount(1);
+    } else if (window.innerWidth < 1024) {
+      setVisibleCount(2);
+    } else {
+      setVisibleCount(3);
+    }
+  }, []);
 
   useEffect(() => {
-    const root = document.documentElement;
+    updateVisibleCount();
 
-    const updateTheme = () => {
-      setDark(root.classList.contains("dark"));
+    window.addEventListener("resize", updateVisibleCount);
+    return () => window.removeEventListener("resize", updateVisibleCount);
+  }, [updateVisibleCount]);
+
+  useEffect(() => {
+    setActiveSlide((current) =>
+      Math.min(current, Math.max(0, communityUseCases.length - visibleCount))
+    );
+  }, [visibleCount]);
+
+  useEffect(() => {
+    const viewport = viewportRef.current;
+    const slide = slideRef.current;
+
+    if (!viewport || !slide) return;
+
+    const measure = () => {
+      const slideWidth = slide.getBoundingClientRect().width;
+      const styles = window.getComputedStyle(slide.parentElement);
+      const gap = parseFloat(styles.columnGap || styles.gap || "0") || 0;
+
+      setSlideStep(slideWidth + gap);
     };
 
-    updateTheme();
+    measure();
 
-    const observer = new MutationObserver(updateTheme);
-
-    observer.observe(root, {
-      attributes: true,
-      attributeFilter: ["class"],
-    });
+    const observer = new ResizeObserver(measure);
+    observer.observe(viewport);
+    observer.observe(slide);
 
     return () => observer.disconnect();
-  }, []);
+  }, [visibleCount]);
+
+  const goToSlide = useCallback(
+    (index) => {
+      setActiveSlide(Math.max(0, Math.min(index, maxSlide)));
+    },
+    [maxSlide]
+  );
+
+  const nextSlide = useCallback(() => {
+    setActiveSlide((current) => (current >= maxSlide ? 0 : current + 1));
+  }, [maxSlide]);
+
+  const previousSlide = useCallback(() => {
+    setActiveSlide((current) => (current <= 0 ? maxSlide : current - 1));
+  }, [maxSlide]);
 
   useEffect(() => {
-    const section = sectionRef.current;
+    if (isPaused || maxSlide === 0) return;
 
-    if (!section) return;
+    const timer = window.setInterval(() => {
+      setActiveSlide((current) => (current >= maxSlide ? 0 : current + 1));
+    }, 3500);
 
-    if (
-      typeof IntersectionObserver === "undefined" ||
-      window.matchMedia("(prefers-reduced-motion: reduce)").matches
-    ) {
-      setIsVisible(true);
-      return;
+    return () => window.clearInterval(timer);
+  }, [isPaused, maxSlide]);
+
+  const handleTouchStart = (event) => {
+    touchStartX.current = event.touches[0].clientX;
+    touchEndX.current = event.touches[0].clientX;
+    setIsPaused(true);
+  };
+
+  const handleTouchMove = (event) => {
+    touchEndX.current = event.touches[0].clientX;
+  };
+
+  const handleTouchEnd = () => {
+    const distance = touchStartX.current - touchEndX.current;
+
+    if (Math.abs(distance) > 45) {
+      if (distance > 0) {
+        nextSlide();
+      } else {
+        previousSlide();
+      }
     }
 
-    const observer = new IntersectionObserver(
-      ([entry]) => {
-        if (entry.isIntersecting) {
-          setIsVisible(true);
-          observer.unobserve(entry.target);
-        }
-      },
-      {
-        threshold: 0.08,
-      },
-    );
+    setIsPaused(false);
+  };
 
-    observer.observe(section);
-
-    return () => observer.disconnect();
-  }, []);
-
-  const duplicatedUseCases = [
-    ...communityUseCases,
-    ...communityUseCases,
-  ];
+  const theme = useDarkTheme
+    ? {
+        background: "#080908",
+        surface: "#111411",
+        card: "#151A17",
+        border: "rgba(255,255,255,0.09)",
+        text: "#F4F7F5",
+        muted: "#9AA59F",
+        subtle: "#68746D",
+      }
+    : {
+        background: "#F6F5EF",
+        surface: "#FFFFFF",
+        card: "#FFFFFF",
+        border: "rgba(8,25,16,0.12)",
+        text: "#15221B",
+        muted: "#5F6C64",
+        subtle: "#7B877F",
+      };
 
   return (
-    <>
+    <section
+      className={`hb-testimonials ${useDarkTheme ? "theme-dark" : "theme-light"}`}
+      style={{
+        "--hb-bg": theme.background,
+        "--hb-surface": theme.surface,
+        "--hb-card": theme.card,
+        "--hb-border": theme.border,
+        "--hb-text": theme.text,
+        "--hb-muted": theme.muted,
+        "--hb-subtle": theme.subtle,
+        background: theme.background,
+        color: theme.text,
+      }}
+    >
       <style>{`
-        @keyframes hb-enter {
-          from {
-            opacity: 0;
-            transform: translate3d(0, 26px, 0);
-          }
-          to {
-            opacity: 1;
-            transform: translate3d(0, 0, 0);
-          }
+        .hb-testimonials {
+          width: 100%;
+          overflow: hidden;
+          padding: 88px 0;
+          font-family: inherit;
+          transition: background 0.3s ease, color 0.3s ease;
         }
 
-        @keyframes hb-marquee {
-          from {
-            transform: translate3d(0, 0, 0);
-          }
-          to {
-            transform: translate3d(-50%, 0, 0);
-          }
+        .hb-testimonials *,
+        .hb-testimonials *::before,
+        .hb-testimonials *::after {
+          box-sizing: border-box;
         }
 
-        @keyframes hb-float {
-          0%, 100% {
-            transform: translateY(0);
-          }
-          50% {
-            transform: translateY(-4px);
-          }
+        .hb-container {
+          width: min(1180px, calc(100% - 40px));
+          margin: 0 auto;
+        }
+
+        .hb-section-heading {
+          max-width: 720px;
+          margin: 0 auto 42px;
+          text-align: center;
+        }
+
+        .hb-eyebrow {
+          display: inline-flex;
+          align-items: center;
+          gap: 9px;
+          padding: 8px 13px;
+          border: 1px solid rgba(0,214,160,0.25);
+          border-radius: 999px;
+          color: #00D6A0;
+          font-size: 12px;
+          font-weight: 700;
+          letter-spacing: 0.1em;
+          text-transform: uppercase;
+        }
+
+        .hb-eyebrow-dot {
+          width: 7px;
+          height: 7px;
+          border-radius: 50%;
+          background: #00D6A0;
+          box-shadow: 0 0 12px rgba(0,214,160,0.6);
+        }
+
+        .hb-section-title {
+          margin: 20px 0 14px;
+          font-size: clamp(32px, 5vw, 54px);
+          line-height: 1.08;
+          letter-spacing: -0.045em;
+          font-weight: 750;
+        }
+
+        .hb-gradient-text {
+          color: #00D6A0;
+        }
+
+        .hb-section-description {
+          max-width: 620px;
+          margin: 0 auto;
+          color: var(--hb-muted);
+          font-size: 16px;
+          line-height: 1.8;
+        }
+
+        .hb-theme-toggle {
+          display: flex;
+          justify-content: center;
+          margin: 0 0 24px;
+        }
+
+        .hb-theme-button {
+          display: inline-flex;
+          align-items: center;
+          gap: 8px;
+          padding: 9px 13px;
+          color: var(--hb-muted);
+          background: var(--hb-surface);
+          border: 1px solid var(--hb-border);
+          border-radius: 999px;
+          cursor: pointer;
+          font-size: 12px;
+          transition: all 0.2s ease;
+        }
+
+        .hb-theme-button:hover {
+          border-color: #00D6A0;
+          color: #00D6A0;
+        }
+
+        .hb-carousel {
+          position: relative;
+          margin: 0 auto;
+        }
+
+        .hb-curve-viewport {
+          width: 100%;
+          overflow: hidden;
+          padding: 18px 0 28px;
+          touch-action: pan-y;
+        }
+
+        .hb-curve-track {
+          display: flex;
+          align-items: stretch;
+          gap: 20px;
+          will-change: transform;
+          transition: transform 650ms cubic-bezier(0.22, 1, 0.36, 1);
+        }
+
+        .hb-curve-slide {
+          flex: 0 0 calc((100% - 40px) / 3);
+          min-width: 0;
+        }
+
+        .hb-curve-card {
+          position: relative;
+          display: flex;
+          flex-direction: column;
+          height: 100%;
+          min-height: 315px;
+          padding: 25px;
+          overflow: hidden;
+          background: var(--hb-card);
+          border: 1px solid var(--hb-border);
+          border-radius: 22px;
+          transition:
+            border-color 250ms ease,
+            background 250ms ease,
+            box-shadow 250ms ease,
+            transform 250ms ease;
+        }
+
+        .hb-curve-card:hover {
+          transform: translateY(-5px);
+          border-color: rgba(0,214,160,0.4);
+          box-shadow: 0 16px 40px rgba(0,214,160,0.06);
+        }
+
+        .hb-curve-card::before {
+          content: "";
+          position: absolute;
+          top: 0;
+          left: 25px;
+          width: 45px;
+          height: 2px;
+          background: #00D6A0;
+          border-radius: 999px;
+        }
+
+        .hb-card-top {
+          display: flex;
+          align-items: center;
+          justify-content: space-between;
+          gap: 12px;
+          margin-bottom: 22px;
+        }
+
+        .hb-avatar {
+          display: grid;
+          place-items: center;
+          width: 48px;
+          height: 48px;
+          flex: 0 0 48px;
+          border-radius: 15px;
+          color: #07140F;
+          font-size: 13px;
+          font-weight: 800;
+        }
+
+        .hb-card-role {
+          color: var(--hb-muted);
+          font-size: 12px;
+          text-align: right;
+        }
+
+        .hb-quote-mark {
+          margin-bottom: 8px;
+          color: #00D6A0;
+          font-family: Georgia, serif;
+          font-size: 38px;
+          line-height: 0.8;
+        }
+
+        .hb-card-quote {
+          flex: 1;
+          margin: 0 0 24px;
+          color: var(--hb-muted);
+          font-size: 14px;
+          line-height: 1.85;
+        }
+
+        .hb-card-footer {
+          display: flex;
+          align-items: center;
+          justify-content: space-between;
+          gap: 12px;
+          padding-top: 17px;
+          border-top: 1px solid var(--hb-border);
+        }
+
+        .hb-card-name {
+          margin: 0;
+          color: var(--hb-text);
+          font-size: 15px;
+          font-weight: 700;
+        }
+
+        .hb-card-label {
+          display: block;
+          margin-top: 4px;
+          color: var(--hb-subtle);
+          font-size: 11px;
+        }
+
+        .hb-card-index {
+          color: var(--hb-subtle);
+          font-size: 11px;
+          letter-spacing: 0.08em;
+        }
+
+        .hb-carousel-controls {
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          gap: 18px;
+          margin-top: 8px;
+        }
+
+        .hb-arrow {
+          display: grid;
+          place-items: center;
+          width: 43px;
+          height: 43px;
+          color: var(--hb-text);
+          background: var(--hb-surface);
+          border: 1px solid var(--hb-border);
+          border-radius: 50%;
+          cursor: pointer;
+          font-size: 20px;
+          transition: all 200ms ease;
+        }
+
+        .hb-arrow:hover {
+          color: #07140F;
+          background: #00D6A0;
+          border-color: #00D6A0;
+        }
+
+        .hb-arrow:focus-visible,
+        .hb-dot:focus-visible,
+        .hb-theme-button:focus-visible {
+          outline: 2px solid #00D6A0;
+          outline-offset: 4px;
+        }
+
+        .hb-dots {
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          gap: 7px;
+        }
+
+        .hb-dot {
+          width: 7px;
+          height: 7px;
+          padding: 0;
+          background: var(--hb-subtle);
+          border: 0;
+          border-radius: 999px;
+          cursor: pointer;
+          transition: all 250ms ease;
+        }
+
+        .hb-dot.active {
+          width: 23px;
+          background: #00D6A0;
+        }
+
+        .hb-auto-label {
+          display: flex;
+          justify-content: center;
+          align-items: center;
+          gap: 7px;
+          margin-top: 15px;
+          color: var(--hb-subtle);
+          font-size: 11px;
+        }
+
+        .hb-auto-indicator {
+          width: 6px;
+          height: 6px;
+          background: #00D6A0;
+          border-radius: 50%;
+          animation: hb-pulse 1.6s ease-in-out infinite;
         }
 
         @keyframes hb-pulse {
-          0%, 100% {
-            opacity: .5;
-            transform: scale(.85);
-          }
-          50% {
-            opacity: 1;
-            transform: scale(1);
-          }
+          0%, 100% { opacity: 1; }
+          50% { opacity: 0.3; }
         }
 
-        @keyframes hb-glow {
-          0%, 100% {
-            opacity: .35;
-          }
-          50% {
-            opacity: .7;
-          }
+        .hb-network-grid {
+          display: grid;
+          grid-template-columns: repeat(2, minmax(0, 1fr));
+          gap: 20px;
+          margin-top: 78px;
         }
 
-        .hb-reveal {
-          opacity: 0;
-        }
-
-        .hb-reveal.hb-visible {
-          animation: hb-enter .8s cubic-bezier(.22, 1, .36, 1) forwards;
-        }
-
-        .hb-community-track {
+        .hb-network-card {
           display: flex;
-          width: max-content;
-          animation: hb-marquee 75s linear infinite;
-          will-change: transform;
+          align-items: center;
+          gap: 20px;
+          padding: 25px;
+          background: var(--hb-surface);
+          border: 1px solid var(--hb-border);
+          border-radius: 20px;
+          transition: border-color 200ms ease, transform 200ms ease;
         }
 
-        .hb-community-marquee:hover .hb-community-track,
-        .hb-community-marquee:focus-within .hb-community-track {
-          animation-play-state: paused;
-        }
-
-        .hb-community-card {
-          transition:
-            transform .35s cubic-bezier(.2, .8, .2, 1),
-            border-color .35s ease,
-            box-shadow .35s ease,
-            background-color .35s ease;
-        }
-
-        .hb-community-card:hover {
-          transform: translateY(-7px);
-          border-color: rgba(0, 214, 160, .38);
-          box-shadow: 0 20px 55px rgba(0, 214, 160, .055);
-        }
-
-        .hb-community-icon {
-          transition:
-            transform .35s ease,
-            background-color .35s ease,
-            border-color .35s ease;
-        }
-
-        .hb-community-card:hover .hb-community-icon {
-          transform: translateY(-2px) scale(1.04);
-          background-color: rgba(0, 214, 160, .13);
-          border-color: rgba(0, 214, 160, .35);
-        }
-
-        .hb-network-chip {
-          transition:
-            transform .3s ease,
-            border-color .3s ease,
-            box-shadow .3s ease;
-        }
-
-        .hb-network-chip:hover {
+        .hb-network-card:hover {
           transform: translateY(-3px);
+          border-color: rgba(0,214,160,0.4);
         }
 
         .hb-network-logo {
-          width: 29px;
-          height: 29px;
+          display: grid;
+          place-items: center;
+          width: 62px;
+          height: 62px;
+          flex: 0 0 62px;
+          padding: 10px;
+          background: var(--hb-card);
+          border: 1px solid var(--hb-border);
+          border-radius: 16px;
+        }
+
+        .hb-network-logo img {
+          display: block;
+          width: 100%;
+          height: 100%;
           object-fit: contain;
-          flex-shrink: 0;
         }
 
-        .hb-status-dot {
-          animation: hb-pulse 2.5s ease-in-out infinite;
+        .hb-network-name {
+          margin: 0 0 5px;
+          color: var(--hb-text);
+          font-size: 18px;
+          font-weight: 750;
         }
 
-        .hb-background-glow {
-          animation: hb-glow 8s ease-in-out infinite;
+        .hb-network-symbol {
+          margin-left: 7px;
+          color: #00D6A0;
+          font-size: 11px;
+          font-weight: 700;
         }
 
-        .hb-section-grid {
-          background-image:
-            linear-gradient(
-              rgba(0, 214, 160, .035) 1px,
-              transparent 1px
-            ),
-            linear-gradient(
-              90deg,
-              rgba(0, 214, 160, .035) 1px,
-              transparent 1px
-            );
-          background-size: 54px 54px;
-          mask-image: linear-gradient(
-            to bottom,
-            black,
-            transparent 85%
-          );
-          -webkit-mask-image: linear-gradient(
-            to bottom,
-            black,
-            transparent 85%
-          );
+        .hb-network-description {
+          margin: 0;
+          color: var(--hb-muted);
+          font-size: 13px;
+          line-height: 1.7;
         }
 
-        @media (max-width: 768px) {
-          .hb-community-track {
-            animation-duration: 65s;
+        .hb-value-grid {
+          display: grid;
+          grid-template-columns: repeat(3, minmax(0, 1fr));
+          gap: 20px;
+          margin-top: 78px;
+        }
+
+        .hb-value-card {
+          padding: 23px;
+          background: transparent;
+          border: 1px solid var(--hb-border);
+          border-radius: 18px;
+        }
+
+        .hb-value-number {
+          display: inline-block;
+          margin-bottom: 24px;
+          color: #00D6A0;
+          font-size: 12px;
+          font-weight: 800;
+          letter-spacing: 0.1em;
+        }
+
+        .hb-value-title {
+          margin: 0 0 10px;
+          color: var(--hb-text);
+          font-size: 17px;
+          font-weight: 700;
+        }
+
+        .hb-value-description {
+          margin: 0;
+          color: var(--hb-muted);
+          font-size: 13px;
+          line-height: 1.8;
+        }
+
+        @media (max-width: 1023px) {
+          .hb-curve-slide {
+            flex-basis: calc((100% - 20px) / 2);
+          }
+
+          .hb-network-grid {
+            margin-top: 58px;
+          }
+
+          .hb-value-grid {
+            margin-top: 58px;
+          }
+        }
+
+        @media (max-width: 639px) {
+          .hb-testimonials {
+            padding: 64px 0;
+          }
+
+          .hb-container {
+            width: calc(100% - 32px);
+          }
+
+          .hb-section-heading {
+            margin-bottom: 28px;
+          }
+
+          .hb-section-description {
+            font-size: 14px;
+          }
+
+          .hb-curve-track {
+            gap: 14px;
+          }
+
+          .hb-curve-slide {
+            flex-basis: 100%;
+          }
+
+          .hb-curve-card {
+            min-height: 290px;
+            padding: 23px;
+          }
+
+          .hb-network-grid,
+          .hb-value-grid {
+            grid-template-columns: 1fr;
+            gap: 14px;
+            margin-top: 48px;
+          }
+
+          .hb-network-card {
+            padding: 19px;
+          }
+
+          .hb-network-logo {
+            width: 54px;
+            height: 54px;
+            flex-basis: 54px;
+          }
+
+          .hb-carousel-controls {
+            gap: 14px;
           }
         }
 
         @media (prefers-reduced-motion: reduce) {
-          .hb-reveal,
-          .hb-reveal.hb-visible {
-            opacity: 1;
-            animation: none !important;
-            transform: none !important;
-          }
-
-          .hb-community-track {
-            animation: none !important;
-            transform: none !important;
-          }
-
-          .hb-community-marquee {
-            overflow-x: auto;
-            overscroll-behavior-x: contain;
-            scrollbar-width: thin;
-          }
-
-          .hb-community-card,
-          .hb-community-icon,
-          .hb-network-chip,
-          .hb-status-dot,
-          .hb-background-glow {
-            animation: none !important;
-            transition: none !important;
-          }
-
-          .hb-community-card:hover,
-          .hb-network-chip:hover {
-            transform: none;
+          .hb-testimonials *,
+          .hb-testimonials *::before,
+          .hb-testimonials *::after {
+            animation-duration: 0.01ms !important;
+            animation-iteration-count: 1 !important;
+            scroll-behavior: auto !important;
+            transition-duration: 0.01ms !important;
           }
         }
       `}</style>
 
-      <section
-        ref={sectionRef}
-        aria-labelledby="hb-community-title"
-        className={`relative z-10 mx-3 overflow-hidden rounded-[28px] border transition-colors duration-500 sm:mx-5 md:mx-8 md:rounded-[36px] lg:mx-12 ${
-          dark
-            ? "border-white/[0.07] bg-[#080908] text-white"
-            : "border-black/[0.06] bg-[#f6f5ef] text-[#171916]"
-        }`}
-      >
-        {/* Background effects */}
-        <div
-          aria-hidden="true"
-          className="hb-section-grid pointer-events-none absolute inset-0"
-        />
+      <div className="hb-container">
+        <div className="hb-section-heading">
+          <div className="hb-eyebrow">
+            <span className="hb-eyebrow-dot" />
+            Built for contributors
+          </div>
+
+          <h2 className="hb-section-title">
+            Real skills.
+            <br />
+            <span className="hb-gradient-text">Real opportunities.</span>
+          </h2>
+
+          <p className="hb-section-description">
+            Whether you are building a project or contributing your skills,
+            Happy Bounty connects meaningful work with people ready to get it
+            done.
+          </p>
+        </div>
+
+        <div className="hb-theme-toggle">
+          <button
+            type="button"
+            className="hb-theme-button"
+            onClick={() => setUseDarkTheme((current) => !current)}
+            aria-label={`Switch to ${useDarkTheme ? "light" : "dark"} theme`}
+          >
+            <span aria-hidden="true">{useDarkTheme ? "☀" : "☾"}</span>
+            Switch to {useDarkTheme ? "light" : "dark"} mode
+          </button>
+        </div>
 
         <div
-          aria-hidden="true"
-          className="hb-background-glow pointer-events-none absolute -top-36 left-1/2 h-80 w-[min(85%,760px)] -translate-x-1/2 rounded-full bg-[#00D6A0]/[0.09] blur-[110px]"
-        />
+          className="hb-carousel"
+          onMouseEnter={() => setIsPaused(true)}
+          onMouseLeave={() => setIsPaused(false)}
+          onFocusCapture={() => setIsPaused(true)}
+          onBlurCapture={(event) => {
+            if (!event.currentTarget.contains(event.relatedTarget)) {
+              setIsPaused(false);
+            }
+          }}
+        >
+          <div
+            className="hb-curve-viewport"
+            ref={viewportRef}
+            onTouchStart={(event) => {
+              touchStartX.current = event.touches[0].clientX;
+              touchEndX.current = event.touches[0].clientX;
+              setIsPaused(true);
+            }}
+            onTouchMove={(event) => {
+              touchEndX.current = event.touches[0].clientX;
+            }}
+            onTouchEnd={() => {
+              const distance = touchStartX.current - touchEndX.current;
 
-        <div
-          aria-hidden="true"
-          className="pointer-events-none absolute -bottom-48 -right-20 h-80 w-80 rounded-full bg-[#00D6A0]/[0.045] blur-[100px]"
-        />
+              if (Math.abs(distance) > 45) {
+                if (distance > 0) nextSlide();
+                else previousSlide();
+              }
 
-        <div className="relative mx-auto w-full max-w-[1600px] py-14 sm:py-16 md:py-20 lg:py-24">
-          {/* Main heading */}
-          <header
-            className={`hb-reveal ${
-              isVisible ? "hb-visible" : ""
-            } mx-auto mb-12 max-w-5xl px-5 text-center sm:mb-14 md:px-8 lg:mb-16`}
+              setIsPaused(false);
+            }}
           >
             <div
-              className={`mb-7 inline-flex max-w-full flex-wrap items-center justify-center gap-2.5 rounded-full border px-4 py-2 ${
-                dark
-                  ? "border-white/[0.09] bg-white/[0.035]"
-                  : "border-black/[0.07] bg-white/75"
-              }`}
+              className="hb-curve-track"
+              style={{
+                transform: `translateX(-${activeSlide * slideStep}px)`,
+              }}
             >
-              <span className="relative flex h-2 w-2 shrink-0">
-                <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-[#00D6A0] opacity-30" />
-                <span className="relative h-2 w-2 rounded-full bg-[#00D6A0]" />
-              </span>
-
-              <span
-                className={`text-[9px] font-bold uppercase tracking-[0.17em] sm:text-[10px] sm:tracking-[0.2em] ${
-                  dark ? "text-white/65" : "text-[#686c64]"
-                }`}
-              >
-                Built for people who build
-              </span>
-
-              <span
-                className={`hidden h-3.5 w-px sm:block ${
-                  dark ? "bg-white/15" : "bg-black/15"
-                }`}
-              />
-
-              <span className="text-[9px] font-bold uppercase tracking-[0.14em] text-[#00A87D] sm:text-[10px]">
-                Happy Bounty
-              </span>
-            </div>
-
-            <h2
-              id="hb-community-title"
-              className={`text-[clamp(2.3rem,6.3vw,5.3rem)] font-bold leading-[1.03] tracking-[-0.065em] ${
-                dark ? "text-white" : "text-[#171916]"
-              }`}
-            >
-              One community.
-              <br />
-              <span className="bg-gradient-to-r from-[#00A87D] via-[#00D6A0] to-[#00A87D] bg-clip-text text-transparent">
-                Endless possibilities.
-              </span>
-            </h2>
-
-            <p
-              className={`mx-auto mt-6 max-w-2xl text-sm leading-7 sm:mt-7 sm:text-base sm:leading-8 ${
-                dark ? "text-white/55" : "text-[#72756d]"
-              }`}
-            >
-              Good ideas need great people. Happy Bounty brings project
-              creators and talented contributors together through clear
-              tasks, meaningful work, and rewards.
-            </p>
-
-            {/* Ecosystem selector chips */}
-            <div className="mt-8 flex flex-wrap items-center justify-center gap-3 sm:mt-9">
-              {networks.map((network, index) => (
+              {communityUseCases.map((item, index) => (
                 <div
-                  key={network.symbol}
-                  className={`hb-network-chip group inline-flex items-center gap-3 rounded-2xl border px-3.5 py-3 sm:px-4 ${
-                    dark
-                      ? `bg-white/[0.025] ${network.tone}`
-                      : `bg-white/80 ${network.tone}`
-                  } ${network.glow}`}
-                  style={{
-                    animationDelay: `${index * 100}ms`,
-                  }}
+                  className="hb-curve-slide"
+                  key={item.title}
+                  ref={index === 0 ? slideRef : null}
                 >
-                  <div
-                    className={`flex h-10 w-10 items-center justify-center rounded-xl border ${
-                      dark
-                        ? "border-white/[0.07] bg-white/[0.035]"
-                        : "border-black/[0.04] bg-[#f8f9f5]"
-                    }`}
-                  >
-                    <img
-                      src={network.logo}
-                      alt={network.alt}
-                      className="hb-network-logo"
-                      loading="lazy"
-                      onError={(event) => {
-                        event.currentTarget.style.display = "none";
-                      }}
-                    />
-                  </div>
+                  <article className="hb-curve-card">
+                    <div className="hb-card-top">
+                      <div
+                        className="hb-avatar"
+                        style={{ background: item.color }}
+                      >
+                        {item.initials}
+                      </div>
+                      <span className="hb-card-role">{item.role}</span>
+                    </div>
 
-                  <div className="text-left">
-                    <p
-                      className={`text-xs font-bold ${
-                        dark ? "text-white/90" : "text-[#282d27]"
-                      }`}
-                    >
-                      {network.name}
-                    </p>
+                    <div className="hb-quote-mark" aria-hidden="true">
+                      “
+                    </div>
 
-                    <p
-                      className={`mt-1 text-[9px] font-semibold tracking-[0.15em] ${
-                        dark ? "text-white/35" : "text-[#85897f]"
-                      }`}
-                    >
-                      {network.symbol}
-                    </p>
-                  </div>
+                    <p className="hb-card-quote">{item.quote}</p>
 
-                  <FiArrowUpRight
-                    aria-hidden="true"
-                    className={`ml-1 h-3.5 w-3.5 transition-transform duration-300 group-hover:-translate-y-0.5 group-hover:translate-x-0.5 ${
-                      dark ? "text-white/30" : "text-black/30"
-                    }`}
-                  />
+                    <div className="hb-card-footer">
+                      <div>
+                        <h3 className="hb-card-name">{item.title}</h3>
+                        <span className="hb-card-label">
+                          Happy Bounty community
+                        </span>
+                      </div>
+                      <span className="hb-card-index">
+                        {String(index + 1).padStart(2, "0")} /{" "}
+                        {String(communityUseCases.length).padStart(2, "0")}
+                      </span>
+                    </div>
+                  </article>
                 </div>
               ))}
             </div>
-
-            <p
-              className={`mt-4 text-[10px] leading-5 ${
-                dark ? "text-white/35" : "text-[#8a8d83]"
-              }`}
-            >
-              Explore the ecosystems represented on Happy Bounty.
-            </p>
-          </header>
-
-          {/* Section heading */}
-          <div
-            className={`hb-reveal ${
-              isVisible ? "hb-visible" : ""
-            } mb-6 flex items-end justify-between gap-4 px-5 sm:mb-7 sm:px-8 lg:px-12`}
-            style={{ animationDelay: "120ms" }}
-          >
-            <div>
-              <p className="text-[9px] font-bold uppercase tracking-[0.22em] text-[#00A87D] sm:text-[10px]">
-                Explore the possibilities
-              </p>
-
-              <h3
-                className={`mt-2 text-lg font-bold tracking-[-0.035em] sm:text-2xl ${
-                  dark ? "text-white" : "text-[#242921]"
-                }`}
-              >
-                Find your place in the ecosystem.
-              </h3>
-
-              <p
-                className={`mt-2 max-w-xl text-xs leading-6 sm:text-sm ${
-                  dark ? "text-white/45" : "text-[#777b72]"
-                }`}
-              >
-                From posting your first bounty to delivering your next big
-                contribution, there's a place for you here.
-              </p>
-            </div>
-
-            <div
-              className={`hidden shrink-0 items-center gap-2 pb-1 text-xs sm:flex ${
-                dark ? "text-white/40" : "text-[#85897f]"
-              }`}
-            >
-              <span className="h-1.5 w-1.5 rounded-full bg-[#00D6A0]" />
-              Hover to explore
-            </div>
           </div>
 
-          {/* Seamless moving cards */}
-          <div className="hb-community-marquee relative w-full overflow-hidden">
-            <div
-              aria-hidden="true"
-              className={`pointer-events-none absolute inset-y-0 left-0 z-10 w-8 bg-gradient-to-r to-transparent sm:w-14 lg:w-20 ${
-                dark ? "from-[#080908]" : "from-[#f6f5ef]"
-              }`}
-            />
+          <div className="hb-carousel-controls">
+            <button
+              type="button"
+              className="hb-arrow"
+              onClick={previousSlide}
+              aria-label="Previous community card"
+            >
+              &#8592;
+            </button>
 
-            <div
-              aria-hidden="true"
-              className={`pointer-events-none absolute inset-y-0 right-0 z-10 w-8 bg-gradient-to-l to-transparent sm:w-14 lg:w-20 ${
-                dark ? "from-[#080908]" : "from-[#f6f5ef]"
-              }`}
-            />
-
-            <div className="hb-community-track">
-              {duplicatedUseCases.map((item, index) => (
-                <CommunityCard
-                  key={`${item.number}-${index}`}
-                  item={item}
-                  dark={dark}
-                  isDuplicate={index >= communityUseCases.length}
+            <div className="hb-dots" aria-label="Choose carousel slide">
+              {Array.from({ length: maxSlide + 1 }, (_, index) => (
+                <button
+                  key={index}
+                  type="button"
+                  className={`hb-dot ${
+                    activeSlide === index ? "active" : ""
+                  }`}
+                  onClick={() => goToSlide(index)}
+                  aria-label={`Go to slide ${index + 1}`}
+                  aria-current={activeSlide === index ? "true" : undefined}
                 />
               ))}
             </div>
+
+            <button
+              type="button"
+              className="hb-arrow"
+              onClick={nextSlide}
+              aria-label="Next community card"
+            >
+              &#8594;
+            </button>
           </div>
 
-          {/* Value points */}
-          <div
-            className={`hb-reveal ${
-              isVisible ? "hb-visible" : ""
-            } mx-4 mt-12 grid grid-cols-1 gap-3 sm:mx-8 sm:mt-16 sm:grid-cols-3 sm:gap-4 lg:mx-12`}
-            style={{ animationDelay: "220ms" }}
-          >
-            {valuePoints.map((point, index) => (
-              <ValuePoint
-                key={point.title}
-                dark={dark}
-                point={point}
-                index={index}
-              />
-            ))}
+          <div className="hb-auto-label" aria-live="polite">
+            <span className="hb-auto-indicator" />
+            {isPaused ? "Autoplay paused" : "Automatically rotating"}
           </div>
+        </div>
 
-          {/* Closing statement */}
-          <div
-            className={`hb-reveal ${
-              isVisible ? "hb-visible" : ""
-            } mx-4 mt-7 flex flex-col items-center justify-between gap-5 rounded-3xl border p-5 sm:mx-8 sm:mt-9 sm:flex-row sm:p-7 lg:mx-12 ${
-              dark
-                ? "border-white/[0.075] bg-white/[0.025]"
-                : "border-black/[0.06] bg-white/70"
-            }`}
-            style={{ animationDelay: "300ms" }}
-          >
-            <div className="flex w-full items-start gap-3.5 sm:w-auto">
-              <div className="flex h-11 w-11 shrink-0 items-center justify-center rounded-2xl border border-[#00D6A0]/20 bg-[#00D6A0]/[0.08] text-[#00A87D]">
-                <FiUsers className="h-5 w-5" />
+        <div className="hb-network-grid">
+          {networks.map((network) => (
+            <article className="hb-network-card" key={network.name}>
+              <div className="hb-network-logo">
+                <img src={network.logo} alt={`${network.name} logo`} />
               </div>
-
               <div>
-                <h3
-                  className={`text-sm font-bold sm:text-base ${
-                    dark ? "text-white" : "text-[#242921]"
-                  }`}
-                >
-                  Your next opportunity starts here.
+                <h3 className="hb-network-name">
+                  {network.name}
+                  <span className="hb-network-symbol">{network.symbol}</span>
                 </h3>
-
-                <p
-                  className={`mt-1.5 max-w-xl text-xs leading-6 sm:text-sm ${
-                    dark ? "text-white/45" : "text-[#777b72]"
-                  }`}
-                >
-                  Discover a task, share your expertise, or create a bounty
-                  that moves your project forward.
+                <p className="hb-network-description">
+                  {network.description}
                 </p>
               </div>
-            </div>
-
-            <div className="inline-flex shrink-0 items-center gap-2 rounded-full border border-[#00D6A0]/20 bg-[#00D6A0]/[0.06] px-4 py-2.5 text-[10px] font-bold text-[#00A87D] sm:text-xs">
-              <span className="hb-status-dot h-1.5 w-1.5 rounded-full bg-[#00D6A0]" />
-              Built around meaningful work
-              <FiArrowUpRight className="h-3.5 w-3.5" />
-            </div>
-          </div>
-
-          {/* Bottom brand detail */}
-          <div
-            className={`mt-9 flex items-center justify-center gap-2 px-4 text-center text-[9px] font-medium tracking-wide sm:mt-12 sm:text-[10px] ${
-              dark ? "text-white/25" : "text-[#989b91]"
-            }`}
-          >
-            <span className="h-px w-7 bg-[#00D6A0]/30" />
-            CREATE. CONTRIBUTE. EARN.
-            <span className="h-px w-7 bg-[#00D6A0]/30" />
-          </div>
-        </div>
-      </section>
-    </>
-  );
-}
-
-function CommunityCard({ item, dark, isDuplicate }) {
-  const Icon = item.icon;
-
-  return (
-    <article
-      aria-hidden={isDuplicate ? true : undefined}
-      className={`hb-community-card group mx-2 flex w-[285px] shrink-0 flex-col rounded-[24px] border p-5 sm:mx-3 sm:w-[340px] sm:rounded-[28px] sm:p-7 ${
-        dark
-          ? "border-white/[0.075] bg-[#101310] shadow-[0_16px_50px_rgba(0,0,0,0.18)]"
-          : "border-black/[0.065] bg-white shadow-[0_16px_45px_rgba(35,31,22,0.035)]"
-      }`}
-    >
-      {/* Card top */}
-      <div className="flex items-start justify-between gap-3">
-        <div className="hb-community-icon flex h-12 w-12 shrink-0 items-center justify-center rounded-2xl border border-[#00D6A0]/20 bg-[#00D6A0]/[0.07] text-[#00A87D] sm:h-14 sm:w-14">
-          <Icon aria-hidden="true" className="h-5 w-5 sm:h-6 sm:w-6" />
+            </article>
+          ))}
         </div>
 
-        <span
-          className={`rounded-full border px-2.5 py-1.5 text-[8px] font-bold tracking-[0.12em] sm:text-[9px] ${
-            dark
-              ? "border-white/[0.08] bg-white/[0.025] text-white/45"
-              : "border-black/[0.06] bg-[#f8f9f5] text-[#74796f]"
-          }`}
-        >
-          {item.network}
-        </span>
-      </div>
-
-      {/* Card content */}
-      <div className="mt-6 flex-1">
-        <div className="flex items-center justify-between gap-2">
-          <span className="inline-flex rounded-full border border-[#00D6A0]/20 bg-[#00D6A0]/[0.06] px-2.5 py-1.5 text-[8px] font-bold tracking-[0.13em] text-[#00A87D] sm:text-[9px]">
-            {item.tag}
-          </span>
-
-          <span
-            className={`text-[10px] font-semibold tabular-nums ${
-              dark ? "text-white/20" : "text-black/20"
-            }`}
-          >
-            /{item.number}
-          </span>
+        <div className="hb-value-grid">
+          {valuePoints.map((point) => (
+            <article className="hb-value-card" key={point.number}>
+              <span className="hb-value-number">{point.number}</span>
+              <h3 className="hb-value-title">{point.title}</h3>
+              <p className="hb-value-description">{point.description}</p>
+            </article>
+          ))}
         </div>
-
-        <h4
-          className={`mt-4 text-xl font-bold tracking-[-0.04em] sm:text-2xl ${
-            dark ? "text-white" : "text-[#20241e]"
-          }`}
-        >
-          {item.role}
-        </h4>
-
-        <p
-          className={`mt-1.5 text-xs font-medium ${
-            dark ? "text-white/40" : "text-[#85897f]"
-          }`}
-        >
-          {item.type}
-        </p>
-
-        <p
-          className={`mt-4 min-h-[140px] text-[13px] leading-7 sm:min-h-[140px] sm:text-sm ${
-            dark ? "text-white/60" : "text-[#62665d]"
-          }`}
-        >
-          {item.message}
-        </p>
       </div>
-
-      {/* Card footer */}
-      <div
-        className={`mt-5 flex items-center justify-between gap-2 border-t pt-4 ${
-          dark ? "border-white/[0.07]" : "border-black/[0.06]"
-        }`}
-      >
-        <span
-          className={`text-[10px] font-medium sm:text-[11px] ${
-            dark ? "text-white/40" : "text-[#85897f]"
-          }`}
-        >
-          {item.footer}
-        </span>
-
-        <span className="flex shrink-0 items-center gap-1.5 text-[9px] font-semibold text-[#00A87D] sm:text-[10px]">
-          <span className="hb-status-dot h-1.5 w-1.5 rounded-full bg-[#00D6A0]" />
-          {item.status}
-        </span>
-      </div>
-    </article>
+    </section>
   );
 }
-
-function ValuePoint({ dark, point, index }) {
-  const Icon = point.icon;
-
-  return (
-    <div
-      className={`group flex items-start gap-3.5 rounded-2xl border p-4 transition-all duration-300 hover:-translate-y-1 sm:p-5 ${
-        dark
-          ? "border-white/[0.065] bg-white/[0.02] hover:border-[#00D6A0]/25 hover:bg-white/[0.035]"
-          : "border-black/[0.055] bg-white/65 hover:border-[#00D6A0]/30 hover:bg-white"
-      }`}
-      style={{ animationDelay: `${index * 100}ms` }}
-    >
-      <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-xl border border-[#00D6A0]/20 bg-[#00D6A0]/[0.07] text-[#00A87D] transition-transform duration-300 group-hover:scale-105">
-        <Icon aria-hidden="true" className="h-5 w-5" />
-      </div>
-
-      <div>
-        <h4
-          className={`text-sm font-bold ${
-            dark ? "text-white/90" : "text-[#292e27]"
-          }`}
-        >
-          {point.title}
-        </h4>
-
-        <p
-          className={`mt-1.5 text-xs leading-6 ${
-            dark ? "text-white/45" : "text-[#7a7e75]"
-          }`}
-        >
-          {point.description}
-        </p>
-      </div>
-
-      <FiCheckCircle
-        aria-hidden="true"
-        className="ml-auto mt-1 h-4 w-4 shrink-0 text-[#00A87D]/50"
-      />
-    </div>
-  );
-}
-
-export default Testimonials;
