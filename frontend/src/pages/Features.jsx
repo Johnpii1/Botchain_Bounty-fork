@@ -1,81 +1,70 @@
+
 import { useEffect, useRef, useState } from "react";
 import {
-  FiArrowRight,
-  FiCheck,
+  FiArrowUpRight,
   FiCheckCircle,
   FiDollarSign,
   FiGlobe,
   FiLayers,
   FiShield,
   FiUsers,
+  FiZap,
 } from "react-icons/fi";
 import { Link } from "react-router-dom";
 import { useNav } from "../hooks/useNav";
 
 import ArcLogo from "../assets/images/arc.png";
-import InjectiveLogo from "../assets/images/inj.png";
 import BotchainLogo from "../assets/images/bot.png";
-import PolkadotLogo from "../assets/images/pok.png";
+
+const ecosystems = [
+  {
+    name: "Arc",
+    symbol: "ARC",
+    logo: ArcLogo,
+    description: "Discover opportunities across the Arc ecosystem.",
+    color: "#00D6A0",
+  },
+  {
+    name: "BOTCHAIN",
+    symbol: "BOT",
+    logo: BotchainLogo,
+    description: "Find tasks and contribute to the BOTCHAIN community.",
+    color: "#42A5F5",
+  },
+];
 
 const features = [
   {
     icon: FiDollarSign,
     number: "01",
-    title: "USDC Rewards",
+    title: "Earn for your work",
     description:
-      "Create reward-backed tasks and earn USDC by completing bounties and getting your submissions approved.",
-    footer: "REWARD-DRIVEN WORK",
+      "Discover reward-backed tasks, submit quality work, and earn rewards when your submission is approved.",
+    tag: "REAL OPPORTUNITIES",
   },
   {
     icon: FiGlobe,
     number: "02",
-    title: "Multi-chain Ecosystem",
+    title: "Two ecosystems, one platform",
     description:
-      "Discover bounty opportunities across supported blockchain communities and connect with Web3 contributors.",
-    footer: "MULTI-CHAIN ECOSYSTEM",
+      "Explore opportunities across Arc and BOTCHAIN without needing a separate platform for each community.",
+    tag: "MULTI-CHAIN ACCESS",
   },
   {
     icon: FiShield,
     number: "03",
-    title: "Transparent Activity",
+    title: "A transparent workflow",
     description:
-      "Supported blockchain transactions can provide verifiable records of bounty funding and reward transfers.",
-    footer: "ON-CHAIN ACTIVITY",
+      "Follow the bounty process from task requirements and submissions to review and reward distribution.",
+    tag: "CLEAR PROCESS",
   },
   {
     icon: FiUsers,
     number: "04",
-    title: "Work Together",
+    title: "Build with communities",
     description:
-      "Post tasks, discover opportunities, submit your work, and collaborate with people across Web3.",
-    footer: "COMMUNITY-POWERED",
-  },
-];
-
-const networks = [
-  {
-    name: "Arc",
-    logo: ArcLogo,
-    description: "Arc ecosystem",
-    color: "#00D6A0",
-  },
-  {
-    name: "Injective",
-    logo: InjectiveLogo,
-    description: "Injective ecosystem",
-    color: "#00A1FF",
-  },
-  {
-    name: "Botchain",
-    logo: BotchainLogo,
-    description: "Botchain ecosystem",
-    color: "#42A5F5",
-  },
-  {
-    name: "Portaldot",
-    logo: PolkadotLogo,
-    description: "Portaldot ecosystem",
-    color: "#C9B7FF",
+      "Help teams move forward, demonstrate your skills, and build a track record through meaningful contributions.",
+    tag: "COMMUNITY-POWERED",
   },
 ];
 
@@ -87,7 +76,7 @@ function Features() {
   const [dark, setDark] = useState(() =>
     typeof document !== "undefined"
       ? document.documentElement.classList.contains("dark")
-      : true,
+      : true
   );
 
   // Detect the application's global theme.
@@ -116,7 +105,10 @@ function Features() {
 
     if (!section) return;
 
-    if (!("IntersectionObserver" in window)) {
+    if (
+      !("IntersectionObserver" in window) ||
+      window.matchMedia("(prefers-reduced-motion: reduce)").matches
+    ) {
       setIsVisible(true);
       return;
     }
@@ -128,7 +120,7 @@ function Features() {
           observer.unobserve(section);
         }
       },
-      { threshold: 0.1 },
+      { threshold: 0.08 }
     );
 
     observer.observe(section);
@@ -138,20 +130,29 @@ function Features() {
 
   const palette = {
     background: dark ? "#080B0D" : "#F4F7F5",
-    card: dark ? "#111614" : "#FFFFFF",
-    text: dark ? "#F4F7F5" : "#171C19",
-    muted: dark ? "#98A29C" : "#747D77",
-    border: dark ? "rgba(255,255,255,0.085)" : "rgba(20,40,28,0.10)",
-    subtle: dark ? "rgba(255,255,255,0.035)" : "rgba(20,40,28,0.035)",
+    card: dark ? "#101614" : "#FFFFFF",
+    elevated: dark ? "#141B18" : "#F9FBF9",
+    text: dark ? "#F4F7F5" : "#17211B",
+    muted: dark ? "#99A69F" : "#6D7971",
+    border: dark
+      ? "rgba(255,255,255,0.09)"
+      : "rgba(20,40,28,0.11)",
+    subtle: dark
+      ? "rgba(255,255,255,0.035)"
+      : "rgba(20,40,28,0.035)",
+    accent: dark ? "#00D6A0" : "#008A66",
+    accentSoft: dark
+      ? "rgba(0,214,160,0.09)"
+      : "rgba(0,138,102,0.08)",
   };
 
   return (
     <>
       <style>{`
-        @keyframes featuresFadeUp {
+        @keyframes hbReveal {
           from {
             opacity: 0;
-            transform: translateY(24px);
+            transform: translateY(22px);
           }
           to {
             opacity: 1;
@@ -159,40 +160,24 @@ function Features() {
           }
         }
 
-        @keyframes featuresFadeDown {
-          from {
-            opacity: 0;
-            transform: translateY(-16px);
-          }
-          to {
-            opacity: 1;
-            transform: translateY(0);
-          }
-        }
-
-        @keyframes featuresPulse {
+        @keyframes hbGlow {
           0%, 100% {
-            opacity: .45;
+            opacity: .35;
           }
           50% {
-            opacity: 1;
+            opacity: .7;
           }
         }
 
-        .features-reveal {
+        .hb-reveal {
           opacity: 0;
         }
 
-        .features-reveal.visible {
-          animation: featuresFadeUp .7s cubic-bezier(.22,1,.36,1) forwards;
+        .hb-reveal.hb-visible {
+          animation: hbReveal .7s cubic-bezier(.22,1,.36,1) forwards;
         }
 
-        .features-heading.visible {
-          animation: featuresFadeDown .7s ease-out forwards;
-        }
-
-        .features-network,
-        .features-benefit {
+        .hb-card {
           transition:
             transform .3s ease,
             border-color .3s ease,
@@ -200,51 +185,48 @@ function Features() {
             box-shadow .3s ease;
         }
 
-        .features-network:hover,
-        .features-benefit:hover {
-          transform: translateY(-4px);
+        .hb-card:hover {
+          transform: translateY(-5px);
         }
 
-        .network-logo {
+        .hb-ecosystem-logo {
           transition: transform .3s ease;
         }
 
-        .features-network:hover .network-logo {
+        .hb-ecosystem:hover .hb-ecosystem-logo {
           transform: scale(1.07);
         }
 
-        .network-arrow {
-          transition: transform .3s ease;
+        .hb-arrow {
+          transition: transform .25s ease;
         }
 
-        .features-network:hover .network-arrow {
-          transform: translateX(3px);
+        .hb-ecosystem:hover .hb-arrow,
+        .hb-cta:hover .hb-arrow {
+          transform: translate(3px, -3px);
         }
 
-        .features-live-dot {
-          animation: featuresPulse 2s ease-in-out infinite;
+        .hb-orb {
+          animation: hbGlow 6s ease-in-out infinite;
         }
 
         @media (prefers-reduced-motion: reduce) {
-          .features-reveal,
-          .features-reveal.visible,
-          .features-heading.visible {
+          .hb-reveal,
+          .hb-reveal.hb-visible {
             opacity: 1;
             animation: none !important;
             transform: none !important;
           }
 
-          .features-network,
-          .features-benefit,
-          .network-logo,
-          .network-arrow,
-          .features-live-dot {
+          .hb-card,
+          .hb-ecosystem-logo,
+          .hb-arrow,
+          .hb-orb {
             animation: none !important;
             transition: none !important;
           }
 
-          .features-network:hover,
-          .features-benefit:hover {
+          .hb-card:hover {
             transform: none;
           }
         }
@@ -252,274 +234,269 @@ function Features() {
 
       <section
         ref={sectionRef}
-        className="relative z-10 my-20 overflow-hidden px-5 py-16 transition-colors duration-500 sm:my-24 sm:px-8 sm:py-20 lg:px-12 lg:py-24"
+        className="relative isolate overflow-hidden px-5 py-20 transition-colors duration-500 sm:px-8 sm:py-24 lg:px-12 lg:py-28"
         style={{
           backgroundColor: palette.background,
           color: palette.text,
         }}
       >
-        {/* Background grid */}
+        {/* Subtle background texture */}
         <div
           aria-hidden="true"
-          className="pointer-events-none absolute inset-0"
+          className="pointer-events-none absolute inset-0 -z-10"
           style={{
             backgroundImage: `
               linear-gradient(
-                ${dark ? "rgba(0,214,160,0.025)" : "rgba(0,120,85,0.035)"} 1px,
+                ${dark
+                  ? "rgba(0,214,160,0.025)"
+                  : "rgba(0,138,102,0.035)"
+                } 1px,
                 transparent 1px
               ),
               linear-gradient(
                 90deg,
-                ${dark ? "rgba(0,214,160,0.025)" : "rgba(0,120,85,0.035)"} 1px,
+                ${dark
+                  ? "rgba(0,214,160,0.025)"
+                  : "rgba(0,138,102,0.035)"
+                } 1px,
                 transparent 1px
               )
             `,
-            backgroundSize: "48px 48px",
-            maskImage: "linear-gradient(to bottom, black, transparent 90%)",
+            backgroundSize: "52px 52px",
+            maskImage:
+              "linear-gradient(to bottom, black, transparent 80%)",
             WebkitMaskImage:
-              "linear-gradient(to bottom, black, transparent 90%)",
+              "linear-gradient(to bottom, black, transparent 80%)",
           }}
         />
 
-        {/* Ambient green accent */}
+        {/* Soft green glow */}
         <div
           aria-hidden="true"
-          className="pointer-events-none absolute left-1/2 top-0 h-72 w-[min(700px,100%)] -translate-x-1/2 rounded-full blur-[120px]"
+          className="hb-orb pointer-events-none absolute -top-28 left-1/2 -z-10 h-80 w-[min(700px,100%)] -translate-x-1/2 rounded-full blur-[130px]"
           style={{
             backgroundColor: dark
-              ? "rgba(0,214,160,0.055)"
-              : "rgba(0,168,125,0.045)",
+              ? "rgba(0,214,160,0.09)"
+              : "rgba(0,168,125,0.07)",
           }}
         />
 
-        <div className="relative mx-auto max-w-7xl">
-          {/* Heading */}
+        <div className="mx-auto max-w-7xl">
+          {/* Hero introduction */}
           <div
-            className={`features-heading features-reveal ${
-              isVisible ? "visible" : ""
-            } mx-auto mb-12 max-w-3xl text-center sm:mb-16`}
+            className={`hb-reveal ${
+              isVisible ? "hb-visible" : ""
+            } mx-auto mb-16 max-w-4xl text-center sm:mb-20`}
           >
             <div
-              className="mb-5 inline-flex items-center gap-2.5 rounded-full border px-4 py-2"
+              className="mb-6 inline-flex items-center gap-2.5 rounded-full border px-4 py-2"
               style={{
-                borderColor: palette.border,
-                backgroundColor: palette.subtle,
+                borderColor: "rgba(0,214,160,0.23)",
+                backgroundColor: palette.accentSoft,
               }}
             >
-              <span className="features-live-dot h-2 w-2 rounded-full bg-[#00D6A0]" />
+              <FiZap
+                size={13}
+                style={{ color: palette.accent }}
+              />
 
               <span
-                className="text-[10px] font-semibold uppercase tracking-[0.16em] sm:text-[11px]"
-                style={{ color: palette.muted }}
+                className="text-[10px] font-bold uppercase tracking-[0.17em] sm:text-[11px]"
+                style={{ color: palette.accent }}
               >
-                One platform. Multiple networks.
+                Work across ecosystems
               </span>
             </div>
 
             <h2
-              className="text-3xl font-bold leading-tight tracking-[-0.045em] sm:text-4xl md:text-5xl"
+              className="text-4xl font-bold leading-[1.08] tracking-[-0.055em] sm:text-5xl md:text-6xl lg:text-7xl"
               style={{ color: palette.text }}
             >
-              Everything you need to{" "}
-              <span className="text-[#00A87D]">earn.</span>
+              Your skills have
+              <br className="hidden sm:block" />{" "}
+              <span style={{ color: palette.accent }}>
+                more places to go.
+              </span>
             </h2>
 
             <p
-              className="mx-auto mt-5 max-w-2xl text-sm leading-7 sm:text-base"
+              className="mx-auto mt-6 max-w-2xl text-sm leading-7 sm:text-base sm:leading-8"
               style={{ color: palette.muted }}
             >
-              Happy Bounty connects creators and contributors through
-              reward-backed tasks, blockchain communities, and a multi-chain
-              Web3 ecosystem.
+              Discover bounty opportunities, contribute to real
+              projects, and earn rewards for approved work — all
+              through one multi-chain platform.
             </p>
+
+            <div className="mt-8 flex flex-col items-center justify-center gap-3 sm:flex-row">
+              <Link
+                to="/dashboard"
+                onClick={(event) => {
+                  event.preventDefault();
+                  handleNavigate("/dashboard");
+                }}
+                className="hb-cta group inline-flex w-full items-center justify-center gap-3 rounded-xl px-6 py-3.5 text-sm font-bold transition-all duration-300 hover:-translate-y-0.5 sm:w-auto"
+                style={{
+                  backgroundColor: palette.accent,
+                  color: "#06130E",
+                  boxShadow: "0 8px 28px rgba(0,214,160,0.13)",
+                }}
+              >
+                Explore opportunities
+
+                <FiArrowUpRight
+                  className="hb-arrow"
+                  size={17}
+                />
+              </Link>
+
+              <a
+                href="#hb-ecosystems"
+                className="inline-flex w-full items-center justify-center gap-2 rounded-xl border px-6 py-3.5 text-sm font-semibold transition-colors duration-300 hover:border-[#00D6A0] sm:w-auto"
+                style={{
+                  color: palette.text,
+                  backgroundColor: palette.subtle,
+                  borderColor: palette.border,
+                }}
+              >
+                <FiLayers size={16} />
+                Explore ecosystems
+              </a>
+            </div>
+
+            <div
+              className="mt-9 flex flex-wrap items-center justify-center gap-x-5 gap-y-3 text-[10px] font-semibold uppercase tracking-[0.13em] sm:gap-x-7"
+              style={{ color: palette.muted }}
+            >
+              <span className="flex items-center gap-2">
+                <FiCheckCircle
+                  size={13}
+                  style={{ color: palette.accent }}
+                />
+                Reward-backed tasks
+              </span>
+
+              <span className="flex items-center gap-2">
+                <FiCheckCircle
+                  size={13}
+                  style={{ color: palette.accent }}
+                />
+                Community-driven
+              </span>
+
+              <span className="flex items-center gap-2">
+                <FiCheckCircle
+                  size={13}
+                  style={{ color: palette.accent }}
+                />
+                Arc + BOTCHAIN
+              </span>
+            </div>
           </div>
 
-          {/* Feature cards */}
-          <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 xl:grid-cols-4">
-            {features.map((feature, index) => {
-              const Icon = feature.icon;
+          {/* Supported ecosystems */}
+          <div id="hb-ecosystems" className="scroll-mt-24">
+            <div
+              className={`hb-reveal ${
+                isVisible ? "hb-visible" : ""
+              } mb-7 flex flex-col gap-3 sm:flex-row sm:items-end sm:justify-between`}
+              style={{ animationDelay: "100ms" }}
+            >
+              <div>
+                <p
+                  className="text-[10px] font-bold uppercase tracking-[0.2em]"
+                  style={{ color: palette.accent }}
+                >
+                  Our ecosystems
+                </p>
 
-              return (
+                <h3 className="mt-2 text-2xl font-bold tracking-tight sm:text-3xl">
+                  Two ecosystems. One platform.
+                </h3>
+              </div>
+
+              <p
+                className="max-w-md text-sm leading-6 sm:text-right"
+                style={{ color: palette.muted }}
+              >
+                Discover opportunities, support builders, and
+                contribute to projects across Arc and BOTCHAIN.
+              </p>
+            </div>
+
+            <div className="grid grid-cols-1 gap-5 sm:grid-cols-2">
+              {ecosystems.map((network, index) => (
                 <article
-                  key={feature.number}
-                  className={`features-benefit features-reveal ${
-                    isVisible ? "visible" : ""
-                  } group relative flex min-h-[275px] flex-col overflow-hidden rounded-2xl border p-5 sm:p-6`}
+                  key={network.name}
+                  className={`hb-card hb-ecosystem hb-reveal ${
+                    isVisible ? "hb-visible" : ""
+                  } group relative flex min-h-[220px] flex-col overflow-hidden rounded-2xl border p-5 sm:p-7`}
                   style={{
-                    animationDelay: `${index * 120}ms`,
+                    animationDelay: `${180 + index * 100}ms`,
                     backgroundColor: palette.card,
                     borderColor: palette.border,
                     boxShadow: dark
-                      ? "0 12px 36px rgba(0,0,0,0.16)"
-                      : "0 12px 36px rgba(20,40,28,0.035)",
+                      ? "0 16px 40px rgba(0,0,0,0.12)"
+                      : "0 12px 34px rgba(20,40,28,0.035)",
                   }}
                 >
                   <div
                     aria-hidden="true"
-                    className="absolute left-5 right-5 top-0 h-px opacity-0 transition-opacity duration-300 group-hover:opacity-100"
+                    className="pointer-events-none absolute inset-x-5 top-0 h-px opacity-0 transition-opacity duration-300 group-hover:opacity-100"
                     style={{
-                      background:
-                        "linear-gradient(90deg, transparent, #00D6A0, transparent)",
+                      background: `linear-gradient(90deg, transparent, ${network.color}, transparent)`,
                     }}
                   />
 
                   <div className="flex items-start justify-between">
                     <div
-                      className="flex h-12 w-12 items-center justify-center rounded-xl border"
+                      className="hb-ecosystem-logo flex h-14 w-14 items-center justify-center rounded-2xl border p-3"
                       style={{
-                        color: "#00A87D",
-                        backgroundColor: "rgba(0,214,160,0.07)",
-                        borderColor: "rgba(0,214,160,0.19)",
+                        backgroundColor: `${network.color}12`,
+                        borderColor: `${network.color}35`,
                       }}
                     >
-                      <Icon size={21} strokeWidth={1.8} />
+                      <img
+                        src={network.logo}
+                        alt={`${network.name} logo`}
+                        className="h-full w-full object-contain"
+                        loading="lazy"
+                      />
                     </div>
 
                     <span
-                      className="text-xs font-semibold tracking-widest"
+                      className="rounded-md border px-2 py-1 text-[9px] font-bold tracking-[0.12em]"
                       style={{
-                        color: dark
-                          ? "rgba(255,255,255,0.23)"
-                          : "rgba(20,40,28,0.27)",
+                        color: palette.muted,
+                        borderColor: palette.border,
+                        backgroundColor: palette.subtle,
                       }}
                     >
-                      {feature.number}
+                      {network.symbol}
                     </span>
                   </div>
 
-                  <h3
-                    className="mt-6 text-lg font-semibold tracking-tight"
-                    style={{ color: palette.text }}
-                  >
-                    {feature.title}
-                  </h3>
+                  <div className="mt-6 flex items-end justify-between gap-3">
+                    <div className="min-w-0">
+                      <h4 className="text-lg font-bold tracking-tight">
+                        {network.name}
+                      </h4>
 
-                  <p
-                    className="mt-3 flex-1 text-[13px] leading-6"
-                    style={{ color: palette.muted }}
-                  >
-                    {feature.description}
-                  </p>
+                      <p
+                        className="mt-2 text-xs leading-5"
+                        style={{ color: palette.muted }}
+                      >
+                        {network.description}
+                      </p>
+                    </div>
 
-                  <div
-                    className="mt-6 flex items-center gap-2 border-t pt-4"
-                    style={{ borderColor: palette.border }}
-                  >
-                    <FiCheckCircle
-                      size={13}
-                      className="shrink-0 text-[#00A87D]"
+                    <FiArrowUpRight
+                      size={19}
+                      className="hb-arrow mb-1 shrink-0"
+                      style={{ color: network.color }}
                     />
-
-                    <span
-                      className="text-[9px] font-semibold uppercase tracking-[0.12em]"
-                      style={{ color: palette.muted }}
-                    >
-                      {feature.footer}
-                    </span>
                   </div>
                 </article>
-              );
-            })}
-          </div>
-
-          {/* Supported networks */}
-          <div className="mt-16 sm:mt-20">
-            <div className="mb-6 flex flex-col gap-3 sm:flex-row sm:items-end sm:justify-between">
-              <div>
-                <p className="text-[10px] font-bold uppercase tracking-[0.2em] text-[#00A87D]">
-                  The ecosystem
-                </p>
-
-                <h3
-                  className="mt-2 text-2xl font-bold tracking-tight sm:text-3xl"
-                  style={{ color: palette.text }}
-                >
-                  Built across networks.
-                </h3>
-
-                <p
-                  className="mt-2 max-w-xl text-sm leading-6"
-                  style={{ color: palette.muted }}
-                >
-                  A place to discover bounty opportunities across the blockchain
-                  ecosystems connected to Happy Bounty.
-                </p>
-              </div>
-
-              <div
-                className="flex w-fit items-center gap-2 rounded-full border px-3 py-2"
-                style={{
-                  borderColor: palette.border,
-                  backgroundColor: palette.subtle,
-                }}
-              >
-                <FiLayers size={14} className="text-[#00A87D]" />
-
-                <span
-                  className="text-[10px] font-semibold uppercase tracking-wider"
-                  style={{ color: palette.muted }}
-                >
-                  Multi-chain
-                </span>
-              </div>
-            </div>
-
-            <div className="grid grid-cols-1 gap-3 sm:grid-cols-2 lg:grid-cols-4">
-              {networks.map((network, index) => (
-                <div
-                  key={network.name}
-                  className={`features-network features-reveal ${
-                    isVisible ? "visible" : ""
-                  } flex items-center gap-4 rounded-2xl border p-4 sm:p-5`}
-                  style={{
-                    animationDelay: `${450 + index * 100}ms`,
-                    backgroundColor: palette.card,
-                    borderColor: palette.border,
-                  }}
-                >
-                  <div
-                    className="network-logo flex h-12 w-12 shrink-0 items-center justify-center rounded-xl border p-2.5"
-                    style={{
-                      backgroundColor: `${network.color}12`,
-                      borderColor: `${network.color}35`,
-                    }}
-                  >
-                    <img
-                      src={network.logo}
-                      alt={`${network.name} logo`}
-                      className="h-full w-full object-contain"
-                      loading="lazy"
-                      onError={(event) => {
-                        console.error(
-                          `Could not load ${network.name} logo:`,
-                          network.logo,
-                        );
-                      }}
-                    />
-                  </div>
-
-                  <div className="min-w-0 flex-1">
-                    <h4
-                      className="text-sm font-semibold"
-                      style={{ color: palette.text }}
-                    >
-                      {network.name}
-                    </h4>
-
-                    <p
-                      className="mt-1 text-[11px] leading-5"
-                      style={{ color: palette.muted }}
-                    >
-                      {network.description}
-                    </p>
-                  </div>
-
-                  <FiArrowRight
-                    size={15}
-                    className="network-arrow shrink-0"
-                    style={{ color: network.color }}
-                  />
-                </div>
               ))}
             </div>
 
@@ -527,136 +504,219 @@ function Features() {
               className="mt-4 text-[11px] leading-5"
               style={{ color: palette.muted }}
             >
-              Network availability depends on the integrations enabled in the
-              application.
+              Actual bounty availability depends on the integrations
+              and opportunities currently enabled in the application.
             </p>
           </div>
 
-          {/* Transparency panel */}
+          {/* Benefits */}
+          <div className="mt-20 sm:mt-24">
+            <div
+              className={`hb-reveal ${
+                isVisible ? "hb-visible" : ""
+              } mb-8 max-w-2xl`}
+              style={{ animationDelay: "250ms" }}
+            >
+              <p
+                className="text-[10px] font-bold uppercase tracking-[0.2em]"
+                style={{ color: palette.accent }}
+              >
+                Made for contributors and teams
+              </p>
+
+              <h3 className="mt-3 text-3xl font-bold leading-tight tracking-[-0.04em] sm:text-4xl">
+                Turn good work into real value.
+              </h3>
+
+              <p
+                className="mt-4 max-w-xl text-sm leading-7"
+                style={{ color: palette.muted }}
+              >
+                Whether you have a project to build or skills to
+                share, Happy Bounty gives you a clear place to get
+                started.
+              </p>
+            </div>
+
+            <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 xl:grid-cols-4">
+              {features.map((feature, index) => {
+                const Icon = feature.icon;
+
+                return (
+                  <article
+                    key={feature.number}
+                    className={`hb-card hb-reveal ${
+                      isVisible ? "hb-visible" : ""
+                    } group flex min-h-[245px] flex-col rounded-2xl border p-5 sm:p-6`}
+                    style={{
+                      animationDelay: `${300 + index * 100}ms`,
+                      backgroundColor: palette.card,
+                      borderColor: palette.border,
+                    }}
+                  >
+                    <div className="flex items-start justify-between">
+                      <div
+                        className="flex h-11 w-11 items-center justify-center rounded-xl border"
+                        style={{
+                          color: palette.accent,
+                          backgroundColor: palette.accentSoft,
+                          borderColor: "rgba(0,214,160,0.2)",
+                        }}
+                      >
+                        <Icon size={20} strokeWidth={1.8} />
+                      </div>
+
+                      <span
+                        className="text-xs font-semibold tracking-widest"
+                        style={{
+                          color: dark
+                            ? "rgba(255,255,255,0.24)"
+                            : "rgba(20,40,28,0.3)",
+                        }}
+                      >
+                        {feature.number}
+                      </span>
+                    </div>
+
+                    <h4 className="mt-6 text-lg font-bold tracking-tight">
+                      {feature.title}
+                    </h4>
+
+                    <p
+                      className="mt-3 flex-1 text-[13px] leading-6"
+                      style={{ color: palette.muted }}
+                    >
+                      {feature.description}
+                    </p>
+
+                    <div
+                      className="mt-6 border-t pt-4"
+                      style={{ borderColor: palette.border }}
+                    >
+                      <span
+                        className="text-[9px] font-bold uppercase tracking-[0.14em]"
+                        style={{ color: palette.accent }}
+                      >
+                        {feature.tag}
+                      </span>
+                    </div>
+                  </article>
+                );
+              })}
+            </div>
+          </div>
+
+          {/* Final call to action */}
           <div
-            className={`features-reveal ${
-              isVisible ? "visible" : ""
-            } mt-8 overflow-hidden rounded-2xl border`}
+            className={`hb-reveal ${
+              isVisible ? "hb-visible" : ""
+            } mt-16 overflow-hidden rounded-3xl border sm:mt-20`}
             style={{
-              animationDelay: "800ms",
+              animationDelay: "600ms",
               backgroundColor: palette.card,
               borderColor: palette.border,
             }}
           >
             <div
-              className="h-px w-full"
+              className="h-1 w-full"
               style={{
                 background:
-                  "linear-gradient(90deg, transparent, rgba(0,214,160,0.65), transparent)",
+                  "linear-gradient(90deg, transparent, #00D6A0, #008A66, transparent)",
               }}
             />
 
-            <div className="flex flex-col gap-5 p-5 sm:p-6 md:flex-row md:items-center md:justify-between">
-              <div className="flex items-start gap-4">
+            <div className="relative flex flex-col gap-7 p-6 sm:p-9 md:flex-row md:items-center md:justify-between md:p-12">
+              <div
+                aria-hidden="true"
+                className="pointer-events-none absolute -right-12 -top-24 h-64 w-64 rounded-full blur-[90px]"
+                style={{
+                  backgroundColor: "rgba(0,214,160,0.08)",
+                }}
+              />
+
+              <div className="relative max-w-2xl">
                 <div
-                  className="flex h-11 w-11 shrink-0 items-center justify-center rounded-xl border"
+                  className="mb-4 flex h-10 w-10 items-center justify-center rounded-xl border"
                   style={{
-                    color: "#00A87D",
-                    backgroundColor: "rgba(0,214,160,0.07)",
-                    borderColor: "rgba(0,214,160,0.19)",
+                    color: palette.accent,
+                    backgroundColor: palette.accentSoft,
+                    borderColor: "rgba(0,214,160,0.2)",
                   }}
                 >
-                  <FiShield size={20} />
+                  <FiLayers size={19} />
                 </div>
 
-                <div>
-                  <h3
-                    className="text-sm font-semibold sm:text-base"
-                    style={{ color: palette.text }}
-                  >
-                    Transparency at every step
-                  </h3>
+                <h3 className="text-2xl font-bold tracking-[-0.035em] sm:text-3xl">
+                  Your next opportunity starts here.
+                </h3>
 
-                  <p
-                    className="mt-1.5 max-w-2xl text-xs leading-6 sm:text-sm"
-                    style={{ color: palette.muted }}
-                  >
-                    Creators can post tasks, contributors can submit solutions,
-                    and supported blockchain transactions provide verifiable
-                    payment records.
-                  </p>
-                </div>
+                <p
+                  className="mt-3 max-w-xl text-sm leading-7"
+                  style={{ color: palette.muted }}
+                >
+                  Find a task, bring your skills, and make your next
+                  contribution count.
+                </p>
               </div>
 
-              <div
-                className="flex shrink-0 items-center gap-2 self-start rounded-full border px-3 py-2 md:self-center"
+              <Link
+                to="/dashboard"
+                onClick={(event) => {
+                  event.preventDefault();
+                  handleNavigate("/dashboard");
+                }}
+                className="hb-cta group relative inline-flex shrink-0 items-center justify-center gap-3 rounded-xl px-6 py-3.5 text-sm font-bold transition-all duration-300 hover:-translate-y-0.5"
                 style={{
-                  borderColor: "rgba(0,214,160,0.22)",
-                  backgroundColor: "rgba(0,214,160,0.055)",
+                  color: "#06130E",
+                  backgroundColor: palette.accent,
                 }}
               >
-                <FiCheck size={13} className="text-[#00A87D]" />
+                Start exploring
 
-                <span className="text-[10px] font-semibold uppercase tracking-wider text-[#00A87D]">
-                  Built for Web3
-                </span>
-              </div>
+                <FiArrowUpRight
+                  size={17}
+                  className="hb-arrow"
+                />
+              </Link>
             </div>
           </div>
 
-          {/* Ecosystem footer */}
+          {/* Supported ecosystem signature */}
           <div
-            className={`features-reveal ${
-              isVisible ? "visible" : ""
-            } mt-8 flex flex-wrap items-center justify-center gap-x-4 gap-y-3 border-t pt-6 sm:gap-x-5`}
+            className={`hb-reveal ${
+              isVisible ? "hb-visible" : ""
+            } mt-10 flex flex-wrap items-center justify-center gap-x-5 gap-y-3 border-t pt-7 sm:gap-x-8`}
             style={{
-              animationDelay: "950ms",
+              animationDelay: "700ms",
               borderColor: palette.border,
             }}
           >
-            {["ARC", "INJECTIVE", "BOTCHAIN", "PORTALDOT", "USDC REWARDS"].map(
-              (label, index) => (
-                <div key={label} className="flex items-center gap-4 sm:gap-5">
-                  <span
-                    className="text-[9px] font-semibold uppercase tracking-[0.15em]"
-                    style={{
-                      color: index === 0 ? "#00A87D" : palette.muted,
-                    }}
-                  >
-                    {label}
-                  </span>
+            {["ARC", "BOTCHAIN"].map((name) => (
+              <span
+                key={name}
+                className="text-[9px] font-bold uppercase tracking-[0.17em] sm:text-[10px]"
+                style={{
+                  color:
+                    name === "ARC"
+                      ? palette.accent
+                      : palette.muted,
+                }}
+              >
+                {name}
+              </span>
+            ))}
 
-                  {index < 4 && (
-                    <span
-                      className="h-1 w-1 rounded-full"
-                      style={{
-                        backgroundColor: dark
-                          ? "rgba(255,255,255,0.18)"
-                          : "rgba(20,40,28,0.20)",
-                      }}
-                    />
-                  )}
-                </div>
-              ),
-            )}
-          </div>
+            <span
+              className="h-1 w-1 rounded-full"
+              style={{ backgroundColor: palette.accent }}
+            />
 
-          {/* Dashboard navigation */}
-          <div className="mt-8 flex justify-center">
-            <Link
-              to="/dashboard"
-              onClick={(event) => {
-                event.preventDefault();
-                handleNavigate("/dashboard");
-              }}
-              className="group inline-flex items-center gap-2.5 rounded-xl border px-5 py-3 text-sm font-semibold transition-all duration-300 hover:-translate-y-0.5 hover:border-[#00D6A0] hover:bg-[#00D6A0] hover:text-[#07110D] hover:shadow-[0_10px_30px_rgba(0,214,160,0.15)]"
-              style={{
-                color: dark ? "#00D6A0" : "#008B68",
-                borderColor: "rgba(0,214,160,0.28)",
-                backgroundColor: palette.card,
-              }}
+            <span
+              className="text-[9px] font-bold uppercase tracking-[0.17em] sm:text-[10px]"
+              style={{ color: palette.muted }}
             >
-              Explore Opportunities
-              <FiArrowRight
-                size={16}
-                className="transition-transform duration-300 group-hover:translate-x-1"
-              />
-            </Link>
+              One platform. Real contributions.
+            </span>
           </div>
         </div>
       </section>
