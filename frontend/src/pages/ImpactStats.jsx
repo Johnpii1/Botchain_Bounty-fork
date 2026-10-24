@@ -1,4 +1,3 @@
-
 import { useEffect, useState } from "react";
 import {
   FiActivity,
@@ -26,6 +25,7 @@ const STAT_ITEMS = [
     description: "Tasks completed successfully",
     icon: FiCheckCircle,
     tag: "COMPLETED WORK",
+    format: (val) => Number(val).toLocaleString(),
   },
   {
     key: "totalPaid",
@@ -33,8 +33,8 @@ const STAT_ITEMS = [
     description: "Rewards delivered to contributors",
     icon: FiDollarSign,
     tag: "REWARDS DISTRIBUTED",
-    format: (value) =>
-      `${Number(value).toLocaleString(undefined, {
+    format: (val) =>
+      `${Number(val).toLocaleString(undefined, {
         maximumFractionDigits: 2,
       })} USDC`,
   },
@@ -44,6 +44,7 @@ const STAT_ITEMS = [
     description: "People participating in bounties",
     icon: FiUsers,
     tag: "COMMUNITY",
+    format: (val) => Number(val).toLocaleString(),
   },
   {
     key: "bountiesCreated",
@@ -51,12 +52,9 @@ const STAT_ITEMS = [
     description: "Opportunities published",
     icon: FiLayers,
     tag: "OPPORTUNITIES",
+    format: (val) => Number(val).toLocaleString(),
   },
 ];
-
-function formatNumber(value) {
-  return Number(value).toLocaleString();
-}
 
 export default function ImpactStats() {
   const [stats, setStats] = useState(INITIAL_STATS);
@@ -68,50 +66,26 @@ export default function ImpactStats() {
 
     async function fetchStats() {
       try {
-        if (!API_URL) {
-          throw new Error("VITE_API_URL is not configured");
-        }
+        if (!API_URL) throw new Error("VITE_API_URL is not configured");
 
         const response = await fetch(`${API_URL}/bounty/stats`, {
           signal: controller.signal,
         });
 
-        if (!response.ok) {
-          throw new Error("Could not load platform statistics");
-        }
+        if (!response.ok) throw new Error("Failed to load stats");
 
         const data = await response.json();
 
-        const parsedStats = {
-          bountiesCreated: data.bountiesCreated,
-          bountiesCompleted: data.bountiesCompleted,
-          totalPaid: data.totalPaid,
-          contributors: data.contributors,
-        };
-
-        const validatedStats = {};
-
-        for (const [key, value] of Object.entries(parsedStats)) {
-          const number = Number(value);
-
-          validatedStats[key] =
-            value !== null &&
-            value !== undefined &&
-            value !== "" &&
-            Number.isFinite(number) &&
-            number >= 0
-              ? number
-              : null;
-        }
-
-        setStats(validatedStats);
+        setStats({
+          bountiesCreated: data.bountiesCreated ?? 0,
+          bountiesCompleted: data.bountiesCompleted ?? 0,
+          totalPaid: data.totalPaid ?? 0,
+          contributors: data.contributors ?? 0,
+        });
         setHasError(false);
       } catch (error) {
         if (error.name !== "AbortError") {
-          console.error(
-            "Failed to load Happy Bounty statistics:",
-            error
-          );
+          console.error("Failed to load Happy Bounty statistics:", error);
           setHasError(true);
         }
       } finally {
@@ -122,7 +96,6 @@ export default function ImpactStats() {
     }
 
     fetchStats();
-
     return () => controller.abort();
   }, []);
 
@@ -141,10 +114,8 @@ export default function ImpactStats() {
             linear-gradient(90deg, rgba(0,138,102,0.035) 1px, transparent 1px)
           `,
           backgroundSize: "48px 48px",
-          maskImage:
-            "linear-gradient(to bottom, black, transparent 85%)",
-          WebkitMaskImage:
-            "linear-gradient(to bottom, black, transparent 85%)",
+          maskImage: "linear-gradient(to bottom, black, transparent 85%)",
+          WebkitMaskImage: "linear-gradient(to bottom, black, transparent 85%)",
         }}
       />
 
@@ -162,7 +133,6 @@ export default function ImpactStats() {
               size={14}
               className="text-[#008A66] dark:text-[#00D6A0]"
             />
-
             <span className="text-[10px] font-bold uppercase tracking-[0.18em] text-[#008A66] dark:text-[#00D6A0] sm:text-[11px]">
               The impact so far
             </span>
@@ -177,9 +147,9 @@ export default function ImpactStats() {
           </h2>
 
           <p className="mx-auto mt-6 max-w-2xl text-sm leading-7 text-gray-600 dark:text-gray-400 sm:text-base sm:leading-8">
-            Every bounty creates an opportunity to contribute,
-            demonstrate your skills, and earn rewards. Here’s a
-            snapshot of activity across Happy Bounty.
+            Every bounty creates an opportunity to contribute, demonstrate your
+            skills, and earn rewards. Here’s a snapshot of activity across Happy
+            Bounty.
           </p>
         </div>
 
@@ -187,7 +157,6 @@ export default function ImpactStats() {
         <div className="mb-5 flex flex-wrap items-center justify-between gap-3">
           <div className="flex items-center gap-2">
             <span className="h-1.5 w-1.5 rounded-full bg-[#008A66] dark:bg-[#00D6A0]" />
-
             <span className="text-[10px] font-bold uppercase tracking-[0.16em] text-gray-500 dark:text-gray-400">
               Platform overview
             </span>
@@ -196,7 +165,7 @@ export default function ImpactStats() {
           <div className="flex items-center gap-2 text-[10px] font-semibold uppercase tracking-[0.12em] text-gray-500 dark:text-gray-400">
             <span>Arc</span>
             <span className="h-1 w-1 rounded-full bg-[#00D6A0]" />
-            <span>BOTCHAIN</span>
+            <span>USDC</span>
           </div>
         </div>
 
@@ -205,13 +174,6 @@ export default function ImpactStats() {
           {STAT_ITEMS.map((item, index) => {
             const value = stats[item.key];
             const Icon = item.icon;
-
-            const formattedValue =
-              value === null
-                ? "—"
-                : item.format
-                  ? item.format(value)
-                  : formatNumber(value);
 
             return (
               <article
@@ -238,8 +200,10 @@ export default function ImpactStats() {
                   >
                     {loading ? (
                       <span className="inline-block h-8 w-20 animate-pulse rounded-md bg-[#008A66]/10 dark:bg-[#00D6A0]/10" />
+                    ) : hasError ? (
+                      "—"
                     ) : (
-                      formattedValue
+                      item.format(value)
                     )}
                   </p>
 
@@ -307,8 +271,8 @@ export default function ImpactStats() {
         </div>
 
         <p className="mt-6 text-center text-[10px] leading-5 text-gray-400 dark:text-gray-600">
-          Statistics are based on the data returned by Happy Bounty’s
-          platform API.
+          Statistics are verified directly from the Arc Mainnet smart contract
+          and platform database.
         </p>
       </div>
     </section>

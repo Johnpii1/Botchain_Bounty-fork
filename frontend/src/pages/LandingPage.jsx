@@ -1,4 +1,3 @@
-
 import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import { useNav } from "../hooks/useNav";
@@ -23,7 +22,7 @@ import Hero from "./Hero";
 import HowItWorks from "./Howitwork";
 import PlatformStats from "./PlatformStats";
 import Features from "./Features";
-import ImpactStats from "./ImpactStats"
+import ImpactStats from "./ImpactStats";
 import Testimonials from "./Testimonials";
 import CallToAction from "./CallToAction";
 import SupportedNetworks from "./SupportedNetworks";
@@ -88,7 +87,7 @@ function LandingPage({ dark, setDark }) {
       {
         threshold: 0.12,
         rootMargin: "0px 0px -45px 0px",
-      }
+      },
     );
 
     elements.forEach((element) => observer.observe(element));
@@ -213,9 +212,7 @@ function LandingPage({ dark, setDark }) {
       </section>
 
       {/* FEATURED BOUNTIES */}
-      <section
-        className="featured-section relative z-10 my-14 px-4 py-8 sm:my-20 sm:px-8 lg:px-14"
-      >
+      <section className="featured-section relative z-10 my-14 px-4 py-8 sm:my-20 sm:px-8 lg:px-14">
         <div className="pointer-events-none absolute inset-0 overflow-hidden">
           <div className="section-glow absolute left-1/2 top-16 h-64 w-64 -translate-x-1/2 rounded-full" />
         </div>
@@ -229,9 +226,11 @@ function LandingPage({ dark, setDark }) {
               <div
                 className={`
                   flex h-9 w-9 items-center justify-center rounded-xl border
-                  ${dark
-                    ? "border-[#00D6A0]/25 bg-[#101512] text-[#00D6A0]"
-                    : "border-[#00D6A0]/25 bg-white text-[#008A66]"}
+                  ${
+                    dark
+                      ? "border-[#00D6A0]/25 bg-[#101512] text-[#00D6A0]"
+                      : "border-[#00D6A0]/25 bg-white text-[#008A66]"
+                  }
                 `}
               >
                 <FiLayers className="h-4 w-4" />
@@ -274,8 +273,8 @@ function LandingPage({ dark, setDark }) {
               className={`mt-5 max-w-xl text-sm leading-7 sm:text-base ${mutedText}`}
             >
               Discover tasks, share your skills, and find rewarding
-              opportunities. Whether you want to complete work or post a
-              bounty, there is room to contribute.
+              opportunities. Whether you want to complete work or post a bounty,
+              there is room to contribute.
             </p>
           </div>
 
@@ -387,13 +386,11 @@ function LandingPage({ dark, setDark }) {
                 Your next opportunity
               </span>
 
-              <h3 className="text-xl font-bold">
-                No featured bounties yet
-              </h3>
+              <h3 className="text-xl font-bold">No featured bounties yet</h3>
 
               <p className={`mt-3 max-w-md text-sm leading-6 ${mutedText}`}>
-                There are no opportunities to display right now. Check back
-                soon to discover new tasks posted by the community.
+                There are no opportunities to display right now. Check back soon
+                to discover new tasks posted by the community.
               </p>
 
               <Link
@@ -474,7 +471,6 @@ function LandingPage({ dark, setDark }) {
         <ImpactStats />
       </div>
 
-
       {/* TESTIMONIALS / COMMUNITY USE CASES */}
       <section data-reveal>
         <Testimonials />
@@ -489,7 +485,6 @@ function LandingPage({ dark, setDark }) {
       <section data-reveal>
         <BuiltForWeb3 />
       </section>
-
 
       {/* THIRD LIVE TICKER */}
       <div data-reveal>
@@ -542,9 +537,8 @@ function LandingPage({ dark, setDark }) {
               }`}
             >
               Welcome to Happy Bounty! Explore available tasks, choose an
-              opportunity that matches your skills, and follow its
-              requirements. You can also post your own bounty to get help
-              from the community.
+              opportunity that matches your skills, and follow its requirements.
+              You can also post your own bounty to get help from the community.
             </p>
 
             <Link
@@ -573,9 +567,7 @@ function LandingPage({ dark, setDark }) {
         <button
           type="button"
           onClick={() => setAssistantOpen((open) => !open)}
-          aria-label={
-            assistantOpen ? "Close help" : "Open Happy Bounty help"
-          }
+          aria-label={assistantOpen ? "Close help" : "Open Happy Bounty help"}
           title="Happy Bounty help"
           className="help-fab flex h-14 w-14 items-center justify-center rounded-full border border-[#00D6A0]/50 bg-[#00D6A0] text-[#06231B] shadow-[0_10px_35px_rgba(0,214,160,0.25)] transition-all duration-300 hover:-translate-y-1 hover:scale-105"
         >

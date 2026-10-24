@@ -7,6 +7,7 @@ const {
   deleteBounty,
   bountyTags,
   bountyCategory,
+  getPlatformStats,
 } = require("../controller/bounty.controller");
 
 const router = express.Router();
@@ -19,5 +20,5 @@ router.route("/bounty/categories").get(bountyCategory);
 router.route("/bounty/:id").get(getBounty);
 router.route("/bounty/update/:id").patch(updateBounty);
 router.route("/bounty/delete/:id").delete(deleteBounty);
-
+router.route("/bounty/stats").get(getPlatformStats);
 module.exports = router;
