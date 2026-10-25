@@ -12,28 +12,27 @@ import {
   FiLink,
 } from "react-icons/fi";
 
-import dotLogo from "../assets/images/pok.png";
 import botLogo from "../assets/images/bot.png";
 import arcLogo from "../assets/images/arc.png";
 
 const networks = [
   {
-    name: "DOT",
-    fullName: "Portaldot ecosystem",
-    logo: dotLogo,
-    className: "network-dot",
-  },
-  {
-    name: "BOT",
-    fullName: "BOT Chain",
-    logo: botLogo,
-    className: "network-bot",
-  },
-  {
-    name: "ARC",
+    name: "Arc",
+    symbol: "ARC",
     fullName: "Arc ecosystem",
+    description: "Discover bounty opportunities across the Arc ecosystem.",
     logo: arcLogo,
-    className: "network-arc",
+    accent: "#00D6A0",
+    number: "01",
+  },
+  {
+    name: "Botchain",
+    symbol: "BOT",
+    fullName: "BOT Chain",
+    description: "Explore tasks and contribute to the Botchain ecosystem.",
+    logo: botLogo,
+    accent: "#60A5FA",
+    number: "02",
   },
 ];
 
@@ -51,7 +50,7 @@ const features = [
     number: "02",
     title: "Reward-driven work",
     description:
-      "Create tasks with clearly stated rewards. Available reward assets depend on the bounty and its supported network.",
+      "Discover tasks with clearly stated rewards. Reward assets depend on each bounty and its supported network.",
     label: "CLEAR REWARDS",
   },
   {
@@ -67,7 +66,7 @@ const features = [
     number: "04",
     title: "Blockchain transparency",
     description:
-      "Where transactions are recorded on-chain, users can inspect the relevant records using supported network tools.",
+      "Where activity is recorded on-chain, relevant transactions can be inspected using supported network tools.",
     label: "VERIFIABLE ACTIVITY",
   },
 ];
@@ -100,7 +99,7 @@ export default function BuiltForWeb3() {
 
   const colors = {
     background: dark ? "#080908" : "#f6f5ef",
-    card: dark ? "#101311" : "#FFFFFF",
+    card: dark ? "#101311" : "#ffffff",
     text: dark ? "#F5F7F6" : "#171C19",
     muted: dark ? "#929D97" : "#747D77",
     border: dark
@@ -113,6 +112,12 @@ export default function BuiltForWeb3() {
     accentText: dark ? "#00D6A0" : "#008A66",
   };
 
+  const bottomItems = [
+    { icon: FiLayers, label: "Multiple ecosystems" },
+    { icon: FiDollarSign, label: "Bounty rewards" },
+    { icon: FiZap, label: "Community powered" },
+  ];
+
   return (
     <section
       className="web3-section relative isolate overflow-hidden px-4 py-20 transition-colors duration-500 sm:px-8 sm:py-24 lg:px-10 lg:py-28"
@@ -121,52 +126,207 @@ export default function BuiltForWeb3() {
         color: colors.text,
       }}
     >
-      {/* Subtle animated background */}
+      <style>{`
+        .web3-section {
+          --web3-accent: #00D6A0;
+        }
+
+        .web3-grid {
+          background-size: 52px 52px;
+          animation: web3GridDrift 32s linear infinite;
+        }
+
+        .web3-ambient {
+          animation: web3AmbientFloat 12s ease-in-out infinite alternate;
+        }
+
+        .web3-network-card {
+          position: relative;
+          isolation: isolate;
+          animation: web3FadeUp 650ms cubic-bezier(.22, 1, .36, 1) both;
+          transition:
+            transform 300ms ease,
+            border-color 300ms ease,
+            background-color 300ms ease,
+            box-shadow 300ms ease;
+        }
+
+        .web3-network-card:hover {
+          transform: translateY(-4px);
+          border-color: rgba(0, 214, 160, 0.3) !important;
+        }
+
+        .web3-network-glow {
+          position: absolute;
+          z-index: -1;
+          right: -65px;
+          top: -75px;
+          width: 190px;
+          height: 190px;
+          border-radius: 999px;
+          filter: blur(60px);
+          opacity: 0.07;
+          pointer-events: none;
+          transition: opacity 300ms ease;
+        }
+
+        .web3-network-card:hover .web3-network-glow {
+          opacity: 0.17;
+        }
+
+        .web3-network-logo {
+          transition:
+            transform 350ms ease,
+            box-shadow 350ms ease;
+        }
+
+        .web3-network-card:hover .web3-network-logo {
+          transform: scale(1.04);
+        }
+
+        .web3-feature-card {
+          position: relative;
+          overflow: hidden;
+          animation: web3FadeUp 650ms cubic-bezier(.22, 1, .36, 1) both;
+          transition:
+            transform 300ms ease,
+            border-color 300ms ease,
+            box-shadow 300ms ease;
+        }
+
+        .web3-feature-card:hover {
+          transform: translateY(-5px);
+          border-color: rgba(0, 214, 160, 0.25) !important;
+          box-shadow: 0 18px 45px rgba(0, 0, 0, 0.10);
+        }
+
+        .web3-feature-icon {
+          transition:
+            transform 300ms ease,
+            background-color 300ms ease;
+        }
+
+        .web3-feature-card:hover .web3-feature-icon {
+          transform: translateY(-2px);
+          background-color: rgba(0, 214, 160, 0.13) !important;
+        }
+
+        .web3-transparency {
+          transition: border-color 300ms ease;
+        }
+
+        .web3-transparency:hover {
+          border-color: rgba(0, 214, 160, 0.25) !important;
+        }
+
+        .web3-heading-accent {
+          background: linear-gradient(100deg, #00D6A0 0%, #53E8B9 55%, #00B98B 100%);
+          background-clip: text;
+          -webkit-background-clip: text;
+          color: transparent;
+        }
+
+        @keyframes web3GridDrift {
+          from {
+            background-position: 0 0;
+          }
+          to {
+            background-position: 52px 52px;
+          }
+        }
+
+        @keyframes web3AmbientFloat {
+          from {
+            transform: translate(-50%, 0) scale(.95);
+          }
+          to {
+            transform: translate(calc(-50% + 18px), 20px) scale(1.06);
+          }
+        }
+
+        @keyframes web3FadeUp {
+          from {
+            opacity: 0;
+            transform: translateY(14px);
+          }
+          to {
+            opacity: 1;
+            transform: translateY(0);
+          }
+        }
+
+        @media (max-width: 639px) {
+          .web3-grid {
+            background-size: 36px 36px;
+          }
+
+          .web3-ambient {
+            filter: blur(80px);
+          }
+
+          .web3-network-card:hover,
+          .web3-feature-card:hover {
+            transform: none;
+          }
+        }
+
+        @media (prefers-reduced-motion: reduce) {
+          .web3-section *,
+          .web3-section *::before,
+          .web3-section *::after {
+            animation: none !important;
+            scroll-behavior: auto !important;
+            transition-duration: 0.01ms !important;
+          }
+
+          .web3-network-card:hover,
+          .web3-feature-card:hover {
+            transform: none;
+          }
+        }
+      `}</style>
+
+      {/* Background details */}
       <div
         aria-hidden="true"
         className="web3-grid pointer-events-none absolute inset-0"
         style={{
           backgroundImage: `
             linear-gradient(
-              ${
-                dark
-                  ? "rgba(0,214,160,0.035)"
-                  : "rgba(0,120,85,0.035)"
-              } 1px,
+              ${dark
+                ? "rgba(0,214,160,0.035)"
+                : "rgba(0,120,85,0.035)"} 1px,
               transparent 1px
             ),
             linear-gradient(
               90deg,
-              ${
-                dark
-                  ? "rgba(0,214,160,0.035)"
-                  : "rgba(0,120,85,0.035)"
-              } 1px,
+              ${dark
+                ? "rgba(0,214,160,0.035)"
+                : "rgba(0,120,85,0.035)"} 1px,
               transparent 1px
             )
           `,
-          backgroundSize: "48px 48px",
-          maskImage: "linear-gradient(to bottom, black, transparent 90%)",
+          maskImage: "linear-gradient(to bottom, black, transparent 88%)",
           WebkitMaskImage:
-            "linear-gradient(to bottom, black, transparent 90%)",
+            "linear-gradient(to bottom, black, transparent 88%)",
         }}
       />
 
       <div
         aria-hidden="true"
-        className="web3-ambient pointer-events-none absolute left-1/2 top-0 h-72 w-[min(700px,100%)] -translate-x-1/2 rounded-full blur-[120px]"
+        className="web3-ambient pointer-events-none absolute left-1/2 top-0 -z-10 h-72 w-[min(700px,100%)] -translate-x-1/2 rounded-full blur-[120px]"
         style={{
           backgroundColor: dark
-            ? "rgba(0,214,160,0.055)"
-            : "rgba(0,168,125,0.055)",
+            ? "rgba(0,214,160,0.075)"
+            : "rgba(0,168,125,0.065)",
         }}
       />
 
       <div className="relative z-10 mx-auto max-w-7xl">
-        {/* Heading */}
-        <div className="mx-auto max-w-3xl text-center">
+        {/* Main heading */}
+        <header className="mx-auto max-w-3xl text-center">
           <div
-            className="mb-6 inline-flex items-center gap-2.5 rounded-full border px-3.5 py-2"
+            className="mb-6 inline-flex items-center gap-2.5 rounded-full border px-4 py-2"
             style={{
               borderColor: colors.border,
               backgroundColor: colors.soft,
@@ -187,17 +347,17 @@ export default function BuiltForWeb3() {
               className="text-[10px] font-semibold uppercase tracking-[0.18em] sm:text-[11px]"
               style={{ color: colors.muted }}
             >
-              One platform. Multiple ecosystems.
+              The Happy Bounty ecosystem
             </span>
           </div>
 
           <h2
-            className="text-3xl font-bold leading-[1.12] tracking-[-0.045em] sm:text-4xl md:text-5xl lg:text-[58px]"
+            className="text-3xl font-bold leading-[1.12] tracking-[-0.045em] sm:text-4xl md:text-5xl lg:text-[60px]"
             style={{ color: colors.text }}
           >
             Built for Web3.
             <br />
-            <span style={{ color: colors.accentText }}>
+            <span className="web3-heading-accent">
               Open to opportunity.
             </span>
           </h2>
@@ -206,120 +366,195 @@ export default function BuiltForWeb3() {
             className="mx-auto mt-5 max-w-2xl text-sm leading-7 sm:mt-6 sm:text-base"
             style={{ color: colors.muted }}
           >
-            Happy Bounty connects people who need work done with contributors
-            ready to do it. Explore bounty opportunities, contribute your
-            skills, and earn rewards through supported blockchain integrations.
+            Good work deserves recognition. Happy Bounty connects people who
+            need work done with contributors ready to make an impact and earn
+            rewards across supported blockchain ecosystems.
           </p>
-        </div>
+        </header>
 
-        {/* Network strip */}
-        <div
-          className="network-panel mx-auto mt-10 max-w-4xl rounded-2xl border p-4 sm:mt-12 sm:p-5"
-          style={{
-            backgroundColor: colors.card,
-            borderColor: colors.border,
-          }}
-        >
-          <div className="mb-4 flex flex-wrap items-center justify-between gap-2 px-1">
-            <span
-              className="text-[10px] font-bold uppercase tracking-[0.17em]"
-              style={{ color: colors.muted }}
-            >
-              Supported ecosystem highlights
-            </span>
+        {/* Supported networks */}
+        <div className="mx-auto mt-12 max-w-5xl sm:mt-16">
+          <div className="mb-5 flex flex-wrap items-end justify-between gap-3">
+            <div>
+              <p
+                className="text-[10px] font-bold uppercase tracking-[0.18em]"
+                style={{ color: colors.accentText }}
+              >
+                Our networks
+              </p>
+
+              <h3
+                className="mt-2 text-xl font-bold tracking-tight sm:text-2xl"
+                style={{ color: colors.text }}
+              >
+                Two ecosystems. More ways to build.
+              </h3>
+            </div>
 
             <span
-              className="flex items-center gap-1.5 text-[10px] font-medium"
-              style={{ color: colors.accentText }}
+              className="inline-flex items-center gap-2 rounded-full border px-3 py-2 text-[10px] font-medium sm:text-xs"
+              style={{
+                borderColor: colors.border,
+                backgroundColor: colors.soft,
+                color: colors.muted,
+              }}
             >
-              <FiGlobe size={13} />
-              Multi-chain vision
+              <FiGlobe size={14} style={{ color: colors.accentText }} />
+              Supported networks
             </span>
           </div>
 
-          <div className="grid grid-cols-1 gap-3 sm:grid-cols-3">
+          <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 sm:gap-5">
             {networks.map((network, index) => (
-              <div
-                key={network.name}
-                className={`network-item ${network.className} group flex items-center gap-3 rounded-xl border p-3.5 transition-all duration-300 hover:-translate-y-1`}
+              <article
+                key={network.symbol}
+                className="web3-network-card group overflow-hidden rounded-2xl border p-5 sm:p-6 lg:p-7"
                 style={{
+                  backgroundColor: colors.card,
                   borderColor: colors.border,
-                  backgroundColor: colors.soft,
                   animationDelay: `${index * 120}ms`,
                 }}
               >
                 <div
-                  className="flex h-11 w-11 shrink-0 items-center justify-center overflow-hidden rounded-xl border"
-                  style={{
-                    backgroundColor: colors.card,
-                    borderColor: colors.border,
-                  }}
-                >
-                  <img
-                    src={network.logo}
-                    alt={`${network.name} logo`}
-                    className="h-7 w-7 object-contain transition-transform duration-300 group-hover:scale-110"
-                    loading="lazy"
-                    onError={(event) => {
-                      event.currentTarget.style.display = "none";
+                  className="web3-network-glow"
+                  style={{ backgroundColor: network.accent }}
+                  aria-hidden="true"
+                />
+
+                <div className="relative flex items-start justify-between gap-4">
+                  <div
+                    className="web3-network-logo flex h-14 w-14 shrink-0 items-center justify-center rounded-2xl border p-3 sm:h-[68px] sm:w-[68px] sm:p-3.5"
+                    style={{
+                      backgroundColor: colors.soft,
+                      borderColor: colors.border,
                     }}
-                  />
+                  >
+                    <img
+                      src={network.logo}
+                      alt={`${network.name} logo`}
+                      className="h-full w-full object-contain"
+                      loading="lazy"
+                    />
+                  </div>
+
+                  <span
+                    className="rounded-lg border px-2.5 py-1.5 text-[10px] font-semibold tracking-wider"
+                    style={{
+                      color: network.accent,
+                      backgroundColor: `${network.accent}10`,
+                      borderColor: `${network.accent}25`,
+                    }}
+                  >
+                    {network.number}
+                  </span>
                 </div>
 
-                <div className="min-w-0">
+                <div className="relative mt-6">
+                  <div className="flex flex-wrap items-center gap-2.5">
+                    <h4
+                      className="text-xl font-bold tracking-tight sm:text-2xl"
+                      style={{ color: colors.text }}
+                    >
+                      {network.name}
+                    </h4>
+
+                    <span
+                      className="rounded-md px-2 py-1 text-[10px] font-bold tracking-wider"
+                      style={{
+                        color: network.accent,
+                        backgroundColor: `${network.accent}12`,
+                      }}
+                    >
+                      {network.symbol}
+                    </span>
+                  </div>
+
                   <p
-                    className="text-sm font-bold"
-                    style={{ color: colors.text }}
-                  >
-                    {network.name}
-                  </p>
-                  <p
-                    className="mt-1 text-[11px] leading-4"
+                    className="mt-1.5 text-xs font-medium"
                     style={{ color: colors.muted }}
                   >
                     {network.fullName}
                   </p>
+
+                  <p
+                    className="mt-3 max-w-sm text-sm leading-6"
+                    style={{ color: colors.muted }}
+                  >
+                    {network.description}
+                  </p>
                 </div>
 
-                <FiArrowUpRight
-                  className="ml-auto shrink-0 opacity-40 transition-all duration-300 group-hover:-translate-y-0.5 group-hover:translate-x-0.5 group-hover:opacity-100"
-                  style={{ color: colors.accentText }}
-                  size={16}
-                />
-              </div>
+                <div
+                  className="relative mt-6 flex items-center justify-between border-t pt-4"
+                  style={{ borderColor: colors.border }}
+                >
+                  <span
+                    className="flex items-center gap-2 text-xs font-medium"
+                    style={{ color: colors.muted }}
+                  >
+                    <FiCheckCircle
+                      size={14}
+                      style={{ color: colors.accentText }}
+                    />
+                    Ecosystem support
+                  </span>
+
+                  <FiArrowUpRight
+                    size={18}
+                    className="transition-transform duration-300 group-hover:-translate-y-0.5 group-hover:translate-x-0.5"
+                    style={{ color: network.accent }}
+                    aria-hidden="true"
+                  />
+                </div>
+              </article>
             ))}
           </div>
         </div>
 
+        {/* Feature heading */}
+        <div className="mt-16 max-w-2xl sm:mt-20">
+          <p
+            className="text-[10px] font-bold uppercase tracking-[0.18em]"
+            style={{ color: colors.accentText }}
+          >
+            Why Happy Bounty
+          </p>
+
+          <h3
+            className="mt-3 text-2xl font-bold tracking-tight sm:text-3xl"
+            style={{ color: colors.text }}
+          >
+            Everything starts with{" "}
+            <span className="web3-heading-accent">valuable work.</span>
+          </h3>
+
+          <p
+            className="mt-3 max-w-xl text-sm leading-7"
+            style={{ color: colors.muted }}
+          >
+            A straightforward way for bounty creators and contributors to
+            connect, collaborate, and work toward meaningful outcomes.
+          </p>
+        </div>
+
         {/* Feature cards */}
-        <div className="mt-12 grid gap-4 sm:mt-16 sm:grid-cols-2 xl:grid-cols-4">
+        <div className="mt-7 grid gap-4 sm:grid-cols-2 xl:grid-cols-4">
           {features.map((feature, index) => {
             const Icon = feature.icon;
 
             return (
               <article
                 key={feature.number}
-                className="web3-card group relative flex min-h-[265px] flex-col overflow-hidden rounded-2xl border p-5 transition-all duration-300 sm:p-6"
+                className="web3-feature-card flex min-h-[255px] flex-col rounded-2xl border p-5 sm:p-6"
                 style={{
                   backgroundColor: colors.card,
                   borderColor: colors.border,
-                  boxShadow: dark
-                    ? "0 12px 35px rgba(0,0,0,0.13)"
-                    : "0 12px 35px rgba(20,40,28,0.035)",
                   animationDelay: `${index * 100}ms`,
                 }}
               >
-                <div
-                  aria-hidden="true"
-                  className="web3-card-top pointer-events-none absolute inset-x-5 top-0 h-px opacity-0 transition-opacity duration-300 group-hover:opacity-100"
-                  style={{
-                    background: `linear-gradient(90deg, transparent, ${colors.accent}, transparent)`,
-                  }}
-                />
-
                 <div className="flex items-start justify-between">
                   <div
-                    className="flex h-12 w-12 items-center justify-center rounded-xl border transition-transform duration-300 group-hover:-translate-y-0.5"
+                    className="web3-feature-icon flex h-12 w-12 items-center justify-center rounded-xl border"
                     style={{
                       color: colors.accentText,
                       backgroundColor: dark
@@ -337,7 +572,7 @@ export default function BuiltForWeb3() {
                     className="pt-1 text-xs font-medium tracking-[0.12em]"
                     style={{
                       color: dark
-                        ? "rgba(255,255,255,0.24)"
+                        ? "rgba(255,255,255,0.25)"
                         : "rgba(20,40,28,0.30)",
                     }}
                   >
@@ -345,12 +580,12 @@ export default function BuiltForWeb3() {
                   </span>
                 </div>
 
-                <h3
+                <h4
                   className="mt-6 text-lg font-semibold tracking-tight"
                   style={{ color: colors.text }}
                 >
                   {feature.title}
-                </h3>
+                </h4>
 
                 <p
                   className="mt-2 flex-1 text-[13px] leading-6"
@@ -439,7 +674,7 @@ export default function BuiltForWeb3() {
               }}
             >
               <FiActivity
-                size={17}
+                size={18}
                 style={{ color: colors.accentText }}
               />
 
@@ -450,6 +685,7 @@ export default function BuiltForWeb3() {
                 >
                   Connected Web3 experiences
                 </p>
+
                 <p
                   className="mt-1 text-[10px]"
                   style={{ color: colors.muted }}
@@ -471,125 +707,22 @@ export default function BuiltForWeb3() {
           className="mt-8 flex flex-wrap items-center justify-center gap-x-5 gap-y-3 border-t pt-6"
           style={{ borderColor: colors.border }}
         >
-          {[
-            { icon: FiLayers, label: "Multiple ecosystems" },
-            { icon: FiDollarSign, label: "Bounty rewards" },
-            { icon: FiZap, label: "Community powered" },
-          ].map((item) => {
+          {bottomItems.map((item) => {
             const Icon = item.icon;
 
             return (
               <span
                 key={item.label}
-                className="flex items-center gap-2 text-[10px] font-semibold uppercase tracking-[0.15em]"
+                className="flex items-center gap-2 text-[10px] font-semibold uppercase tracking-[0.13em]"
                 style={{ color: colors.muted }}
               >
-                <Icon size={13} style={{ color: colors.accentText }} />
+                <Icon size={14} style={{ color: colors.accentText }} />
                 {item.label}
               </span>
             );
           })}
         </div>
       </div>
-
-      <style>{`
-        .web3-grid {
-          animation: web3GridDrift 28s linear infinite;
-        }
-
-        .web3-ambient {
-          animation: web3AmbientFloat 12s ease-in-out infinite alternate;
-        }
-
-        .network-item {
-          animation: web3NetworkEnter 600ms cubic-bezier(.22, 1, .36, 1) both;
-        }
-
-        .web3-card {
-          animation: web3CardEnter 650ms cubic-bezier(.22, 1, .36, 1) both;
-        }
-
-        .web3-card:hover {
-          transform: translateY(-5px);
-          border-color: rgba(0, 214, 160, 0.3) !important;
-          box-shadow: 0 18px 42px rgba(0, 0, 0, 0.10);
-        }
-
-        .web3-transparency {
-          transition:
-            border-color 300ms ease,
-            transform 300ms ease;
-        }
-
-        @keyframes web3GridDrift {
-          from {
-            background-position: 0 0;
-          }
-          to {
-            background-position: 48px 48px;
-          }
-        }
-
-        @keyframes web3AmbientFloat {
-          from {
-            transform: translate(-50%, 0) scale(0.95);
-          }
-          to {
-            transform: translate(calc(-50% + 16px), 18px) scale(1.06);
-          }
-        }
-
-        @keyframes web3NetworkEnter {
-          from {
-            opacity: 0;
-            transform: translateY(10px);
-          }
-          to {
-            opacity: 1;
-            transform: translateY(0);
-          }
-        }
-
-        @keyframes web3CardEnter {
-          from {
-            opacity: 0;
-            transform: translateY(14px);
-          }
-          to {
-            opacity: 1;
-            transform: translateY(0);
-          }
-        }
-
-        @media (max-width: 639px) {
-          .web3-grid {
-            background-size: 36px 36px;
-          }
-
-          .web3-ambient {
-            filter: blur(80px);
-          }
-
-          .web3-card:hover {
-            transform: none;
-          }
-        }
-
-        @media (prefers-reduced-motion: reduce) {
-          .web3-section *,
-          .web3-section *::before,
-          .web3-section *::after {
-            animation: none !important;
-            transition-duration: 0.01ms !important;
-            scroll-behavior: auto !important;
-          }
-
-          .web3-card:hover,
-          .network-item:hover {
-            transform: none;
-          }
-        }
-      `}</style>
     </section>
   );
 }
