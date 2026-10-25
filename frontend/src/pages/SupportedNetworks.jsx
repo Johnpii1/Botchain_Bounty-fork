@@ -1,26 +1,49 @@
 
 import React from "react";
-import { FiArrowUpRight } from "react-icons/fi";
+import { FiArrowUpRight, FiCheckCircle, FiGlobe } from "react-icons/fi";
 
-import dotLogo from "../assets/images/pok.png";
 import botLogo from "../assets/images/bot.png";
 import arcLogo from "../assets/images/arc.png";
 
-const tickerItems = [
-  { name: "Portaldot", image: dotLogo, symbol: "DOT" },
-  { name: "BOT", image: botLogo, symbol: "BOT" },
-  { name: "Arc", image: arcLogo, symbol: "ARC" },
+const networks = [
+  {
+    name: "Arc",
+    symbol: "ARC",
+    image: arcLogo,
+    description: "Discover opportunities across the Arc ecosystem.",
+    accent: "#00D6A0",
+    number: "01",
+  },
+  {
+    name: "Botchain",
+    symbol: "BOT",
+    image: botLogo,
+    description: "Contribute to projects and earn rewards.",
+    accent: "#60A5FA",
+    number: "02",
+  },
 ];
 
 export default function SupportedNetworks({ dark = true }) {
   return (
     <section
-      className={`relative overflow-hidden py-12 sm:py-16 ${
-        dark ? "bg-[#080908] text-white" : "bg-[#f6f5ef] text-[#171717]"
+      className={`relative isolate overflow-hidden py-16 sm:py-20 lg:py-24 ${
+        dark
+          ? "bg-[#080908] text-white"
+          : "bg-[#f6f5ef] text-[#171717]"
       }`}
     >
       <style>{`
-        @keyframes happyBountyTicker {
+        @keyframes networkFloat {
+          0%, 100% {
+            transform: translateY(0);
+          }
+          50% {
+            transform: translateY(-5px);
+          }
+        }
+
+        @keyframes networkTicker {
           from {
             transform: translateX(0);
           }
@@ -29,219 +52,313 @@ export default function SupportedNetworks({ dark = true }) {
           }
         }
 
-        .happy-bounty-ticker-track {
+        @keyframes networkPulse {
+          0%, 100% {
+            opacity: 0.55;
+            transform: scale(1);
+          }
+          50% {
+            opacity: 1;
+            transform: scale(1.15);
+          }
+        }
+
+        .network-float {
+          animation: networkFloat 5s ease-in-out infinite;
+        }
+
+        .network-ticker-track {
           display: flex;
           width: max-content;
-          animation: happyBountyTicker 32s linear infinite;
+          animation: networkTicker 28s linear infinite;
           will-change: transform;
         }
 
-        .happy-bounty-ticker:hover .happy-bounty-ticker-track {
+        .network-ticker:hover .network-ticker-track {
           animation-play-state: paused;
         }
 
-        .happy-bounty-ticker-group {
+        .network-ticker-group {
           display: flex;
           flex: none;
           align-items: center;
         }
 
-        .happy-bounty-ticker-item {
-          display: flex;
+        .network-ticker-item {
+          display: inline-flex;
           flex: none;
           align-items: center;
-          gap: 12px;
-          padding: 0 28px;
+          gap: 10px;
+          padding: 0 24px;
           white-space: nowrap;
         }
 
-        /* Desktop: narrower ticker with consistent spacing */
-        @media (min-width: 1024px) {
-          .happy-bounty-ticker-item {
-            gap: 16px;
-            padding-left: 32px;
-            padding-right: 32px;
+        .network-live-dot {
+          animation: networkPulse 2s ease-in-out infinite;
+        }
+
+        @media (min-width: 640px) {
+          .network-ticker-item {
+            gap: 14px;
+            padding: 0 36px;
           }
         }
 
         @media (prefers-reduced-motion: reduce) {
-          .happy-bounty-ticker-track {
-            animation: none;
-            transform: none;
+          .network-float,
+          .network-ticker-track,
+          .network-live-dot {
+            animation: none !important;
           }
         }
       `}</style>
 
-      {/* Subtle background accent */}
+      {/* Ambient background */}
       <div
         aria-hidden="true"
-        className="pointer-events-none absolute left-1/2 top-0 h-40 w-[70%] -translate-x-1/2 rounded-full opacity-[0.07] blur-3xl"
-        style={{ background: "#00D6A0" }}
+        className="pointer-events-none absolute -top-24 left-1/2 -z-10 h-72 w-[min(80%,700px)] -translate-x-1/2 rounded-full blur-[100px]"
+        style={{
+          background: dark
+            ? "rgba(0, 214, 160, 0.10)"
+            : "rgba(0, 168, 121, 0.08)",
+        }}
       />
 
-      {/* Heading */}
-      <div className="relative mx-auto mb-8 max-w-7xl px-5 text-center sm:mb-10 sm:px-8">
-        <div
-          className={`mb-3 inline-flex items-center gap-2 rounded-full border px-3 py-1.5 text-xs font-semibold ${
-            dark
-              ? "border-[#00D6A0]/20 bg-[#00D6A0]/[0.07] text-[#00D6A0]"
-              : "border-[#008A66]/20 bg-[#00A879]/[0.07] text-[#008A66]"
-          }`}
-        >
-          <span className="relative flex h-2 w-2">
+      <div
+        aria-hidden="true"
+        className="pointer-events-none absolute -bottom-32 -left-20 -z-10 h-64 w-64 rounded-full blur-[100px]"
+        style={{
+          background: dark
+            ? "rgba(0, 214, 160, 0.05)"
+            : "rgba(0, 168, 121, 0.06)",
+        }}
+      />
+
+      <div className="mx-auto max-w-7xl px-5 sm:px-8">
+        {/* Section heading */}
+        <div className="mx-auto mb-10 max-w-2xl text-center sm:mb-14">
+          <div
+            className={`mb-5 inline-flex items-center gap-2 rounded-full border px-3.5 py-2 text-xs font-semibold tracking-wide ${
+              dark
+                ? "border-[#00D6A0]/20 bg-[#00D6A0]/[0.07] text-[#00D6A0]"
+                : "border-[#008A66]/20 bg-[#00A879]/[0.07] text-[#008A66]"
+            }`}
+          >
+            <FiGlobe size={14} aria-hidden="true" />
+            OUR ECOSYSTEM
             <span
-              className="absolute inline-flex h-full w-full animate-ping rounded-full opacity-50"
+              className="network-live-dot ml-1 h-1.5 w-1.5 rounded-full"
               style={{ background: "#00D6A0" }}
             />
-            <span
-              className="relative inline-flex h-2 w-2 rounded-full"
-              style={{ background: "#00D6A0" }}
-            />
-          </span>
-          Supported Ecosystem
+          </div>
+
+          <h2 className="text-3xl font-bold leading-tight tracking-tight sm:text-4xl lg:text-5xl">
+            One platform.
+            <br />
+            <span className="mt-1 inline-block text-[#00D6A0]">
+              Two ecosystems.
+            </span>
+          </h2>
+
+          <p
+            className={`mx-auto mt-4 max-w-lg text-sm leading-7 sm:text-base ${
+              dark ? "text-gray-400" : "text-gray-600"
+            }`}
+          >
+            Explore opportunities across our supported networks, contribute
+            your skills, and earn rewards for meaningful work.
+          </p>
         </div>
 
-        <h2 className="text-2xl font-bold tracking-tight sm:text-3xl">
-          Built for{" "}
-          <span style={{ color: "#00D6A0" }}>Multiple Networks</span>
-        </h2>
-
-        <p
-          className={`mx-auto mt-3 max-w-xl text-sm leading-6 sm:text-base ${
-            dark ? "text-gray-400" : "text-gray-600"
-          }`}
-        >
-          Explore the networks supported by Happy Bounty and discover new
-          opportunities to earn rewards.
-        </p>
-      </div>
-
-      {/* Centered, narrower infinite ticker */}
-      <div
-        className={`happy-bounty-ticker relative mx-auto w-full overflow-hidden border-y lg:max-w-5xl lg:rounded-xl xl:max-w-6xl ${
-          dark
-            ? "border-white/[0.08] bg-white/[0.015]"
-            : "border-black/[0.08] bg-black/[0.015]"
-        }`}
-        aria-label="Supported networks: Portaldot DOT, BOT, and Arc ARC"
-      >
-        {/* Left fade */}
-        <div
-          aria-hidden="true"
-          className={`pointer-events-none absolute inset-y-0 left-0 z-10 w-12 sm:w-24 ${
-            dark
-              ? "bg-gradient-to-r from-[#080908] to-transparent"
-              : "bg-gradient-to-r from-[#f6f5ef] to-transparent"
-          }`}
-        />
-
-        {/* Right fade */}
-        <div
-          aria-hidden="true"
-          className={`pointer-events-none absolute inset-y-0 right-0 z-10 w-12 sm:w-24 ${
-            dark
-              ? "bg-gradient-to-l from-[#080908] to-transparent"
-              : "bg-gradient-to-l from-[#f6f5ef] to-transparent"
-          }`}
-        />
-
-        <div className="happy-bounty-ticker-track py-5 sm:py-6">
-          {/* First sequence */}
-          <div className="happy-bounty-ticker-group">
-            {tickerItems.map((item) => (
+        {/* Network cards */}
+        <div className="mx-auto grid max-w-4xl grid-cols-1 gap-4 sm:grid-cols-2 sm:gap-5">
+          {networks.map((network, index) => (
+            <article
+              key={network.symbol}
+              className={`group relative overflow-hidden rounded-2xl border p-5 transition-all duration-300 sm:p-7 ${
+                dark
+                  ? "border-white/[0.09] bg-white/[0.025] hover:border-white/[0.16] hover:bg-white/[0.045]"
+                  : "border-black/[0.08] bg-white/70 hover:border-black/[0.14] hover:bg-white"
+              }`}
+              style={{
+                animationDelay: `${index * 120}ms`,
+              }}
+            >
+              {/* Card accent */}
               <div
-                key={item.symbol}
-                className="happy-bounty-ticker-item"
-              >
+                aria-hidden="true"
+                className="pointer-events-none absolute -right-12 -top-12 h-36 w-36 rounded-full opacity-[0.09] blur-3xl transition-opacity duration-300 group-hover:opacity-20"
+                style={{ background: network.accent }}
+              />
+
+              <div className="relative flex items-start justify-between gap-3">
                 <div
-                  className={`flex h-11 w-11 shrink-0 items-center justify-center rounded-full border p-2 sm:h-12 sm:w-12 ${
+                  className={`network-float flex h-14 w-14 items-center justify-center rounded-2xl border p-3 sm:h-16 sm:w-16 ${
                     dark
-                      ? "border-white/10 bg-white/[0.04]"
-                      : "border-black/10 bg-white/70"
+                      ? "border-white/10 bg-white/[0.045]"
+                      : "border-black/[0.07] bg-white"
                   }`}
+                  style={{
+                    boxShadow: dark
+                      ? `0 0 35px ${network.accent}0D`
+                      : "0 6px 20px rgba(0,0,0,0.035)",
+                    animationDelay: `${index * 300}ms`,
+                  }}
                 >
                   <img
-                    src={item.image}
-                    alt={`${item.name} logo`}
+                    src={network.image}
+                    alt={`${network.name} logo`}
                     className="h-full w-full object-contain"
                     loading="lazy"
                   />
                 </div>
 
-                <div className="flex flex-col">
-                  <span className="text-sm font-semibold sm:text-base">
-                    {item.name}
-                  </span>
-                  <span className="mt-0.5 text-xs font-medium tracking-wider text-gray-500">
-                    {item.symbol}
+                <span
+                  className={`rounded-lg border px-2.5 py-1.5 text-[11px] font-semibold tracking-wider ${
+                    dark
+                      ? "border-white/[0.09] bg-white/[0.035] text-gray-400"
+                      : "border-black/[0.07] bg-black/[0.025] text-gray-500"
+                  }`}
+                >
+                  {network.number}
+                </span>
+              </div>
+
+              <div className="relative mt-6">
+                <div className="flex flex-wrap items-center gap-2">
+                  <h3 className="text-xl font-bold tracking-tight sm:text-2xl">
+                    {network.name}
+                  </h3>
+
+                  <span
+                    className="rounded-md px-2 py-1 text-[10px] font-bold tracking-wider"
+                    style={{
+                      color: network.accent,
+                      backgroundColor: `${network.accent}14`,
+                    }}
+                  >
+                    {network.symbol}
                   </span>
                 </div>
 
+                <p
+                  className={`mt-2 max-w-xs text-sm leading-6 ${
+                    dark ? "text-gray-400" : "text-gray-600"
+                  }`}
+                >
+                  {network.description}
+                </p>
+              </div>
+
+              <div
+                className={`relative mt-6 flex items-center justify-between border-t pt-4 ${
+                  dark ? "border-white/[0.08]" : "border-black/[0.07]"
+                }`}
+              >
                 <span
+                  className={`inline-flex items-center gap-2 text-xs font-medium ${
+                    dark ? "text-gray-400" : "text-gray-500"
+                  }`}
+                >
+                  <FiCheckCircle
+                    size={14}
+                    style={{ color: "#00D6A0" }}
+                    aria-hidden="true"
+                  />
+                  Supported network
+                </span>
+
+                <FiArrowUpRight
+                  size={18}
+                  className="transition-transform duration-300 group-hover:-translate-y-0.5 group-hover:translate-x-0.5"
+                  style={{ color: network.accent }}
                   aria-hidden="true"
-                  className={`ml-3 h-1.5 w-1.5 shrink-0 rounded-full sm:ml-5 ${
-                    dark ? "bg-white/20" : "bg-black/20"
-                  }`}
                 />
               </div>
-            ))}
-          </div>
+            </article>
+          ))}
+        </div>
 
-          {/* Second identical sequence for seamless looping */}
-          <div className="happy-bounty-ticker-group" aria-hidden="true">
-            {tickerItems.map((item) => (
-              <div
-                key={item.symbol}
-                className="happy-bounty-ticker-item"
-              >
+        {/* Moving network strip */}
+        <div className="mx-auto mt-8 max-w-4xl sm:mt-10">
+          <div
+            className={`network-ticker relative overflow-hidden rounded-xl border ${
+              dark
+                ? "border-white/[0.07] bg-white/[0.018]"
+                : "border-black/[0.07] bg-white/50"
+            }`}
+            aria-label="Supported networks: Arc ARC and Botchain BOT"
+          >
+            {/* Edge fades */}
+            <div
+              aria-hidden="true"
+              className={`pointer-events-none absolute inset-y-0 left-0 z-10 w-8 sm:w-14 ${
+                dark
+                  ? "bg-gradient-to-r from-[#080908] to-transparent"
+                  : "bg-gradient-to-r from-[#f6f5ef] to-transparent"
+              }`}
+            />
+
+            <div
+              aria-hidden="true"
+              className={`pointer-events-none absolute inset-y-0 right-0 z-10 w-8 sm:w-14 ${
+                dark
+                  ? "bg-gradient-to-l from-[#080908] to-transparent"
+                  : "bg-gradient-to-l from-[#f6f5ef] to-transparent"
+              }`}
+            />
+
+            <div className="network-ticker-track py-4">
+              {[0, 1].map((sequence) => (
                 <div
-                  className={`flex h-11 w-11 shrink-0 items-center justify-center rounded-full border p-2 sm:h-12 sm:w-12 ${
-                    dark
-                      ? "border-white/10 bg-white/[0.04]"
-                      : "border-black/10 bg-white/70"
-                  }`}
+                  key={sequence}
+                  className="network-ticker-group"
+                  aria-hidden={sequence === 1 ? "true" : undefined}
                 >
-                  <img
-                    src={item.image}
-                    alt=""
-                    className="h-full w-full object-contain"
-                    loading="lazy"
-                  />
-                </div>
+                  {networks.map((network) => (
+                    <div
+                      key={`${sequence}-${network.symbol}`}
+                      className="network-ticker-item"
+                    >
+                      <img
+                        src={network.image}
+                        alt={sequence === 0 ? `${network.name} logo` : ""}
+                        className="h-7 w-7 object-contain"
+                        loading="lazy"
+                      />
 
-                <div className="flex flex-col">
-                  <span className="text-sm font-semibold sm:text-base">
-                    {item.name}
-                  </span>
-                  <span className="mt-0.5 text-xs font-medium tracking-wider text-gray-500">
-                    {item.symbol}
-                  </span>
-                </div>
+                      <span
+                        className={`text-sm font-semibold ${
+                          dark ? "text-gray-200" : "text-gray-700"
+                        }`}
+                      >
+                        {network.name}
+                      </span>
 
-                <span
-                  className={`ml-3 h-1.5 w-1.5 shrink-0 rounded-full sm:ml-5 ${
-                    dark ? "bg-white/20" : "bg-black/20"
-                  }`}
-                />
-              </div>
-            ))}
+                      <span
+                        className="h-1.5 w-1.5 rounded-full"
+                        style={{ background: network.accent }}
+                      />
+                    </div>
+                  ))}
+                </div>
+              ))}
+            </div>
           </div>
         </div>
-      </div>
 
-      {/* Footer text */}
-      <div
-        className={`mt-5 flex items-center justify-center gap-2 px-5 text-xs ${
-          dark ? "text-gray-500" : "text-gray-500"
-        }`}
-      >
-        <span>More opportunities.</span>
-        <span style={{ color: "#00D6A0" }}>One ecosystem.</span>
-        <FiArrowUpRight
-          className="shrink-0"
-          style={{ color: "#00D6A0" }}
-          aria-hidden="true"
-        />
+        {/* Closing message */}
+        <div
+          className={`mt-6 flex flex-wrap items-center justify-center gap-x-2 gap-y-1 text-center text-xs sm:mt-7 sm:text-sm ${
+            dark ? "text-gray-500" : "text-gray-600"
+          }`}
+        >
+          <span>More networks.</span>
+          <span>More opportunities.</span>
+          <span className="font-semibold text-[#00D6A0]">
+            Real work. Real rewards.
+          </span>
+        </div>
       </div>
     </section>
   );
