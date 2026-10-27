@@ -25,7 +25,7 @@ import { supportedChains } from "../rainbowChains";
 import { useBounty } from "../hooks/useBounty";
 import { listTokensForChain } from "../utils/enums";
 import { formatAmount } from "../utils/format";
-import { getBountyContract } from "../utils/chains.address";
+import { getBountyContract, getNativeToken } from "../utils/chains.address";
 
 function Create() {
   const API_URL = import.meta.env.VITE_API_URL;
@@ -66,7 +66,7 @@ function Create() {
     deadline: "",
     originLink: "",
     reward: 0,
-    token: "USDC", // pick your default
+    token: "",
     // payout logic (needed for contract/backend)
     winnersAllowed: 1,
     payoutType: "",
@@ -87,7 +87,7 @@ function Create() {
   const [showPercentModal, setShowPercentModal] = useState(false);
   const [showInfoMenu, setShowInfoMenu] = useState(false);
 
-  const { switchChain } = useSwitchChain();
+  const { switchChain, switchChainAsync } = useSwitchChain();
   const navigate = useNavigate();
   const { address, isConnected } = useAccount();
   const currentChainId = useChainId();
@@ -138,6 +138,11 @@ function Create() {
 
     return listTokensForChain(currentChainId);
   }, [currentChainId]);
+  const selectedChain = supportedChains.find(
+    (chain) => chain.id === Number(bountyData.network),
+  );
+  const selectedNativeSymbol =
+    getNativeToken(bountyData.network)?.symbol || "native token";
 
   // ---------------------------------------------------
   // UPDATE DATA
@@ -175,11 +180,19 @@ function Create() {
   // NETWORK
   // ---------------------------------------------------
 
-  const handleChainChange = (e) => {
+  const handleChainChange = async (e) => {
     const chainId = Number(e.target.value);
 
     updateBountyData("network", chainId);
-    switchChain({ chainId });
+    if (switchChainAsync) {
+      try {
+        await switchChainAsync({ chainId });
+        showToast.success("Network switched!");
+      } catch (err) {
+        console.warn("Wallet chain switch rejected or failed:", err);
+        showToast.error("Wallet switch rejected. Please switch network manually.");
+      }
+    }
   };
 
   // ---------------------------------------------------
@@ -473,10 +486,10 @@ function Create() {
       );
 
       try {
-        switchChain({ chainId: selectedChainId });
+        await switchChainAsync({ chainId: selectedChainId });
         showToast.success("Network switched!");
       } catch (err) {
-        showToast.error("Failed to switch network. Please switch manually.");
+        showToast.error("Failed to switch network. Please switch manually in your wallet.");
 
         return;
       }
@@ -812,13 +825,14 @@ function Create() {
                     </div>
 
                     <div>
-                      <h2 className="text-xl font-bold">Network</h2>
+                      <h2 className="text-xl font-bold">Network & Category</h2>
 
                       <p
                         className={`text-sm mt-1 ${dark ? "text-white/55" : "text-[#817b70]"}`}
                       >
-                        Happy Bounty runs on BOT Chain, where USDC is the native gas
-                        and reward asset.
+                        {`Happy Bounty on ${
+                          selectedChain?.name || "the selected network"
+                        }, where ${selectedNativeSymbol} is used for gas and bounty rewards.`}
                       </p>
                     </div>
                   </div>
@@ -831,38 +845,18 @@ function Create() {
                         Blockchain Network
                       </label>
 
-                      <div
-                        className={`flex items-center gap-3 w-full rounded-xl px-4 py-3 cursor-default ${
-                          dark
-                            ? "bg-[#111311] border border-white/10"
-                            : "bg-white border border-[#ddd9ce]"
-                        }`}
-                      >
-                        <div
-                          className={`flex h-6 w-6 items-center justify-center rounded-full shrink-0 ${
-                            dark
-                              ? "bg-[#00D6A0]/15 text-[#00D6A0]"
-                              : "bg-[#f4ecd5] text-[#8f6c12]"
-                          }`}
+                      <div className="relative">
+                        <select
+                          value={bountyData.network}
+                          onChange={handleChainChange}
+                          className={`${selectClass} cursor-pointer`}
                         >
-                          <FiShield size={13} />
-                        </div>
-
-                        <span
-                          className={`text-sm font-semibold ${
-                            dark ? "text-white" : "text-[#171714]"
-                          }`}
-                        >
-                          Arc
-                        </span>
-
-                        <span
-                          className={`ml-auto text-[10px] font-semibold uppercase tracking-wider ${
-                            dark ? "text-white/35" : "text-[#99958a]"
-                          }`}
-                        >
-                          USDC native
-                        </span>
+                          {supportedChains.map((chain) => (
+                            <option key={chain.id} value={chain.id}>
+                              {chain.name} ({chain.nativeCurrency?.symbol || "NATIVE"})
+                            </option>
+                          ))}
+                        </select>
                       </div>
                     </div>
 
@@ -903,9 +897,7 @@ function Create() {
                     <FiShield className={`${goldTextClass} mt-0.5 shrink-0`} />
 
                     <p className={`text-xs leading-relaxed ${mutedClass}`}>
-                      Arc uses USDC to pay gas. That means the reward you set
-                      and the gas to create this bounty are paid in the same
-                      asset — no bridging, no second token.
+                      {`The bounty reward, creation fee, and network gas are paid in ${selectedNativeSymbol}.`}
                     </p>
                   </div>
                 </div>
@@ -1677,6 +1669,12 @@ function Create() {
                     className={`rounded-2xl border overflow-hidden ${dark ? "border-white/10" : "border-[#e1ddd2]"}`}
                   >
                     {[
+                      [
+                        "Network",
+                        supportedChains.find(
+                          (c) => c.id === Number(bountyData.network),
+                        )?.name || String(bountyData.network),
+                      ],
                       ["Category", bountyData.category || "Not selected"],
                       ["Title", bountyData.title || "Not entered"],
                       ["Tags", bountyData.tags || "Not selected"],
@@ -1692,7 +1690,7 @@ function Create() {
                       <div
                         key={label}
                         className={`flex flex-col sm:flex-row sm:justify-between sm:items-center gap-2 px-5 py-4 ${
-                          index !== 5
+                          index !== 6
                             ? `border-b ${
                                 dark ? "border-white/10" : "border-[#e7e3da]"
                               }`

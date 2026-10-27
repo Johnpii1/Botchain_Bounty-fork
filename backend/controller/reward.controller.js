@@ -382,8 +382,8 @@ const claimReward = async (req, res) => {
 
     // Mirror into user's claimed history and increment total earnings
     // NOTE: amountFormatted is a decimal string from formatEther.
-    // Number() is lossy for amounts below 1e-15 USDC. Our rewards are
-    // always >= 0.01 USDC, so this is safe. If sub-cent rewards are
+    // Number() is lossy for amounts below 1e-15 native-token units. Rewards
+    // are at least 0.01 native-token units, so this is safe. If sub-cent rewards are
     // ever supported, store amounts as strings and sum on read.
     const numericAmount = Number(updated.amountFormatted || "0");
 

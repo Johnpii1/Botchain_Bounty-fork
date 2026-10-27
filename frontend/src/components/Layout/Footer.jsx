@@ -128,7 +128,7 @@ function Footer() {
               }`}
             >
               A Web3 bounty platform connecting creators and contributors
-              through on-chain opportunities and USDC rewards.
+              through on-chain opportunities and network-native rewards.
             </p>
 
             <div
@@ -144,7 +144,7 @@ function Footer() {
               </span>
 
               <span className="text-[10px] font-bold uppercase tracking-wider text-[#00D6A0]">
-                Built for BOT Chain
+                Multi-network support
               </span>
 
               <span
@@ -160,7 +160,7 @@ function Footer() {
                   dark ? "text-white/40" : "text-black/40"
                 }`}
               >
-                USDC
+                Native-token rewards
               </span>
             </div>
           </div>
@@ -304,9 +304,9 @@ function Footer() {
             }`}
           >
             <span>Built for</span>
-            <span className="font-bold text-[#00D6A0]">Arc</span>
+            <span className="font-bold text-[#00D6A0]">multiple networks</span>
             <span className="h-1 w-1 rounded-full bg-[#00D6A0]/40" />
-            <span className="font-bold text-[#00D6A0]">USDC</span>
+            <span className="font-bold text-[#00D6A0]">native tokens</span>
             <FiCheck className="h-3.5 w-3.5 text-[#00D6A0]" />
           </div>
         </div>
@@ -342,9 +342,9 @@ function Footer() {
             dark ? "text-white/15" : "text-black/20"
           }`}
         >
-          <span>ARC</span>
+          <span>MULTI-CHAIN</span>
           <span className="text-[#00D6A0]/50">•</span>
-          <span>USDC</span>
+          <span>NATIVE TOKENS</span>
           <span className="text-[#00D6A0]/50">•</span>
           <span>WEB3 WORK</span>
           <span className="text-[#00D6A0]/50">•</span>

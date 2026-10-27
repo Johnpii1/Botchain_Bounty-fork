@@ -14,7 +14,6 @@ import {
   FiZap,
 } from "react-icons/fi";
 
-import UsdcLogo from "../assets/images/us.png";
 import ArcLogo from "../assets/images/arc.png";
 import BotchainLogo from "../assets/images/bot.png";
 
@@ -33,7 +32,7 @@ const networks = [
 const tickerItems = [
   { name: "Arc Ecosystem", logo: ArcLogo },
   { name: "Botchain", logo: BotchainLogo },
-  { name: "USDC Rewards", logo: UsdcLogo },
+  { name: "Native Token Rewards", logo: null },
   { name: "Real Opportunities", logo: null },
 ];
 

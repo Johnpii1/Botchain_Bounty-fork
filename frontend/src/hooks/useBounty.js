@@ -96,9 +96,10 @@ export const useBounty = () => {
     setIsPending(true);
     setIsConfirming(false);
     setTxError(null);
+    let hash = null;
     try {
       // Send transaction
-      const hash = await writeContractAsync(txConfig);
+      hash = await writeContractAsync(txConfig);
 
       setTxHash(hash);
       setIsPending(false);
@@ -399,7 +400,7 @@ export const useBounty = () => {
 
   /**
    * Withdraw accumulated protocol fees (owner only).
-   * The contract is native-USDC-only, so there's no token type argument.
+   * The contract uses the selected network's native token, so there's no token type argument.
    */
 
   const withdrawFees = async (recipient) => {

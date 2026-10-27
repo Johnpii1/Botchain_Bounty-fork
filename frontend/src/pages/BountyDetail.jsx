@@ -21,7 +21,13 @@ import {
 } from "react-icons/fi";
 import NavBar from "../components/Layout/NavBar";
 import Footer from "../components/Layout/Footer";
-import { getBountyContract } from "../utils/chains.address";
+import {
+  getBountyContract,
+  getNativeToken,
+  getExplorerUrl,
+  getExplorerConfig,
+} from "../utils/chains.address";
+import { supportedChains } from "../rainbowChains";
 import { useAccount, useChainId, useSwitchChain } from "wagmi";
 import { formatEther } from "viem";
 import { useBounty } from "../hooks/useBounty";
@@ -33,7 +39,7 @@ const BountyDetail = () => {
   const navigate = useNavigate();
   const { address } = useAccount();
   const currentChainId = useChainId();
-  const { switchChain } = useSwitchChain();
+  const { switchChain, switchChainAsync } = useSwitchChain();
 
   const {
     claimReward,
@@ -370,11 +376,13 @@ const BountyDetail = () => {
         let bountyData = data.bounty || data;
 
         if (!bountyData.blockchainId && bountyData.txHash) {
-          if (currentChainId !== bountyData.network) {
+          if (Number(currentChainId) !== Number(bountyData.network)) {
             try {
-              await switchChain({ chainId: bountyData.network });
+              if (switchChainAsync) {
+                await switchChainAsync({ chainId: Number(bountyData.network) });
+              }
             } catch {
-              showToast.error("Please switch network manually");
+              showToast.error("Please switch network manually in your wallet");
               return;
             }
           }
@@ -574,11 +582,13 @@ const BountyDetail = () => {
       return showToast.error("Not on-chain");
     }
 
-    if (currentChainId !== bounty.network) {
+    if (Number(currentChainId) !== Number(bounty.network)) {
       try {
-        await switchChain({ chainId: bounty.network });
+        if (switchChainAsync) {
+          await switchChainAsync({ chainId: Number(bounty.network) });
+        }
       } catch {
-        return showToast.error("Please switch network manually");
+        return showToast.error("Please switch network manually in your wallet");
       }
     }
 
@@ -620,11 +630,13 @@ const BountyDetail = () => {
       return showToast.error("Not on-chain");
     }
 
-    if (currentChainId !== bounty.network) {
+    if (Number(currentChainId) !== Number(bounty.network)) {
       try {
-        await switchChain({ chainId: bounty.network });
+        if (switchChainAsync) {
+          await switchChainAsync({ chainId: Number(bounty.network) });
+        }
       } catch {
-        return showToast.error("Please switch network manually");
+        return showToast.error("Please switch network manually in your wallet");
       }
     }
 
@@ -1034,7 +1046,9 @@ const BountyDetail = () => {
                   <p className="text-2xl sm:text-3xl font-bold text-[#8f6c12] dark:text-[#00D6A0] break-words">
                     {formatAmount(bounty.reward)}{" "}
                     <span className="text-base sm:text-lg">
-                      {bounty.token || "USDC"}
+                      {bounty.token ||
+                        getNativeToken(bounty.network)?.symbol ||
+                        "native token"}
                     </span>
                   </p>
                 </div>
@@ -1171,6 +1185,50 @@ const BountyDetail = () => {
                         </span>
                       ))}
                     </div>
+                  </div>
+                )}
+
+                <div className="min-w-0">
+                  <p className="text-xs uppercase tracking-wider text-[#8b8579] dark:text-white/40 mb-1.5">
+                    Network
+                  </p>
+                  <p className="text-sm font-semibold text-[#171714] dark:text-white flex items-center gap-1.5">
+                    <span className="inline-block w-2 h-2 rounded-full bg-[#00D6A0]" />
+                    {supportedChains.find((c) => c.id === Number(bounty.network))?.name || `Chain ${bounty.network}`}
+                  </p>
+                </div>
+
+                {bounty.txHash && (
+                  <div className="min-w-0">
+                    <p className="text-xs uppercase tracking-wider text-[#8b8579] dark:text-white/40 mb-1.5">
+                      Transaction
+                    </p>
+                    <a
+                      href={getExplorerUrl(bounty.network, bounty.txHash, "tx") || "#"}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="inline-flex max-w-full items-center gap-1.5 text-xs text-[#9a7619] dark:text-[#00D6A0] hover:underline font-mono"
+                    >
+                      <span>{shortenAddress(bounty.txHash)}</span>
+                      <FiExternalLink size={11} className="shrink-0" />
+                    </a>
+                  </div>
+                )}
+
+                {bounty.bountyContract && (
+                  <div className="min-w-0">
+                    <p className="text-xs uppercase tracking-wider text-[#8b8579] dark:text-white/40 mb-1.5">
+                      Contract
+                    </p>
+                    <a
+                      href={getExplorerUrl(bounty.network, bounty.bountyContract, "address") || "#"}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="inline-flex max-w-full items-center gap-1.5 text-xs text-[#9a7619] dark:text-[#00D6A0] hover:underline font-mono"
+                    >
+                      <span>{shortenAddress(bounty.bountyContract)}</span>
+                      <FiExternalLink size={11} className="shrink-0" />
+                    </a>
                   </div>
                 )}
 
