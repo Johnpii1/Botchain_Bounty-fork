@@ -30,4 +30,4 @@ The same contract address is configured for Arc and BOT Chain, as confirmed by t
 
 ## Commit
 
-Implementation commit hash: pending.
+Implementation commit hash: `1d843d16f9e439b01d8695db8b6a462807d73edc`.
