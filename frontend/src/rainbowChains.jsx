@@ -1,28 +1,6 @@
-// import { arcTestnet, arcMainnet } from "wagmi/chains";
+// Supported Wagmi / RainbowKit Chains
 
-// const arcTestnet = {
-//   id: 5042002,
-//   name: "Arc Testnet",
-//   nativeCurrency: {
-//     name: "USDC",
-//     symbol: "USDC",
-//     decimals: 18,
-//   },
-//   rpcUrls: {
-//     default: {
-//       http: ["https://rpc.testnet.arc.io"],
-//     },
-//   },
-//   blockExplorers: {
-//     default: {
-//       name: "Arc Explorer",
-//       url: "https://explorer.testnet.arc.io",
-//     },
-//   },
-//   testnet: true,
-// };
-
-const arcMainnet = {
+export const arcMainnet = {
   id: 5042,
   name: "Arc",
   nativeCurrency: {
@@ -44,4 +22,26 @@ const arcMainnet = {
   testnet: false,
 };
 
-export const supportedChains = [arcMainnet];
+export const botchainTestnet = {
+  id: 968,
+  name: "BOT Chain Testnet (Bohr)",
+  nativeCurrency: {
+    name: "BOT",
+    symbol: "BOT",
+    decimals: 18,
+  },
+  rpcUrls: {
+    default: {
+      http: ["https://rpc.bohr.life"],
+    },
+  },
+  blockExplorers: {
+    default: {
+      name: "BohrScan",
+      url: "https://scan.bohr.life",
+    },
+  },
+  testnet: true,
+};
+
+export const supportedChains = [arcMainnet, botchainTestnet];

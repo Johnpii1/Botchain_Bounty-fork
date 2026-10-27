@@ -277,7 +277,7 @@ const getPlatformStats = async (req, res) => {
       lifecycleStatus: "completed",
     });
 
-    // 3. Total USDC Paid Out (sum of all claimed rewards)
+    // 3. Total rewards paid (sum of all claimed rewards)
     const rewards = await Reward.find({ status: "claimed" }).lean();
     const totalPaid = rewards.reduce(
       (sum, r) => sum + Number(r.amountFormatted || 0),

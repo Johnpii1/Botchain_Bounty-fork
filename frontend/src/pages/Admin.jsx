@@ -6,7 +6,7 @@ import {
   useWriteContract,
   useWaitForTransactionReceipt,
 } from "wagmi";
-import { parseEther, formatEther } from "viem";
+import { formatEther } from "viem";
 import {
   getOwnerConfig,
   getTotalFeesConfig,
@@ -14,6 +14,7 @@ import {
   prepareWithdrawTx,
   prepareTransferOwnershipTx,
 } from "../services/bountyService"; // adjust path
+import { getNativeToken } from "../utils/chains.address";
 import { useChainId } from "wagmi"; // or get from useAccount
 import Skeleton from "../components/UI/Skeleton";
 
@@ -32,19 +33,11 @@ export default function AdminPage() {
     query: { enabled: !!chainId },
   });
 
-  // Read: Total ETH fees
-  const { data: totalEthFeesRaw } = useReadContract({
+  // Read: Total native-token fees
+  const { data: totalNativeFeesRaw } = useReadContract({
     ...getTotalFeesConfig({ chainId }),
     query: { enabled: !!chainId },
   });
-  console.log("Total ETH Fees (raw):", totalEthFeesRaw);
-
-  // Read: Total USDC fees
-  // const { data: totalUsdcFeesRaw } = useReadContract({
-  //   ...getTotalUsdcFeesConfig({ chainId }),
-  //   query: { enabled: !!chainId },
-  // });
-  // console.log("Total USDC Fees (raw):", totalUsdcFeesRaw);
 
   // Read: Fee percent
   const { data: feePercentRaw } = useReadContract({
@@ -86,10 +79,9 @@ export default function AdminPage() {
     isTransferConfirming;
 
   // Handle withdraw
-  const handleWithdraw = async (tokenType) => {
+  const handleWithdraw = async () => {
     if (!withdrawAddress) return;
     const config = prepareWithdrawTx({
-      tokenType, // 0 = ETH, 1 = USDC
       recipient: withdrawAddress,
       account: connectedWallet,
       chainId,
@@ -117,8 +109,10 @@ export default function AdminPage() {
   }, [withdrawTxHash, transferTxHash]);
 
   // Format fee values
-  const totalEthFees = totalEthFeesRaw ? formatEther(totalEthFeesRaw) : "0";
-  // const totalUsdcFees = totalUsdcFeesRaw ? formatEther(totalUsdcFeesRaw) : "0"; // USDC has 6 decimals
+  const nativeSymbol = getNativeToken(chainId)?.symbol || "NATIVE";
+  const totalNativeFees = totalNativeFeesRaw
+    ? formatEther(totalNativeFeesRaw)
+    : "0";
   const feePercent = feePercentRaw ? feePercentRaw.toString() : "0";
 
   // Access denied if not owner and we have both addresses
@@ -172,13 +166,15 @@ export default function AdminPage() {
           <p className="text-2xl font-bold text-pink-500">{feePercent}%</p>
         </div>
         <div className="bg-white dark:bg-[#171a17] border border-pink-500/20 p-4 rounded-xl">
-          <h3 className="text-gray-400 text-sm">Total ETH Fees</h3>
-          <p className="text-2xl font-bold text-pink-500">{totalEthFees} ETH</p>
+          <h3 className="text-gray-400 text-sm">Total Protocol Fees</h3>
+          <p className="text-2xl font-bold text-pink-500">
+            {totalNativeFees} {nativeSymbol}
+          </p>
         </div>
         <div className="bg-white dark:bg-[#171a17] border border-pink-500/20 p-4 rounded-xl">
-          <h3 className="text-gray-400 text-sm">Total USDC Fees</h3>
+          <h3 className="text-gray-400 text-sm">Active Network</h3>
           <p className="text-2xl font-bold text-pink-500">
-            {totalUsdcFees} USDC
+            {nativeSymbol}
           </p>
         </div>
       </div>
@@ -203,18 +199,11 @@ export default function AdminPage() {
           </div>
           <div className="flex gap-3">
             <button
-              onClick={() => handleWithdraw(0)}
+              onClick={handleWithdraw}
               disabled={txLoading || !withdrawAddress}
               className="px-5 py-2 bg-pink-600 hover:bg-pink-700 rounded disabled:opacity-50 transition"
             >
-              Withdraw ETH
-            </button>
-            <button
-              onClick={() => handleWithdraw(1)}
-              disabled={txLoading || !withdrawAddress}
-              className="px-5 py-2 bg-blue-600 hover:bg-blue-700 rounded disabled:opacity-50 transition"
-            >
-              Withdraw USDC
+              Withdraw {nativeSymbol}
             </button>
           </div>
         </div>

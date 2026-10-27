@@ -29,14 +29,14 @@ const STAT_ITEMS = [
   },
   {
     key: "totalPaid",
-    label: "USDC Paid Out",
-    description: "Rewards delivered to contributors",
+    label: "Rewards Paid Out",
+    description: "Reward units delivered across supported networks",
     icon: FiDollarSign,
     tag: "REWARDS DISTRIBUTED",
     format: (val) =>
       `${Number(val).toLocaleString(undefined, {
         maximumFractionDigits: 2,
-      })} USDC`,
+      })}`,
   },
   {
     key: "contributors",
@@ -163,9 +163,9 @@ export default function ImpactStats() {
           </div>
 
           <div className="flex items-center gap-2 text-[10px] font-semibold uppercase tracking-[0.12em] text-gray-500 dark:text-gray-400">
-            <span>Arc</span>
+            <span>Multi-network</span>
             <span className="h-1 w-1 rounded-full bg-[#00D6A0]" />
-            <span>USDC</span>
+            <span>Native rewards</span>
           </div>
         </div>
 
@@ -271,8 +271,9 @@ export default function ImpactStats() {
         </div>
 
         <p className="mt-6 text-center text-[10px] leading-5 text-gray-400 dark:text-gray-600">
-          Statistics are verified directly from the Arc Mainnet smart contract
-          and platform database.
+          Statistics are aggregated from platform data across supported
+          networks. Reward amounts are shown in native units and are not
+          converted between tokens.
         </p>
       </div>
     </section>

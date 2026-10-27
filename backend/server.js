@@ -38,7 +38,7 @@ app.get("/", (req, res) => {
   // http://localhost:5000/api/bounty/delete/id
   // http://localhost:5000/api/bounty/update/id
 
-  res.json({ message: "ARC API working" });
+  res.json({ message: "Happy Bounty API working" });
 });
 
 app.use((req, res, next) => {

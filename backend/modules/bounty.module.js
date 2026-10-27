@@ -166,7 +166,7 @@ const bountySchema = new mongoose.Schema(
       trim: true,
       lowercase: true,
       enum: {
-        values: ["5042002", "5042"],
+        values: ["5042002", "5042", "968"],
         message: "{VALUE} is not a supported network",
       },
     },
@@ -181,7 +181,7 @@ const bountySchema = new mongoose.Schema(
       trim: true,
       uppercase: true,
       enum: {
-        values: ["USDC"],
+        values: ["USDC", "BOT"],
         message: "{VALUE} is not a supported token",
       },
     },

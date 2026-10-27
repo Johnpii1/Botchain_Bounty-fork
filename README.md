@@ -1,520 +1,62 @@
-# Bounty DApp - Decentralized Bug Bounty Platform
+# Happy Bounty
 
-A full-stack decentralized application (dApp) built on Ethereum that enables organizations to create bug bounties and security researchers to submit vulnerabilities and claim rewards. This project combines a Solidity smart contract backend with a modern React frontend, using ethers.js for blockchain interaction.
+Happy Bounty is a Web3 platform for publishing bounties, submitting work, assigning winners, and distributing on-chain rewards. The frontend interacts directly with the bounty contract; the Express and MongoDB backend stores bounty and submission metadata.
 
----
+## Supported networks
 
-## 📋 Table of Contents
+| Network | Chain ID | Native token | Explorer |
+|---|---:|---|---|
+| Arc | `5042` | USDC | [explorer.arc.io](https://explorer.arc.io) |
+| BOT Chain Testnet (Bohr) | `968` | BOT | [scan.bohr.life](https://scan.bohr.life) |
 
-- Overview
-- Features
-- Architecture
-- Tech Stack
-- Project Structure
-- Smart Contract Integration
-- Frontend Application
-- Getting Started
-- Environment Variables
-- Running the Application
-- Usage Guide
-- User Flows
-- Testing
-- Deployment
-- Security Considerations
-- Contributing
-- License
+Each chain has independent contract state. See the [BOT Chain integration guide](./BOTCHAIN_INTEGRATION.md) for network setup, environment variables, faucet guidance, deployment notes, and the manual testing checklist.
 
----
+## Architecture
 
-## 🔍 Overview
+- **Frontend:** React, Vite, TailwindCSS, Wagmi, RainbowKit, and Viem.
+- **Backend:** Express 5 API with Mongoose models and MongoDB.
+- **Contract configuration:** Chain definitions are in `frontend/src/rainbowChains.jsx`; contract addresses, native tokens, and explorers are in `frontend/src/utils/chains.address.js`.
+- **API routes:** The frontend uses bounty, user, submission, enrollment, and reward endpoints under the backend `/api` prefix.
 
-The **Bounty DApp** is a permissionless platform where:
+## Local development
 
-- **Organizations / Project Owners** can create bounty programs by locking ETH rewards in a smart contract.
-- **Security Researchers / White-hat Hackers** can submit vulnerability reports tied to a specific bounty.
-- **Owners** review submissions and approve them, which automatically transfers the reward to the researcher.
-- **Researchers** can also be rejected, and the owner can withdraw funds if the bounty expires or is cancelled.
+Requirements: a supported Node.js version for the frontend's Vite toolchain, npm, MongoDB access, and a wallet. A WalletConnect project ID is needed when using WalletConnect.
 
-All interactions are transparent, on-chain, and require no centralized intermediary.
+Create `backend/.env`:
 
----
-
-## ✨ Features
-
-### Core Features
-
-- 🔐 **Wallet Connection** – MetaMask / WalletConnect integration via ethers.js.
-- 💰 **Create Bounty** – Fund a bounty with ETH and define metadata (title, description, deadline, reward).
-- 📝 **Submit Vulnerability** – Researchers submit a report (IPFS hash or text) against an active bounty.
-- ✅ **Approve / Reject Submission** – Owner decides the outcome of each submission.
-- 🏆 **Automatic Payout** – Approved submissions trigger instant ETH transfer to the researcher.
-- ⏳ **Deadline & Cancellation** – Owner can cancel an unfulfilled bounty after expiration.
-- 📊 **Dashboard** – View all bounties, your submissions, and statuses.
-- 🔎 **Bounty Detail Page** – Full metadata, submission list, and actions.
-
-### UX Enhancements
-
-- Toast notifications for transactions.
-- Loading states and pending transaction indicators.
-- Network guard (only allowed on supported chains, e.g., Sepolia / Goerli / Localhost).
-- Responsive design (TailwindCSS).
-- Error handling for rejected transactions and reverts.
-
----
-
-## 🏗 Architecture
-```
-┌──────────────────────────────────────────────────────────┐
-│                     USER (Browser)                       │
-│                                                          │
-│   ┌──────────────────────────────────────────────────┐   │
-│   │            React Frontend (Vite)                 │   │
-│   │  ┌────────────┐  ┌────────────┐  ┌───────────┐   │   │
-│   │  │  Pages/UI  │  │  Hooks     │  │  Context  │   │   │
-│   │  └─────┬──────┘  └─────┬──────┘  └─────┬─────┘   │   │
-│   │        │               │               │         │   │
-│   │        └───────────────┼───────────────┘         │   │
-│   │                        │                         │   │
-│   │                ┌───────▼────────┐                │   │
-│   │                │  ethers.js     │                │   │
-│   │                │  Contract API  │                │   │
-│   │                └───────┬────────┘                │   │
-│   └────────────────────────┼─────────────────────────┘   │
-│                            │                             │
-└────────────────────────────┼─────────────────────────────┘
-                             │ JSON-RPC
-                             ▼
-                ┌────────────────────────┐
-                │   Ethereum Network     │
-                │  (Sepolia / Mainnet)   │
-                │                        │
-                │  ┌──────────────────┐  │
-                │  │  Bounty Contract │  │
-                │  └──────────────────┘  │
-                └────────────────────────┘
+```dotenv
+MONGODB_URI=your_mongodb_connection_string
+PORT=5000
+NODE_ENV=development
 ```
 
+Create `frontend/.env`:
 
----
-
-## 🛠 Tech Stack
-
-| **Layer**           | **Technology**                   |
-| ------------------- | -------------------------------- |
-| Smart Contract      | Solidity ^0.8.20                 |
-| Dev Framework       | Hardhat / Foundry                |
-| Frontend            | React 18 + Vite                  |
-| Styling             | TailwindCSS                      |
-| Blockchain Library  | ethers.js v6                     |
-| Wallet              | MetaMask (via `window.ethereum`) |
-| State Management    | React Context + Hooks            |
-| Routing             | React Router v6                  |
-| Notifications       | react-hot-toast                  |
-| Storage (optional)  | IPFS (via Pinata / web3.storage) |
-
----
-
-## 📁 Project Structure
-```
-bounty-dapp/
-├── contracts/
-│   └── Bounty.sol
-├── scripts/
-│   └── deploy.js
-├── test/
-│   └── Bounty.test.js
-├── frontend/
-│   ├── public/
-│   ├── src/
-│   │   ├── abi/
-│   │   │   └── Bounty.json          # Contract ABI
-│   │   ├── components/
-│   │   │   ├── Navbar.jsx
-│   │   │   ├── WalletConnect.jsx
-│   │   │   ├── BountyCard.jsx
-│   │   │   ├── CreateBountyForm.jsx
-│   │   │   ├── SubmissionForm.jsx
-│   │   │   ├── SubmissionList.jsx
-│   │   │   └── TransactionButton.jsx
-│   │   ├── context/
-│   │   │   └── Web3Context.jsx       # Wallet + provider + signer
-│   │   ├── hooks/
-│   │   │   ├── useBounties.js
-│   │   │   ├── useBounty.js
-│   │   │   └── useContract.js
-│   │   ├── pages/
-│   │   │   ├── Home.jsx
-│   │   │   ├── CreateBounty.jsx
-│   │   │   ├── BountyDetail.jsx
-│   │   │   └── MySubmissions.jsx
-│   │   ├── utils/
-│   │   │   ├── contract.js           # getContract() helper
-│   │   │   ├── format.js             # wei/eth, dates
-│   │   │   └── constants.js          # addresses, chain IDs
-│   │   ├── App.jsx
-│   │   └── main.jsx
-│   ├── .env.example
-│   ├── index.html
-│   ├── package.json
-│   └── vite.config.js
-├── hardhat.config.js
-├── package.json
-└── README.md
+```dotenv
+VITE_API_URL=http://localhost:5000/api
+VITE_WALLET_CONNECT_PROJECT_ID=your_walletconnect_project_id
 ```
 
+Start the backend and frontend in separate terminals:
 
----
-
-## 🔗 Smart Contract Integration
-
-### Contract ABI Location
-
-The compiled ABI is stored at:
-```
-frontend/src/abi/Bounty.json
+```bash
+cd backend
+npm start
 ```
 
-
-Copy this file from `artifacts/contracts/Bounty.sol/Bounty.json` after compilation.
-
-### Contract Address
-
-The deployed address lives in `.env`:
-```
-VITE_CONTRACT_ADDRESS=0xYourContractAddress
-VITE_CHAIN_ID=11155111
-```
-
-
-### Helper — `utils/contract.js`
-```
-import { ethers } from "ethers";
-import BountyABI from "../abi/Bounty.json";
-
-const CONTRACT_ADDRESS = import.meta.env.VITE_CONTRACT_ADDRESS;
-
-export function getReadContract(provider) {
-  return new ethers.Contract(CONTRACT_ADDRESS, BountyABI, provider);
-}
-
-export function getWriteContract(signer) {
-  return new ethers.Contract(CONTRACT_ADDRESS, BountyABI, signer);
-}
-```
-
-
-### Key Contract Functions Used in UI
-
-| **Function**                                | **Caller** | **UI Trigger**     |
-| ------------------------------------------- | ---------- | ------------------ |
-| `createBounty(title, desc, deadline)`       | Owner      | Create Bounty Form |
-| `submitVulnerability(bountyId, reportHash)` | Researcher | Submission Form    |
-| `approveSubmission(bountyId, subId)`        | Owner      | "Approve" button   |
-| `rejectSubmission(bountyId, subId)`         | Owner      | "Reject" button    |
-| `cancelBounty(bountyId)`                    | Owner      | "Cancel" button    |
-| `withdraw(bountyId)`                        | Owner      | "Withdraw" button  |
-| `getBounty(bountyId)`                       | Anyone     | Bounty Detail page |
-| `getSubmissions(bountyId)`                  | Anyone     | Submission List    |
-
-### Events Listened To
-```
-contract.on("BountyCreated", (id, owner, reward) => { ... });
-contract.on("SubmissionMade", (bountyId, subId, researcher) => { ... });
-contract.on("SubmissionApproved", (bountyId, subId) => { ... });
-```
-
-
-These events update the UI in real time without polling.
-
----
-
-## 🎨 Frontend Application
-
-### Web3Context
-
-Provides:
-
-- `provider` — read-only ethers provider
-- `signer` — connected wallet signer
-- `account` — current address
-- `chainId` — current network
-- `connectWallet()` / `disconnectWallet()`
-```
-const { account, signer, connectWallet } = useWeb3();
-```
-
-
-### Main Pages
-
-#### 1. Home (`/`)
-
-- Grid of all active bounties (`BountyCard` components).
-- Filters: Active / Expired / Mine.
-
-#### 2. Create Bounty (`/create`)
-
-- Form fields: Title, Description, Reward (ETH), Deadline.
-- On submit: `contract.createBounty(...)` with `{ value: parseEther(reward) }`.
-
-#### 3. Bounty Detail (`/bounty/:id`)
-
-- Full bounty metadata.
-- Owner view: Approve/Reject/Cancel/Withdraw buttons.
-- Researcher view: Submit vulnerability form.
-- Submission list with statuses.
-
-#### 4. My Submissions (`/my-submissions`)
-
-- Wallet-filtered list of submissions and their statuses.
-
-### Transaction Handling
-
-Every write action uses a reusable `TransactionButton` that:
-
-1. Disables the button.
-2. Shows "Pending…" after `tx.wait()`.
-3. Fires a toast on success or error.
-```
-const tx = await contract.approveSubmission(bountyId, subId);
-toast.loading("Approving...", { id: tx.hash });
-await tx.wait();
-toast.success("Approved!", { id: tx.hash });
-```
-
-
----
-
-## 🚀 Getting Started
-
-### Prerequisites
-
-- Node.js ≥ 18
-- MetaMask browser extension
-- Git
-
-### 1. Clone the Repository
-```
-git clone https://github.com/your-username/bounty-dapp.git
-cd bounty-dapp
-```
-
-
-### 2. Install Root (Contract) Dependencies
-```
-npm install
-```
-
-
-### 3. Install Frontend Dependencies
-```
-cd frontend
-npm install
-```
-
-
-### 4. Compile the Contract
-```
-cd ..
-npx hardhat compile
-```
-
-
-### 5. Copy ABI to Frontend
-```
-cp artifacts/contracts/Bounty.sol/Bounty.json frontend/src/abi/Bounty.json
-```
-
-
----
-
-## 🔐 Environment Variables
-
-### Root `.env`
-```
-PRIVATE_KEY=your_deployer_private_key
-SEPOLIA_RPC_URL=https://sepolia.infura.io/v3/YOUR_KEY
-ETHERSCAN_API_KEY=your_etherscan_key
-```
-
-
-### Frontend `frontend/.env`
-```
-VITE_CONTRACT_ADDRESS=0xDeployedContractAddress
-VITE_CHAIN_ID=11155111
-VITE_RPC_URL=https://sepolia.infura.io/v3/YOUR_KEY
-```
-
-
----
-
-## ▶ Running the Application
-
-### Start Local Blockchain
-```
-npx hardhat node
-```
-
-
-### Deploy Contract Locally
-```
-npx hardhat run scripts/deploy.js --network localhost
-```
-
-
-### Start Frontend
-```
+```bash
 cd frontend
 npm run dev
 ```
 
+The backend waits for MongoDB before listening. The frontend's `VITE_API_URL` must include `/api`. Public RPC URLs and contract addresses are currently configured in frontend source; no private keys should be placed in frontend environment variables.
 
-Visit `http://localhost:5173`.
+## Checks
 
----
-
-## 📖 Usage Guide
-
-### As a Bounty Owner
-
-1. Connect MetaMask.
-2. Click **Create Bounty** → fill form → confirm transaction.
-3. Share the bounty link with researchers.
-4. Review submissions on the bounty detail page.
-5. Approve a submission → reward auto-transfers.
-6. Reject others, or cancel/withdraw if expired.
-
-### As a Researcher
-
-1. Connect MetaMask.
-2. Browse bounties on Home.
-3. Open a bounty → submit vulnerability report (IPFS hash or text).
-4. Wait for owner's decision.
-5. If approved → ETH arrives automatically.
-
----
-
-## 🔄 User Flows
-
-### Create Bounty Flow
-```
-Connect Wallet → Fill Form → Sign Tx → Contract stores bounty + ETH
-   → Event emitted → Home page refreshes → Bounty visible
-```
-
-
-### Submission + Approval Flow
-```
-Researcher submits → Contract stores submission
-   → Owner reviews → approveSubmission()
-   → Contract transfers ETH → Researcher wallet credited
-   → Event emitted → UI updates
-```
-
-
-### Rejection / Cancellation Flow
-```
-Owner rejects → submission marked rejected
-Owner cancels after deadline → withdraw(bountyId) → ETH returned
-```
-
-
----
-
-## 🧪 Testing
-
-### Contract Tests
-```
-npx hardhat test
-```
-
-
-Covers:
-
-- Bounty creation with correct reward.
-- Submission by non-owner.
-- Approval → payout correctness.
-- Rejection path.
-- Cancel + withdraw after deadline.
-- Revert cases (unauthorized, insufficient funds).
-
-### Frontend Tests (optional)
-```
+```bash
 cd frontend
-npm run test
-```
-
-
-Using Vitest + React Testing Library.
-
----
-
-## 🚢 Deployment
-
-### Deploy Contract to Sepolia
-```
-npx hardhat run scripts/deploy.js --network sepolia
-```
-
-
-### Verify on Etherscan
-```
-npx hardhat verify --network sepolia <CONTRACT_ADDRESS> <CONSTRUCTOR_ARGS>
-```
-
-
-### Deploy Frontend (Vercel / Netlify)
-```
-cd frontend
+npm run lint
 npm run build
 ```
 
-
-Upload `dist/` folder or connect GitHub repo to Vercel.
-
-**Environment variables to set on Vercel:**
-
-- `VITE_CONTRACT_ADDRESS`
-- `VITE_CHAIN_ID`
-- `VITE_RPC_URL`
-
----
-
-## 🛡 Security Considerations
-
-- **Reentrancy**: Contract uses checks-effects-interactions pattern.
-- **Access Control**: Only the bounty owner can approve/reject/cancel.
-- **Deadline Enforcement**: Submissions blocked after deadline.
-- **Fund Locking**: Rewards held by contract until approval or cancellation.
-- **Frontend Guard**: Rejects wrong network; prompts user to switch.
-- **No Private Keys in Frontend**: All signing via MetaMask.
-
-> ⚠️ This is a reference implementation. Get an audit before mainnet deployment with real funds.
-
----
-
-## 🤝 Contributing
-
-1. Fork the repository.
-2. Create a feature branch: `git checkout -b feature/amazing-feature`.
-3. Commit: `git commit -m "Add amazing feature"`.
-4. Push: `git push origin feature/amazing-feature`.
-5. Open a Pull Request.
-
----
-
-## 📄 License
-
-MIT License — see `LICENSE` file for details.
-
----
-
-## 🙌 Acknowledgements
-
-- [OpenZeppelin](https://openzeppelin.com/) for secure contract patterns.
-- [ethers.js](https://docs.ethers.org/v6/) for blockchain interaction.
-- [Hardhat](https://hardhat.org/) for development tooling.
-- [TailwindCSS](https://tailwindcss.com/) for styling.
-
----
-
-**Built with ❤️ for the decentralized security community.**
+The backend package does not currently define an automated test suite. For network and wallet workflow verification, follow the [manual checklist](./BOTCHAIN_INTEGRATION.md#14-manual-testing-checklist).

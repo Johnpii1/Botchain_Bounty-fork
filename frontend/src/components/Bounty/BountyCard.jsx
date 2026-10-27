@@ -19,6 +19,8 @@ import {
 } from "react-icons/fi";
 
 import { formatAmount } from "../../utils/format";
+import { getNativeToken } from "../../utils/chains.address";
+import { supportedChains } from "../../rainbowChains";
 
 const BountyCard = ({
   bounty,
@@ -203,9 +205,14 @@ const BountyCard = ({
 
   const tags = Array.isArray(bounty.tags) ? bounty.tags : [];
 
-  const rewardDisplay = `${formatAmount(bounty.reward)} ${
-    bounty.token || "USDC"
-  }`;
+  const networkName =
+    supportedChains.find((c) => c.id === Number(bounty.network))?.name ||
+    (bounty.network ? `Chain ${bounty.network}` : "");
+
+  const tokenSymbol =
+    bounty.token || getNativeToken(bounty.network)?.symbol || "native token";
+
+  const rewardDisplay = `${formatAmount(bounty.reward)} ${tokenSymbol}`;
 
   const description =
     bounty.description?.trim() || "No description provided.";
@@ -313,23 +320,37 @@ const BountyCard = ({
       />
 
       <div className="relative z-10 flex h-full min-w-0 flex-col p-5 sm:p-6">
-        {/* Category and status */}
+        {/* Category, network and status */}
         <div className="mb-5 flex min-w-0 items-center justify-between gap-3">
-          <div
-            className={`
-              inline-flex min-w-0 max-w-[58%] items-center gap-2
-              rounded-lg border px-2.5 py-2
-              ${innerSurface}
-            `}
-          >
-            <FiLayers className="shrink-0 text-sm text-[#00A87D]" />
-
-            <span
-              className={`truncate text-[10px] font-bold uppercase tracking-[0.12em] ${secondary}`}
-              title={bounty.category || "Uncategorized"}
+          <div className="flex min-w-0 items-center gap-1.5 flex-wrap">
+            <div
+              className={`
+                inline-flex min-w-0 items-center gap-2
+                rounded-lg border px-2.5 py-2
+                ${innerSurface}
+              `}
             >
-              {bounty.category || "Uncategorized"}
-            </span>
+              <FiLayers className="shrink-0 text-sm text-[#00A87D]" />
+
+              <span
+                className={`truncate text-[10px] font-bold uppercase tracking-[0.12em] ${secondary}`}
+                title={bounty.category || "Uncategorized"}
+              >
+                {bounty.category || "Uncategorized"}
+              </span>
+            </div>
+
+            {networkName && (
+              <span
+                className={`text-[9px] font-semibold px-2 py-1 rounded-md border ${
+                  Number(bounty.network) === 968
+                    ? "border-sky-500/20 bg-sky-500/10 text-sky-400"
+                    : "border-emerald-500/20 bg-emerald-500/10 text-emerald-400"
+                }`}
+              >
+                {networkName}
+              </span>
+            )}
           </div>
 
           <div

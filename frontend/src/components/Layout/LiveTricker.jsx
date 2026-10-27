@@ -1,17 +1,14 @@
 
 import { useEffect, useState } from "react";
-import botLogo from "../../assets/images/bot.png";
-import arcLogo from "../../assets/images/arc.png";
 
 function LiveTricker() {
   const items = [
     { label: "Multi-Chain Bounty Platform", type: "WEB3" },
     {
-      label: "Explore Arc Bounties",
-      type: "ARC",
-      logo: arcLogo,
+      label: "Explore Multi-Chain Bounties",
+      type: "NETWORKS",
     },
-    { label: "Earn USDC Rewards", type: "USDC" },
+    { label: "Earn Network-Native Rewards", type: "REWARDS" },
     { label: "Complete On-Chain Bounties", type: "BOUNTIES" },
     { label: "Post Work. Reward Contributors.", type: "CREATE" },
     { label: "New Bounties Added Daily", type: "NEW" },
