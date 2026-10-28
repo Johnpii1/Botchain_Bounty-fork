@@ -1,3 +1,4 @@
+
 import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import { useAccount } from "wagmi";
@@ -25,8 +26,23 @@ import NavBar from "../components/Layout/NavBar";
 import Footer from "../components/Layout/Footer";
 import BountyCard from "../components/Bounty/BountyCard";
 
+// Admin wallet addresses
+const ADMIN_ADDRESSES = [
+  "0x75DDb0a7161c717a0443967803c6516cf1e39cA6",
+  "0x579F49Af31375Da97b6Ba3cf0Aa4a887A0E6c98b2",
+];
+
 function Dashboard({ dark, setDark }) {
   const { address, isConnected } = useAccount();
+
+  // Show Admin only when the connected wallet is an admin wallet.
+  const isAdmin =
+    isConnected &&
+    Boolean(address) &&
+    ADMIN_ADDRESSES.some(
+      (adminAddress) =>
+        adminAddress.toLowerCase() === address.toLowerCase()
+    );
 
   const [loading, setLoading] = useState(true);
   const [bounties, setBounties] = useState([]);
@@ -477,7 +493,34 @@ function Dashboard({ dark, setDark }) {
                 </p>
               </div>
 
+              {/* Analytics, Admin, Refresh, and Create buttons */}
               <div className="flex flex-wrap items-center gap-3">
+                {/* Analytics is available to all users */}
+                <Link
+                  to="/analytics"
+                  className={`inline-flex h-11 items-center justify-center gap-2 rounded-xl border px-4 text-xs font-semibold transition hover:border-[#00A87D]/50 hover:bg-[#00A87D]/10 hover:text-[#00A87D] ${
+                    dark
+                      ? "border-white/10 bg-white/[0.03] text-white"
+                      : "border-black/[0.08] bg-white text-[#111311]"
+                  }`}
+                >
+                  <FiTrendingUp className="text-[#00A87D]" />
+                  Analytics
+                </Link>
+
+                {/* Admin is shown only for configured admin wallets */}
+                {isAdmin && (
+                  <Link
+                    to="/admin-224466"
+                    className="inline-flex h-11 items-center justify-center gap-2 rounded-xl border border-[#00A87D]/30 bg-[#00A87D]/10 px-4 text-xs font-bold text-[#00A87D] transition hover:bg-[#00A87D] hover:text-white"
+                  >
+                    <FiActivity />
+                    Admin
+                    <FiArrowRight />
+                  </Link>
+                )}
+
+                {/* Existing Refresh button */}
                 <button
                   type="button"
                   onClick={handleRefresh}
@@ -492,6 +535,7 @@ function Dashboard({ dark, setDark }) {
                   Refresh
                 </button>
 
+                {/* Existing Create bounty button */}
                 <Link
                   to="/create"
                   className="inline-flex h-11 items-center gap-2 rounded-xl bg-[#00A87D] px-4 text-xs font-bold text-white transition hover:bg-[#008F6A]"
@@ -718,7 +762,7 @@ function Dashboard({ dark, setDark }) {
             )}
           </section>
 
-          {/* Contributor callout: intentionally green in both themes */}
+          {/* Contributor callout */}
           <section className="mt-16">
             <div className="relative overflow-hidden rounded-2xl bg-[#00A87D] p-6 text-white sm:p-8 lg:p-10">
               <div
