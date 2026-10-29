@@ -9,6 +9,7 @@ import {
   useWriteContract,
 } from "wagmi";
 import { formatEther, isAddress } from "viem";
+import happyBountyLogo from "../assets/images/happy-bounty-logo.png";
 import {
   getBountyCounterConfig,
   getFeePercentConfig,
@@ -35,6 +36,16 @@ const shortAddress = (address) =>
 
 const formatNumber = (value) =>
   value == null ? "—" : Number(value).toLocaleString();
+
+function BrandLogo({ size = "h-9 w-9", className = "" }) {
+  return (
+    <img
+      src={happyBountyLogo}
+      alt="Happy Bounty logo"
+      className={`${size} shrink-0 object-contain ${className}`}
+    />
+  );
+}
 
 function StatCard({ icon, label, value, note }) {
   return (
@@ -96,13 +107,9 @@ function MobileNav({ onNavigate }) {
       <button
         onClick={() => onNavigate("/")}
         className="flex items-center gap-2"
+        aria-label="Go to Happy Bounty home"
       >
-        <span
-          className="flex h-8 w-8 items-center justify-center rounded-full border-2 text-sm font-bold"
-          style={{ borderColor: ACCENT, color: ACCENT_DARK }}
-        >
-          <span className="dark:text-[#00D6A0]">H</span>
-        </span>
+        <BrandLogo size="h-8 w-8" />
 
         <span className="text-sm font-bold text-[#171a17] dark:text-white">
           Happy Bounty
@@ -419,14 +426,8 @@ export default function AdminPage() {
     return (
       <main className="theme-page flex min-h-screen items-center justify-center bg-[#f6f5ef] px-4 text-[#171a17] transition-colors duration-300 dark:bg-[#080908] dark:text-white">
         <section className="w-full max-w-sm rounded-2xl border border-[#e5e7e2] bg-white p-7 text-center dark:border-white/10 dark:bg-[#111311] sm:p-8">
-          <div
-            className="mx-auto flex h-12 w-12 items-center justify-center rounded-xl text-xl font-bold"
-            style={{
-              backgroundColor: "rgba(0,214,160,0.10)",
-              color: ACCENT_DARK,
-            }}
-          >
-            <span className="dark:text-[#00D6A0]">H</span>
+          <div className="mx-auto flex h-12 w-12 items-center justify-center">
+            <BrandLogo size="h-12 w-12" />
           </div>
 
           <h1 className="mt-4 text-xl font-semibold">Connect your wallet</h1>
@@ -488,13 +489,9 @@ export default function AdminPage() {
           <button
             onClick={() => navigate("/")}
             className="mb-9 flex items-center gap-3 px-2 text-left"
+            aria-label="Go to Happy Bounty home"
           >
-            <span
-              className="flex h-9 w-9 items-center justify-center rounded-full border-2 text-base font-bold"
-              style={{ borderColor: ACCENT, color: ACCENT_DARK }}
-            >
-              <span className="dark:text-[#00D6A0]">H</span>
-            </span>
+            <BrandLogo size="h-9 w-9" />
 
             <span>
               <span className="block text-sm font-bold text-[#171a17] dark:text-white">
@@ -746,7 +743,10 @@ export default function AdminPage() {
                 </p>
               </div>
 
-              <label htmlFor="new-owner-address" className={`${labelClass} mt-4`}>
+              <label
+                htmlFor="new-owner-address"
+                className={`${labelClass} mt-4`}
+              >
                 New owner address
               </label>
 
