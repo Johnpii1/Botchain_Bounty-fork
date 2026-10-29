@@ -89,6 +89,7 @@ export default function Hero({ dark }) {
   const visualRef = useRef(null);
   const { handleNavigate } = useNav();
 
+  // Original typewriter animation preserved.
   useEffect(() => {
     const message = heroMessages[heroText];
     let timer;
@@ -111,6 +112,7 @@ export default function Hero({ dark }) {
     return () => clearTimeout(timer);
   }, [displayText, heroText, isDeleting]);
 
+  // Original interactive tilt effect preserved.
   useEffect(() => {
     const visual = visualRef.current;
 
@@ -167,18 +169,19 @@ export default function Hero({ dark }) {
       <div className="hb-glow hb-glow-one pointer-events-none absolute" />
       <div className="hb-glow hb-glow-two pointer-events-none absolute" />
 
-      {/* Full-width hero content */}
-      <div className="relative z-10 grid min-h-[650px] w-full max-w-none grid-cols-1 items-center gap-8 px-5 pb-12 pt-28 sm:px-8 sm:pt-32 lg:min-h-[720px] lg:grid-cols-2 lg:gap-8 lg:px-12 xl:px-16 2xl:px-20">
+      {/* Hero content */}
+      <div className="relative z-10 grid min-h-0 w-full max-w-none grid-cols-1 items-center gap-5 px-4 pb-8 pt-20 sm:gap-8 sm:px-8 sm:pb-12 sm:pt-24 lg:min-h-[720px] lg:grid-cols-2 lg:gap-8 lg:px-12 lg:pb-12 lg:pt-28 xl:px-16 2xl:px-20">
         {/* Left content */}
         <div className="mx-auto w-full max-w-2xl text-center sm:text-left lg:mx-0">
+          {/* Platform badge */}
           <div
-            className={`mb-6 inline-flex items-center gap-2.5 rounded-full border px-4 py-2 text-[11px] font-semibold tracking-wide backdrop-blur-xl sm:text-xs ${
+            className={`mb-5 inline-flex max-w-full items-center gap-2 rounded-full border px-3 py-2 text-[10px] font-semibold tracking-wide backdrop-blur-xl sm:mb-6 sm:gap-2.5 sm:px-4 sm:text-xs ${
               dark
                 ? "border-[#00D6A0]/25 bg-white/[0.035] text-white/85"
                 : "border-[#00A87D]/25 bg-white/80 text-[#18251F] shadow-sm"
             }`}
           >
-            <span className="relative flex h-2 w-2">
+            <span className="relative flex h-2 w-2 shrink-0">
               <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-[#00D6A0] opacity-40" />
               <span className="relative h-2 w-2 rounded-full bg-[#00D6A0]" />
             </span>
@@ -200,8 +203,9 @@ export default function Hero({ dark }) {
             </span>
           </div>
 
+          {/* Main heading */}
           <h1
-            className={`text-4xl font-extrabold leading-[1.04] tracking-[-0.055em] sm:text-5xl md:text-6xl lg:text-[4.4rem] xl:text-[5rem] ${
+            className={`text-[2.55rem] font-extrabold leading-[1.02] tracking-[-0.06em] min-[390px]:text-[2.8rem] sm:text-5xl md:text-6xl lg:text-[4.4rem] xl:text-[5rem] ${
               dark ? "text-white" : "text-[#111916]"
             }`}
           >
@@ -210,15 +214,17 @@ export default function Hero({ dark }) {
             into <span className="hb-gradient-text">rewards.</span>
           </h1>
 
-          <div className="mt-4 flex min-h-[48px] items-center justify-center overflow-hidden sm:justify-start md:min-h-[60px]">
-            <div className="flex max-w-full items-center whitespace-nowrap text-xl font-extrabold tracking-tight sm:text-3xl md:text-4xl">
+          {/* Animated headline */}
+          <div className="mt-3 flex min-h-[38px] items-center justify-center overflow-hidden sm:mt-4 sm:min-h-[60px] sm:justify-start">
+            <div className="flex max-w-full items-center whitespace-nowrap text-[clamp(1rem,5vw,1.5rem)] font-extrabold tracking-tight sm:text-3xl md:text-4xl">
               <span className="text-[#00D6A0]">{displayText}</span>
-              <span className="ml-1 inline-block h-[0.8em] w-[3px] rounded-full bg-[#00D6A0]" />
+              <span className="ml-1 inline-block h-[0.8em] w-[2px] shrink-0 rounded-full bg-[#00D6A0] sm:w-[3px]" />
             </div>
           </div>
 
+          {/* Description */}
           <p
-            className={`mx-auto mt-5 max-w-xl text-sm font-medium leading-7 sm:mx-0 sm:text-base ${
+            className={`mx-auto mt-4 max-w-xl text-[13px] font-medium leading-6 sm:mx-0 sm:mt-5 sm:text-base sm:leading-7 ${
               dark ? "text-white/60" : "text-[#4C5A53]"
             }`}
           >
@@ -228,7 +234,7 @@ export default function Hero({ dark }) {
           </p>
 
           {/* Supported networks */}
-          <div className="mt-5 flex flex-wrap justify-center gap-2 sm:justify-start">
+          <div className="mt-4 flex flex-wrap justify-center gap-2 sm:mt-5 sm:justify-start">
             {networks.map((network) => (
               <span
                 key={network.name}
@@ -249,11 +255,11 @@ export default function Hero({ dark }) {
           </div>
 
           {/* Action buttons */}
-          <div className="mt-7 flex flex-wrap justify-center gap-3 sm:justify-start">
+          <div className="mt-6 flex w-full flex-col justify-center gap-3 sm:mt-7 sm:w-auto sm:flex-row sm:flex-wrap sm:justify-start">
             <Link
               to="/dashboard"
               onClick={navigate("/dashboard")}
-              className="hb-primary-btn group inline-flex items-center justify-center gap-2 rounded-xl bg-[#00D6A0] px-6 py-3.5 text-sm font-bold text-[#06251C] transition-all duration-300 hover:-translate-y-0.5 hover:bg-[#24E6B4]"
+              className="hb-primary-btn group inline-flex w-full items-center justify-center gap-2 rounded-xl bg-[#00D6A0] px-6 py-3.5 text-sm font-bold text-[#06251C] transition-all duration-300 hover:-translate-y-0.5 hover:bg-[#24E6B4] sm:w-auto"
             >
               Explore Bounties
               <FiArrowUpRight className="transition-transform duration-300 group-hover:translate-x-1 group-hover:-translate-y-1" />
@@ -262,7 +268,7 @@ export default function Hero({ dark }) {
             <Link
               to="/create"
               onClick={navigate("/create")}
-              className={`group inline-flex items-center justify-center gap-2 rounded-xl border px-6 py-3.5 text-sm font-bold transition-all duration-300 hover:-translate-y-0.5 ${
+              className={`group inline-flex w-full items-center justify-center gap-2 rounded-xl border px-6 py-3.5 text-sm font-bold transition-all duration-300 hover:-translate-y-0.5 sm:w-auto ${
                 dark
                   ? "border-white/15 bg-white/[0.035] text-white hover:border-[#00D6A0]/60 hover:text-[#00D6A0]"
                   : "border-black/10 bg-white/80 text-[#17211C] shadow-sm hover:border-[#00A87D]/50 hover:text-[#008A66]"
@@ -274,7 +280,7 @@ export default function Hero({ dark }) {
           </div>
 
           {/* Animated headline indicators */}
-          <div className="mt-7 flex items-center justify-center gap-3 sm:justify-start">
+          <div className="mt-6 flex items-center justify-center gap-3 sm:mt-7 sm:justify-start">
             <div className="flex gap-1.5">
               {heroMessages.map((message, index) => (
                 <span
@@ -291,7 +297,7 @@ export default function Hero({ dark }) {
             </div>
 
             <span
-              className={`text-[11px] font-semibold ${
+              className={`text-[10px] font-semibold sm:text-[11px] ${
                 dark ? "text-white/45" : "text-[#6C7771]"
               }`}
             >
@@ -303,9 +309,9 @@ export default function Hero({ dark }) {
         {/* Right visual */}
         <div
           ref={visualRef}
-          className="hb-visual relative mx-auto flex min-h-[350px] w-full max-w-[720px] items-center justify-center lg:min-h-[550px] lg:max-w-none"
+          className="hb-visual relative mx-auto flex min-h-[300px] w-full max-w-[720px] items-center justify-center sm:min-h-[400px] lg:min-h-[550px] lg:max-w-none"
         >
-          <div className="hb-scene relative flex h-[350px] w-full items-center justify-center sm:h-[470px] lg:h-[540px]">
+          <div className="hb-scene relative flex h-[300px] w-full items-center justify-center sm:h-[430px] lg:h-[540px]">
             <div className="hb-orbit hb-orbit-one" />
             <div className="hb-orbit hb-orbit-two" />
             <div className="hb-orbit hb-orbit-three" />
@@ -318,24 +324,24 @@ export default function Hero({ dark }) {
 
             {/* Central platform */}
             <div
-              className={`hb-core relative z-10 flex h-40 w-40 items-center justify-center rounded-full border sm:h-48 sm:w-48 ${
+              className={`hb-core relative z-10 flex h-36 w-36 items-center justify-center rounded-full border sm:h-48 sm:w-48 ${
                 dark
                   ? "border-[#00D6A0]/30 bg-[#091511]/90"
                   : "border-white/90 bg-white/90"
               }`}
             >
               <div className="flex h-[76%] w-[76%] flex-col items-center justify-center rounded-full border border-[#00D6A0]/20">
-                <FiGlobe className="mb-2 h-9 w-9 text-[#00D6A0]" />
+                <FiGlobe className="mb-2 h-7 w-7 text-[#00D6A0] sm:h-9 sm:w-9" />
 
                 <span
-                  className={`text-base font-extrabold sm:text-lg ${
+                  className={`text-sm font-extrabold sm:text-lg ${
                     dark ? "text-white" : "text-[#13231B]"
                   }`}
                 >
                   Happy Bounty
                 </span>
 
-                <span className="mt-1 text-[9px] font-bold uppercase tracking-[0.16em] text-[#00D6A0]">
+                <span className="mt-1 text-[8px] font-bold uppercase tracking-[0.13em] text-[#00D6A0] sm:text-[9px] sm:tracking-[0.16em]">
                   Work. Earn. Grow.
                 </span>
               </div>
@@ -422,8 +428,8 @@ export default function Hero({ dark }) {
         </div>
       </div>
 
-      {/* Full-width moving network ticker */}
-      <div className="relative z-10 w-full max-w-none px-5 pb-10 sm:px-8 lg:px-12 xl:px-16 2xl:px-20">
+      {/* Moving network ticker */}
+      <div className="relative z-10 w-full max-w-none px-4 pb-8 sm:px-8 sm:pb-10 lg:px-12 xl:px-16 2xl:px-20">
         <div
           className={`hb-ticker overflow-hidden rounded-2xl border ${
             dark
@@ -461,8 +467,8 @@ export default function Hero({ dark }) {
         </div>
       </div>
 
-      {/* Full-width feature cards */}
-      <div className="relative z-10 grid w-full max-w-none grid-cols-1 gap-3 px-5 pb-16 sm:grid-cols-2 sm:px-8 lg:grid-cols-4 lg:px-12 lg:pb-20 xl:px-16 2xl:px-20">
+      {/* Feature cards */}
+      <div className="relative z-10 grid w-full max-w-none grid-cols-1 gap-3 px-4 pb-12 sm:grid-cols-2 sm:px-8 sm:pb-16 lg:grid-cols-4 lg:px-12 lg:pb-20 xl:px-16 2xl:px-20">
         {features.map((feature) => {
           const Icon = feature.icon;
 
@@ -949,11 +955,30 @@ export default function Hero({ dark }) {
           to { transform: translateX(-50%); }
         }
 
+        /* Mobile refinements */
         @media (max-width: 640px) {
-          .hb-visual { min-height: 350px; }
-          .hb-scene { height: 350px; }
-          .hb-orbit-one { width: 98%; }
-          .hb-orbit-two { width: 78%; }
+          .hb-visual {
+            min-height: 290px;
+          }
+
+          .hb-scene {
+            height: 290px;
+          }
+
+          .hb-orbit-one {
+            width: 100%;
+            height: 45%;
+          }
+
+          .hb-orbit-two {
+            width: 82%;
+            height: 70%;
+          }
+
+          .hb-orbit-three {
+            width: 63%;
+            height: 82%;
+          }
 
           .hb-orbit-card {
             gap: 6px;
@@ -968,37 +993,47 @@ export default function Hero({ dark }) {
             padding: 5px;
           }
 
-          .hb-orbit-card strong { font-size: 10px; }
-          .hb-orbit-card small { font-size: 8px; }
+          .hb-orbit-card strong {
+            font-size: 10px;
+          }
+
+          .hb-orbit-card small {
+            font-size: 8px;
+          }
 
           .hb-card-arc {
-            top: 22%;
+            top: 20%;
             left: 0;
           }
 
           .hb-card-botchain {
-            right: 1%;
+            right: 0;
             bottom: 17%;
           }
 
           .hb-reward-card {
-            top: 3%;
-            left: 15%;
+            top: 1%;
+            left: 16%;
           }
 
           .hb-approval-card {
-            bottom: 2%;
+            bottom: 0;
             left: 0;
           }
 
           .hb-float-card {
-            max-width: 190px;
+            max-width: 185px;
             padding: 9px;
             gap: 7px;
           }
 
-          .hb-float-card strong { font-size: 9px; }
-          .hb-float-card small { font-size: 8px; }
+          .hb-float-card strong {
+            font-size: 9px;
+          }
+
+          .hb-float-card small {
+            font-size: 8px;
+          }
 
           .hb-card-icon {
             width: 29px;
@@ -1006,23 +1041,69 @@ export default function Hero({ dark }) {
             flex-basis: 29px;
           }
 
-          .hb-mini-label { font-size: 8px; }
-          .hb-mini-left { top: 43%; }
-          .hb-mini-right { bottom: 38%; }
+          .hb-mini-label {
+            font-size: 8px;
+          }
+
+          .hb-mini-left {
+            top: 43%;
+            left: 1%;
+          }
+
+          .hb-mini-right {
+            right: 1%;
+            bottom: 37%;
+          }
 
           .hb-ticker-item {
             gap: 8px;
             padding: 12px 14px;
           }
+
+          .hb-ticker-logo {
+            width: 24px;
+            height: 24px;
+            flex-basis: 24px;
+          }
         }
 
         @media (max-width: 390px) {
-          .hb-orbit-card small { display: none; }
-          .hb-orbit-card { padding: 6px; }
-          .hb-card-arc { left: -2%; }
-          .hb-card-botchain { right: -1%; }
-          .hb-reward-card { left: 10%; }
-          .hb-mini-label { font-size: 7px; }
+          .hb-orbit-card small {
+            display: none;
+          }
+
+          .hb-orbit-card {
+            padding: 6px;
+          }
+
+          .hb-card-arc {
+            top: 21%;
+            left: 0;
+          }
+
+          .hb-card-botchain {
+            right: 0;
+          }
+
+          .hb-reward-card {
+            left: 13%;
+          }
+
+          .hb-approval-card {
+            max-width: 170px;
+          }
+
+          .hb-mini-label {
+            font-size: 7px;
+          }
+
+          .hb-mini-left {
+            top: 45%;
+          }
+
+          .hb-mini-right {
+            bottom: 38%;
+          }
         }
 
         @media (prefers-reduced-motion: reduce) {
