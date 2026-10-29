@@ -275,7 +275,7 @@ export default function CookieConsent() {
           aria-modal="false"
           aria-labelledby="hb-cookie-title"
           aria-describedby="hb-cookie-description"
-          className="hb-cookie-animate fixed bottom-3 left-3 right-3 z-[9999] mx-auto max-h-[calc(100dvh-1.5rem)] w-auto max-w-[430px] overflow-y-auto overscroll-contain rounded-[24px] border p-5 sm:bottom-6 sm:left-auto sm:right-6 sm:p-6"
+          className="hb-cookie-animate fixed bottom-3 left-3 right-3 z-[9999] mx-auto max-h-[calc(100dvh-1.5rem)] w-auto max-w-[430px] overflow-y-auto overscroll-contain rounded-[24px] border p-4 sm:bottom-6 sm:left-auto sm:right-6 sm:p-6"
           style={{
             backgroundColor: colors.panel,
             color: colors.text,
@@ -284,10 +284,10 @@ export default function CookieConsent() {
           }}
         >
           {/* Header */}
-          <div className="mb-4 flex items-start justify-between gap-3">
+          <div className="mb-3 flex items-start justify-between gap-3 sm:mb-4">
             <div className="flex min-w-0 items-center gap-3">
               <div
-                className="flex h-11 w-11 shrink-0 items-center justify-center rounded-2xl"
+                className="flex h-10 w-10 shrink-0 items-center justify-center rounded-2xl sm:h-11 sm:w-11"
                 style={{
                   color: colors.accent,
                   backgroundColor: colors.secondary,
@@ -306,7 +306,7 @@ export default function CookieConsent() {
                 </p>
 
                 <p
-                  className="mt-0.5 text-sm"
+                  className="mt-0.5 text-xs sm:text-sm"
                   style={{ color: colors.muted }}
                 >
                   Your privacy, your choice
@@ -330,10 +330,10 @@ export default function CookieConsent() {
           </div>
 
           {/* Title and description */}
-          <div className="mb-4">
+          <div className="mb-3 sm:mb-4">
             <h2
               id="hb-cookie-title"
-              className="text-xl font-bold leading-tight tracking-tight sm:text-[22px]"
+              className="text-lg font-bold leading-tight tracking-tight sm:text-[22px]"
             >
               {showSettings
                 ? "Manage your cookies"
@@ -342,7 +342,7 @@ export default function CookieConsent() {
 
             <p
               id="hb-cookie-description"
-              className="mt-2 text-sm leading-6"
+              className="mt-2 text-xs leading-5 sm:text-sm sm:leading-6"
               style={{ color: colors.muted }}
             >
               {showSettings
@@ -354,27 +354,40 @@ export default function CookieConsent() {
           {/* Cookie preferences */}
           {showSettings && (
             <div
-              className="mb-4 divide-y overflow-hidden rounded-2xl border px-3"
+              className="mb-3 divide-y overflow-hidden rounded-2xl border px-3 sm:mb-4"
               style={{
                 backgroundColor: colors.card,
                 borderColor: colors.divider,
               }}
             >
-              {COOKIE_TYPES.map((item) => {
+              {COOKIE_TYPES.map((item, index) => {
                 const Icon = item.icon;
 
                 return (
                   <label
                     key={item.key}
-                    className="flex cursor-pointer items-start gap-3 py-3.5"
+                    className="flex cursor-pointer items-start gap-3 py-3 sm:py-3.5"
                     style={{ borderColor: colors.divider }}
                   >
+                    {/* Mobile: numbered indicator. Desktop: original icon. */}
                     <span
-                      className="mt-0.5 flex h-9 w-9 shrink-0 items-center justify-center rounded-xl"
+                      className="mt-0.5 flex h-8 w-8 shrink-0 items-center justify-center rounded-xl text-xs font-bold sm:hidden"
                       style={{
                         backgroundColor: colors.secondary,
                         color: colors.accent,
                       }}
+                      aria-hidden="true"
+                    >
+                      {index + 1}
+                    </span>
+
+                    <span
+                      className="mt-0.5 hidden h-9 w-9 shrink-0 items-center justify-center rounded-xl sm:flex"
+                      style={{
+                        backgroundColor: colors.secondary,
+                        color: colors.accent,
+                      }}
+                      aria-hidden="true"
                     >
                       <Icon size={17} />
                     </span>
@@ -420,7 +433,7 @@ export default function CookieConsent() {
           )}
 
           {/* Policy links */}
-          <div className="mb-4 flex flex-wrap items-center gap-x-3 gap-y-1 text-xs">
+          <div className="mb-3 flex flex-wrap items-center gap-x-3 gap-y-1 text-xs sm:mb-4">
             <a
               href="/cookie-policy"
               className="hb-cookie-link inline-flex items-center gap-1 font-semibold hover:underline"
@@ -516,7 +529,7 @@ export default function CookieConsent() {
 
           {/* Footer */}
           <p
-            className="mt-4 text-center text-[10px] leading-4"
+            className="mt-3 text-center text-[10px] leading-4 sm:mt-4"
             style={{ color: colors.subtle }}
           >
             You can change your cookie choices at any time in settings.

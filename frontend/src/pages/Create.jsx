@@ -1,3 +1,4 @@
+
 import { useState, useEffect, useMemo } from "react";
 import { useAccount, useChainId, useSwitchChain } from "wagmi";
 import { Link, useNavigate } from "react-router-dom";
@@ -69,7 +70,6 @@ function Create() {
     document.documentElement.classList.contains("dark"),
   );
 
-  // Scroll-to-top button visibility
   const [showScrollTop, setShowScrollTop] = useState(false);
 
   const [multipleWinner, setMultipleWinner] = useState(false);
@@ -112,7 +112,6 @@ function Create() {
     return () => observer.disconnect();
   }, []);
 
-  // Show the scroll-to-top button after scrolling down
   useEffect(() => {
     const handleScroll = () => {
       setShowScrollTop(window.scrollY > 300);
@@ -127,7 +126,6 @@ function Create() {
     };
   }, []);
 
-  // Smoothly return to the top of the page
   const scrollToTop = () => {
     window.scrollTo({
       top: 0,
@@ -273,7 +271,10 @@ function Create() {
     }
 
     if (step === 3) {
-      if (!Number.isFinite(Number(bountyData.reward)) || bountyData.reward <= 0) {
+      if (
+        !Number.isFinite(Number(bountyData.reward)) ||
+        bountyData.reward <= 0
+      ) {
         showToast.error("Please enter a valid reward amount.");
         return false;
       }
@@ -711,7 +712,9 @@ function Create() {
                       if (step.id < currentStep) setCurrentStep(step.id);
                     }}
                     disabled={step.id >= currentStep}
-                    className={`group flex min-w-0 items-center gap-2 rounded-xl p-2 text-left transition sm:p-3 ${
+                    aria-label={`Step ${step.id}: ${step.label}`}
+                    aria-current={active ? "step" : undefined}
+                    className={`group flex min-w-0 flex-col items-center justify-center gap-1 rounded-xl p-2 text-center transition sm:flex-row sm:items-center sm:justify-start sm:gap-2 sm:p-3 sm:text-left ${
                       active
                         ? "bg-[#00D6A0]/10"
                         : complete
@@ -719,8 +722,24 @@ function Create() {
                           : "opacity-50"
                     }`}
                   >
+                    {/* Mobile: numbers only */}
                     <span
-                      className={`flex h-8 w-8 shrink-0 items-center justify-center rounded-lg text-sm transition sm:h-10 sm:w-10 ${
+                      className={`flex h-9 w-9 shrink-0 items-center justify-center rounded-full text-sm font-bold transition sm:hidden ${
+                        active
+                          ? "bg-[#00D6A0] text-[#07120D]"
+                          : complete
+                            ? "border border-[#00D6A0]/40 bg-[#00D6A0]/10 text-[#00D6A0]"
+                            : dark
+                              ? "border border-white/15 bg-white/[0.03] text-white/60"
+                              : "border border-[#DDE3DC] bg-[#F2F5F0] text-[#737B73]"
+                      }`}
+                    >
+                      {step.id}
+                    </span>
+
+                    {/* Desktop: original icons */}
+                    <span
+                      className={`hidden h-8 w-8 shrink-0 items-center justify-center rounded-lg text-sm transition sm:flex sm:h-10 sm:w-10 ${
                         active
                           ? "bg-[#00D6A0] text-[#07120D]"
                           : complete
@@ -733,11 +752,12 @@ function Create() {
                       {complete ? <FiCheck size={17} /> : <StepIcon size={17} />}
                     </span>
 
-                    <span className="min-w-0">
-                      <span className={`block text-[10px] uppercase tracking-wider sm:text-xs ${muted}`}>
+                    {/* Desktop: original step labels */}
+                    <span className="hidden min-w-0 sm:block">
+                      <span className={`block text-xs uppercase tracking-wider ${muted}`}>
                         Step {step.id}
                       </span>
-                      <span className="mt-0.5 block truncate text-xs font-bold sm:text-sm">
+                      <span className="mt-0.5 block truncate text-sm font-bold">
                         {step.label}
                       </span>
                     </span>
@@ -1264,7 +1284,7 @@ function Create() {
                             {feeDisplay} {bountyData.token}
                           </span>
                         </div>
-                        <div className={`flex items-center justify-between gap-4 rounded-xl border border-[#00D6A0]/25 bg-[#00D6A0]/[0.07] p-4`}>
+                        <div className="flex items-center justify-between gap-4 rounded-xl border border-[#00D6A0]/25 bg-[#00D6A0]/[0.07] p-4">
                           <div>
                             <p className="text-sm font-bold">Total amount</p>
                             <p className={`mt-1 text-xs ${muted}`}>Reward + service fee</p>
