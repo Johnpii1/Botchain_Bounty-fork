@@ -17,7 +17,7 @@ import { ThemeProvider, useTheme } from "./context/ThemeContext";
 const queryClient = new QueryClient();
 
 function ThemedRainbowKitProvider({ children }) {
-  const { dark } = useTheme();
+  const { dark, accent, accentForeground } = useTheme();
 
   return (
     <RainbowKitProvider
@@ -25,13 +25,13 @@ function ThemedRainbowKitProvider({ children }) {
       theme={
         dark
           ? darkTheme({
-              accentColor: "#00D6A0",
-              accentColorForeground: "#06251c",
+              accentColor: accent,
+              accentColorForeground: accentForeground,
               borderRadius: "medium",
             })
           : lightTheme({
-              accentColor: "#00B889",
-              accentColorForeground: "#ffffff",
+              accentColor: accent,
+              accentColorForeground: accentForeground,
               borderRadius: "medium",
             })
       }
