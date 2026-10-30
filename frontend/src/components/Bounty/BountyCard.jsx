@@ -17,6 +17,8 @@ import {
   FiZap,
 } from "react-icons/fi";
 
+import HappyBountyLogo from "../../assets/images/happy-bounty-logo.png";
+
 import { formatAmount } from "../../utils/format";
 import { getNativeToken } from "../../utils/chains.address";
 import { supportedChains } from "../../rainbowChains";
@@ -288,7 +290,7 @@ const BountyCard = ({
   return (
     <article
       className={`
-        group relative flex h-[550px] min-w-0 flex-col
+        group relative isolate flex h-[550px] min-w-0 flex-col
         overflow-hidden rounded-[18px] border
         transition-all duration-300 ease-out
         hover:-translate-y-1
@@ -299,9 +301,50 @@ const BountyCard = ({
         }
       `}
     >
-      {/* Image banner with stronger light-theme contrast */}
+      {/* =====================================================
+          CENTRED HAPPY BOUNTY LOGO WATERMARK
+          Positioned behind the entire card content
+      ====================================================== */}
+
       <div
-        className={`relative h-[108px] shrink-0 overflow-hidden ${
+        aria-hidden="true"
+        className="pointer-events-none absolute inset-0 z-0 flex items-center justify-center overflow-hidden"
+      >
+        <img
+          src={HappyBountyLogo}
+          alt=""
+          draggable="false"
+          className={`
+            h-56 w-56 max-w-[75%]
+            select-none object-contain
+            opacity-[0.075]
+            blur-[1.5px]
+            transition-all duration-500
+            group-hover:scale-105
+            ${
+              dark
+                ? "brightness-125"
+                : "brightness-95"
+            }
+          `}
+        />
+
+        {/* Soft green glow behind the logo */}
+        <div
+          className={`
+            absolute h-52 w-52 rounded-full blur-[65px]
+            ${
+              dark
+                ? "bg-[#00D6A0]/[0.055]"
+                : "bg-[#00A87D]/[0.045]"
+            }
+          `}
+        />
+      </div>
+
+      {/* Image banner */}
+      <div
+        className={`relative z-[1] h-[108px] shrink-0 overflow-hidden ${
           dark ? "bg-[#07130F]" : "bg-[#CDEFE0]"
         }`}
       >
@@ -399,9 +442,11 @@ const BountyCard = ({
       </div>
 
       {/* Top accent */}
-      <div className="absolute inset-x-0 top-0 z-10 h-[3px] bg-gradient-to-r from-transparent via-[#00D6A0] to-transparent opacity-80" />
+      <div className="absolute inset-x-0 top-0 z-20 h-[3px] bg-gradient-to-r from-transparent via-[#00D6A0] to-transparent opacity-80" />
 
-      <div className="flex min-h-0 flex-1 flex-col overflow-hidden px-4 py-4">
+      {/* Card content */}
+      <div className="relative z-[2] flex min-h-0 flex-1 flex-col overflow-hidden px-4 py-4">
+
         {/* Bold bounty title */}
         <Link
           to={`/bounty/${bountyId}`}
