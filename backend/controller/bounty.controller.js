@@ -1,5 +1,7 @@
 const Bounty = require("../modules/bounty.module");
 const Submission = require("../modules/submission.module");
+const User = require("../modules/user.module");
+const Reward = require("../modules/reward.module");
 const buildBountyFilter = require("../utils/buildBountyFilter");
 const paginate = require("../utils/paginate");
 const buildSortQuery = require("../utils/buildSortQuery");
@@ -265,6 +267,40 @@ const bountyCategory = async (req, res) => {
   }
 };
 
+const getPlatformStats = async (req, res) => {
+  try {
+    // 1. Total bounties created (matches your contract counter)
+    const bountiesCreated = await Bounty.countDocuments();
+
+    // 2. Bounties completed (where rewards have been distributed)
+    const bountiesCompleted = await Bounty.countDocuments({
+      lifecycleStatus: "completed",
+    });
+
+    // 3. Total rewards paid (sum of all claimed rewards)
+    const rewards = await Reward.find({ status: "claimed" }).lean();
+    const totalPaid = rewards.reduce(
+      (sum, r) => sum + Number(r.amountFormatted || 0),
+      0,
+    );
+
+    // 4. Unique contributors (anyone who has submitted work)
+    const contributors = await Submission.distinct("user").then(
+      (users) => users.length,
+    );
+
+    res.status(200).json({
+      bountiesCreated,
+      bountiesCompleted,
+      totalPaid,
+      contributors,
+    });
+  } catch (err) {
+    console.error("Failed to fetch platform stats:", err);
+    res.status(500).json({ error: "Failed to fetch platform stats" });
+  }
+};
+
 module.exports = {
   createBounty,
   getBounty,
@@ -273,4 +309,5 @@ module.exports = {
   deleteBounty,
   bountyTags,
   bountyCategory,
+  getPlatformStats,
 };

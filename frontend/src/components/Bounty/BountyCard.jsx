@@ -1,3 +1,4 @@
+
 import { useState } from "react";
 import { Link } from "react-router-dom";
 import axios from "axios";
@@ -9,8 +10,6 @@ import {
   FiArrowUpRight,
   FiCalendar,
   FiCheckCircle,
-  FiChevronDown,
-  FiChevronUp,
   FiClock,
   FiLayers,
   FiLock,
@@ -19,6 +18,8 @@ import {
 } from "react-icons/fi";
 
 import { formatAmount } from "../../utils/format";
+import { getNativeToken } from "../../utils/chains.address";
+import { supportedChains } from "../../rainbowChains";
 
 const BountyCard = ({
   bounty,
@@ -30,10 +31,9 @@ const BountyCard = ({
 
   const [isEnrolling, setIsEnrolling] = useState(false);
   const [isEnrolledLocal, setIsEnrolledLocal] = useState(false);
-  const [showDescription, setShowDescription] = useState(false);
+  const [imageFailed, setImageFailed] = useState(false);
 
   const API_URL = import.meta.env.VITE_API_URL;
-
   const bountyId = bounty._id || bounty.id;
 
   const enrolledFromServer = enrolledBountyIds.some(
@@ -46,19 +46,17 @@ const BountyCard = ({
     Boolean(isConnected && address && bounty.creator) &&
     bounty.creator.toLowerCase() === address?.toLowerCase();
 
-  // Theme-aware styles
-  const muted = dark ? "text-white/45" : "text-[#737A75]";
-  const secondary = dark ? "text-white/65" : "text-[#505852]";
+  const muted = dark ? "text-white/65" : "text-[#626B64]";
+  const secondary = dark ? "text-white/75" : "text-[#424A43]";
 
   const innerSurface = dark
-    ? "border-white/[0.08] bg-white/[0.025]"
-    : "border-black/[0.07] bg-[#F8FAF8]";
+    ? "border-white/[0.10] bg-white/[0.035]"
+    : "border-black/[0.08] bg-[#F8FAF8]";
 
   const subtleSurface = dark
-    ? "border-white/[0.08] bg-white/[0.035]"
-    : "border-black/[0.07] bg-[#F6F8F6]";
+    ? "border-white/[0.10] bg-white/[0.04]"
+    : "border-black/[0.08] bg-[#F6F8F6]";
 
-  // Derive status if the backend does not provide one
   const deriveStatus = () => {
     if (bounty.status) return bounty.status;
 
@@ -67,7 +65,9 @@ const BountyCard = ({
 
     const now = new Date();
     const start = bounty.startDate ? new Date(bounty.startDate) : null;
-    const deadline = bounty.deadline ? new Date(bounty.deadline) : null;
+    const deadline = bounty.deadline
+      ? new Date(bounty.deadline)
+      : null;
 
     if (start && !Number.isNaN(start.getTime()) && now < start) {
       return "upcoming";
@@ -94,61 +94,42 @@ const BountyCard = ({
     active: {
       label: "Open",
       icon: FiZap,
-      color: dark ? "text-[#55DDB1]" : "text-[#008F6A]",
-      bg: dark ? "bg-[#00A87D]/10" : "bg-[#E6F7F0]",
-      border: dark ? "border-[#00A87D]/25" : "border-[#BDEAD8]",
       dot: "bg-[#00A87D]",
     },
     upcoming: {
       label: "Upcoming",
       icon: FiClock,
-      color: dark ? "text-amber-300" : "text-amber-800",
-      bg: dark ? "bg-amber-400/[0.09]" : "bg-amber-50",
-      border: dark ? "border-amber-300/20" : "border-amber-200",
       dot: "bg-amber-500",
     },
     ended: {
       label: "Ended",
       icon: FiLock,
-      color: dark ? "text-white/50" : "text-slate-600",
-      bg: dark ? "bg-white/[0.045]" : "bg-slate-100",
-      border: dark ? "border-white/[0.08]" : "border-slate-200",
-      dot: dark ? "bg-white/40" : "bg-slate-400",
+      dot: "bg-slate-400",
     },
     completed: {
       label: "Completed",
       icon: FiCheckCircle,
-      color: dark ? "text-[#55DDB1]" : "text-[#008F6A]",
-      bg: dark ? "bg-[#00A87D]/10" : "bg-[#E6F7F0]",
-      border: dark ? "border-[#00A87D]/25" : "border-[#BDEAD8]",
       dot: "bg-[#00A87D]",
     },
     cancelled: {
       label: "Cancelled",
       icon: FiLock,
-      color: dark ? "text-red-300" : "text-red-700",
-      bg: dark ? "bg-red-400/[0.08]" : "bg-red-50",
-      border: dark ? "border-red-400/20" : "border-red-200",
       dot: "bg-red-500",
     },
   }[status] || {
     label: "Draft",
     icon: FiClock,
-    color: muted,
-    bg: subtleSurface,
-    border: dark ? "border-white/[0.08]" : "border-black/[0.07]",
-    dot: dark ? "bg-white/30" : "bg-slate-400",
+    dot: "bg-slate-400",
   };
 
   const StatusIcon = statusConfig.icon;
 
-  // Safely format the deadline
   const getDeadline = () => {
-    if (!bounty.deadline) return "Not specified";
+    if (!bounty.deadline) return "No deadline";
 
     const date = new Date(bounty.deadline);
 
-    if (Number.isNaN(date.getTime())) return "Not specified";
+    if (Number.isNaN(date.getTime())) return "No deadline";
 
     const sameYear = date.getFullYear() === new Date().getFullYear();
 
@@ -163,6 +144,7 @@ const BountyCard = ({
     if (!deadlineValue) return null;
 
     const end = new Date(deadlineValue);
+
     if (Number.isNaN(end.getTime())) return null;
 
     const diffMs = end.getTime() - Date.now();
@@ -200,12 +182,16 @@ const BountyCard = ({
 
   const deadline = getDeadline();
   const timeRemaining = getTimeRemaining(bounty.deadline);
-
   const tags = Array.isArray(bounty.tags) ? bounty.tags : [];
 
-  const rewardDisplay = `${formatAmount(bounty.reward)} ${
-    bounty.token || "USDC"
-  }`;
+  const networkName =
+    supportedChains.find((c) => c.id === Number(bounty.network))?.name ||
+    (bounty.network ? `Chain ${bounty.network}` : "");
+
+  const tokenSymbol =
+    bounty.token || getNativeToken(bounty.network)?.symbol || "native token";
+
+  const rewardDisplay = `${formatAmount(bounty.reward)} ${tokenSymbol}`;
 
   const description =
     bounty.description?.trim() || "No description provided.";
@@ -220,6 +206,32 @@ const BountyCard = ({
     .replace(/([A-Z])/g, " $1")
     .replace(/[_-]/g, " ")
     .trim();
+
+  const rawImage =
+    bounty.imageUrl ||
+    bounty.imageURL ||
+    bounty.coverImage ||
+    bounty.coverImageUrl ||
+    bounty.bannerImage ||
+    bounty.bannerUrl ||
+    bounty.thumbnailUrl ||
+    bounty.thumbnail ||
+    bounty.image ||
+    bounty.images?.[0] ||
+    bounty.media?.url ||
+    bounty.metadata?.image ||
+    bounty.metadata?.imageUrl ||
+    null;
+
+  const bountyImage =
+    typeof rawImage === "string"
+      ? rawImage
+      : rawImage?.url ||
+        rawImage?.src ||
+        rawImage?.secure_url ||
+        null;
+
+  const showImage = Boolean(bountyImage) && !imageFailed;
 
   const handleEnroll = async (e) => {
     e.preventDefault();
@@ -276,8 +288,8 @@ const BountyCard = ({
   return (
     <article
       className={`
-        group relative flex h-full min-w-0 flex-col overflow-hidden
-        rounded-[22px] border
+        group relative flex h-[550px] min-w-0 flex-col
+        overflow-hidden rounded-[18px] border
         transition-all duration-300 ease-out
         hover:-translate-y-1
         ${
@@ -287,152 +299,159 @@ const BountyCard = ({
         }
       `}
     >
-      {/* Brand accent */}
+      {/* Image banner with stronger light-theme contrast */}
       <div
-        className="
-          absolute inset-x-0 top-0 h-[3px]
-          bg-gradient-to-r from-transparent via-[#00A87D] to-transparent
-          opacity-60 transition-opacity duration-300
-          group-hover:opacity-100
-        "
-      />
-
-      {/* Decorative glow */}
-      <div
-        aria-hidden="true"
-        className={`
-          pointer-events-none absolute -right-20 -top-24
-          h-48 w-48 rounded-full bg-[#00A87D]/10 blur-[65px]
-          transition-opacity duration-500
-          ${
+        className={`relative h-[108px] shrink-0 overflow-hidden ${
+          dark ? "bg-[#07130F]" : "bg-[#CDEFE0]"
+        }`}
+      >
+        <div
+          aria-hidden="true"
+          className={`absolute inset-0 ${
             dark
-              ? "opacity-50 group-hover:opacity-100"
-              : "opacity-30 group-hover:opacity-80"
-          }
-        `}
-      />
+              ? "bg-gradient-to-br from-[#07130F] via-[#0B2118] to-[#103B2A]"
+              : "bg-gradient-to-br from-[#B5E8D2] via-[#D4F3E4] to-[#8EDBB9]"
+          }`}
+        />
 
-      <div className="relative z-10 flex h-full min-w-0 flex-col p-5 sm:p-6">
-        {/* Category and status */}
-        <div className="mb-5 flex min-w-0 items-center justify-between gap-3">
-          <div
+        <div
+          aria-hidden="true"
+          className={`absolute inset-0 ${
+            dark
+              ? "bg-[radial-gradient(ellipse_at_75%_20%,rgba(0,214,160,0.35),transparent_48%),radial-gradient(ellipse_at_20%_100%,rgba(0,168,125,0.28),transparent_50%)]"
+              : "bg-[radial-gradient(ellipse_at_75%_20%,rgba(0,143,106,0.24),transparent_48%),radial-gradient(ellipse_at_20%_100%,rgba(0,168,125,0.22),transparent_50%)]"
+          }`}
+        />
+
+        <div
+          aria-hidden="true"
+          className={`absolute -right-8 -top-16 h-44 w-44 rounded-full border ${
+            dark ? "border-[#00D6A0]/30" : "border-[#008F6A]/30"
+          }`}
+        />
+
+        <div
+          aria-hidden="true"
+          className={`absolute -right-1 -top-9 h-32 w-32 rounded-full border ${
+            dark ? "border-[#00D6A0]/35" : "border-[#008F6A]/35"
+          }`}
+        />
+
+        <div
+          aria-hidden="true"
+          className={`absolute right-8 top-5 h-16 w-16 rotate-12 rounded-2xl border ${
+            dark
+              ? "border-[#00D6A0]/40 bg-[#00D6A0]/10"
+              : "border-[#008F6A]/40 bg-[#00A87D]/15"
+          }`}
+        />
+
+        {showImage && (
+          <img
+            src={bountyImage}
+            alt={bounty.title ? `${bounty.title} cover` : "Bounty cover"}
+            loading="lazy"
+            onError={() => setImageFailed(true)}
+            className="absolute inset-0 z-[1] h-full w-full object-cover transition-transform duration-500 group-hover:scale-[1.04]"
+          />
+        )}
+
+        <div className="absolute inset-x-0 top-0 z-10 flex items-start justify-between gap-2 p-3">
+          <span
+            title={bounty.category || "Bounty opportunity"}
+            className="max-w-[65%] truncate rounded-lg border border-white/20 bg-black/60 px-2 py-1.5 text-[10px] font-extrabold uppercase tracking-[0.08em] text-white backdrop-blur-md"
+          >
+            {bounty.category || "Bounty opportunity"}
+          </span>
+
+          <span
             className={`
-              inline-flex min-w-0 max-w-[58%] items-center gap-2
-              rounded-lg border px-2.5 py-2
-              ${innerSurface}
+              inline-flex shrink-0 items-center gap-1.5 rounded-full
+              border px-2.5 py-1.5 text-[10px] font-bold backdrop-blur-md
+              ${
+                status === "upcoming"
+                  ? "border-amber-300/30 bg-black/75 text-amber-200"
+                  : status === "cancelled"
+                    ? "border-red-300/30 bg-black/75 text-red-200"
+                    : status === "ended"
+                      ? "border-white/20 bg-black/75 text-white"
+                      : "border-[#00D6A0]/40 bg-[#07130F]/90 text-[#55DDB1]"
+              }
             `}
           >
-            <FiLayers className="shrink-0 text-sm text-[#00A87D]" />
-
-            <span
-              className={`truncate text-[10px] font-bold uppercase tracking-[0.12em] ${secondary}`}
-              title={bounty.category || "Uncategorized"}
-            >
-              {bounty.category || "Uncategorized"}
-            </span>
-          </div>
-
-          <div
-            className={`
-              inline-flex shrink-0 items-center gap-1.5
-              rounded-full border px-2.5 py-1.5
-              ${statusConfig.bg} ${statusConfig.border}
-            `}
-          >
-            <span className="relative flex h-1.5 w-1.5">
-              {status === "active" && (
-                <span className="absolute inset-0 animate-ping rounded-full bg-[#00A87D] opacity-50" />
-              )}
-
-              <span
-                className={`relative h-1.5 w-1.5 rounded-full ${statusConfig.dot}`}
-              />
-            </span>
-
-            <span
-              className={`text-[10px] font-bold tracking-wide ${statusConfig.color}`}
-            >
-              {statusConfig.label}
-            </span>
-          </div>
+            <span className={`h-1.5 w-1.5 rounded-full ${statusConfig.dot}`} />
+            {statusConfig.label}
+          </span>
         </div>
 
-        {/* Title */}
+        <div className="absolute inset-x-0 bottom-0 z-[2] h-12 bg-gradient-to-t from-black/65 to-transparent" />
+
+        {networkName && (
+          <div className="absolute bottom-2.5 left-3 z-[3]">
+            <span
+              title={networkName}
+              className="rounded-md border border-white/20 bg-black/55 px-2 py-1 text-[11px] font-bold text-white backdrop-blur-md"
+            >
+              {networkName}
+            </span>
+          </div>
+        )}
+      </div>
+
+      {/* Top accent */}
+      <div className="absolute inset-x-0 top-0 z-10 h-[3px] bg-gradient-to-r from-transparent via-[#00D6A0] to-transparent opacity-80" />
+
+      <div className="flex min-h-0 flex-1 flex-col overflow-hidden px-4 py-4">
+        {/* Bold bounty title */}
         <Link
           to={`/bounty/${bountyId}`}
           onClick={handleViewDetails}
-          className="block rounded-sm focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#00A87D]"
+          title={bounty.title || "Untitled bounty"}
+          className="block shrink-0 rounded-sm focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#00A87D]"
         >
           <h3
             className={`
-              line-clamp-2 min-h-[3.4rem]
-              text-[19px] font-extrabold leading-[1.4]
-              tracking-[-0.035em] transition-colors duration-200
+              line-clamp-2 h-[44px] overflow-hidden text-[16px]
+              font-black leading-[22px] tracking-[-0.025em]
+              transition-colors duration-200
               ${
                 dark
                   ? "text-white group-hover:text-[#55DDB1]"
                   : "text-[#171A17] group-hover:text-[#008F6A]"
               }
-              sm:text-xl
             `}
           >
             {bounty.title || "Untitled bounty"}
           </h3>
         </Link>
 
-        {/* Description with show more */}
-        <div className="mt-3">
-          <p
-            className={`
-              whitespace-pre-wrap break-words text-sm leading-6
-              ${secondary}
-              ${showDescription ? "" : "line-clamp-3"}
-            `}
-          >
-            {description}
-          </p>
-
-          {description.length > 130 && (
-            <button
-              type="button"
-              onClick={() => setShowDescription((value) => !value)}
-              aria-expanded={showDescription}
-              className={`
-                mt-1.5 inline-flex items-center gap-1
-                text-xs font-bold transition-colors
-                ${
-                  dark
-                    ? "text-[#55DDB1] hover:text-[#00C995]"
-                    : "text-[#008F6A] hover:text-[#00A87D]"
-                }
-              `}
-            >
-              {showDescription ? "Show less" : "Read more"}
-
-              {showDescription ? (
-                <FiChevronUp size={13} />
-              ) : (
-                <FiChevronDown size={13} />
-              )}
-            </button>
-          )}
-        </div>
+        {/* Description */}
+        <p
+          title={description}
+          className={`
+            mt-2 h-10 shrink-0 overflow-hidden break-words
+            text-[12px] leading-5 line-clamp-2
+            ${secondary}
+          `}
+        >
+          {description}
+        </p>
 
         {/* Tags */}
-        <div className="mt-4 flex min-h-[28px] flex-wrap items-start gap-1.5">
+        <div className="mt-2 flex h-[23px] shrink-0 items-start gap-1.5 overflow-hidden">
           {tags.slice(0, 3).map((tag, index) => (
             <span
               key={`${tag}-${index}`}
+              title={tag}
               className={`
-                max-w-full truncate rounded-md border px-2.5 py-1
-                text-[10px] font-semibold
+                max-w-[105px] shrink-0 truncate rounded-md border
+                px-2 py-1 text-[10px] font-semibold leading-[13px]
                 ${
                   dark
-                    ? "border-white/[0.09] bg-white/[0.035] text-white/55"
-                    : "border-black/[0.07] bg-[#F7F9F7] text-[#69716B]"
+                    ? "border-white/[0.09] bg-white/[0.035] text-white/70"
+                    : "border-black/[0.07] bg-[#F7F9F7] text-[#505A52]"
                 }
               `}
-              title={tag}
             >
               #{tag}
             </span>
@@ -440,8 +459,10 @@ const BountyCard = ({
 
           {tags.length > 3 && (
             <span
+              title={`${tags.length - 3} more tags`}
               className={`
-                rounded-md border px-2.5 py-1 text-[10px] font-bold
+                shrink-0 rounded-md border px-2 py-1
+                text-[10px] font-bold leading-[13px]
                 ${
                   dark
                     ? "border-[#00A87D]/20 bg-[#00A87D]/[0.08] text-[#55DDB1]"
@@ -454,59 +475,56 @@ const BountyCard = ({
           )}
         </div>
 
-        {/* Reward and deadline panel */}
+        {/* Reward and deadline */}
         <div
           className={`
-            mt-5 grid grid-cols-2 overflow-hidden rounded-2xl border
+            mt-3 grid min-h-[100px] shrink-0 grid-cols-2
+            overflow-hidden rounded-xl border
             ${innerSurface}
           `}
         >
-          {/* Reward */}
-          <div className="min-w-0 p-4">
-            <div className={`mb-2 flex items-center gap-1.5 ${muted}`}>
-              <FiZap className="text-xs text-[#00A87D]" />
-
-              <span className="text-[10px] font-bold uppercase tracking-[0.13em]">
-                Bounty reward
+          <div className="flex min-w-0 flex-col justify-center p-3">
+            <div className={`mb-2 flex items-center gap-2 ${muted}`}>
+              <FiZap className="shrink-0 text-sm text-[#00A87D]" />
+              <span className="text-[11px] font-extrabold uppercase tracking-[0.08em]">
+                Reward
               </span>
             </div>
 
             <p
+              title={rewardDisplay}
               className={`
-                break-words text-lg font-black leading-tight tracking-[-0.04em]
+                break-words text-[15px] font-black leading-5
                 ${dark ? "text-white" : "text-[#171A17]"}
               `}
-              title={rewardDisplay}
             >
               {rewardDisplay}
             </p>
 
-            <p className={`mt-1.5 text-[10px] ${muted}`}>
-              Reward offered
+            <p className={`mt-1.5 text-[10px] font-medium ${muted}`}>
+              Bounty reward
             </p>
           </div>
 
-          {/* Deadline */}
           <div
             className={`
-              min-w-0 border-l p-4
-              ${dark ? "border-white/[0.08]" : "border-black/[0.07]"}
+              flex min-w-0 flex-col justify-center border-l p-3
+              ${dark ? "border-white/[0.10]" : "border-black/[0.08]"}
             `}
           >
-            <div className={`mb-2 flex items-center gap-1.5 ${muted}`}>
-              <FiCalendar className="text-xs text-[#00A87D]" />
-
-              <span className="text-[10px] font-bold uppercase tracking-[0.13em]">
+            <div className={`mb-2 flex items-center gap-2 ${muted}`}>
+              <FiCalendar className="shrink-0 text-sm text-[#00A87D]" />
+              <span className="text-[11px] font-extrabold uppercase tracking-[0.08em]">
                 Deadline
               </span>
             </div>
 
             <p
-              className={`
-                truncate text-sm font-bold
-                ${dark ? "text-white/85" : "text-[#343B35]"}
-              `}
               title={deadline}
+              className={`
+                break-words text-[14px] font-extrabold leading-5
+                ${dark ? "text-white" : "text-[#252C26]"}
+              `}
             >
               {deadline}
             </p>
@@ -514,12 +532,12 @@ const BountyCard = ({
             {timeRemaining?.label ? (
               <p
                 className={`
-                  mt-1.5 text-[10px] font-semibold
+                  mt-1.5 break-words text-[10px] font-bold leading-4
                   ${
                     timeRemaining.urgent
                       ? dark
                         ? "text-amber-300"
-                        : "text-amber-600"
+                        : "text-amber-700"
                       : dark
                         ? "text-[#55DDB1]"
                         : "text-[#008F6A]"
@@ -531,11 +549,11 @@ const BountyCard = ({
             ) : timeRemaining?.past &&
               status !== "completed" &&
               status !== "cancelled" ? (
-              <p className={`mt-1.5 text-[10px] ${muted}`}>
+              <p className={`mt-1.5 text-[10px] font-semibold ${muted}`}>
                 Deadline passed
               </p>
             ) : (
-              <p className={`mt-1.5 text-[10px] ${muted}`}>
+              <p className={`mt-1.5 text-[10px] font-medium ${muted}`}>
                 Closing date
               </p>
             )}
@@ -545,8 +563,9 @@ const BountyCard = ({
         {/* Bounty reference and winner type */}
         <div
           className={`
-            mt-3 flex min-w-0 items-center justify-between gap-3
-            rounded-xl border px-3 py-3
+            mt-2.5 flex min-h-[48px] shrink-0 min-w-0
+            items-center justify-between gap-2 rounded-lg
+            border px-3 py-2
             ${subtleSurface}
           `}
         >
@@ -555,14 +574,14 @@ const BountyCard = ({
 
             <div className="min-w-0">
               <p
-                className={`text-[10px] font-semibold uppercase tracking-wider ${muted}`}
+                className={`text-[10px] font-extrabold uppercase tracking-[0.06em] ${muted}`}
               >
                 Bounty reference
               </p>
 
               <p
-                className={`mt-1 truncate text-xs font-bold ${secondary}`}
                 title={String(bountyId || "Not available")}
+                className={`mt-1 break-all text-[11px] font-bold ${secondary}`}
               >
                 {bountyId
                   ? `#${String(bountyId).slice(-8)}`
@@ -573,21 +592,18 @@ const BountyCard = ({
 
           {winnerType && (
             <div
+              title={`Winner type: ${formattedWinnerType}`}
               className={`
-                flex min-w-0 items-center gap-2 rounded-lg border
-                px-2.5 py-2
+                flex min-w-0 max-w-[46%] shrink items-center gap-1.5
+                rounded-md border px-2 py-1.5
                 ${
                   dark
                     ? "border-[#00A87D]/20 bg-[#00A87D]/[0.08]"
                     : "border-[#BDEAD8] bg-[#E6F7F0]"
                 }
               `}
-              title={`Winner type: ${formattedWinnerType}`}
             >
-              <FiCheckCircle
-                className="shrink-0 text-[#00A87D]"
-                size={13}
-              />
+              <FiCheckCircle className="shrink-0 text-[#00A87D]" size={12} />
 
               <span
                 className={`
@@ -601,67 +617,60 @@ const BountyCard = ({
           )}
         </div>
 
-        {/* Actions */}
-        <div className="mt-auto grid grid-cols-2 gap-2.5 pt-5">
+        {/* Bottom actions */}
+        <div className="mt-auto grid shrink-0 grid-cols-2 gap-2 pt-3 pb-1">
           <Link
             to={`/bounty/${bountyId}`}
             onClick={handleViewDetails}
             className={`
-              group/details inline-flex min-w-0 items-center
-              justify-center gap-2 rounded-xl border
-              px-3 py-3 text-xs font-bold transition-all duration-200
+              group/details inline-flex h-[40px] min-w-0 items-center
+              justify-center gap-1.5 rounded-lg border px-2
+              text-[11px] font-extrabold transition-all duration-200
               focus-visible:outline-none focus-visible:ring-2
               focus-visible:ring-[#00A87D]
-              sm:text-sm
               ${
                 dark
-                  ? "border-white/[0.10] bg-white/[0.025] text-white/75 hover:border-[#00A87D]/40 hover:bg-[#00A87D]/[0.08] hover:text-[#55DDB1]"
-                  : "border-black/[0.08] bg-white text-[#424943] hover:border-[#00A87D]/35 hover:bg-[#F0FAF6] hover:text-[#008F6A]"
+                  ? "border-white/[0.10] bg-white/[0.025] text-white/85 hover:border-[#00A87D]/40 hover:bg-[#00A87D]/[0.08] hover:text-[#55DDB1]"
+                  : "border-black/[0.08] bg-white text-[#343C35] hover:border-[#00A87D]/35 hover:bg-[#F0FAF6] hover:text-[#008F6A]"
               }
             `}
           >
             <span className="truncate">View details</span>
-
             <FiArrowUpRight
               size={14}
               className="shrink-0 transition-transform group-hover/details:-translate-y-0.5 group-hover/details:translate-x-0.5"
             />
           </Link>
 
-          {/* Creator action */}
           {isCreator ? (
             <Link
               to={`/bounty/${bountyId}`}
               onClick={handleViewDetails}
               className="
-                inline-flex min-w-0 items-center justify-center gap-2
-                rounded-xl bg-[#00A87D] px-3 py-3
-                text-xs font-extrabold text-white
-                transition-all duration-200
-                hover:-translate-y-0.5 hover:bg-[#008F6A]
+                inline-flex h-[40px] min-w-0 items-center justify-center
+                gap-1.5 rounded-lg bg-[#00A87D] px-2 text-[11px]
+                font-extrabold text-white transition-all
+                hover:bg-[#008F6A]
                 focus-visible:outline-none focus-visible:ring-2
-                focus-visible:ring-[#00A87D] focus-visible:ring-offset-2
-                sm:text-sm
+                focus-visible:ring-[#00A87D]
               "
             >
-              <FiLayers className="shrink-0" />
+              <FiLayers className="shrink-0" size={14} />
               <span className="truncate">Manage</span>
             </Link>
           ) : isEnrolled ? (
             <div
               className={`
-                inline-flex min-w-0 items-center justify-center gap-1.5
-                rounded-xl border px-3 py-3
-                text-xs font-bold sm:text-sm
+                inline-flex h-[40px] min-w-0 items-center justify-center
+                gap-1.5 rounded-lg border px-2 text-[11px] font-extrabold
                 ${
                   dark
                     ? "border-[#00A87D]/25 bg-[#00A87D]/[0.09] text-[#55DDB1]"
                     : "border-[#BDEAD8] bg-[#E6F7F0] text-[#008F6A]"
                 }
               `}
-              aria-label="You are enrolled in this bounty"
             >
-              <FiCheckCircle className="shrink-0" />
+              <FiCheckCircle className="shrink-0" size={14} />
               <span className="truncate">Enrolled</span>
             </div>
           ) : status === "active" ? (
@@ -671,27 +680,25 @@ const BountyCard = ({
               disabled={isEnrolling}
               aria-busy={isEnrolling}
               className="
-                inline-flex min-w-0 items-center justify-center gap-2
-                rounded-xl bg-[#00A87D] px-3 py-3
-                text-xs font-extrabold text-white
-                transition-all duration-200
-                hover:-translate-y-0.5 hover:bg-[#008F6A]
+                inline-flex h-[40px] min-w-0 items-center justify-center
+                gap-1.5 rounded-lg bg-[#00A87D] px-2 text-[11px]
+                font-extrabold text-white transition-all
+                hover:bg-[#008F6A]
                 hover:shadow-[0_8px_20px_rgba(0,168,125,0.18)]
                 active:scale-[0.98]
                 disabled:cursor-not-allowed disabled:opacity-55
                 focus-visible:outline-none focus-visible:ring-2
-                focus-visible:ring-[#00A87D] focus-visible:ring-offset-2
-                sm:text-sm
+                focus-visible:ring-[#00A87D]
               "
             >
               {isEnrolling ? (
                 <>
-                  <span className="h-3.5 w-3.5 shrink-0 animate-spin rounded-full border-2 border-white/40 border-t-white" />
+                  <span className="h-3 w-3 shrink-0 animate-spin rounded-full border-2 border-white/40 border-t-white" />
                   <span className="truncate">Joining...</span>
                 </>
               ) : (
                 <>
-                  <FiPlus className="shrink-0" />
+                  <FiPlus className="shrink-0" size={14} />
                   <span className="truncate">Join bounty</span>
                 </>
               )}
@@ -699,17 +706,16 @@ const BountyCard = ({
           ) : (
             <div
               className={`
-                inline-flex min-w-0 items-center justify-center gap-1.5
-                rounded-xl border px-3 py-3
-                text-xs font-bold sm:text-sm
+                inline-flex h-[40px] min-w-0 items-center justify-center
+                gap-1.5 rounded-lg border px-2 text-[11px] font-extrabold
                 ${
                   dark
-                    ? "border-white/[0.08] bg-white/[0.035] text-white/35"
-                    : "border-black/[0.07] bg-[#F4F6F4] text-slate-400"
+                    ? "border-white/[0.08] bg-white/[0.035] text-white/55"
+                    : "border-black/[0.07] bg-[#F4F6F4] text-slate-500"
                 }
               `}
             >
-              <StatusIcon className="shrink-0" />
+              <StatusIcon className="shrink-0" size={14} />
 
               <span className="truncate">
                 {status === "completed"

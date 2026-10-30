@@ -17,7 +17,7 @@ export const getBountyContract = (chainId) => {
 /**
  * Prepare `createBounty` transaction config for wagmi.
  *
- * The contract accepts only native USDC (18 decimals).
+ * The contract accepts the selected network's native token (18 decimals).
  * msg.value must equal `reward + fee`, where fee = reward * 700 / 10000.
  *
  * @param {Object} params
@@ -45,7 +45,7 @@ export const prepareCreateBountyTx = ({ bountyData, account, chainId }) => {
     functionName: "createBounty",
     args: [rewardWei, payoutType],
     account,
-    value: totalWei, // native USDC — always required
+    value: totalWei,
   };
 };
 
@@ -260,8 +260,7 @@ export const prepareWithdrawTx = ({ recipient, account, chainId }) => {
 /* -------------------------------------------------------------------------- */
 
 /**
- * Format an 18-decimal native USDC value into a human-readable string.
- * Note: USDC is 1:1 with USD, so `formatReward(1e18)` → "1".
+ * Format an 18-decimal native token value into a human-readable string.
  */
 export const formatReward = (value) => {
   if (value === undefined || value === null) return "0";

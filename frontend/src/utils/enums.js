@@ -1,4 +1,4 @@
-import { NATIVE_TOKENS } from "./chains.address";
+import { NATIVE_TOKENS } from "./chains.address.js";
 
 // Payout types for multiple winners
 export const PayoutType = {
@@ -21,44 +21,26 @@ export const getPayoutType = ({ winnersAllowed, payoutType }) => {
 // Must match the Solidity enum order exactly.
 // ===============================
 export const TokenType = {
-  USDC: 0,
+  NATIVE: 0,
 };
 
 // ===============================
-// 2. Internal Canonical Tokens
-// ===============================
-export const TOKENS = {
-  NATIVE: "USDC",
-};
-
-// ===============================
-// 3. Build per-chain UI → Internal map
-// Derives from NATIVE_TOKENS + TOKEN_ADDRESSES.
+// 2. Build per-chain UI → Internal map
 // ===============================
 export const buildUiTokenMap = (chainId) => {
   const map = {};
 
-  // Native token for this chain (INJ, tCTC, ...)
   const native = NATIVE_TOKENS[chainId];
   if (native) {
-    // Map both the symbol and the canonical "NATIVE" key
-    map[native.symbol.toUpperCase()] = TOKENS.NATIVE;
-    // Optional aliases for the UI
-    map["USDC"] = TOKENS.NATIVE;
+    map[native.symbol.toUpperCase()] = native.symbol;
+    map["NATIVE"] = native.symbol;
   }
 
   return map;
 };
 
 // ===============================
-// 4. Internal → Contract Enum Mapping
-// ===============================
-export const TOKEN_TYPE_MAP = {
-  [TOKENS.NATIVE]: TokenType.NATIVE,
-};
-
-// ===============================
-// 5. Normalize UI token (chain-aware)
+// 3. Normalize UI token (chain-aware)
 // ===============================
 export const normalizeToken = (uiToken, chainId) => {
   if (!uiToken) throw new Error("Token is required");
@@ -68,6 +50,11 @@ export const normalizeToken = (uiToken, chainId) => {
   const normalized = uiMap[uiToken.toUpperCase()];
 
   if (!normalized) {
+    // Fallback: if matches chain's native token symbol
+    const native = NATIVE_TOKENS[chainId];
+    if (native && uiToken.toUpperCase() === native.symbol.toUpperCase()) {
+      return native.symbol;
+    }
     throw new Error(`Unsupported UI token "${uiToken}" on chain ${chainId}`);
   }
 
@@ -75,26 +62,7 @@ export const normalizeToken = (uiToken, chainId) => {
 };
 
 // ===============================
-// 6. Get contract enum from internal token
-// ===============================
-export const getTokenType = (token) => {
-  const type = TOKEN_TYPE_MAP[token];
-  if (type === undefined) {
-    throw new Error(`Unsupported token: ${token}`);
-  }
-  return type;
-};
-
-// ===============================
-// 7. One-step resolver (UI → enum), chain-aware
-// ===============================
-export const resolveTokenType = (uiToken, chainId) => {
-  const normalized = normalizeToken(uiToken, chainId);
-  return getTokenType(normalized);
-};
-
-// ===============================
-// 8. Get token metadata (decimals, address) for a chain
+// 4. Get token metadata (decimals, address) for a chain
 // ===============================
 export const getTokenMeta = (uiToken, chainId) => {
   if (!uiToken) throw new Error("Token is required");
@@ -103,7 +71,7 @@ export const getTokenMeta = (uiToken, chainId) => {
   const upper = uiToken.toUpperCase();
   const native = NATIVE_TOKENS[chainId];
 
-  // Native?
+  // Native token?
   if (native && (upper === native.symbol.toUpperCase() || upper === "NATIVE")) {
     return {
       kind: "native",
@@ -118,7 +86,7 @@ export const getTokenMeta = (uiToken, chainId) => {
 };
 
 // ===============================
-// 9. Convenience: list tokens available on a chain (for UI dropdowns)
+// 5. Convenience: list tokens available on a chain (for UI dropdowns)
 // ===============================
 export const listTokensForChain = (chainId) => {
   const out = [];
@@ -126,7 +94,7 @@ export const listTokensForChain = (chainId) => {
   const native = NATIVE_TOKENS[chainId];
   if (native) {
     out.push({
-      key: "USDC",
+      key: native.symbol,
       label: native.symbol,
       kind: "native",
       decimals: native.decimals,

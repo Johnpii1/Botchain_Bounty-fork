@@ -1,15 +1,13 @@
-
 import { useEffect, useState } from "react";
 import {
-  FiSettings,
-  FiX,
-  FiCheck,
-  FiShield,
-  FiBarChart2,
-  FiSliders,
   FiArrowUpRight,
+  FiBarChart2,
+  FiCheck,
+  FiSettings,
+  FiShield,
+  FiSliders,
+  FiX,
 } from "react-icons/fi";
-
 import { useTheme } from "../context/ThemeContext";
 
 const CONSENT_KEY = "happy-bounty-cookie-consent";
@@ -25,26 +23,26 @@ const COOKIE_TYPES = [
   {
     key: "necessary",
     title: "Essential cookies",
-    description: "Required for security and core website functionality.",
+    description: "Keep Happy Bounty secure and make core features work.",
     icon: FiShield,
     required: true,
   },
   {
     key: "preferences",
     title: "Preference cookies",
-    description: "Remember your settings and preferences.",
+    description: "Remember your settings and choices.",
     icon: FiSliders,
   },
   {
     key: "analytics",
     title: "Analytics cookies",
-    description: "Help us understand how visitors use Happy Bounty.",
+    description: "Help us understand how people use Happy Bounty.",
     icon: FiBarChart2,
   },
   {
     key: "marketing",
     title: "Marketing cookies",
-    description: "Help measure campaigns and relevant promotions.",
+    description: "Help measure campaigns and show relevant promotions.",
     icon: FiArrowUpRight,
   },
 ];
@@ -88,34 +86,32 @@ export default function CookieConsent() {
 
   const colors = dark
     ? {
-        panel: "#080908",
-        card: "#121512",
-        text: "#ffffff",
-        muted: "#a3a3a3",
-        subtle: "#737373",
-        border: "#00D6A0",
-        accent: "#00D6A0",
-        accentHover: "#00efb3",
-        accentText: "#06251b",
-        secondary: "#151815",
-        secondaryHover: "#202620",
-        divider: "#292d29",
-        input: "#00D6A0",
+        panel: "#111713",
+        card: "#18211b",
+        text: "#f5faf6",
+        muted: "#b3c0b7",
+        subtle: "#87958b",
+        border: "#315b45",
+        accent: "#65e6a0",
+        accentHover: "#82efb2",
+        accentText: "#082516",
+        secondary: "#202b23",
+        secondaryHover: "#2a382e",
+        divider: "#2c3a30",
       }
     : {
-        panel: "#f6f5ef",
-        card: "#ffffff",
-        text: "#171717",
-        muted: "#626262",
-        subtle: "#777777",
-        border: "#008A66",
-        accent: "#008A66",
-        accentHover: "#006f52",
+        panel: "#ffffff",
+        card: "#f7faf7",
+        text: "#18251d",
+        muted: "#5c6b61",
+        subtle: "#78857c",
+        border: "#dce8df",
+        accent: "#167b48",
+        accentHover: "#12673c",
         accentText: "#ffffff",
-        secondary: "#eeede5",
-        secondaryHover: "#e4e3d9",
-        divider: "#deded5",
-        input: "#008A66",
+        secondary: "#f1f5f1",
+        secondaryHover: "#e6eee7",
+        divider: "#e4ebe5",
       };
 
   useEffect(() => {
@@ -187,13 +183,16 @@ export default function CookieConsent() {
     setVisible(true);
   };
 
-  const secondaryButtonStyle = {
+  const buttonBase =
+    "hb-cookie-btn inline-flex min-h-11 items-center justify-center gap-2 rounded-xl border px-4 py-3 text-sm font-semibold";
+
+  const secondaryStyle = {
     backgroundColor: colors.secondary,
     color: colors.text,
     borderColor: colors.divider,
   };
 
-  const primaryButtonStyle = {
+  const primaryStyle = {
     backgroundColor: colors.accent,
     color: colors.accentText,
     borderColor: colors.accent,
@@ -206,35 +205,45 @@ export default function CookieConsent() {
           @keyframes hb-cookie-enter {
             from {
               opacity: 0;
-              transform: translate3d(18px, 14px, 0);
+              transform: translateY(12px) scale(.985);
             }
             to {
               opacity: 1;
-              transform: translate3d(0, 0, 0);
+              transform: translateY(0) scale(1);
             }
           }
 
           .hb-cookie-animate {
-            animation: hb-cookie-enter 280ms ease-out both;
+            animation: hb-cookie-enter 240ms ease-out both;
           }
 
-          .hb-cookie-button {
+          .hb-cookie-btn {
             transition:
-              background-color 180ms ease,
-              border-color 180ms ease,
-              color 180ms ease,
-              transform 180ms ease;
+              background-color 160ms ease,
+              border-color 160ms ease,
+              color 160ms ease,
+              transform 160ms ease,
+              box-shadow 160ms ease;
           }
 
-          .hb-cookie-button:focus-visible,
-          .hb-cookie-settings:focus-visible {
-            outline: 2px solid var(--hb-cookie-accent);
+          .hb-cookie-btn:hover {
+            transform: translateY(-1px);
+          }
+
+          .hb-cookie-btn:focus-visible,
+          .hb-cookie-settings:focus-visible,
+          .hb-cookie-link:focus-visible {
+            outline: 3px solid ${colors.accent};
             outline-offset: 3px;
+          }
+
+          .hb-cookie-btn:active {
+            transform: translateY(0);
           }
 
           @media (prefers-reduced-motion: reduce) {
             .hb-cookie-animate,
-            .hb-cookie-button {
+            .hb-cookie-btn {
               animation: none !important;
               transition: none !important;
             }
@@ -248,13 +257,12 @@ export default function CookieConsent() {
           onClick={openSettings}
           aria-label="Manage cookie preferences"
           title="Cookie settings"
-          className="hb-cookie-settings fixed bottom-24 right-5 z-[9998] flex h-12 w-12 items-center justify-center rounded-full border shadow-xl hover:scale-105 sm:bottom-28 sm:right-7"
+          className="hb-cookie-settings fixed bottom-20 right-5 z-[9998] flex h-12 w-12 items-center justify-center rounded-full border shadow-lg sm:bottom-24 sm:right-6"
           style={{
             backgroundColor: colors.panel,
             color: colors.accent,
-            borderColor: `${colors.border}80`,
-            boxShadow: "0 8px 24px rgba(0,0,0,0.18)",
-            "--hb-cookie-accent": colors.accent,
+            borderColor: colors.border,
+            boxShadow: "0 8px 28px rgba(15, 35, 20, .16)",
           }}
         >
           <FiSettings size={20} />
@@ -267,40 +275,41 @@ export default function CookieConsent() {
           aria-modal="false"
           aria-labelledby="hb-cookie-title"
           aria-describedby="hb-cookie-description"
-          className="hb-cookie-animate fixed bottom-4 right-4 z-[9999] max-h-[calc(100dvh-2rem)] w-[calc(100vw-2rem)] max-w-[440px] overflow-y-auto overscroll-contain rounded-2xl border p-5 shadow-2xl sm:bottom-6 sm:right-6 sm:p-6"
+          className="hb-cookie-animate fixed bottom-3 left-3 right-3 z-[9999] mx-auto max-h-[calc(100dvh-1.5rem)] w-auto max-w-[430px] overflow-y-auto overscroll-contain rounded-[24px] border p-4 sm:bottom-6 sm:left-auto sm:right-6 sm:p-6"
           style={{
             backgroundColor: colors.panel,
             color: colors.text,
-            borderColor: `${colors.border}55`,
-            boxShadow: "0 20px 60px rgba(0,0,0,0.28)",
-            "--hb-cookie-accent": colors.accent,
+            borderColor: colors.border,
+            boxShadow: "0 20px 70px rgba(12, 30, 17, .22)",
           }}
         >
-          <div className="mb-4 flex items-center justify-between gap-3">
-            <div className="flex items-center gap-3">
+          {/* Header */}
+          <div className="mb-3 flex items-start justify-between gap-3 sm:mb-4">
+            <div className="flex min-w-0 items-center gap-3">
               <div
-                className="flex h-11 w-11 items-center justify-center rounded-xl border"
+                className="flex h-10 w-10 shrink-0 items-center justify-center rounded-2xl sm:h-11 sm:w-11"
                 style={{
                   color: colors.accent,
-                  backgroundColor: `${colors.border}12`,
-                  borderColor: `${colors.border}40`,
+                  backgroundColor: colors.secondary,
                 }}
+                aria-hidden="true"
               >
-                <FiShield size={21} />
+                <FiShield size={22} />
               </div>
 
-              <div>
+              <div className="min-w-0">
                 <p
-                  className="text-xs font-semibold uppercase tracking-[0.16em]"
+                  className="text-xs font-bold uppercase tracking-[0.14em]"
                   style={{ color: colors.accent }}
                 >
                   Happy Bounty
                 </p>
+
                 <p
-                  className="mt-0.5 text-xs"
+                  className="mt-0.5 text-xs sm:text-sm"
                   style={{ color: colors.muted }}
                 >
-                  Your privacy matters
+                  Your privacy, your choice
                 </p>
               </div>
             </div>
@@ -310,84 +319,89 @@ export default function CookieConsent() {
               onClick={rejectAll}
               aria-label="Reject optional cookies and close"
               title="Reject optional cookies"
-              className="hb-cookie-button flex h-9 w-9 shrink-0 items-center justify-center rounded-lg border border-transparent"
-              style={{ color: colors.muted }}
-              onMouseEnter={(e) => {
-                e.currentTarget.style.backgroundColor = colors.secondary;
-                e.currentTarget.style.color = colors.text;
-              }}
-              onMouseLeave={(e) => {
-                e.currentTarget.style.backgroundColor = "transparent";
-                e.currentTarget.style.color = colors.muted;
+              className="hb-cookie-btn flex h-9 w-9 shrink-0 items-center justify-center rounded-xl border-transparent p-0"
+              style={{
+                color: colors.muted,
+                backgroundColor: "transparent",
               }}
             >
               <FiX size={19} />
             </button>
           </div>
 
-          <div className="mb-5">
+          {/* Title and description */}
+          <div className="mb-3 sm:mb-4">
             <h2
               id="hb-cookie-title"
-              className="text-xl font-bold tracking-tight sm:text-2xl"
+              className="text-lg font-bold leading-tight tracking-tight sm:text-[22px]"
             >
               {showSettings
-                ? "Your cookie preferences"
-                : "A better experience starts here."}
+                ? "Manage your cookies"
+                : "We value your privacy"}
             </h2>
 
             <p
               id="hb-cookie-description"
-              className="mt-2 text-sm leading-6"
+              className="mt-2 text-xs leading-5 sm:text-sm sm:leading-6"
               style={{ color: colors.muted }}
             >
               {showSettings
-                ? "Choose which optional cookies you're comfortable with. Essential cookies are always active."
-                : "We use essential cookies to keep Happy Bounty secure and working. With your permission, optional cookies help us remember your preferences and improve your multi-chain experience."}
+                ? "Choose which optional cookies you allow. Essential cookies are always on."
+                : "We use cookies to keep Happy Bounty secure, remember your preferences, and understand how the platform is used. You’re in control of what you share."}
             </p>
           </div>
 
+          {/* Cookie preferences */}
           {showSettings && (
             <div
-              className="mb-5 divide-y rounded-xl border px-3"
+              className="mb-3 divide-y overflow-hidden rounded-2xl border px-3 sm:mb-4"
               style={{
                 backgroundColor: colors.card,
                 borderColor: colors.divider,
-                "--tw-divide-opacity": 1,
               }}
             >
-              {COOKIE_TYPES.map((item) => {
+              {COOKIE_TYPES.map((item, index) => {
                 const Icon = item.icon;
 
                 return (
                   <label
                     key={item.key}
-                    className="flex cursor-pointer items-start gap-3 py-3.5"
+                    className="flex cursor-pointer items-start gap-3 py-3 sm:py-3.5"
                     style={{ borderColor: colors.divider }}
                   >
+                    {/* Mobile: numbered indicator. Desktop: original icon. */}
                     <span
-                      className="mt-0.5 flex h-9 w-9 shrink-0 items-center justify-center rounded-lg"
+                      className="mt-0.5 flex h-8 w-8 shrink-0 items-center justify-center rounded-xl text-xs font-bold sm:hidden"
                       style={{
                         backgroundColor: colors.secondary,
                         color: colors.accent,
                       }}
+                      aria-hidden="true"
+                    >
+                      {index + 1}
+                    </span>
+
+                    <span
+                      className="mt-0.5 hidden h-9 w-9 shrink-0 items-center justify-center rounded-xl sm:flex"
+                      style={{
+                        backgroundColor: colors.secondary,
+                        color: colors.accent,
+                      }}
+                      aria-hidden="true"
                     >
                       <Icon size={17} />
                     </span>
 
                     <span className="min-w-0 flex-1">
-                      <span
-                        className="flex flex-wrap items-center gap-2 text-sm font-semibold"
-                        style={{ color: colors.text }}
-                      >
+                      <span className="flex flex-wrap items-center gap-2 text-sm font-semibold">
                         {item.title}
 
                         {item.required && (
                           <span
-                            className="rounded-full border px-2 py-0.5 text-[10px] font-semibold"
+                            className="rounded-full px-2 py-0.5 text-[10px] font-bold"
                             style={{
+                              backgroundColor: colors.secondary,
                               color: colors.accent,
-                              borderColor: `${colors.border}50`,
-                              backgroundColor: `${colors.border}12`,
                             }}
                           >
                             Always on
@@ -405,12 +419,12 @@ export default function CookieConsent() {
 
                     <input
                       type="checkbox"
-                      checked={preferences[item.key]}
+                      checked={Boolean(preferences[item.key])}
                       disabled={item.required}
                       onChange={() => togglePreference(item.key)}
                       aria-label={item.title}
-                      className="mt-1 h-4 w-4 shrink-0 disabled:cursor-not-allowed"
-                      style={{ accentColor: colors.input }}
+                      className="mt-1 h-4 w-4 shrink-0 cursor-pointer disabled:cursor-not-allowed"
+                      style={{ accentColor: colors.accent }}
                     />
                   </label>
                 );
@@ -418,118 +432,107 @@ export default function CookieConsent() {
             </div>
           )}
 
-          <a
-            href="/cookie-policy"
-            className="mb-5 inline-flex items-center gap-1 text-xs font-semibold hover:underline focus-visible:outline-none"
-            style={{
-              color: colors.accent,
-              "--hb-cookie-accent": colors.accent,
-            }}
-          >
-            Read our Cookie Policy
-            <FiArrowUpRight size={13} />
-          </a>
+          {/* Policy links */}
+          <div className="mb-3 flex flex-wrap items-center gap-x-3 gap-y-1 text-xs sm:mb-4">
+            <a
+              href="/cookie-policy"
+              className="hb-cookie-link inline-flex items-center gap-1 font-semibold hover:underline"
+              style={{ color: colors.accent }}
+            >
+              Cookie Policy
+              <FiArrowUpRight size={13} />
+            </a>
 
-          <div className="grid grid-cols-2 gap-2 sm:flex">
-            {showSettings ? (
-              <>
-                <button
-                  type="button"
-                  onClick={rejectAll}
-                  className="hb-cookie-button min-h-11 rounded-lg border px-3 py-2.5 text-xs font-semibold sm:flex-1"
-                  style={secondaryButtonStyle}
-                  onMouseEnter={(e) => {
-                    e.currentTarget.style.backgroundColor =
-                      colors.secondaryHover;
-                  }}
-                  onMouseLeave={(e) => {
-                    e.currentTarget.style.backgroundColor = colors.secondary;
-                  }}
-                >
-                  Reject Optional
-                </button>
+            <span aria-hidden="true" style={{ color: colors.subtle }}>
+              ·
+            </span>
 
-                <button
-                  type="button"
-                  onClick={() => saveConsent("custom", preferences)}
-                  className="hb-cookie-button min-h-11 rounded-lg border px-3 py-2.5 text-xs font-bold sm:flex-1"
-                  style={primaryButtonStyle}
-                  onMouseEnter={(e) => {
-                    e.currentTarget.style.backgroundColor =
-                      colors.accentHover;
-                    e.currentTarget.style.borderColor = colors.accentHover;
-                  }}
-                  onMouseLeave={(e) => {
-                    e.currentTarget.style.backgroundColor = colors.accent;
-                    e.currentTarget.style.borderColor = colors.accent;
-                  }}
-                >
-                  Save Preferences
-                </button>
-              </>
-            ) : (
-              <>
-                <button
-                  type="button"
-                  onClick={() => setShowSettings(true)}
-                  className="hb-cookie-button inline-flex min-h-11 items-center justify-center gap-1.5 rounded-lg border px-3 py-2.5 text-xs font-semibold"
-                  style={secondaryButtonStyle}
-                  onMouseEnter={(e) => {
-                    e.currentTarget.style.backgroundColor =
-                      colors.secondaryHover;
-                  }}
-                  onMouseLeave={(e) => {
-                    e.currentTarget.style.backgroundColor = colors.secondary;
-                  }}
-                >
-                  <FiSettings size={14} />
-                  Customize
-                </button>
+            <a
+              href="/privacy-policy"
+              className="hb-cookie-link inline-flex items-center gap-1 font-semibold hover:underline"
+              style={{ color: colors.accent }}
+            >
+              Privacy Policy
+              <FiArrowUpRight size={13} />
+            </a>
+          </div>
 
-                <button
-                  type="button"
-                  onClick={rejectAll}
-                  className="hb-cookie-button min-h-11 rounded-lg border px-3 py-2.5 text-xs font-semibold"
-                  style={secondaryButtonStyle}
-                  onMouseEnter={(e) => {
-                    e.currentTarget.style.backgroundColor =
-                      colors.secondaryHover;
-                  }}
-                  onMouseLeave={(e) => {
-                    e.currentTarget.style.backgroundColor = colors.secondary;
-                  }}
-                >
-                  Reject All
-                </button>
+          {/* Action buttons */}
+          {showSettings ? (
+            <div className="grid grid-cols-2 gap-2">
+              <button
+                type="button"
+                onClick={rejectAll}
+                className={buttonBase}
+                style={secondaryStyle}
+              >
+                Reject optional
+              </button>
 
+              <button
+                type="button"
+                onClick={() => saveConsent("custom", preferences)}
+                className={buttonBase}
+                style={primaryStyle}
+              >
+                <FiCheck size={16} />
+                Save choices
+              </button>
+
+              <button
+                type="button"
+                onClick={() => setShowSettings(false)}
+                className="col-span-2 mt-1 w-full py-2 text-xs font-semibold"
+                style={{ color: colors.muted }}
+              >
+                Back to cookie options
+              </button>
+            </div>
+          ) : (
+            <>
+              <div className="grid grid-cols-2 gap-2">
                 <button
                   type="button"
                   onClick={acceptAll}
-                  className="hb-cookie-button col-span-2 inline-flex min-h-11 items-center justify-center gap-1.5 rounded-lg border px-3 py-2.5 text-xs font-bold sm:col-span-1 sm:flex-1"
-                  style={primaryButtonStyle}
-                  onMouseEnter={(e) => {
-                    e.currentTarget.style.backgroundColor =
-                      colors.accentHover;
-                    e.currentTarget.style.borderColor = colors.accentHover;
-                  }}
-                  onMouseLeave={(e) => {
-                    e.currentTarget.style.backgroundColor = colors.accent;
-                    e.currentTarget.style.borderColor = colors.accent;
-                  }}
+                  className={buttonBase}
+                  style={primaryStyle}
                 >
-                  <FiCheck size={15} />
-                  Accept All
+                  <FiCheck size={16} />
+                  Accept all
                 </button>
-              </>
-            )}
-          </div>
 
+                <button
+                  type="button"
+                  onClick={rejectAll}
+                  className={buttonBase}
+                  style={secondaryStyle}
+                >
+                  Reject optional
+                </button>
+              </div>
+
+              <button
+                type="button"
+                onClick={() => setShowSettings(true)}
+                className="hb-cookie-btn mt-2 flex min-h-10 w-full items-center justify-center gap-2 rounded-xl border px-4 py-2.5 text-sm font-semibold"
+                style={{
+                  backgroundColor: "transparent",
+                  color: colors.muted,
+                  borderColor: colors.divider,
+                }}
+              >
+                <FiSettings size={15} />
+                Manage preferences
+              </button>
+            </>
+          )}
+
+          {/* Footer */}
           <p
-            className="mt-4 text-center text-[10px] leading-4"
+            className="mt-3 text-center text-[10px] leading-4 sm:mt-4"
             style={{ color: colors.subtle }}
           >
-            Your choice is saved on this device. You can update it anytime
-            using the cookie settings button.
+            You can change your cookie choices at any time in settings.
           </p>
         </section>
       )}

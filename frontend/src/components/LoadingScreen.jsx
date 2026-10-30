@@ -1,6 +1,6 @@
 
 import { useEffect, useState } from "react";
-import { FiZap } from "react-icons/fi";
+import happyBountyLogo from "../assets/images/happy-bounty-logo.png";
 
 function LoadingScreen({ onComplete }) {
   const [progress, setProgress] = useState(0);
@@ -44,162 +44,33 @@ function LoadingScreen({ onComplete }) {
   }, [onComplete]);
 
   const floatingCoins = [
-    {
-      left: "4%",
-      top: "12%",
-      size: 18,
-      delay: "0s",
-      duration: "8s",
-      rotate: "-8deg",
-    },
-    {
-      left: "12%",
-      top: "32%",
-      size: 12,
-      delay: "1.5s",
-      duration: "10s",
-      rotate: "12deg",
-    },
-    {
-      left: "7%",
-      top: "68%",
-      size: 22,
-      delay: "3s",
-      duration: "11s",
-      rotate: "-15deg",
-    },
-    {
-      left: "18%",
-      top: "84%",
-      size: 14,
-      delay: "0.5s",
-      duration: "9s",
-      rotate: "8deg",
-    },
-    {
-      left: "28%",
-      top: "10%",
-      size: 11,
-      delay: "2s",
-      duration: "12s",
-      rotate: "-10deg",
-    },
-    {
-      left: "35%",
-      top: "24%",
-      size: 16,
-      delay: "4s",
-      duration: "9s",
-      rotate: "15deg",
-    },
-    {
-      left: "25%",
-      top: "72%",
-      size: 13,
-      delay: "1s",
-      duration: "10s",
-      rotate: "-6deg",
-    },
-    {
-      left: "39%",
-      top: "88%",
-      size: 20,
-      delay: "3.5s",
-      duration: "12s",
-      rotate: "10deg",
-    },
-    {
-      left: "58%",
-      top: "9%",
-      size: 15,
-      delay: "1s",
-      duration: "11s",
-      rotate: "-12deg",
-    },
-    {
-      left: "67%",
-      top: "18%",
-      size: 11,
-      delay: "3s",
-      duration: "9s",
-      rotate: "7deg",
-    },
-    {
-      left: "73%",
-      top: "38%",
-      size: 19,
-      delay: "0s",
-      duration: "10s",
-      rotate: "-14deg",
-    },
-    {
-      left: "62%",
-      top: "78%",
-      size: 13,
-      delay: "2.5s",
-      duration: "12s",
-      rotate: "9deg",
-    },
-    {
-      left: "82%",
-      top: "12%",
-      size: 21,
-      delay: "4s",
-      duration: "11s",
-      rotate: "-7deg",
-    },
-    {
-      left: "91%",
-      top: "28%",
-      size: 13,
-      delay: "1s",
-      duration: "9s",
-      rotate: "13deg",
-    },
-    {
-      left: "86%",
-      top: "58%",
-      size: 17,
-      delay: "2s",
-      duration: "10s",
-      rotate: "-11deg",
-    },
-    {
-      left: "94%",
-      top: "82%",
-      size: 11,
-      delay: "0.5s",
-      duration: "12s",
-      rotate: "8deg",
-    },
-    {
-      left: "48%",
-      top: "5%",
-      size: 9,
-      delay: "3s",
-      duration: "8s",
-      rotate: "5deg",
-    },
-    {
-      left: "52%",
-      top: "92%",
-      size: 16,
-      delay: "1.5s",
-      duration: "11s",
-      rotate: "-9deg",
-    },
+    { left: "4%", top: "12%", size: 18, delay: "0s", duration: "8s", rotate: "-8deg" },
+    { left: "12%", top: "32%", size: 12, delay: "1.5s", duration: "10s", rotate: "12deg" },
+    { left: "7%", top: "68%", size: 22, delay: "3s", duration: "11s", rotate: "-15deg" },
+    { left: "18%", top: "84%", size: 14, delay: "0.5s", duration: "9s", rotate: "8deg" },
+    { left: "28%", top: "10%", size: 11, delay: "2s", duration: "12s", rotate: "-10deg" },
+    { left: "35%", top: "24%", size: 16, delay: "4s", duration: "9s", rotate: "15deg" },
+    { left: "25%", top: "72%", size: 13, delay: "1s", duration: "10s", rotate: "-6deg" },
+    { left: "39%", top: "88%", size: 20, delay: "3.5s", duration: "12s", rotate: "10deg" },
+    { left: "58%", top: "9%", size: 15, delay: "1s", duration: "11s", rotate: "-12deg" },
+    { left: "67%", top: "18%", size: 11, delay: "3s", duration: "9s", rotate: "7deg" },
+    { left: "73%", top: "38%", size: 19, delay: "0s", duration: "10s", rotate: "-14deg" },
+    { left: "62%", top: "78%", size: 13, delay: "2.5s", duration: "12s", rotate: "9deg" },
+    { left: "82%", top: "12%", size: 21, delay: "4s", duration: "11s", rotate: "-7deg" },
+    { left: "91%", top: "28%", size: 13, delay: "1s", duration: "9s", rotate: "13deg" },
+    { left: "86%", top: "58%", size: 17, delay: "2s", duration: "10s", rotate: "-11deg" },
+    { left: "94%", top: "82%", size: 11, delay: "0.5s", duration: "12s", rotate: "8deg" },
+    { left: "48%", top: "5%", size: 9, delay: "3s", duration: "8s", rotate: "5deg" },
+    { left: "52%", top: "92%", size: 16, delay: "1.5s", duration: "11s", rotate: "-9deg" },
   ];
 
   return (
     <div
       className={`loading-screen fixed inset-0 z-[9999] flex min-h-screen items-center justify-center overflow-hidden transition-opacity duration-500 ${
-        fadeOut
-          ? "pointer-events-none opacity-0"
-          : "opacity-100"
+        fadeOut ? "pointer-events-none opacity-0" : "opacity-100"
       }`}
     >
       {/* BACKGROUND */}
-
       <div className="pointer-events-none absolute inset-0 overflow-hidden">
         <div className="loading-center-glow absolute left-1/2 top-1/2 h-[420px] w-[420px] -translate-x-1/2 -translate-y-1/2 rounded-full blur-[120px]" />
 
@@ -208,21 +79,12 @@ function LoadingScreen({ onComplete }) {
         <div className="loading-corner-glow absolute bottom-[12%] right-[10%] h-40 w-40 rounded-full blur-[100px]" />
 
         {/* BLOCKCHAIN-INSPIRED BACKGROUND PATTERN */}
-
         <div
           className="loading-brick absolute -inset-20 scale-110"
           style={{
             backgroundImage: `
-              linear-gradient(
-                90deg,
-                rgba(0, 95, 72, 0.65) 1px,
-                transparent 1px
-              ),
-              linear-gradient(
-                0deg,
-                rgba(0, 95, 72, 0.65) 1px,
-                transparent 1px
-              )
+              linear-gradient(90deg, rgba(0, 95, 72, 0.65) 1px, transparent 1px),
+              linear-gradient(0deg, rgba(0, 95, 72, 0.65) 1px, transparent 1px)
             `,
             backgroundSize: "150px 76px",
             backgroundPosition: "0 0, 75px 38px",
@@ -247,8 +109,7 @@ function LoadingScreen({ onComplete }) {
 
         <div className="loading-center absolute inset-0" />
 
-        {/* FLOATING CRYPTO-INSPIRED PARTICLES */}
-
+        {/* FLOATING PARTICLES */}
         {floatingCoins.map((coin, index) => (
           <div
             key={index}
@@ -273,18 +134,14 @@ function LoadingScreen({ onComplete }) {
       </div>
 
       {/* SUBTLE GRID */}
-
       <div className="loading-grid pointer-events-none absolute inset-0" />
 
       {/* SCAN LINE */}
-
       <div className="pointer-events-none absolute left-0 top-0 h-px w-full animate-[scan_3s_linear_infinite] bg-gradient-to-r from-transparent via-[#00D6A0]/40 to-transparent" />
 
       {/* MAIN CONTENT */}
-
       <div className="relative z-10 flex w-full max-w-md flex-col items-center px-6">
-        {/* BRAND VISUAL */}
-
+        {/* HAPPY BOUNTY LOGO */}
         <div className="relative mb-8 flex h-32 w-32 items-center justify-center">
           <div className="loading-ring-outer absolute inset-0 animate-[spin_10s_linear_infinite] rounded-full border border-t-[#00D6A0]/70" />
 
@@ -292,10 +149,12 @@ function LoadingScreen({ onComplete }) {
 
           <div className="loading-coin-glow absolute h-24 w-24 rounded-full blur-2xl" />
 
-          <div className="relative z-10 flex h-20 w-20 animate-[coinFloat_4s_ease-in-out_infinite] items-center justify-center rounded-[1.65rem] border border-[#00D6A0]/50 bg-[#071713] shadow-[0_0_45px_rgba(0,214,160,0.22),inset_0_0_20px_rgba(0,214,160,0.08)]">
-            <FiZap
-              className="h-10 w-10 text-[#00D6A0]"
-              strokeWidth={1.8}
+          <div className="relative z-10 flex h-20 w-20 animate-[coinFloat_4s_ease-in-out_infinite] items-center justify-center overflow-hidden rounded-[1.65rem] border border-[#00D6A0]/50 bg-[#071713] p-2 shadow-[0_0_45px_rgba(0,214,160,0.22),inset_0_0_20px_rgba(0,214,160,0.08)]">
+            <img
+              src={happyBountyLogo}
+              alt="Happy Bounty logo"
+              className="h-full w-full rounded-2xl object-contain"
+              draggable="false"
             />
           </div>
 
@@ -305,7 +164,6 @@ function LoadingScreen({ onComplete }) {
         </div>
 
         {/* PLATFORM BRAND */}
-
         <h1 className="loading-title text-center text-2xl font-bold tracking-[0.2em]">
           HAPPY BOUNTY
         </h1>
@@ -315,11 +173,9 @@ function LoadingScreen({ onComplete }) {
         </p>
 
         {/* MULTI-CHAIN BADGE */}
-
         <div className="loading-badge mt-5 inline-flex items-center gap-2 rounded-full border px-3 py-1.5 shadow-sm">
           <span className="relative flex h-1.5 w-1.5">
             <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-[#00D6A0] opacity-40" />
-
             <span className="relative inline-flex h-1.5 w-1.5 rounded-full bg-[#00D6A0]" />
           </span>
 
@@ -329,7 +185,6 @@ function LoadingScreen({ onComplete }) {
         </div>
 
         {/* PROGRESS */}
-
         <div className="mt-10 w-full">
           <div className="mb-3 flex items-center justify-between">
             <span className="loading-label text-[10px] font-medium uppercase tracking-[0.2em]">
@@ -344,15 +199,12 @@ function LoadingScreen({ onComplete }) {
           <div className="loading-progress-track h-[3px] w-full overflow-hidden rounded-full">
             <div
               className="h-full rounded-full bg-[#00D6A0] transition-[width] duration-100"
-              style={{
-                width: `${progress}%`,
-              }}
+              style={{ width: `${progress}%` }}
             />
           </div>
         </div>
 
         {/* STATUS */}
-
         <div className="loading-status mt-6 flex w-full items-center justify-between text-[9px] uppercase tracking-[0.18em]">
           <span>
             {progress < 35
@@ -371,24 +223,18 @@ function LoadingScreen({ onComplete }) {
         </div>
 
         {/* BOTTOM MESSAGE */}
-
         <div className="loading-bottom mt-10 flex items-center gap-3 text-[9px] uppercase tracking-[0.25em]">
           <span>Discover</span>
-
           <span className="loading-divider h-px w-5" />
-
           <span>Contribute</span>
-
           <span className="loading-divider h-px w-5" />
-
           <span>Earn</span>
         </div>
       </div>
 
       {/* CORNER DETAILS */}
-
       <div className="loading-corner-text absolute left-6 top-6 text-[8px] uppercase tracking-[0.25em]">
-        CB // 001
+        HB // 001
       </div>
 
       <div className="loading-corner-text absolute bottom-6 right-6 text-[8px] uppercase tracking-[0.25em]">
@@ -396,7 +242,6 @@ function LoadingScreen({ onComplete }) {
       </div>
 
       {/* THEME STYLES */}
-
       <style>{`
         .loading-screen {
           background: #f6f5ef;
@@ -431,15 +276,8 @@ function LoadingScreen({ onComplete }) {
         .loading-grid {
           opacity: 0.014;
           background-image:
-            linear-gradient(
-              rgba(0, 0, 0, 0.25) 1px,
-              transparent 1px
-            ),
-            linear-gradient(
-              90deg,
-              rgba(0, 0, 0, 0.25) 1px,
-              transparent 1px
-            );
+            linear-gradient(rgba(0, 0, 0, 0.25) 1px, transparent 1px),
+            linear-gradient(90deg, rgba(0, 0, 0, 0.25) 1px, transparent 1px);
           background-size: 70px 70px;
         }
 
@@ -497,7 +335,6 @@ function LoadingScreen({ onComplete }) {
         }
 
         /* DARK MODE */
-
         .dark .loading-screen {
           background: #080908;
           color: #ffffff;
@@ -531,15 +368,8 @@ function LoadingScreen({ onComplete }) {
         .dark .loading-grid {
           opacity: 0.025;
           background-image:
-            linear-gradient(
-              rgba(255, 255, 255, 0.08) 1px,
-              transparent 1px
-            ),
-            linear-gradient(
-              90deg,
-              rgba(255, 255, 255, 0.08) 1px,
-              transparent 1px
-            );
+            linear-gradient(rgba(255, 255, 255, 0.08) 1px, transparent 1px),
+            linear-gradient(90deg, rgba(255, 255, 255, 0.08) 1px, transparent 1px);
           background-size: 70px 70px;
         }
 
@@ -597,7 +427,6 @@ function LoadingScreen({ onComplete }) {
         }
 
         /* ANIMATIONS */
-
         @keyframes scan {
           0% {
             transform: translateY(-10vh);
@@ -619,8 +448,7 @@ function LoadingScreen({ onComplete }) {
         }
 
         @keyframes coinFloat {
-          0%,
-          100% {
+          0%, 100% {
             transform: translateY(0) rotateZ(-2deg);
           }
 
@@ -630,8 +458,7 @@ function LoadingScreen({ onComplete }) {
         }
 
         @keyframes backgroundCoinFloat {
-          0%,
-          100% {
+          0%, 100% {
             transform: translate3d(0, 0, 0) rotate(0deg);
           }
 
@@ -654,6 +481,17 @@ function LoadingScreen({ onComplete }) {
           .loading-screen *::after {
             animation: none !important;
             transition: none !important;
+          }
+        }
+
+        @media (max-width: 480px) {
+          .loading-bottom {
+            gap: 0.5rem;
+            letter-spacing: 0.15em;
+          }
+
+          .loading-corner-text {
+            font-size: 7px;
           }
         }
       `}</style>

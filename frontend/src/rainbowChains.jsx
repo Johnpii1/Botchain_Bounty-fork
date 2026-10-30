@@ -1,5 +1,6 @@
-// Supported Wagmi / RainbowKit chains.
 
+// Supported Wagmi / RainbowKit chains.
+// Supported Wagmi / RainbowKit Chains
 export const arcMainnet = {
   id: 5042,
   name: "Arc",
@@ -25,6 +26,9 @@ export const arcMainnet = {
 export const botchainMainnet = {
   id: 677,
   name: "BOT Chain",
+export const botchainTestnet = {
+  id: 968,
+  name: "BOT Chain Testnet (Bohr)",
   nativeCurrency: {
     name: "BOT",
     symbol: "BOT",
@@ -33,6 +37,7 @@ export const botchainMainnet = {
   rpcUrls: {
     default: {
       http: ["https://rpc.botchain.ai"],
+      http: ["https://rpc.bohr.life"],
     },
   },
   blockExplorers: {
@@ -45,3 +50,11 @@ export const botchainMainnet = {
 };
 
 export const supportedChains = [arcMainnet, botchainMainnet];
+      name: "BohrScan",
+      url: "https://scan.bohr.life",
+    },
+  },
+  testnet: true,
+};
+
+export const supportedChains = [arcMainnet, botchainTestnet];
