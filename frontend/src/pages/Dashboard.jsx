@@ -5,8 +5,6 @@ import { useAccount } from "wagmi";
 import axios from "axios";
 import { showToast } from "../components/UI/Toast";
 
-import happyBountyLogo from "../assets/images/happy-bounty-logo.png";
-
 import {
   FiActivity,
   FiArrowRight,
@@ -497,6 +495,7 @@ function Dashboard({ dark, setDark }) {
 
               {/* Analytics, Admin, Refresh, and Create buttons */}
               <div className="flex flex-wrap items-center gap-3">
+                {/* Analytics is available to all users */}
                 <Link
                   to="/analytics"
                   className={`inline-flex h-11 items-center justify-center gap-2 rounded-xl border px-4 text-xs font-semibold transition hover:border-[#00A87D]/50 hover:bg-[#00A87D]/10 hover:text-[#00A87D] ${
@@ -509,6 +508,7 @@ function Dashboard({ dark, setDark }) {
                   Analytics
                 </Link>
 
+                {/* Admin is shown only for configured admin wallets */}
                 {isAdmin && (
                   <Link
                     to="/admin-224466"
@@ -520,6 +520,7 @@ function Dashboard({ dark, setDark }) {
                   </Link>
                 )}
 
+                {/* Existing Refresh button */}
                 <button
                   type="button"
                   onClick={handleRefresh}
@@ -534,6 +535,7 @@ function Dashboard({ dark, setDark }) {
                   Refresh
                 </button>
 
+                {/* Existing Create bounty button */}
                 <Link
                   to="/create"
                   className="inline-flex h-11 items-center gap-2 rounded-xl bg-[#00A87D] px-4 text-xs font-bold text-white transition hover:bg-[#008F6A]"
