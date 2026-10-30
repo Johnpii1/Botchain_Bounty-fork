@@ -22,9 +22,9 @@ export const arcMainnet = {
   testnet: false,
 };
 
-export const botchainTestnet = {
-  id: 968,
-  name: "BOT Chain Testnet (Bohr)",
+export const botchainMainnet = {
+  id: 677,
+  name: "BOT Chain",
   nativeCurrency: {
     name: "BOT",
     symbol: "BOT",
@@ -32,16 +32,16 @@ export const botchainTestnet = {
   },
   rpcUrls: {
     default: {
-      http: ["https://rpc.bohr.life"],
+      http: ["https://rpc.botchain.ai"],
     },
   },
   blockExplorers: {
     default: {
-      name: "BohrScan",
-      url: "https://scan.bohr.life",
+      name: "BOTScan",
+      url: "https://scan.botchain.ai",
     },
   },
-  testnet: true,
+  testnet: false,
 };
 
-export const supportedChains = [arcMainnet, botchainTestnet];
+export const supportedChains = [arcMainnet, botchainMainnet];
