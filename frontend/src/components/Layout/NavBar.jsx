@@ -1,3 +1,4 @@
+
 import HappyBounty from "../../assets/images/happy-bounty-logo.png";
 import Themes from "./Themes";
 import Connect from "../Connect";
@@ -5,7 +6,12 @@ import SignUp from "../SignUp";
 import { useAccount } from "wagmi";
 import { Link, useLocation, useNavigate } from "react-router-dom";
 import { useEffect, useState } from "react";
-import { FiArrowRight, FiBookOpen, FiChevronDown } from "react-icons/fi";
+import {
+  FiArrowRight,
+  FiBookOpen,
+  FiChevronDown,
+  FiFileText,
+} from "react-icons/fi";
 import { useTheme } from "../../context/ThemeContext";
 
 function NavBar() {
@@ -40,24 +46,7 @@ function NavBar() {
     return () => clearTimeout(timer);
   }, [address, isConnected, pathname, navigate]);
 
-  // useEffect(() => {
-  //   if (pathname !== "/dashboard" && pathname !== "/bounty/:id") return;
-
-  //   const timer = setTimeout(() => {
-  //     if (!address && !isConnected) {
-  //       navigate("/");
-  //       console.log(` Wallet disconnected`);
-  //     }
-  //     // navigate("/");
-  //   }, 1000);
-
-  //   return () => clearTimeout(timer);
-  // }, [address, isConnected, pathname, navigate]);
-
   // Handle logo click
-  
-  
-  
   const handleLogoClick = (event) => {
     if (pathname === "/" || pathname === "/dashboard") {
       event.preventDefault();
@@ -71,6 +60,12 @@ function NavBar() {
   // Handle Resources click
   const handleResourcesClick = () => {
     setIsOpen((prev) => !prev);
+  };
+
+  // Close dropdown after navigating
+  const handleResourceNavigation = () => {
+    setIsOpen(false);
+    setResourcesHovered(false);
   };
 
   // Detect scroll position
@@ -141,10 +136,7 @@ function NavBar() {
           }
         `}
       >
-        {/* =====================================================
-            GOLD TOP ACCENT
-        ====================================================== */}
-
+        {/* GREEN TOP ACCENT */}
         <div
           className={`
             pointer-events-none absolute
@@ -161,10 +153,7 @@ function NavBar() {
           `}
         />
 
-        {/* =====================================================
-            SUBTLE GOLD INNER GLOW
-        ====================================================== */}
-
+        {/* SUBTLE GREEN INNER GLOW */}
         <div
           className={`
             pointer-events-none absolute inset-0
@@ -184,10 +173,7 @@ function NavBar() {
           `}
         />
 
-        {/* =====================================================
-            LOGO
-        ====================================================== */}
-
+        {/* LOGO */}
         <div className="relative z-10 flex h-full items-center">
           {pathname !== "/dashboard" && pathname !== "/" ? (
             <Link
@@ -201,7 +187,7 @@ function NavBar() {
                   w-auto object-contain
                   transition-all duration-500
                   group-hover:scale-[1.04]
-                  ${scrolled ? "h-[35px]" : "h-[50px] sm:h-[40px] md:h-[60px]"} "}
+                  ${scrolled ? "h-[35px]" : "h-[50px] sm:h-[40px] md:h-[60px]"}
                 `}
                 src={HappyBounty}
                 alt="Happy Bounty"
@@ -216,7 +202,7 @@ function NavBar() {
             >
               <img
                 className={`
-                  w-auto h-1 object-contain
+                  h-1 w-auto object-contain
                   transition-all duration-500
                   group-hover:scale-[1.04]
                   ${scrolled ? "h-[35px]" : "h-[50px] sm:h-[40px] md:h-[60px]"}
@@ -228,10 +214,7 @@ function NavBar() {
           )}
         </div>
 
-        {/* =====================================================
-            RIGHT SECTION
-        ====================================================== */}
-
+        {/* RIGHT SECTION */}
         <div
           className={`
             relative z-20 flex items-center
@@ -241,10 +224,7 @@ function NavBar() {
             ${dark ? "text-white" : "text-[#111111]"}
           `}
         >
-          {/* =================================================
-              RESOURCES
-          ================================================== */}
-
+          {/* RESOURCES */}
           <div
             className="relative"
             onMouseEnter={() => {
@@ -333,10 +313,7 @@ function NavBar() {
               />
             </button>
 
-            {/* =================================================
-                DROPDOWN
-            ================================================== */}
-
+            {/* RESOURCES DROPDOWN */}
             <div
               className={`
                 absolute right-0 top-full mt-2.5
@@ -371,10 +348,7 @@ function NavBar() {
                 max-md:-translate-x-1/2
               `}
             >
-              {/* =================================================
-                  DROPDOWN HEADER
-              ================================================== */}
-
+              {/* DROPDOWN HEADER */}
               <div
                 className={`
                   border-b px-4 py-3.5
@@ -396,18 +370,16 @@ function NavBar() {
                     className="
                       h-1.5 w-1.5 rounded-full
                       bg-[#00D6A0]
-                      shadow-[0_0_10px_rgba(0, 214, 160,0.45)]
+                      shadow-[0_0_10px_rgba(0,214,160,0.45)]
                     "
                   />
                 </div>
               </div>
 
-              {/* =================================================
-                  FAQ
-              ================================================== */}
-
+              {/* FAQS */}
               <Link
                 to="/faqs"
+                onClick={handleResourceNavigation}
                 className={`
                   group flex items-center justify-between
                   px-4 py-3.5
@@ -436,9 +408,7 @@ function NavBar() {
 
                   <span
                     className={`
-                      mt-0.5 block
-                      text-[10px] font-medium
-                      transition-colors
+                      mt-0.5 block text-[10px] font-medium
                       ${
                         dark
                           ? "text-white/45 group-hover:text-white/65"
@@ -452,8 +422,7 @@ function NavBar() {
 
                 <FiArrowRight
                   className={`
-                    h-4 w-4
-                    transition-all duration-200
+                    h-4 w-4 transition-all duration-200
                     group-hover:translate-x-1
                     group-hover:text-[#00D6A0]
                     ${dark ? "text-white/25" : "text-black/25"}
@@ -461,12 +430,64 @@ function NavBar() {
                 />
               </Link>
 
-              {/* =================================================
-                  WHITE PAPER
-              ================================================== */}
+              {/* DOCUMENTATION */}
+              <Link
+                to="/docs"
+                onClick={handleResourceNavigation}
+                className={`
+                  group flex items-center justify-between
+                  border-t px-4 py-3.5
+                  transition-all duration-200
+                  ${
+                    dark
+                      ? "border-white/[0.07] hover:bg-[#00D6A0]/[0.08]"
+                      : "border-black/[0.06] hover:bg-[#00D6A0]/[0.06]"
+                  }
+                `}
+              >
+                <div>
+                  <span
+                    className={`
+                      block text-sm font-bold
+                      transition-colors duration-200
+                      ${
+                        dark
+                          ? "text-white group-hover:text-[#00D6A0]"
+                          : "text-[#222222] group-hover:text-[#00A87D]"
+                      }
+                    `}
+                  >
+                    Documentation
+                  </span>
 
+                  <span
+                    className={`
+                      mt-0.5 block text-[10px] font-medium
+                      ${
+                        dark
+                          ? "text-white/45 group-hover:text-white/65"
+                          : "text-black/45 group-hover:text-black/65"
+                      }
+                    `}
+                  >
+                    Guides and platform information
+                  </span>
+                </div>
+
+                <FiFileText
+                  className={`
+                    h-4 w-4 transition-all duration-200
+                    group-hover:translate-x-1
+                    group-hover:text-[#00D6A0]
+                    ${dark ? "text-white/25" : "text-black/25"}
+                  `}
+                />
+              </Link>
+
+              {/* WHITE PAPER */}
               <Link
                 to="/whitepaper"
+                onClick={handleResourceNavigation}
                 className={`
                   group flex items-center justify-between
                   border-t px-4 py-3.5
@@ -495,9 +516,7 @@ function NavBar() {
 
                   <span
                     className={`
-                      mt-0.5 block
-                      text-[10px] font-medium
-                      transition-colors
+                      mt-0.5 block text-[10px] font-medium
                       ${
                         dark
                           ? "text-white/45 group-hover:text-white/65"
@@ -511,8 +530,7 @@ function NavBar() {
 
                 <FiArrowRight
                   className={`
-                    h-4 w-4
-                    transition-all duration-200
+                    h-4 w-4 transition-all duration-200
                     group-hover:translate-x-1
                     group-hover:text-[#00D6A0]
                     ${dark ? "text-white/25" : "text-black/25"}
@@ -520,12 +538,10 @@ function NavBar() {
                 />
               </Link>
 
-              {/* =================================================
-                  CONTACT
-              ================================================== */}
-
+              {/* CONTACT */}
               <Link
                 to="/contact"
+                onClick={handleResourceNavigation}
                 className={`
                   group flex items-center justify-between
                   border-t px-4 py-3.5
@@ -554,9 +570,7 @@ function NavBar() {
 
                   <span
                     className={`
-                      mt-0.5 block
-                      text-[10px] font-medium
-                      transition-colors
+                      mt-0.5 block text-[10px] font-medium
                       ${
                         dark
                           ? "text-white/45 group-hover:text-white/65"
@@ -570,8 +584,7 @@ function NavBar() {
 
                 <FiArrowRight
                   className={`
-                    h-4 w-4
-                    transition-all duration-200
+                    h-4 w-4 transition-all duration-200
                     group-hover:translate-x-1
                     group-hover:text-[#00D6A0]
                     ${dark ? "text-white/25" : "text-black/25"}
@@ -581,10 +594,7 @@ function NavBar() {
             </div>
           </div>
 
-          {/* =====================================================
-              DIVIDER
-          ====================================================== */}
-
+          {/* DIVIDER */}
           <div
             className={`
               mx-1 hidden h-7 w-px
@@ -596,10 +606,7 @@ function NavBar() {
             `}
           />
 
-          {/* =====================================================
-              CONNECT / SIGN UP
-          ====================================================== */}
-
+          {/* CONNECT / SIGN UP */}
           <div
             className="
               flex shrink-0 items-center
@@ -609,10 +616,7 @@ function NavBar() {
             {!isConnected && pathname === "/" ? <SignUp /> : <Connect />}
           </div>
 
-          {/* =====================================================
-              DARK / LIGHT MODE
-          ====================================================== */}
-
+          {/* DARK / LIGHT MODE */}
           <div>
             <Themes dark={dark} setDark={setDark} />
           </div>
