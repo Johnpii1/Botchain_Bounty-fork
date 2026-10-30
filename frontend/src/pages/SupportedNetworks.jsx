@@ -4,6 +4,7 @@ import { FiArrowUpRight, FiCheckCircle, FiGlobe } from "react-icons/fi";
 
 import botLogo from "../assets/images/bot.png";
 import arcLogo from "../assets/images/arc.png";
+import { useTheme } from "../context/ThemeContext";
 
 const networks = [
   {
@@ -11,7 +12,7 @@ const networks = [
     symbol: "ARC",
     image: arcLogo,
     description: "Discover opportunities across the Arc ecosystem.",
-    accent: "#00D6A0",
+    accent: "#D4A017",
     number: "01",
   },
   {
@@ -19,12 +20,14 @@ const networks = [
     symbol: "BOT",
     image: botLogo,
     description: "Contribute to projects and earn rewards.",
-    accent: "#60A5FA",
+    accent: "#00D6A0",
     number: "02",
   },
 ];
 
 export default function SupportedNetworks({ dark = true }) {
+  const { accent, network } = useTheme();
+  const ambientAccent = network === "arc" ? "rgba(212, 160, 23, 0.10)" : "rgba(0, 214, 160, 0.10)";
   return (
     <section
       className={`relative isolate overflow-hidden py-16 sm:py-20 lg:py-24 ${
@@ -118,9 +121,7 @@ export default function SupportedNetworks({ dark = true }) {
         aria-hidden="true"
         className="pointer-events-none absolute -top-24 left-1/2 -z-10 h-72 w-[min(80%,700px)] -translate-x-1/2 rounded-full blur-[100px]"
         style={{
-          background: dark
-            ? "rgba(0, 214, 160, 0.10)"
-            : "rgba(0, 168, 121, 0.08)",
+          background: dark ? ambientAccent : (network === "arc" ? "rgba(212, 160, 23, 0.08)" : "rgba(0, 168, 121, 0.08)"),
         }}
       />
 
@@ -128,9 +129,7 @@ export default function SupportedNetworks({ dark = true }) {
         aria-hidden="true"
         className="pointer-events-none absolute -bottom-32 -left-20 -z-10 h-64 w-64 rounded-full blur-[100px]"
         style={{
-          background: dark
-            ? "rgba(0, 214, 160, 0.05)"
-            : "rgba(0, 168, 121, 0.06)",
+          background: dark ? (network === "arc" ? "rgba(212, 160, 23, 0.05)" : "rgba(0, 214, 160, 0.05)") : (network === "arc" ? "rgba(212, 160, 23, 0.06)" : "rgba(0, 168, 121, 0.06)"),
         }}
       />
 
@@ -148,7 +147,7 @@ export default function SupportedNetworks({ dark = true }) {
             OUR ECOSYSTEM
             <span
               className="network-live-dot ml-1 h-1.5 w-1.5 rounded-full"
-              style={{ background: "#00D6A0" }}
+              style={{ background: accent }}
             />
           </div>
 
