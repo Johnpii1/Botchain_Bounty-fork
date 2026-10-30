@@ -11,7 +11,7 @@ const networks = [
     symbol: "ARC",
     image: arcLogo,
     description: "Discover opportunities across the Arc ecosystem.",
-    accent: "#00D6A0",
+    accent: "#D4A017",
     number: "01",
   },
   {
@@ -19,7 +19,7 @@ const networks = [
     symbol: "BOT",
     image: botLogo,
     description: "Contribute to projects and earn rewards.",
-    accent: "#60A5FA",
+    accent: "#00D6A0",
     number: "02",
   },
 ];
