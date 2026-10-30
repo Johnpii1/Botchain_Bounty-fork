@@ -18,6 +18,7 @@ import Analytics from "./pages/Analytics";
 import FAQPage from "./pages/Faqs";
 import WhitepaperPage from "./pages/WhitePaper";
 import ContactUs from "./pages/ContactUs";
+import Docs from "./pages/Docs";
 import CookieConsent from "./pages/CookieConsent";
 
 import LoadingScreen from "./components/LoadingScreen";
@@ -78,6 +79,14 @@ function App() {
             path="/contact"
             element={
               <ContactUs dark={dark} setDark={setDark} />
+            }
+          />
+
+          {/* Documentation page - public */}
+          <Route
+            path="/docs"
+            element={
+              <Docs dark={dark} setDark={setDark} />
             }
           />
 
@@ -147,9 +156,11 @@ function App() {
                   <h1 className="text-5xl font-bold text-[#00D6A0]">
                     404
                   </h1>
+
                   <p className="mt-3 text-lg">
                     Page not found
                   </p>
+
                   <a
                     href="/dashboard"
                     className="mt-6 inline-flex rounded-xl bg-[#00D6A0] px-5 py-3 font-semibold text-black transition hover:bg-[#00B88A]"
