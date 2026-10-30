@@ -673,3 +673,25 @@ html[data-network="arc"] .how-it-works-energy-delayed {
   color: var(--accent);
 }
 
+
+
+/* Keep wallet actions and hover states on the active network palette too. */
+html[data-network="arc"] [class*="text-[#06251c]"] {
+  color: #171714 !important;
+}
+
+html[data-network="arc"] [class*="hover:bg-[#00e6ac]"]:hover {
+  background-color: #e2b52e !important;
+}
+
+html[data-network="arc"] [class*="hover:border-[#00e6ac]"]:hover {
+  border-color: #e2b52e !important;
+}
+
+html[data-network="arc"] [class*="shadow-[0_8px_24px_rgba(0,214,160"] {
+  box-shadow: 0 8px 24px rgba(212, 160, 23, 0.16) !important;
+}
+
+html[data-network="arc"] [class*="shadow-[0_10px_30px_rgba(0,214,160"] {
+  box-shadow: 0 10px 30px rgba(212, 160, 23, 0.24) !important;
+}
